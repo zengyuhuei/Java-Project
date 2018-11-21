@@ -10,7 +10,7 @@ public abstract class Feed {
 		this.type = type;
 	}
 	
-	public String getType()  //得到哪一種飼料
+	public String getName()  //得到哪一種飼料
 	{
 		return type;
 	}
