@@ -1,4 +1,4 @@
-package java.finalProject;
+package java2018.finalProject;
 
 public class SimpleSeed extends Feed {
 

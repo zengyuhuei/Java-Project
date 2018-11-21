@@ -1,4 +1,4 @@
-package java.finalProject;
+package java2018.finalProject;
 
 public abstract class Feed {
 	private int nutrition; //餵食後提供的營養值
