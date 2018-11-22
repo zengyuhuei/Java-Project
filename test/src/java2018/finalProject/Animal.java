@@ -18,6 +18,21 @@ public abstract class Animal extends Object {
       return growingRate;
     }
     
+    //借我測試 你們之後再改
+  	public void setGrowingRate()
+  	{
+  		growingRate = 100;
+  	}
+  	
+    //判斷物件名稱是否相同(刪除)
+   	public boolean equals(Object obj) { 
+   	    if (obj == null) return false;
+   	    if (obj == this) return true;
+   	    if (!(obj instanceof Animal)) return false;
+   	    Animal o = (Animal) obj;
+   	    return o.getName() == this.name;
+   	}
+   	
     public boolean feeding(Feed feed)
     {
       //if()
