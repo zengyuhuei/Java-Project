@@ -1,14 +1,17 @@
 // Cabbage.java
-// 高麗菜資料
+// 擃�����
 package java2018.finalProject;
 
-// 繼承Crop  高麗菜
+// 蝜潭Crop  擃���
 public class Cabbage extends Crop
 {
 
-	public String name = "高麗菜";
-	private int buyPrice = 15;
-	private int sellPrice = 50;
+	public Cabbage()
+	{
+		super("高麗菜");
+	}
+	
 
-	// 函式同Crop
+
+
 }

@@ -17,7 +17,7 @@ public class FeedTest {
 		int a = 0;
 		for(Feed fd: feed)
 		{
-			if(fd.getType() == "低級飼料")
+			if(fd.getName() == "低級飼料")
 				a++;
 		}
 		

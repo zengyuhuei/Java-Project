@@ -12,10 +12,34 @@ public abstract class Crop
 	private Date lastFertilizeDate; //銝�甈⊥������
 	private Date lastWaterDate; //銝�甈⊥�偌�����
 	private String name; //雿���迂
-	private int buyPrice; //鞈澆蝔桀���
-	private int sellPrice; //鞈��雿���
-
+	
 	//�璊瞉偌嚗����rowingRate憓��3嚗�lastWaterDate����eturn 1憭望�eturn 0
+	public Crop(String name)
+	{
+		this.name = name;
+		this.growingRate = -1;
+	}
+	
+	 //判斷物件名稱是否相同(刪除)
+	public boolean equals(Object obj) { 
+	    if (obj == null) return false;
+	    if (obj == this) return true;
+	    if (!(obj instanceof Crop)) return false;
+	    Crop o = (Crop) obj;
+	    return o.getName() == this.name;
+	}
+	
+	public int getGrowingRate()
+	{
+		return growingRate;
+	}
+	
+	//借我測試 你們之後再改
+	public void setGrowingRate()
+	{
+		growingRate = 100;
+	}
+	
 	public boolean water()
 	{
 
@@ -29,7 +53,7 @@ public abstract class Crop
 
 	public String getName()
 	{
-
+		return name;
 	}
 
 	// ����������randomCheck()
@@ -45,4 +69,6 @@ public abstract class Crop
 	{
 
 	}
+	
+	
 }

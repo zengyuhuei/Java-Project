@@ -9,10 +9,14 @@ public class WareHouse {
 	private ArrayList<Animal> youngAnimalList; //倉庫目前的熟成品動物
 	private ArrayList<Crop> cropList; //倉庫目前的待售出作物
 	private ArrayList<Animal> AnimalList; //倉庫目前的待售出動物
+	public static final int isMatured = 100; 
+	public static final int unMatured = -1; 
 
 	private ArrayList<Feed> feedList; //倉庫目前的飼料
 	private int fertilizerNumber; //肥料數量
 	private int holdMoney; //使用目前的金錢
+	
+	
 	
 	public WareHouse()
 	{
@@ -69,21 +73,62 @@ public class WareHouse {
 	
 	
 	public boolean addCrob (Crop crop) //(農場呼叫)加入成熟作物至倉庫，成功回傳True、失敗回傳False
-	{
-		cropList.add(crop);
+	{ 
+		try
+	    {
+			cropList.add(crop);
+			return true;
+	    }catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+		
 	}
 	public boolean removeCrob (Crop crop) //(商店呼叫)從倉庫刪除成熟作物，成功回傳True、失敗回傳False
 	{
+		if(crop.getGrowingRate() == isMatured)
+		{
+			for(Crop cp :cropList)
+			{
+				if(cp.equals(crop))
+				{
+					cropList.remove(cp);
+	
+				}
+			}
+		}
+		return false;
 		
 	}
 	public boolean addSeed(Crop crop) //(商店呼叫)購買種子到倉庫
-	{
-		cropSeedList.add(crop);
+	{	
+		try
+	    {
+			cropSeedList.add(crop);
+			return true;
+	    }catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+		
 	}
 	
 	public boolean removeSeed(Crop crop) //(農場呼叫)使用種子
 	{
-		
+		if(crop.getGrowingRate() == unMatured)
+		{
+			for(Crop cp :cropSeedList)
+			{
+				if(cp.equals(crop))
+				{
+					cropSeedList.remove(cp);
+	
+				}
+			}
+		}
+		return false;
 	}
 	
 	
@@ -118,7 +163,17 @@ public class WareHouse {
 	
 	public boolean addFeed (Feed fd) //加入飼料至倉庫，成功回傳True、失敗回傳False
 	{
-		feedList.add(fd);
+		try
+	    {
+			feedList.add(fd);
+			return true;
+	    }
+		catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+		
 	}
 	public boolean removeFeed (Feed fd) //從倉庫刪除飼料，成功回傳True、失敗回傳False
 	{
@@ -142,19 +197,59 @@ public class WareHouse {
 	
 	public boolean addYoungAnimal (Animal animal) //(商店)加入幼動物至倉庫，成功回傳True、失敗回傳False
 	{
-		youngAnimalList.add(animal);
+		try
+	    {
+			youngAnimalList.add(animal);
+			return true;
+	    }catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+		
 	}
 	public boolean removeYoungAnimal (Animal animal) //(農場)從倉庫刪除幼動物，成功回傳True、失敗回傳False
 	{
-		
+		if(animal.getGrowingRate() == unMatured)
+		{
+			for(Animal an :youngAnimalList)
+			{
+				if(an.equals(animal))
+				{
+					youngAnimalList.remove(an);
+	
+				}
+			}
+		}
+		return false;
 	}
 	public boolean addAnimal (Animal animal) //(牧場)加入成熟動物至倉庫，成功回傳True、失敗回傳False
 	{
-		AnimalList.add(animal);
+		try
+	    {
+			AnimalList.add(animal);
+			return true;
+	    }catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+		
 	}
 	public boolean removeAnimal (Animal animal) //(商店)從倉庫刪除成熟動物，成功回傳True、失敗回傳False
 	{
-		
+		if(animal.getGrowingRate() == isMatured)
+		{
+			for(Animal an :AnimalList)
+			{
+				if(an.equals(animal))
+				{
+					AnimalList.remove(an);
+	
+				}
+			}
+		}
+		return false;
 	}
 	
 	public int getYoungCowNumber() //取得幼牛數量
