@@ -2,6 +2,8 @@
 // 摰儔�������(鞈��撘�)
 package java2018.finalProject;
 
+import java.util.Date;
+
 // 摰儔颲脖�����
 public abstract class Crop
 {
@@ -42,18 +44,22 @@ public abstract class Crop
 	
 	public boolean water()
 	{
-
+		return true;
 	}
 
 	// �璊��嚗����rowingRate憓��10嚗�lastFertilizeDate����eturn1憭望�eturn0
 	public boolean fertilize()
 	{
-
+		return true;
 	}
 
 	public String getName()
 	{
+<<<<<<< HEAD
+		return "aaa";
+=======
 		return name;
+>>>>>>> 96e8be0b36330a6201645908a462f93eefe4286f
 	}
 
 	// ����������randomCheck()
@@ -62,12 +68,13 @@ public abstract class Crop
 		//ex. 
 		//     if( main����� - 銝�甈⊥�偌���� == 20s)
 		//         call randomCheck()
+		return 0;
 	}
 
 	// 撌亙�����迨雿������銋�
 	public Boolean isButtonAvailable()
 	{
-
+		return true;
 	}
 	
 	
