@@ -18,13 +18,11 @@ public abstract class Animal extends Object {
       return growingRate;
     }
     
-    //借我測試 你們之後再改
   	public void setGrowingRate()
   	{
   		growingRate = 100;
   	}
   	
-    //判斷物件名稱是否相同(刪除)
    	public boolean equals(Object obj) { 
    	    if (obj == null) return false;
    	    if (obj == this) return true;
@@ -35,9 +33,14 @@ public abstract class Animal extends Object {
    	
     public boolean feeding(Feed feed)
     {
-      //if()
-    	growingRate+=feed.getNutrition();
-    	return true;
+    	if(growingRate<100)
+    	{
+    		growingRate+=feed.getNutrition();
+    		if(growingRate>100)setGrowingRate();
+    		return true;
+    	}
+    	else return false;
+    	
     }
     //public abstract int getEarnings();
 }
