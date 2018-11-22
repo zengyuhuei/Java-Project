@@ -8,7 +8,7 @@ public class Dude {
 	 public Dude(WareHouse house) {   
 		 this.house=house;
      }
-	 public ArrayList< Animal> getPondLand() //¦^¶ÇPondLand¸ê®Æ
+	 public ArrayList< Animal> getPondLand() //ï¿½^ï¿½ï¿½PondLandï¿½ï¿½ï¿½
      {
 		return  pondLand;
      	
@@ -19,6 +19,7 @@ public class Dude {
 		 {
 			 house.addAnimal(animal);
 			 pondLand.remove(animal);
+			 num--;
 			 return true;
 		 }
 			 
