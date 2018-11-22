@@ -7,7 +7,7 @@ public abstract class Animal extends Object {
     private String name;
     public Animal(String name) {
       this.name=name;
-      growingRate=-1;
+      growingRate=0;
     }
     public String getName()
     {
@@ -21,6 +21,7 @@ public abstract class Animal extends Object {
     public boolean feeding(Feed feed)
     {
       //if()
+    	growingRate+=feed.getNutrition();
     	return true;
     }
     //public abstract int getEarnings();
