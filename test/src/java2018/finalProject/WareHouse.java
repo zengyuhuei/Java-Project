@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 
 public class WareHouse {
-	private ArrayList<Crop> cropSeedList; //­Ü®w¥Ø«eªº¼ô¦¨«~§@ª«
-	private ArrayList<Animal> youngAnimalList; //­Ü®w¥Ø«eªº¼ô¦¨«~°Êª«
-	private ArrayList<Crop> cropList; //­Ü®w¥Ø«eªº«Ý°â¥X§@ª«
-	private ArrayList<Animal> AnimalList; //­Ü®w¥Ø«eªº«Ý°â¥X°Êª«
+	private ArrayList<Crop> cropSeedList; //
+	private ArrayList<Animal> youngAnimalList; //ï¿½Ü®wï¿½Ø«eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Êªï¿½
+	private ArrayList<Crop> cropList; //ï¿½Ü®wï¿½Ø«eï¿½ï¿½ï¿½Ý°ï¿½Xï¿½@ï¿½ï¿½
+	private ArrayList<Animal> AnimalList; //ï¿½Ü®wï¿½Ø«eï¿½ï¿½ï¿½Ý°ï¿½Xï¿½Êªï¿½
 	public static final int isMatured = 100; 
 	public static final int unMatured = -1; 
 
-	private ArrayList<Feed> feedList; //­Ü®w¥Ø«eªº¹}®Æ
-	private int fertilizerNumber; //ªÎ®Æ¼Æ¶q
-	private int holdMoney; //¨Ï¥Î¥Ø«eªºª÷¿ú
+	private ArrayList<Feed> feedList; //ï¿½Ü®wï¿½Ø«eï¿½ï¿½ï¿½}ï¿½ï¿½
+	private int fertilizerNumber; //ï¿½Î®Æ¼Æ¶q
+	private int holdMoney; //ï¿½Ï¥Î¥Ø«eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	
 	
@@ -60,19 +60,19 @@ public class WareHouse {
 	
 	
 
-	public int getFertilizer ()  //¨ú±oªÎ®Æ¼Æ¶q
+	public int getFertilizer ()  //ï¿½ï¿½ï¿½oï¿½Î®Æ¼Æ¶q
 	{
 		return fertilizerNumber;
 	}
 	
-	public boolean addFertilizer (int num) //¼W¥[ªÎ®Æ¼Æ¶q
+	public boolean addFertilizer (int num) //ï¿½Wï¿½[ï¿½Î®Æ¼Æ¶q
 	{
 		fertilizerNumber += num;
 		return true;
 	}
 	
 	
-	public boolean addCrob (Crop crop) //(¹A³õ©I¥s)¥[¤J¦¨¼ô§@ª«¦Ü­Ü®w¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean addCrob (Crop crop) //(ï¿½Aï¿½ï¿½ï¿½Iï¿½s)ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Ü­Ü®wï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{ 
 		try
 	    {
@@ -85,7 +85,7 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeCrob (Crop crop) //(°Ó©±©I¥s)±q­Ü®w§R°£¦¨¼ô§@ª«¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean removeCrob (Crop crop) //(ï¿½Ó©ï¿½ï¿½Iï¿½s)ï¿½qï¿½Ü®wï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		if(crop.getGrowingRate() == isMatured)
 		{
@@ -101,7 +101,7 @@ public class WareHouse {
 		return false;
 		
 	}
-	public boolean addSeed(Crop crop) //(°Ó©±©I¥s)ÁÊ¶RºØ¤l¨ì­Ü®w
+	public boolean addSeed(Crop crop) //(ï¿½Ó©ï¿½ï¿½Iï¿½s)ï¿½Ê¶Rï¿½Ø¤lï¿½ï¿½Ü®w
 	{	
 		try
 	    {
@@ -115,7 +115,7 @@ public class WareHouse {
 		
 	}
 	
-	public boolean removeSeed(Crop crop) //(¹A³õ©I¥s)¨Ï¥ÎºØ¤l
+	public boolean removeSeed(Crop crop) //(ï¿½Aï¿½ï¿½ï¿½Iï¿½s)ï¿½Ï¥ÎºØ¤l
 	{
 		if(crop.getGrowingRate() == unMatured)
 		{
@@ -134,34 +134,34 @@ public class WareHouse {
 	
 	
 	
-	public int getWheatSeedNumber() //¨ú±o¤p³ÁºØ¤l¼Æ¶q
+	public int getWheatSeedNumber() //ï¿½ï¿½ï¿½oï¿½pï¿½ï¿½ï¿½Ø¤lï¿½Æ¶q
 	{
-		return getCropNum(cropSeedList, "¤p³Á");
+		return getCropNum(cropSeedList, "ï¿½pï¿½ï¿½");
 		
 	}
-	public int getCornSeedNumber() //¨ú±o¥É¦ÌºØ¤l¼Æ¶q
+	public int getCornSeedNumber() //ï¿½ï¿½ï¿½oï¿½É¦ÌºØ¤lï¿½Æ¶q
 	{
-		return getCropNum(cropSeedList, "¥É¦Ì");
+		return getCropNum(cropSeedList, "ï¿½É¦ï¿½");
 	}
-	public int getCabbageSeedNumber() //¨ú±o°ªÄRµæºØ¤l¼Æ¶q
+	public int getCabbageSeedNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Rï¿½ï¿½Ø¤lï¿½Æ¶q
 	{
-		return getCropNum(cropSeedList, "°ªÄRµæ");
+		return getCropNum(cropSeedList, "ï¿½ï¿½ï¿½Rï¿½ï¿½");
 	}
-	public int getWheatNumber() //¨ú±o¦¨¼ô¤p³Á¼Æ¶q
+	public int getWheatNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½Æ¶q
 	{
-		return getCropNum(cropList, "¤p³Á");
+		return getCropNum(cropList, "ï¿½pï¿½ï¿½");
 	}
-	public int getCornNumber() //¨ú±o¦¨¼ô¥É¦Ì¼Æ¶q
+	public int getCornNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½É¦Ì¼Æ¶q
 	{
-		return getCropNum(cropList, "¥É¦Ì");
+		return getCropNum(cropList, "ï¿½É¦ï¿½");
 	}
-	public int getCabbageNumber() //¨ú±o¦¨¼ô°ªÄRµæ¼Æ¶q
+	public int getCabbageNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½Æ¶q
 	{
-		return getCropNum(cropList, "°ªÄRµæ");
+		return getCropNum(cropList, "ï¿½ï¿½ï¿½Rï¿½ï¿½");
 	}
 	
 	
-	public boolean addFeed (Feed fd) //¥[¤J¹}®Æ¦Ü­Ü®w¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean addFeed (Feed fd) //ï¿½[ï¿½Jï¿½}ï¿½Æ¦Ü­Ü®wï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		try
 	    {
@@ -175,27 +175,27 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeFeed (Feed fd) //±q­Ü®w§R°£¹}®Æ¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean removeFeed (Feed fd) //ï¿½qï¿½Ü®wï¿½Rï¿½ï¿½ï¿½}ï¿½Æ¡Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		return true;
 	}
 	
-	public int getSimpleFeedNumber() //¨ú±o§C¯Å¹}®Æ¼Æ¶q
+	public int getSimpleFeedNumber() //ï¿½ï¿½ï¿½oï¿½Cï¿½Å¹}ï¿½Æ¼Æ¶q
 	{
-		return getSeedNum("§C¯Å¹}®Æ");
+		return getSeedNum("ï¿½Cï¿½Å¹}ï¿½ï¿½");
 	}
-	public int getGeneralFeedNumber() //¨ú±o¤¤¯Å¹}®Æ¼Æ¶q
+	public int getGeneralFeedNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Å¹}ï¿½Æ¼Æ¶q
 	{
-		return getSeedNum("¤¤¯Å¹}®Æ");
+		return getSeedNum("ï¿½ï¿½ï¿½Å¹}ï¿½ï¿½");
 	}
-	public int getAdvencedFeedNumber() //¨ú±o°ª¯Å¹}®Æ¼Æ¶q
+	public int getAdvencedFeedNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Å¹}ï¿½Æ¼Æ¶q
 	{
-		return getSeedNum("°ª¯Å¹}®Æ");
+		return getSeedNum("ï¿½ï¿½ï¿½Å¹}ï¿½ï¿½");
 	}
 	
 	
 	
-	public boolean addYoungAnimal (Animal animal) //(°Ó©±)¥[¤J¥®°Êª«¦Ü­Ü®w¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean addYoungAnimal (Animal animal) //(ï¿½Ó©ï¿½)ï¿½[ï¿½Jï¿½ï¿½ï¿½Êªï¿½ï¿½Ü­Ü®wï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		try
 	    {
@@ -208,7 +208,7 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeYoungAnimal (Animal animal) //(¹A³õ)±q­Ü®w§R°£¥®°Êª«¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean removeYoungAnimal (Animal animal) //(ï¿½Aï¿½ï¿½)ï¿½qï¿½Ü®wï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½Êªï¿½ï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		if(animal.getGrowingRate() == unMatured)
 		{
@@ -223,7 +223,7 @@ public class WareHouse {
 		}
 		return false;
 	}
-	public boolean addAnimal (Animal animal) //(ªª³õ)¥[¤J¦¨¼ô°Êª«¦Ü­Ü®w¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean addAnimal (Animal animal) //(ï¿½ï¿½ï¿½ï¿½)ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Êªï¿½ï¿½Ü­Ü®wï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		try
 	    {
@@ -236,7 +236,7 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeAnimal (Animal animal) //(°Ó©±)±q­Ü®w§R°£¦¨¼ô°Êª«¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public boolean removeAnimal (Animal animal) //(ï¿½Ó©ï¿½)ï¿½qï¿½Ü®wï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êªï¿½ï¿½Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		if(animal.getGrowingRate() == isMatured)
 		{
@@ -252,37 +252,37 @@ public class WareHouse {
 		return false;
 	}
 	
-	public int getYoungCowNumber() //¨ú±o¥®¤û¼Æ¶q
+	public int getYoungCowNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½Æ¶q
 	{
-		return getAnimalNum(youngAnimalList,"¤û");
+		return getAnimalNum(youngAnimalList,"ï¿½ï¿½");
 	}
-	public int getYoungPigNumber() //¨ú±o¥®½Þ¼Æ¶q
+	public int getYoungPigNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Þ¼Æ¶q
 	{
-		return getAnimalNum(youngAnimalList,"½Þ");
+		return getAnimalNum(youngAnimalList,"ï¿½ï¿½");
 	}
-	public int getYoungChikendNumber() //¨ú±o¥®Âû¼Æ¶q
+	public int getYoungChikendNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½Æ¶q
 	{
-		return getAnimalNum(youngAnimalList,"Âû");
-	}
-	
-	public int getCowNumber() //¨ú±o¦¨¼ô¤û¼Æ¶q
-	{
-		return getAnimalNum(AnimalList,"¤û");
-	}
-	public int getPigNumber() //¨ú±o¦¨¼ô½Þ¼Æ¶q
-	{
-		return getAnimalNum(AnimalList,"½Þ");
-	}
-	public int getChikendNumber() //¨ú±o¦¨¼ôÂû¼Æ¶q
-	{
-		return getAnimalNum(AnimalList,"Âû");
+		return getAnimalNum(youngAnimalList,"ï¿½ï¿½");
 	}
 	
-	public int getHoldMoney() //¨ú±o¨Ï¥ÎªÌª÷¿ú¼Æ½ø¼Æ¶q
+	public int getCowNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶q
+	{
+		return getAnimalNum(AnimalList,"ï¿½ï¿½");
+	}
+	public int getPigNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½Þ¼Æ¶q
+	{
+		return getAnimalNum(AnimalList,"ï¿½ï¿½");
+	}
+	public int getChickenNumber() //ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶q
+	{
+		return getAnimalNum(AnimalList,"ï¿½ï¿½");
+	}
+	
+	public int getHoldMoney() //ï¿½ï¿½ï¿½oï¿½Ï¥ÎªÌªï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½Æ¶q
 	{
 		return holdMoney;
 	}
-	public Boolean editHoldMoney(int cost) //§ó§ï¨Ï¥ÎªÌª÷¿ú¼Æ¶q¡A¶Ç¤J¥¿¾ã¼Æ«h¼W¥[¡A¶Ç¤J­t¾ã¼Æ«h´î¤Ö¡A¦¨¥\¦^¶ÇTrue¡B¥¢±Ñ¦^¶ÇFalse
+	public Boolean editHoldMoney(int cost) //ï¿½ï¿½ï¿½Ï¥ÎªÌªï¿½ï¿½ï¿½ï¿½Æ¶qï¿½Aï¿½Ç¤Jï¿½ï¿½ï¿½ï¿½Æ«hï¿½Wï¿½[ï¿½Aï¿½Ç¤Jï¿½tï¿½ï¿½Æ«hï¿½ï¿½Ö¡Aï¿½ï¿½ï¿½\ï¿½^ï¿½ï¿½Trueï¿½Bï¿½ï¿½ï¿½Ñ¦^ï¿½ï¿½False
 	{
 		holdMoney += cost;
 		return true;
