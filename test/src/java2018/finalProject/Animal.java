@@ -42,5 +42,9 @@ public abstract class Animal extends Object {
     	else return false;
     	
     }
+    public void moving()
+    {
+    	
+    }
     //public abstract int getEarnings();
 }
