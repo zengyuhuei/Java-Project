@@ -66,19 +66,17 @@ public abstract class Crop
 		return name;
 	}
 
-	//決定何時呼叫randomCheck()
-	public boolean decideCallRandomCheck()
+	
+	//檢查澆水、施肥
+	public boolean randomCheck()
 	{
 		Random random = new Random();
-		Farm farm = new Farm();
-		if(random.nextInt(1) == 1)
-			return farm.randomCheck();
-		return false;
-		//ex. 
-		//     if( main的時間 - 上次澆水時間 == 20s)
-		//         call randomCheck()
+		int randomProbablilty = random.nextInt(1);
+		if(randomProbablilty == 0)
+			return false;
+		else
+			return true;
 	}
-
 	// 針對該作物目前的狀態，判斷工具列的按鈕的亮暗
 	public boolean isButtonAvailable()
 	{

@@ -38,14 +38,16 @@ public class Farm
 		return true;
 	}
 	
-	//檢查澆水、施肥
-	public boolean randomCheck()
+	//決定何時呼叫randomCheck()
+	public boolean decideCallRandomCheck()
 	{
 		Random random = new Random();
-		int randomProbablilty = random.nextInt(1);
-		if(randomProbablilty == 0)
-			return false;
-		else
-			return true;
+		Crop crop;
+		if(random.nextInt(1) == 1)
+			return crop.randomCheck();
+		return false;
+		//ex. 
+		//     if( main的時間 - 上次澆水時間 == 20s)
+		//         call randomCheck()
 	}
 }
