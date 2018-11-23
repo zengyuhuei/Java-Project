@@ -54,7 +54,7 @@ public class Dude {
 		 }
 		 if(animal.getName()=="chicken")
 		 {
-			if(house.getYoungChikendNumber()>0)
+			if(house.getYoungChickenNumber()>0)
 			{
 				pondLand.add(animal);
 				num++;

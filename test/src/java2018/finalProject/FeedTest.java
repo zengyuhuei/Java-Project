@@ -17,7 +17,7 @@ public class FeedTest {
 		int a = 0;
 		for(Feed fd: feed)
 		{
-			if(fd.getName() == "§C¯Å¹}®Æ")
+			if(fd.getName() == "ä½Žç´šé£¼æ–™")
 				a++;
 		}
 		

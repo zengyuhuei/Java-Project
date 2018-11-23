@@ -7,7 +7,7 @@ public class Wheat extends Crop
 	
 	public Wheat()
 	{
-		super("¤p³Á");
+		super("å°éº¥");
 	}
 
 	

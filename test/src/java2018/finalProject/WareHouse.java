@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 
 public class WareHouse {
-	private ArrayList<Crop> cropSeedList; //
-	private ArrayList<Animal> youngAnimalList; //�ܮw�ثe�������~�ʪ�
-	private ArrayList<Crop> cropList; //�ܮw�ثe���ݰ�X�@��
-	private ArrayList<Animal> AnimalList; //�ܮw�ثe���ݰ�X�ʪ�
+	private ArrayList<Crop> cropSeedList = new ArrayList<Crop>(); 
+	private ArrayList<Animal> youngAnimalList = new ArrayList<Animal>();  
+	private ArrayList<Crop> cropList = new ArrayList<Crop>();
+	private ArrayList<Animal> AnimalList = new ArrayList<Animal>(); 
 	public static final int isMatured = 100; 
 	public static final int unMatured = -1; 
 
-	private ArrayList<Feed> feedList; //�ܮw�ثe���}��
-	private int fertilizerNumber; //�ήƼƶq
-	private int holdMoney; //�ϥΥثe������
+	private ArrayList<Feed> feedList = new ArrayList<Feed>();
+	private int fertilizerNumber;
+	private int holdMoney; 
 	
 	
 	
@@ -22,8 +22,10 @@ public class WareHouse {
 	{
 		this.holdMoney = 1000;
 		this.fertilizerNumber = 0;
+		
+		
 	}
-	
+	//return the number of the wheat, corns or cabbages
 	public int getCropNum(ArrayList<Crop> list,String name)
 	{
 		int num = 0;
@@ -34,7 +36,7 @@ public class WareHouse {
 		}
 		return num;
 	}
-	
+	//return the number of the cows, pigs or chickens
 	public int getAnimalNum(ArrayList<Animal> list,String name)
 	{
 		int num = 0;
@@ -59,20 +61,22 @@ public class WareHouse {
 	
 	
 	
-
-	public int getFertilizer ()  //���o�ήƼƶq
+	//get the number of the fertilizer
+	public int getFertilizer ()  
 	{
 		return fertilizerNumber;
 	}
 	
-	public boolean addFertilizer (int num) //�W�[�ήƼƶq
+	//edit the number of the fertilizer.
+	// The parameter will be Positive or negative.
+	public boolean editFertilizer (int num) 
 	{
 		fertilizerNumber += num;
 		return true;
 	}
 	
-	
-	public boolean addCrob (Crop crop) //(�A���I�s)�[�J�����@���ܭܮw�A���\�^��True�B���Ѧ^��False
+	//(call by farm) add the crop to list.If success, return true, or return false
+	public boolean addCrop (Crop crop) 
 	{ 
 		try
 	    {
@@ -85,7 +89,9 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeCrob (Crop crop) //(�ө��I�s)�q�ܮw�R�������@���A���\�^��True�B���Ѧ^��False
+	
+	//(call by shop) remove the crop from the list.If success, return true, or return false
+	public boolean removeCrop (Crop crop) 
 	{
 		if(crop.getGrowingRate() == isMatured)
 		{
@@ -94,14 +100,18 @@ public class WareHouse {
 				if(cp.equals(crop))
 				{
 					cropList.remove(cp);
+					return true;
 	
 				}
+				
 			}
 		}
 		return false;
 		
 	}
-	public boolean addSeed(Crop crop) //(�ө��I�s)�ʶR�ؤl��ܮw
+	
+	//(call by shop) add the seed to the list.If success, return true, or return false
+	public boolean addSeed(Crop crop) 
 	{	
 		try
 	    {
@@ -114,8 +124,8 @@ public class WareHouse {
 	    }
 		
 	}
-	
-	public boolean removeSeed(Crop crop) //(�A���I�s)�ϥκؤl
+	//(call by farm) remove the seed from the list.If success, return true, or return false
+	public boolean removeSeed(Crop crop) 
 	{
 		if(crop.getGrowingRate() == unMatured)
 		{
@@ -124,7 +134,7 @@ public class WareHouse {
 				if(cp.equals(crop))
 				{
 					cropSeedList.remove(cp);
-	
+					return true;
 				}
 			}
 		}
@@ -133,35 +143,40 @@ public class WareHouse {
 	
 	
 	
-	
-	public int getWheatSeedNumber() //���o�p���ؤl�ƶq
+	 //calculate the number of the wheat seed
+	public int getWheatSeedNumber()
 	{
-		return getCropNum(cropSeedList, "�p��");
+		return getCropNum(cropSeedList, "小麥");
 		
 	}
-	public int getCornSeedNumber() //���o�ɦ̺ؤl�ƶq
+	//calculate the number of the corn seed
+	public int getCornSeedNumber() 
 	{
-		return getCropNum(cropSeedList, "�ɦ�");
+		return getCropNum(cropSeedList, "玉米");
 	}
-	public int getCabbageSeedNumber() //���o���R��ؤl�ƶq
+	////calculate the number of the cabbage seed
+	public int getCabbageSeedNumber()
 	{
-		return getCropNum(cropSeedList, "���R��");
+		return getCropNum(cropSeedList, "高麗菜");
 	}
-	public int getWheatNumber() //���o�����p���ƶq
+	//calculate the number of the wheat 
+	public int getWheatNumber() 
 	{
-		return getCropNum(cropList, "�p��");
+		return getCropNum(cropList, "小麥");
 	}
-	public int getCornNumber() //���o�����ɦ̼ƶq
+	//calculate the number of the corn
+	public int getCornNumber() 
 	{
-		return getCropNum(cropList, "�ɦ�");
+		return getCropNum(cropList, "玉米");
 	}
-	public int getCabbageNumber() //���o�������R��ƶq
+	//calculate the number of the cabbage
+	public int getCabbageNumber() 
 	{
-		return getCropNum(cropList, "���R��");
+		return getCropNum(cropList, "高麗菜");
 	}
 	
-	
-	public boolean addFeed (Feed fd) //�[�J�}�Ʀܭܮw�A���\�^��True�B���Ѧ^��False
+	// add feed to the list. If success, return true, or return false
+	public boolean addFeed (Feed fd)
 	{
 		try
 	    {
@@ -175,27 +190,41 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeFeed (Feed fd) //�q�ܮw�R���}�ơA���\�^��True�B���Ѧ^��False
+	
+	//(call by pond) remove feed to the list. If success, return true, or return false
+	public boolean removeFeed (Feed fd)
 	{
-		return true;
+		
+		for(Feed feed :feedList)
+		{
+			if(feed.equals(fd))
+			{
+				youngAnimalList.remove(feed);
+
+			}
+		}
+		
+		return false;
+	}
+	//get the number of simple feed
+	public int getSimpleFeedNumber() 
+	{
+		return getSeedNum("低級飼料");
+	}
+	//get the number of general feed
+	public int getGeneralFeedNumber() 
+	{
+		return getSeedNum("中級飼料");
+	}
+	//get the number of advanced feed
+	public int getAdvencedFeedNumber() 
+	{
+		return getSeedNum("高級飼料");
 	}
 	
-	public int getSimpleFeedNumber() //���o�C�Ź}�Ƽƶq
-	{
-		return getSeedNum("�C�Ź}��");
-	}
-	public int getGeneralFeedNumber() //���o���Ź}�Ƽƶq
-	{
-		return getSeedNum("���Ź}��");
-	}
-	public int getAdvencedFeedNumber() //���o���Ź}�Ƽƶq
-	{
-		return getSeedNum("���Ź}��");
-	}
 	
-	
-	
-	public boolean addYoungAnimal (Animal animal) //(�ө�)�[�J���ʪ��ܭܮw�A���\�^��True�B���Ѧ^��False
+	//(call by shop) add young animal to the list. If success, return true, or return false
+	public boolean addYoungAnimal (Animal animal) 
 	{
 		try
 	    {
@@ -208,7 +237,9 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeYoungAnimal (Animal animal) //(�A��)�q�ܮw�R�����ʪ��A���\�^��True�B���Ѧ^��False
+	
+	//(call by pond) remove young animal to the list. If success, return true, or return false
+	public boolean removeYoungAnimal (Animal animal) 
 	{
 		if(animal.getGrowingRate() == unMatured)
 		{
@@ -223,8 +254,11 @@ public class WareHouse {
 		}
 		return false;
 	}
-	public boolean addAnimal (Animal animal) //(����)�[�J�����ʪ��ܭܮw�A���\�^��True�B���Ѧ^��False
+	
+	//(call by pond) add animal to the list. If success, return true, or return false
+	public boolean addAnimal (Animal animal) 
 	{
+		
 		try
 	    {
 			AnimalList.add(animal);
@@ -236,12 +270,16 @@ public class WareHouse {
 	    }
 		
 	}
-	public boolean removeAnimal (Animal animal) //(�ө�)�q�ܮw�R�������ʪ��A���\�^��True�B���Ѧ^��False
+	
+	//(call by shop) remove animal to the list. If success, return true, or return false
+	public boolean removeAnimal (Animal animal) 
 	{
 		if(animal.getGrowingRate() == isMatured)
 		{
+			
 			for(Animal an :AnimalList)
 			{
+				
 				if(an.equals(animal))
 				{
 					AnimalList.remove(an);
@@ -251,38 +289,46 @@ public class WareHouse {
 		}
 		return false;
 	}
-	
-	public int getYoungCowNumber() //���o�����ƶq
+	//get the number of young cow
+	public int getYoungCowNumber() 
 	{
-		return getAnimalNum(youngAnimalList,"��");
-	}
-	public int getYoungPigNumber() //���o���޼ƶq
-	{
-		return getAnimalNum(youngAnimalList,"��");
-	}
-	public int getYoungChikendNumber() //���o�����ƶq
-	{
-		return getAnimalNum(youngAnimalList,"��");
+		return getAnimalNum(youngAnimalList,"牛");
 	}
 	
-	public int getCowNumber() //���o�������ƶq
+	//get the number of young pig
+	public int getYoungPigNumber() 
 	{
-		return getAnimalNum(AnimalList,"��");
-	}
-	public int getPigNumber() //���o�����޼ƶq
-	{
-		return getAnimalNum(AnimalList,"��");
-	}
-	public int getChickenNumber() //���o�������ƶq
-	{
-		return getAnimalNum(AnimalList,"��");
+		return getAnimalNum(youngAnimalList,"豬");
 	}
 	
-	public int getHoldMoney() //���o�ϥΪ̪����ƽ��ƶq
+	//get the number of young chicken
+	public int getYoungChickenNumber()
+	{
+		return getAnimalNum(youngAnimalList,"雞");
+	}
+	//get the number of cow
+	public int getCowNumber() 
+	{
+		return getAnimalNum(AnimalList,"牛");
+	}
+	//get the number of pig
+	public int getPigNumber() 
+	{
+		return getAnimalNum(AnimalList,"豬");
+	}
+	//get the number of chicken
+	public int getChickenNumber() 
+	{
+		return getAnimalNum(AnimalList,"雞");
+	}
+	
+	//get the holding money
+	public int getHoldMoney() 
 	{
 		return holdMoney;
 	}
-	public Boolean editHoldMoney(int cost) //���ϥΪ̪����ƶq�A�ǤJ����ƫh�W�[�A�ǤJ�t��ƫh��֡A���\�^��True�B���Ѧ^��False
+	//edit the holding money.If success, return true, or return false
+	public Boolean editHoldMoney(int cost) 
 	{
 		holdMoney += cost;
 		return true;

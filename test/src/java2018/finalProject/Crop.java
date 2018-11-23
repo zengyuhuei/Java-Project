@@ -55,11 +55,7 @@ public abstract class Crop
 
 	public String getName()
 	{
-<<<<<<< HEAD
-		return "aaa";
-=======
 		return name;
->>>>>>> 96e8be0b36330a6201645908a462f93eefe4286f
 	}
 
 	// ����������randomCheck()
@@ -76,6 +72,8 @@ public abstract class Crop
 	{
 		return true;
 	}
+	
+	
 	
 	
 }

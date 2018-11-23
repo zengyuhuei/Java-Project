@@ -1,24 +1,33 @@
 package java2018.finalProject;
 
 public abstract class Feed {
-	private int nutrition; //餵食後提供的營養值
-	private String type; //飼料的種類
+	private int nutrition; 
+	private String name; //store the type of the feed
 	
-	public Feed(int nutrition, String type)
+	public Feed(int nutrition, String name)
 	{
 		this.nutrition = nutrition;
-		this.type = type;
+		this.name = name;
 	}
-	
-	public String getName()  //得到哪一種飼料
+	//get the name
+	public String getName()  
 	{
-		return type;
+		return name;
 	}
-	
-	public int getNutrition()  //得到飼料營養值
+	//get the nutrition
+	public int getNutrition()  
 	{
 		return nutrition;
 	}
+	
+	//check which feed is equal to the member of the list
+   	public boolean equals(Object obj) { 
+   	    if (obj == null) return false;
+   	    if (obj == this) return true;
+   	    if (!(obj instanceof Animal)) return false;
+   	    Animal o = (Animal) obj;
+   	    return o.getName() == this.name;
+   	}
 
 
 }

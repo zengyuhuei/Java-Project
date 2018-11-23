@@ -3,7 +3,7 @@ package java2018.finalProject;
 public class GeneralSeed extends Feed {
 
 	public GeneralSeed() {
-		super(10,"¤¤¯Å¹}®Æ");
+		super(10,"ä¸­ç´šé£¼æ–™");
 	}
 
 }
