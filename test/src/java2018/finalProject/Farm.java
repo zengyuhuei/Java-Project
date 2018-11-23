@@ -2,14 +2,14 @@
 // 提供農場相關功能，並儲存農作物資料。
 package java2018.finalProject;
 
-import java.lang.ArrayList;
+import java.util.ArrayList;
 
 // 提供農場相關功能
 public class Farm
 {
 
 	// 用來儲存農地的農作物資料，上限12個
-	ArrrayList<Crop> farmLand = new  ArrayList<Crop>; 
+	ArrayList<Crop> farmLand = new  ArrayList<Crop>; 
 	
 	// 回傳farmLand資料
 	public ArrayList<Crop> getFarmLand()
