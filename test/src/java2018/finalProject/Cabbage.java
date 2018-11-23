@@ -1,8 +1,8 @@
 // Cabbage.java
-// 擃�����
+
 package java2018.finalProject;
 
-// 蝜潭Crop  擃���
+//繼承Crop 高麗菜
 public class Cabbage extends Crop
 {
 
@@ -11,7 +11,11 @@ public class Cabbage extends Crop
 		super("高麗菜");
 	}
 	
-
+	@Override
+	public String pickSeed()
+	{
+		return "高麗菜";
+	}
 
 
 }

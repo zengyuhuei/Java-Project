@@ -1,8 +1,8 @@
 // Corn.java
-// ��掖鞈��
+
 package java2018.finalProject;
 
-// 蝜潭Crop ��掖
+//繼承Crop 玉米
 public class Corn extends Crop
 {
 
@@ -12,5 +12,9 @@ public class Corn extends Crop
 		super("玉米");
 	}
 
-
+	@Override
+	public String pickSeed()
+	{
+		return "玉米";
+	}
 }	

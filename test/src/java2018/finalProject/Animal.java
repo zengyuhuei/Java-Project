@@ -17,20 +17,16 @@ public abstract class Animal extends Object {
     {
       return growingRate;
     }
-    
-<<<<<<< HEAD
-=======
-    
->>>>>>> wareHouse Test
+
+// wareHouse Test
   	public void setGrowingRate()
   	{
   		growingRate = 100;
   	}
   	
-<<<<<<< HEAD
-=======
-    //check which Animal is equal to the member of the list
->>>>>>> wareHouse Test
+
+   //check which Animal is equal to the member of the list
+
    	public boolean equals(Object obj) { 
    	    if (obj == null) return false;
    	    if (obj == this) return true;
