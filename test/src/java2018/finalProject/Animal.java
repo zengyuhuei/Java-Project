@@ -18,14 +18,13 @@ public abstract class Animal extends Object {
       return growingRate;
     }
 
-// wareHouse Test
   	public void setGrowingRate()
   	{
   		growingRate = 100;
   	}
   	
 
-   //check which Animal is equal to the member of the list
+
 
    	public boolean equals(Object obj) { 
    	    if (obj == null) return false;
