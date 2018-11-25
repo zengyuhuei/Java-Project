@@ -43,7 +43,8 @@ public class WareHouseTest {
 		
 		
 		wareHouse.removeYoungAnimal(e);
-		System.out.println(wareHouse.getCowNumber());
+		System.out.println(f.getClass());
+		
 		System.out.println(wareHouse.getYoungChickenNumber());
 		System.out.println(wareHouse.getYoungCowNumber());
 		System.out.println(wareHouse.getAdvencedFeedNumber());

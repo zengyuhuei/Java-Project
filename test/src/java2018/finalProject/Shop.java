@@ -6,27 +6,186 @@ public class Shop {
 
 	private Dictionary<String, Integer> soldList = new Hashtable<String, Integer>();
 	private Dictionary<String, Integer> boughtList = new Hashtable<String, Integer>();
-
+	private WareHouse warehouse = new WareHouse();
 	public Shop() {
-		
-		//growing rate -1¬°¥¼¦¨¼ô  100 ¦¨¼ô
-		boughtList.put("§C¯Å¹}®Æ", 5);
-		boughtList.put("¤¤¯Å¹}®Æ",  8);
-		boughtList.put("°ª¯Å¹}®Æ", 15);
-		boughtList.put("½Ş", 30);
-		boughtList.put("¤û", 50);
-		boughtList.put("Âû", 20);
-		boughtList.put("¤p³Á", 5);
-		boughtList.put("¥É¦Ì", 10);
-		boughtList.put("°ªÄRµæ", 15);
-		boughtList.put("ªÎ®Æ", 20);
-		soldList.put("¤p³Á", 10);
-		soldList.put("¥É¦Ì", 30);
-		soldList.put("°ªÄRµæ", 50);
-		soldList.put("¤û", 230);
-		soldList.put("½Ş", 210);
-		soldList.put("Âû", 200);
+		boughtList.put("ä½ç´šç¨®å­", 5);
+		boughtList.put("ä¸­ç´šç¨®å­",  8);
+		boughtList.put("é«˜ç´šç¨®å­", 15);
+		boughtList.put("è±¬", 30);
+		boughtList.put("ç‰›", 50);
+		boughtList.put("é›", 20);
+		boughtList.put("å°éº¥", 5);
+		boughtList.put("ç‰ç±³", 10);
+		boughtList.put("é«˜éº—èœ", 15);
+		boughtList.put("è‚¥æ–™", 20);
+		soldList.put("å°éº¥", 10);
+		soldList.put("ç‰ç±³", 30);
+		soldList.put("é«˜éº—èœ", 50);
+		soldList.put("ç‰›", 230);
+		soldList.put("è±¬", 210);
+		soldList.put("é›", 200);
 	}
-
-
+	
+	public Dictionary<String, Integer> getSoldList()
+	{
+		return soldList;
+	}
+	
+	public Dictionary<String, Integer> getBoughtList()
+	{
+		return boughtList;
+	}
+	//new seed and add it into warehouse
+	public boolean addSeed(Crop cp, int num)
+	{
+		try
+		{
+			int i;
+			for(i = 0;i < num; i++)
+			{
+				warehouse.addSeed(cp);
+			}
+			return true;
+		}
+		catch(Exception e)
+	    {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
+	}
+	
+	//new young animals and add them into warehouse
+	public boolean addYoungAnimal(Animal an, int num)
+	{
+		try
+		{
+			int i;
+			for(i = 0;i < num; i++)
+			{
+				warehouse.addYoungAnimal(an);				
+			}
+			return true;
+		}
+		catch(Exception e)
+	    {
+			System.out.println(e.getMessage());
+		    return false;
+	    }
+		
+	}
+	
+	
+	
+	//new feed and add them into warehouse
+	public boolean addFeed(Feed fd, int num)
+	{
+		try
+		{
+			int i;
+			for(i = 0;i < num; i++)
+			{
+				warehouse.addFeed(fd);				
+			}
+			return true;
+		}
+		catch(Exception e)
+	    {
+			System.out.println(e.getMessage());
+		    return false;
+	    }
+		
+	}
+	
+	//add the number of fertilize
+	public boolean addFertilizer(int num)
+	{
+		if(num <= 0) return false;
+		else {
+			warehouse.editFertilizer(num);
+			return true;
+		}
+	}
+	//remove animals from warehouse
+	public boolean removeAnimal(Animal an, int num)
+	{
+		try
+		{
+			int i;
+			for(i = 0;i < num; i++)
+			{
+				warehouse.removeAnimal(an);				
+			}
+			return true;
+		}
+		catch(Exception e)
+	    {
+			System.out.println(e.getMessage());
+		    return false;
+	    }
+		
+	}
+	
+	
+	//remove crops from warehouse
+	public boolean removeCrop(Crop cp, int num)
+	{
+		try
+		{
+			int i;
+			for(i = 0;i < num; i++)
+			{
+				warehouse.removeCrop(cp);				
+			}
+			return true;
+		}
+		catch(Exception e)
+	    {
+			System.out.println(e.getMessage());
+		    return false;
+	    }
+	}
+	
+   //the following six functions is the limitation that can be sold out  
+	public int getCabbageNumber()
+	{
+		return warehouse.getCabbageNumber();
+	}
+	
+	public int getCornNumber()
+	{
+		return warehouse.getCornNumber();
+	}
+	public int getWheatNumber()
+	{
+		return warehouse.getWheatNumber();
+	}
+	public int getPigNumber()
+	{
+		return warehouse.getPigNumber();
+	}
+	public int getCowNumber()
+	{
+		return warehouse.getCowNumber();
+	}
+	public int getChickenNumber()
+	{
+		return warehouse.getChickenNumber();
+	}
+	
+	//if this action is shopping, the number must be negative
+	//or it must be positive
+	//function in warehouse just directly add the number 
+	public boolean editHoldingMoney(int num)
+	{
+		try
+		{
+			warehouse.editHoldMoney(num);
+			return true;
+		}
+		catch(Exception e)
+	    {
+			System.out.println(e.getMessage());
+		    return false;
+	    }
+	}
 }
