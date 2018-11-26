@@ -29,6 +29,7 @@ public class AnimalTest {
 			System.out.println(an.getGrowingRate());
 		}
 		
+		animal.get(1).moving();
 		//System.out.println(a);
 	}
 }
