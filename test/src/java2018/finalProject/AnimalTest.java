@@ -88,5 +88,6 @@ public class AnimalTest {
 		System.out.printf("%d\n", dude.getNum());
 		dude.capturing(chicken);
 		System.out.printf("%d\n", dude.getNum());
+		System.out.println("ouo");
 	}
 }
