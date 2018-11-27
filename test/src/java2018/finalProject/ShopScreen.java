@@ -1,98 +1,193 @@
 package java2018.finalProject;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import javax.swing.Action;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import java.awt.Panel;
 
-public class ShopScreen 
-{
-	  JFrame f;
+public class ShopScreen extends JFrame {
 
-
-	  public static void main(String argv[]) 
-	  {
-	    new ShopScreen();  
-	  }
+	private JPanel contentPane;
+	private JTable table;
+	private JButton btnOk;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_2;
+	private JButton btnNewButton_3;
+	private JButton btnNewButton_4;
+	private JButton btnNewButton_5;
+	private JButton btnAddchicken;
+	private JButton btnAddpig;
+	private JButton btnAddcow;
+	private JButton btnAddwheat;
+	private JButton btnAddcorn;
+	private JButton btnAddcabbage;
 	
-	  public ShopScreen() 
-	  {
-	    JFrame.setDefaultLookAndFeelDecorated(true);
-	    JDialog.setDefaultLookAndFeelDecorated(true);
-	    f=new JFrame("JButton1");
-	    f.setBounds(0,0,400,300); 
-	    f.setVisible(true); 
-	    Container cp=f.getContentPane();
-	    cp.setLayout(null);  //取消預設之 BorderLayout
 	
-	    JButton b1 = new JButton("corn");
-	    b1.setBounds(20,20,100,40);  //自行決定元件位置與大小
-	    cp.add(b1);
-	    b1.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	ArrayList<Crop> crop = new ArrayList<Crop>();
-	    		//if(num == 1)
-	    		//{
-	    			//Corn crop = new Crop();
-	    			crop.add(new Corn());
-	    			String cropName;
-	    			cropName = crop.get(0).pickSeed();
-	    			System.out.println("你按了"+cropName+"ouo");
-	    		//}
-	        }
-	    });
-	
-	    JButton b2 = new JButton("wheat");
-	    b2.setBounds(20,70,100,40);  //自行決定元件位置與大小
-	    cp.add(b2);
-	    b2.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	ArrayList<Crop> crop = new ArrayList<Crop>();
-				//Corn crop = new Crop();
-				crop.add(new Wheat());
-				String cropName;
-				cropName = crop.get(0).pickSeed();
-				System.out.println("你按了"+cropName+"ouo");
-	        }
-	    });
-	
-	    JButton b3 = new JButton("cabbage");
-	    b3.setBounds(20,120,100,40);  //自行決定元件位置與大小
-	    cp.add(b3);
-	    b3.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	ArrayList<Crop> crop = new ArrayList<Crop>();
-				crop.add(new Cabbage());
-				String cropName;
-				cropName = crop.get(0).pickSeed();
-				System.out.println("你按了"+cropName+"ouo");
-	        }
-	    });
-	    //System.out.println("ouo??");
-	    
-	    f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-	    f.addWindowListener(new WindowAdapter()
-	    {
-	      public void windowClosing(WindowEvent e) 
-	      {
-	        int result=JOptionPane.showConfirmDialog(f,
-	                   "確定要結束程式嗎?",
-	                   "確認訊息",
-		                   JOptionPane.YES_NO_OPTION,
-		                   JOptionPane.WARNING_MESSAGE);
-		        if (result==JOptionPane.YES_OPTION) 
-		        {
-		          System.exit(0);
-		        }
-		      }    
-		    });
-		  }
-		}
 	
 
+	/**
+	 * Launch the application.
+	 */
+	public void editNumber(int row, int column, int change)
+	{
+		System.out.println(row);
+		System.out.println(column);
+		int num = (int) table.getValueAt(row, column);
+		num+=change;
+		table.setValueAt(num, row, column);
+        System.out.println(num);
+	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ShopScreen frame = new ShopScreen();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
+	/**
+	 * Create the frame.
+	 */
+	public ShopScreen() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 601, 456);
+		contentPane = new JPanel();
+		contentPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		Panel panel = new Panel();
+		panel.setBounds(0, 38, 405, 267);
+		contentPane.add(panel);
+		
+		btnOk = new JButton("ok");
+		panel.add(btnOk);
+		
+		
+		btnAddchicken = new JButton("addChicken");
+		panel.add(btnAddchicken);
+		
+		btnAddpig = new JButton("addPig");
+		panel.add(btnAddpig);
+		
+		btnAddcow = new JButton("addCow");
+		panel.add(btnAddcow);
+		
+		btnAddcorn = new JButton("addCorn");
+		panel.add(btnAddcorn);
+		
+		btnAddcabbage = new JButton("addCabbage");
+		panel.add(btnAddcabbage);
+		
+		table = new JTable();
+		panel.add(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Chicken", "200", 0},
+				{"Pig", "210", 0},
+				{"Cow", "230", 0},
+				{"Wheat", "10", 0},
+				{"Corn", "30", 0},
+				{"Cabbage", "50", 0},
+				{"Total", null, 0},
+			},
+			new String[] {
+				"Item", "Price", "Number"
+			}
+		));
+		
+		btnAddwheat = new JButton("addWheat");
+		panel.add(btnAddwheat);
+		btnAddwheat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(3,2,1);
+			}
+		});
+		
+		JButton btnSell = new JButton("Sell");
+		btnSell.setBounds(63, 0, 55, 27);
+		contentPane.add(btnSell);
+		
+		JButton btnBuy = new JButton("Buy");
+		btnBuy.setBounds(0, 0, 55, 27);
+		contentPane.add(btnBuy);
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnSell.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(!panel.isVisible());
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		btnAddcabbage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(5,2,1);
+			}
+		});
+		btnAddcorn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(4,2,1);
+			}
+		});
+		btnAddcow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(2,2,1);
+			}
+		});
+		btnAddpig.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(1,2,1);
+			}
+		});
+		btnAddchicken.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(0,2,1);
+			}
+		});
+		btnOk.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		
+		
+		
+	}
+}

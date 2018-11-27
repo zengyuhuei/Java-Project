@@ -8,6 +8,7 @@ public class WareHouseTest {
 		Animal b = new Chicken();
 		Animal c = new Cow();
 		Animal e = new Chicken();
+		Animal pig = new Pig();
 		
 		Feed f = new SimpleSeed();
 		Feed j = new GeneralSeed();
@@ -24,6 +25,7 @@ public class WareHouseTest {
 		wareHouse.addYoungAnimal(c);
 		wareHouse.addYoungAnimal(b);
 		wareHouse.addYoungAnimal(e);
+		wareHouse.addYoungAnimal(pig);
 		
 		wareHouse.addFeed(f);
 		wareHouse.addFeed(g);
@@ -38,23 +40,22 @@ public class WareHouseTest {
 		wareHouse.addCrop(n); //wheat
 		wareHouse.addCrop(o); //cabbage
 		
-		wareHouse.removeCrop(o);
 		
-		Dude dude = new Dude(wareHouse);
-		dude.startFeedCow(a);
-		//wareHouse.removeYoungAnimal(e);
-	   //System.out.println(f.getClass());
+		wareHouse.removeYoungAnimal(pig);
 		
+	
+	
 		System.out.println(wareHouse.getYoungChickenNumber());
 		System.out.println(wareHouse.getYoungCowNumber());
-		System.out.println(wareHouse.getAdvencedFeedNumber());
-		System.out.println(wareHouse.getGeneralFeedNumber());
-		System.out.println(wareHouse.getSimpleFeedNumber());
-		System.out.println(wareHouse.getSimpleFeedNumber());
-		System.out.println(wareHouse.getCornSeedNumber());
-		System.out.println(wareHouse.getCabbageNumber());
-		System.out.println(wareHouse.getCornNumber());
-		System.out.println(wareHouse.getWheatNumber());
+		System.out.println(wareHouse.getYoungPigNumber());
+		//System.out.println(wareHouse.getAdvencedFeedNumber());
+		//System.out.println(wareHouse.getGeneralFeedNumber());
+		//System.out.println(wareHouse.getSimpleFeedNumber());
+		//System.out.println(wareHouse.getSimpleFeedNumber());
+		//System.out.println(wareHouse.getCornSeedNumber());
+		//System.out.println(wareHouse.getCabbageNumber());
+		//System.out.println(wareHouse.getCornNumber());
+		//System.out.println(wareHouse.getWheatNumber());
 	}
 
 }

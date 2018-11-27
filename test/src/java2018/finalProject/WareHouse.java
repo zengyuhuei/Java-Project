@@ -245,9 +245,11 @@ public class WareHouse {
 		{
 			for(Animal an :youngAnimalList)
 			{
+				
 				if(an.equals(animal))
 				{
 					youngAnimalList.remove(an);
+					return true;
 	
 				}
 			}
@@ -272,15 +274,15 @@ public class WareHouse {
 	}
 	
 	//(call by shop) remove animal to the list. If success, return true, or return false
-	public boolean removeAnimal (Animal animal) 
+	public boolean removeAnimal (Animal o) 
 	{
-		if(animal.getGrowingRate() == isMatured)
+		if(o.getGrowingRate() == isMatured)
 		{
 			
 			for(Animal an :AnimalList)
 			{
 				
-				if(an.equals(animal))
+				if(an.equals(o))
 				{
 					AnimalList.remove(an);
 	
