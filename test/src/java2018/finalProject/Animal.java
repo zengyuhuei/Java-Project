@@ -1,5 +1,5 @@
 package java2018.finalProject;
-
+import java.util.concurrent.TimeUnit;
 
 public abstract class Animal extends Object {
     private int growingRate;
@@ -70,6 +70,7 @@ public abstract class Animal extends Object {
 						break;
 					}
 					print(coordinateX, coordinateY, coordinateZ);
+					makeDelay();
 				}
 			}
 			//下
@@ -82,6 +83,7 @@ public abstract class Animal extends Object {
 						break;
 					}
 					print(coordinateX, coordinateY, coordinateZ);
+					makeDelay();
 				}
 			}
 			//右
@@ -94,6 +96,7 @@ public abstract class Animal extends Object {
 						break;
 					}
 					print(coordinateX, coordinateY, coordinateZ);
+					makeDelay();
 				}
 			}
 			//左
@@ -106,6 +109,7 @@ public abstract class Animal extends Object {
 						break;
 					}
 					print(coordinateX, coordinateY, coordinateZ);
+					makeDelay();
 				}
 			}
 			derection = (int)(Math.random()*4+1);
@@ -122,5 +126,14 @@ public abstract class Animal extends Object {
 		System.out.printf("x:%d y:%d z:%d", x, y, z);  
 		System.out.printf("\n");	
 	}
-    //step count time need to set (2sec/step)
+	public static boolean makeDelay()
+	{
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 }
