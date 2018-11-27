@@ -41,7 +41,11 @@ public class Dude {
 				house.removeYoungAnimal (animal);
 				return true;
 			}
-			else return false;
+			else
+			{
+				System.out.println("倉庫沒有豬啦!!!!!");
+				return false;
+			}
 			
 		 }
 		 return false;
@@ -61,7 +65,11 @@ public class Dude {
 				house.removeYoungAnimal (animal);
 				return true;
 			}
-			else return false;
+			else
+			{
+				System.out.println("倉庫沒有雞啦!!!!!");
+				return false;
+			}
 			
 		 }
 		 return false;
@@ -81,7 +89,11 @@ public class Dude {
 				house.removeYoungAnimal (animal);
 				return true;
 			}
-			else return false;
+			else
+			{
+				System.out.println("倉庫沒有牛啦!!!!!");
+				return false;
+			}
 			
 		 }
 		 return false;

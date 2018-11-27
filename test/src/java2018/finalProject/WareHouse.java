@@ -248,7 +248,7 @@ public class WareHouse {
 				if(an.equals(animal))
 				{
 					youngAnimalList.remove(an);
-	
+					return true;
 				}
 			}
 		}

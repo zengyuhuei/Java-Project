@@ -1,5 +1,4 @@
 package java2018.finalProject;
-
 import java.util.ArrayList;
 
 public class AnimalTest2 {

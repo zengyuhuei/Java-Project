@@ -1,6 +1,6 @@
 package java2018.finalProject;
 
-import java.util.ArrayList;
+
 
 public class AnimalTest {
 	public static void main(String[] args) {
@@ -60,6 +60,7 @@ public class AnimalTest {
 		wareHouse.addAnimal(c);
 		wareHouse.addYoungAnimal(b);
 		wareHouse.addYoungAnimal(e);
+		wareHouse.addYoungAnimal(chicken);
 		
 		wareHouse.addFeed(f);
 		wareHouse.addFeed(g);
