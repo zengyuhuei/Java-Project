@@ -32,7 +32,7 @@ public class Dude {
 		 if(num==9) {
 			 return false;
 		 }
-		 if(animal.getName()=="pig")
+		 if(animal.getName()=="豬")
 		 {
 			if(house.getYoungPigNumber()>0)
 			{
@@ -52,7 +52,7 @@ public class Dude {
 		 if(num==9) {
 			 return false;
 		 }
-		 if(animal.getName()=="chicken")
+		 if(animal.getName()=="雞")
 		 {
 			if(house.getYoungChickenNumber()>0)
 			{
@@ -72,7 +72,7 @@ public class Dude {
 		 if(num==9) {
 			 return false;
 		 }
-		 if(animal.getName()=="cow")
+		 if(animal.getName()=="牛")
 		 {
 			if(house.getYoungCowNumber()>0)
 			{
@@ -85,6 +85,10 @@ public class Dude {
 			
 		 }
 		 return false;
+	 }
+	 public int getNum()
+	 {
+		 return num;
 	 }
 
 }

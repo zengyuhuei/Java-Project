@@ -27,7 +27,19 @@ public abstract class Animal extends Object {
   		growingRate = 100;
   	}
   	
+  	public boolean feeding(Feed feed)
+    {
+    	if(growingRate<100)
+    	{
+    		growingRate+=feed.getNutrition();
 
+    		if(growingRate>100)setGrowingRate();
+    		return true;
+    	}
+    	else if(growingRate==100) return false;
+		return false;
+    	
+    }
 
 
    	public boolean equals(Object obj) { 
@@ -37,18 +49,7 @@ public abstract class Animal extends Object {
    	    Animal o = (Animal) obj;
    	    return o.getName() == this.name;
    	}
-   	
-    public boolean feeding(Feed feed)
-    {
-    	if(growingRate<100)
-    	{
-    		growingRate+=feed.getNutrition();
-    		if(growingRate>100)setGrowingRate();
-    		return true;
-    	}
-    	else return false;
-    	
-    }
+
 
     public boolean moving()
     {

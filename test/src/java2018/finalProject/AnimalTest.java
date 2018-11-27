@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class AnimalTest {
 	public static void main(String[] args) {
-		ArrayList<Animal> animal = new ArrayList<Animal>();
+		
+		/*ArrayList<Animal> animal = new ArrayList<Animal>();
+		
 		animal.add(new Pig());
 		animal.add(new Chicken());
 		animal.add(new Pig());
@@ -29,7 +31,62 @@ public class AnimalTest {
 			System.out.println(an.getGrowingRate());
 		}
 		
-		animal.get(1).moving();
-		//System.out.println(a);
+		//System.out.println(a);*/
+		Feed feed1=new SimpleSeed();
+		Feed feed2=new GeneralSeed();
+		Feed feed3=new AdvancedSeed();
+		Animal cow = new Cow();
+		Animal pig = new Pig();
+		Animal chicken = new Chicken();
+		WareHouse wareHouse = new WareHouse();
+		Animal a = new Cow();
+		Animal b = new Chicken();
+		Animal c = new Cow();
+		Animal e = new Chicken();
+		
+		Feed f = new SimpleSeed();
+		Feed j = new GeneralSeed();
+		Feed g = new SimpleSeed();
+		Feed h = new AdvancedSeed();
+		Feed i = new SimpleSeed();
+		
+		Crop k = new Corn();
+		Crop m = new Corn();
+		Crop n = new Wheat();
+		Crop o = new Cabbage();
+		a.setGrowingRate();
+		c.setGrowingRate();
+		wareHouse.addAnimal(a);
+		wareHouse.addAnimal(c);
+		wareHouse.addYoungAnimal(b);
+		wareHouse.addYoungAnimal(e);
+		
+		wareHouse.addFeed(f);
+		wareHouse.addFeed(g);
+		wareHouse.addFeed(h);
+		wareHouse.addFeed(i);
+		wareHouse.addFeed(j);
+		
+		n.setGrowingRate();
+		o.setGrowingRate();
+		wareHouse.addSeed(k); //corn
+		wareHouse.addSeed(m); //corn
+		wareHouse.addCrop(n); //wheat
+		wareHouse.addCrop(o); //cabbage
+		Dude dude = new Dude(wareHouse);
+		dude.startFeedChicken(chicken);
+		//dude.startFeedPig(pig);
+		wareHouse.addCrop(o); //cabbage
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		chicken.feeding(feed3);
+		//dude.getPondLand();
+		System.out.printf("%d\n", dude.getNum());
+		dude.capturing(chicken);
+		System.out.printf("%d\n", dude.getNum());
 	}
 }
