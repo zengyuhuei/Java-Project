@@ -44,7 +44,7 @@ public class Farm
 		Random random = new Random();
 		Crop crop;
 		if(random.nextInt(1) == 1)
-			return crop.randomCheck();
+			return true;//crop.randomCheck();
 		return false;
 		//ex. 
 		//     if( main的時間 - 上次澆水時間 == 20s)

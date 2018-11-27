@@ -16,13 +16,8 @@ public abstract class Crop
 	private Date lastWaterDate; //上次澆水時間
 	private String name; //作物名稱
 	
-	//建構元1
-	public Crop()
-	{
-		
-	}
 	
-	//建構元2
+	//建構元
 	public Crop(String name)
 	{
 		this.name = name;
@@ -46,19 +41,34 @@ public abstract class Crop
 	//借我測試 你們之後再改
 	public void setGrowingRate()
 	{
-		growingRate = 100;
+		growingRate = 0;
 	}
 	
 	//替植物澆水，將植物的growingRate增加3，更新lastWaterDate，若成功return 1，失敗return 0
 	public boolean water()
 	{
-		return true;
+		if(growingRate < 100)
+		{
+			growingRate += 3;
+			//更新lastWaterDate
+			return true;
+		}
+		else
+			return false;
+		
 	}
 
 	//替植物施肥，將植物的growingRate增加10，更新lastFertilizeDate，若成功return 1，失敗return 0
 	public boolean fertilize()
 	{
-		return true;
+		if(growingRate < 100)
+		{
+			growingRate += 10;
+			//更新lastWaterDate
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public String getName()
