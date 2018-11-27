@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Animal extends Object {
     private int growingRate;
     //Private Date lastFeedDate;
-	private int test=5;
+	private int test=4;
 	private int coordinateX, coordinateY, coordinateZ=0;
 	private int count=0; //step count 3-7
 	private int derection=0; //left1 down2 right3 up4

@@ -250,7 +250,7 @@ public class WareHouse {
 				{
 					youngAnimalList.remove(an);
 					return true;
-	
+
 				}
 			}
 		}
