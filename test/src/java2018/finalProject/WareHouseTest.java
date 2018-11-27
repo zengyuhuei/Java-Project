@@ -19,10 +19,9 @@ public class WareHouseTest {
 		Crop m = new Corn();
 		Crop n = new Wheat();
 		Crop o = new Cabbage();
-		a.setGrowingRate();
-		c.setGrowingRate();
-		wareHouse.addAnimal(a);
-		wareHouse.addAnimal(c);
+		
+		wareHouse.addYoungAnimal(a);
+		wareHouse.addYoungAnimal(c);
 		wareHouse.addYoungAnimal(b);
 		wareHouse.addYoungAnimal(e);
 		
@@ -41,9 +40,10 @@ public class WareHouseTest {
 		
 		wareHouse.removeCrop(o);
 		
-		
-		wareHouse.removeYoungAnimal(e);
-		System.out.println(f.getClass());
+		Dude dude = new Dude(wareHouse);
+		dude.startFeedCow(a);
+		//wareHouse.removeYoungAnimal(e);
+	   //System.out.println(f.getClass());
 		
 		System.out.println(wareHouse.getYoungChickenNumber());
 		System.out.println(wareHouse.getYoungCowNumber());

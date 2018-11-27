@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class AnimalTest {
 	public static void main(String[] args) {
-		
+		WareHouse wareHouse = new WareHouse();
 		/*ArrayList<Animal> animal = new ArrayList<Animal>();
 		
 		animal.add(new Pig());
@@ -38,7 +38,7 @@ public class AnimalTest {
 		Animal cow = new Cow();
 		Animal pig = new Pig();
 		Animal chicken = new Chicken();
-		WareHouse wareHouse = new WareHouse();
+		
 		Animal a = new Cow();
 		Animal b = new Chicken();
 		Animal c = new Cow();
