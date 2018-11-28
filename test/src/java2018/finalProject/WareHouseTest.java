@@ -39,10 +39,10 @@ public class WareHouseTest {
 		wareHouse.addSeed(m); //corn
 		wareHouse.addCrop(n); //wheat
 		wareHouse.addCrop(o); //cabbage
-		
-		
-		wareHouse.removeYoungAnimal(pig);
-		
+		System.out.println(wareHouse.getYoungChickenNumber());
+		Dude dude = new Dude(wareHouse); 
+		dude.startFeedChicken(b);
+		dude.startFeedPig(pig);
 	
 	
 		System.out.println(wareHouse.getYoungChickenNumber());
