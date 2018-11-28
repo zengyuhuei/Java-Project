@@ -4,37 +4,14 @@ import java.util.*;
 
 public class Shop {
 
-	private Dictionary<String, Integer> soldList = new Hashtable<String, Integer>();
-	private Dictionary<String, Integer> boughtList = new Hashtable<String, Integer>();
-	private WareHouse warehouse = new WareHouse();
-	public Shop() {
-		boughtList.put("低級種子", 5);
-		boughtList.put("中級種子",  8);
-		boughtList.put("高級種子", 15);
-		boughtList.put("豬", 30);
-		boughtList.put("牛", 50);
-		boughtList.put("雞", 20);
-		boughtList.put("小麥", 5);
-		boughtList.put("玉米", 10);
-		boughtList.put("高麗菜", 15);
-		boughtList.put("肥料", 20);
-		soldList.put("小麥", 10);
-		soldList.put("玉米", 30);
-		soldList.put("高麗菜", 50);
-		soldList.put("牛", 230);
-		soldList.put("豬", 210);
-		soldList.put("雞", 200);
+	
+	private WareHouse warehouse ;
+	public Shop(WareHouse warehouse) {
+		this.warehouse = warehouse;
+		
 	}
 	
-	public Dictionary<String, Integer> getSoldList()
-	{
-		return soldList;
-	}
 	
-	public Dictionary<String, Integer> getBoughtList()
-	{
-		return boughtList;
-	}
 	//new seed and add it into warehouse
 	public boolean addSeed(Crop cp, int num)
 	{
@@ -187,5 +164,10 @@ public class Shop {
 			System.out.println(e.getMessage());
 		    return false;
 	    }
+	}
+	
+	public int getHoldMoney()
+	{
+		return warehouse.getHoldMoney();
 	}
 }
