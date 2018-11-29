@@ -29,7 +29,7 @@ public class Dude {
 	 public boolean startFeedPig(Animal animal)
 	 {
 		 
-		 if(num==9) {
+		 if(num==10) {
 			 return false;
 		 }
 		 if(animal.getName()=="豬")
@@ -53,7 +53,7 @@ public class Dude {
 	 public boolean startFeedChicken(Animal animal)
 	 {
 		 
-		 if(num==9) {
+		 if(num==10) {
 			 return false;
 		 }
 		 if(animal.getName()=="雞")
@@ -77,7 +77,7 @@ public class Dude {
 	 public boolean startFeedCow(Animal animal)
 	 {
 		 
-		 if(num==9) {
+		 if(num==10) {
 			 return false;
 		 }
 		 if(animal.getName()=="牛")

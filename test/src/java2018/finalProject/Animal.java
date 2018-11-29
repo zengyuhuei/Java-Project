@@ -4,10 +4,8 @@ import java.util.concurrent.TimeUnit;
 public abstract class Animal extends Object {
     private int growingRate;
     //Private Date lastFeedDate;
-	private int test=4;
-	private int coordinateX, coordinateY, coordinateZ=0;
-	private int count=0; //step count 3-7
-	private int derection=0; //left1 down2 right3 up4
+
+	private int coordinateX, coordinateY;
     private String name;
     public Animal(String name) {
       this.name=name;
@@ -51,85 +49,87 @@ public abstract class Animal extends Object {
    	}
 
 
-    public boolean moving()
+    public int[] moving(int[] arr, int count, int derection)
     {
-		coordinateX = (int)(Math.random()*50+1); //X座標
-		coordinateY = (int)(Math.random()*50+1); //Y座標
-		print(coordinateX, coordinateY, coordinateZ);
-		derection = (int)(Math.random()*4+1);
-		count = (int)(Math.random()*5+3);
-		while(test>0){
+		//coordinateX = (int)(Math.random()*50+1); //X座標
+		//coordinateY = (int)(Math.random()*50+1); //Y座標
+		
+    	coordinateX = arr[0];
+    	coordinateY = arr[1];
+    	//print(coordinateX, coordinateY, coordinateZ);
 
 			//上
 			if(derection==4){
 				for(int i=0;i<count;i++){
 					coordinateY += 1;
-					if(coordinateY==50)
+					if(coordinateY==300)
 					{
-						coordinateY--;
+						coordinateY -= 5;
 						break;
 					}
-					print(coordinateX, coordinateY, coordinateZ);
-					makeDelay();
+					//print(coordinateX, coordinateY, coordinateZ);
+					//makeDelay();
 				}
 			}
 			//下
 			if(derection==2){
 				for(int i=0;i<count;i++){
 					coordinateY -= 1;
-					if(coordinateY==0)
+					if(coordinateY==150)
 					{
-						coordinateY++;
+						coordinateY += 5;
 						break;
 					}
-					print(coordinateX, coordinateY, coordinateZ);
-					makeDelay();
+					//print(coordinateX, coordinateY, coordinateZ);
+					//makeDelay();
 				}
 			}
 			//右
 			if(derection==3){
 				for(int i=0;i<count;i++){
 					coordinateX += 1;
-					if(coordinateX==50)
+					if(coordinateX==320)
 					{
-						coordinateX--;
+						coordinateX -= 5;
 						break;
 					}
-					print(coordinateX, coordinateY, coordinateZ);
-					makeDelay();
+					//print(coordinateX, coordinateY, coordinateZ);
+					//makeDelay();
 				}
 			}
 			//左
 			if(derection==1){
 				for(int i=0;i<count;i++){
 					coordinateX -= 1;
-					if(coordinateX==0)
+					if(coordinateX==20)
 					{
-						coordinateX++;
+						coordinateX += 5;
 						break;
 					}
-					print(coordinateX, coordinateY, coordinateZ);
-					makeDelay();
+					//print(coordinateX, coordinateY, coordinateZ);
+					//makeDelay();
 				}
 			}
-			derection = (int)(Math.random()*4+1);
-			count = (int)(Math.random()*5+3);
-			System.out.printf("test=%d\n", test);
-			test--;
-		}	
-    	return true;
+			arr[0] = coordinateX;
+			arr[1] = coordinateY;
+			//derection = (int)(Math.random()*4+1);
+			//count = (int)(Math.random()*5+5);
+			//System.out.printf("test=%d\n", test);
+			
+			return arr;
     }
     
-	public static void print(int x, int y, int z)
+	public boolean print(int[] arr)
 	{
 		System.out.printf("位置: ");	
-		System.out.printf("x:%d y:%d z:%d", x, y, z);  
-		System.out.printf("\n");	
+		System.out.printf("x:%d y:%d", arr[0], arr[1]);  
+		System.out.printf("\n");
+		return true;
 	}
-	public static boolean makeDelay()
+	public boolean makeDelay()
 	{
 		try {
-			TimeUnit.SECONDS.sleep(1);
+			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
