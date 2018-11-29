@@ -1,6 +1,7 @@
 package java2018.finalProject;
 
-import java.util.*;
+
+
 
 public class Shop {
 
@@ -21,7 +22,9 @@ public class Shop {
 			for(i = 0;i < num; i++)
 			{
 				warehouse.addSeed(cp);
+				
 			}
+			System.out.printf("倉庫增加了%d顆%s\n",num,cp.getName());
 			return true;
 		}
 		catch(Exception e)
@@ -30,10 +33,46 @@ public class Shop {
 	        return false;
 	    }
 	}
-	
+	public Animal newCow()
+	{
+		return new Cow();
+	}
+	public Animal newPig()
+	{
+		return new Pig();
+	}
+	public Animal newChicken()
+	{
+		return new Chicken();
+	}
+	public Feed newSimpleFeed()
+	{
+		return new SimpleFeed();
+	}
+	public Feed newGeneralFeed()
+	{
+		return new GeneralFeed();
+	}
+	public Feed newAdvancedFeed()
+	{
+		return new AdvancedFeed();
+	}
+	public Crop newWheat()
+	{
+		return new Wheat();
+	}
+	public Crop newCorn()
+	{
+		return new Corn();
+	}
+	public Crop newCabbage()
+	{
+		return new Cabbage();
+	}
 	//new young animals and add them into warehouse
 	public boolean addYoungAnimal(Animal an, int num)
 	{
+		
 		try
 		{
 			int i;
@@ -41,6 +80,7 @@ public class Shop {
 			{
 				warehouse.addYoungAnimal(an);				
 			}
+			System.out.printf("倉庫增加了%d隻%s\n",num,an.getName());
 			return true;
 		}
 		catch(Exception e)
@@ -63,6 +103,7 @@ public class Shop {
 			{
 				warehouse.addFeed(fd);				
 			}
+			System.out.printf("倉庫增加了%d顆%s\n",num,fd.getName());
 			return true;
 		}
 		catch(Exception e)
@@ -79,19 +120,22 @@ public class Shop {
 		if(num <= 0) return false;
 		else {
 			warehouse.editFertilizer(num);
-			return true;
 		}
+		System.out.printf("倉庫增加了%d顆肥料\n",num);
+		return true;
 	}
 	//remove animals from warehouse
-	public boolean removeAnimal(Animal an, int num)
+	public boolean removeAnimal(String name, int num)
 	{
 		try
 		{
 			int i;
 			for(i = 0;i < num; i++)
 			{
-				warehouse.removeAnimal(an);				
+				warehouse.removeAnimal(name);	
+				
 			}
+			System.out.printf("倉庫減少了%d隻%s\n",num,name);
 			return true;
 		}
 		catch(Exception e)
@@ -104,15 +148,16 @@ public class Shop {
 	
 	
 	//remove crops from warehouse
-	public boolean removeCrop(Crop cp, int num)
+	public boolean removeCrop(String name, int num)
 	{
 		try
 		{
 			int i;
 			for(i = 0;i < num; i++)
 			{
-				warehouse.removeCrop(cp);				
+				warehouse.removeCrop(name);				
 			}
+			System.out.printf("倉庫減少了%d株%s\n",num,name);
 			return true;
 		}
 		catch(Exception e)
@@ -157,6 +202,7 @@ public class Shop {
 		try
 		{
 			warehouse.editHoldMoney(num);
+			System.out.printf("花了多少錢%d\n",num);
 			return true;
 		}
 		catch(Exception e)

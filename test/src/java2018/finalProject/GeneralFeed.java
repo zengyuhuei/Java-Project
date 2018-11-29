@@ -1,8 +1,8 @@
 package java2018.finalProject;
 
-public class GeneralSeed extends Feed {
+public class GeneralFeed extends Feed {
 
-	public GeneralSeed() {
+	public GeneralFeed() {
 		super(10,"中級飼料");
 	}
 
