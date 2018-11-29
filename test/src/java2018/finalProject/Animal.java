@@ -22,9 +22,13 @@ public abstract class Animal extends Object {
 
   	public void setGrowingRate()
   	{
+  		growingRate = 0;
+  	}
+  	//借我之後再刪
+  	public void setGrowingRate100()
+  	{
   		growingRate = 100;
   	}
-  	
   	public boolean feeding(Feed feed)
     {
     	if(growingRate<100)

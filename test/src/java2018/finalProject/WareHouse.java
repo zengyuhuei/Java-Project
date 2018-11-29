@@ -20,7 +20,7 @@ public class WareHouse {
 	
 	public WareHouse()
 	{
-		this.holdMoney = 50;
+		this.holdMoney = 1000;
 		this.fertilizerNumber = 0;
 		
 		

@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Panel;
 import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 
 
 public class ShopScreen extends JFrame {
@@ -42,7 +43,7 @@ public class ShopScreen extends JFrame {
 	private JButton btnAddcabbage;
 	private JTable buyTable;
 	private Shop shop;
-
+    private JLabel lblHoldmoney;
 
 	public void delItem()
 	{ 
@@ -112,24 +113,7 @@ public class ShopScreen extends JFrame {
 	}
 	
 	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ShopScreen frame = new ShopScreen(ware);
-				
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-    */
-	/**
-	 * Create the frame.
-	 */
+
 	public ShopScreen(WareHouse warehouse) {
 		
 		shop = new Shop(warehouse);
@@ -304,12 +288,15 @@ public class ShopScreen extends JFrame {
 		btnBuyOk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				if(isLegal(buyTable))//金錢足夠
 				{
 					int input = JOptionPane.showOptionDialog(null, "你確定要購買?", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					if(input == 0) //ok
 					{
 						addItem();
+						lblHoldmoney.setText("擁有金額: "+String.valueOf(shop.getHoldMoney()));
+						
 					}
 					else  //取消
 					{
@@ -525,6 +512,7 @@ public class ShopScreen extends JFrame {
 				if(input == 0) //ok
 				{
 					delItem();
+					lblHoldmoney.setText("擁有金額: "+String.valueOf(shop.getHoldMoney()));
 				}
 				else  //取消
 				{
@@ -639,6 +627,11 @@ public class ShopScreen extends JFrame {
 		});
 		btnDelcabbage.setBounds(371, 159, 99, 27);
 		panel.add(btnDelcabbage);
+		
+		String holdMoney = String.format("擁有金額:%d", shop.getHoldMoney() );
+		lblHoldmoney = new JLabel(holdMoney);
+		lblHoldmoney.setBounds(208, 25, 126, 19);
+		contentPane.add(lblHoldmoney);
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		
@@ -647,6 +640,7 @@ public class ShopScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panel.setVisible(false);
 				buyPanel.setVisible(true);
+				
 				System.out.println(shop.getHoldMoney());
 
 			}
@@ -656,6 +650,7 @@ public class ShopScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panel.setVisible(true);
 				buyPanel.setVisible(false);
+				
 				System.out.printf("Item %s num %d\n","雞",shop.getChickenNumber());
 				System.out.printf("Item %s num %d\n","豬",shop.getPigNumber());
 				System.out.printf("Item %s num %d\n","牛",shop.getCowNumber());
