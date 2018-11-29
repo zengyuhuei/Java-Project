@@ -1,8 +1,7 @@
 package java2018.finalProject;
 
 import java.awt.BorderLayout;
-
-
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
 import java.awt.Panel;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
@@ -120,14 +121,10 @@ public class ShopScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 757);
 		contentPane = new JPanel();
-		contentPane.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-		
-			}
-		});
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setSize(screen.width * 7 / 8, screen.height * 7 / 8);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -182,7 +179,7 @@ public class ShopScreen extends JFrame {
 				
 			}
 		});
-		btnAddSimple.setBounds(418, 31, 99, 27);
+		btnAddSimple.setBounds(418, 31, 123, 27);
 		buyPanel.add(btnAddSimple);
 		
 		JButton btnAddGeneral = new JButton("addGeneralSeed");
@@ -193,7 +190,7 @@ public class ShopScreen extends JFrame {
 				
 			}
 		});
-		btnAddGeneral.setBounds(418, 60, 99, 27);
+		btnAddGeneral.setBounds(418, 60, 123, 27);
 		buyPanel.add(btnAddGeneral);
 		
 		JButton btnAddAdvanced = new JButton("addAdvanced");
@@ -270,7 +267,7 @@ public class ShopScreen extends JFrame {
 				
 			}
 		});
-		btnAddCabbageSeed.setBounds(418, 259, 123, 27);
+		btnAddCabbageSeed.setBounds(404, 259, 145, 27);
 		buyPanel.add(btnAddCabbageSeed);
 		
 		JButton btnAddFertilizer = new JButton("addFertilizer");
