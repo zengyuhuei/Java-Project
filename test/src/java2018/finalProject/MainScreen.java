@@ -2,7 +2,9 @@ package java2018.finalProject;
 
 
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,7 +35,10 @@ public class MainScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 661, 522);
 		contentPane = new JPanel();
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setSize(screen.width * 7 / 8, screen.height * 7 / 8);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -56,7 +61,7 @@ public class MainScreen extends JFrame {
 				
 			}
 		});
-		btnShop.setBounds(5, 319, 144, 151);
+		btnShop.setBounds(14, 13, 144, 151);
 		contentPane.add(btnShop);
 		
 		JButton btnNewWareHouse = new JButton("倉庫");
@@ -78,7 +83,7 @@ public class MainScreen extends JFrame {
 				
 			}
 		});
-		btnNewWareHouse.setBounds(345, 80, 137, 141);
+		btnNewWareHouse.setBounds(24, 177, 137, 141);
 		contentPane.add(btnNewWareHouse);
 		
 		JButton btnFarm = new JButton("農場");
@@ -100,7 +105,7 @@ public class MainScreen extends JFrame {
 				
 			}
 		});
-		btnFarm.setBounds(146, 110, 144, 141);
+		btnFarm.setBounds(172, 18, 144, 141);
 		contentPane.add(btnFarm);
 		
 		JButton btnDude = new JButton("牧場");
@@ -122,7 +127,11 @@ public class MainScreen extends JFrame {
 				
 			}
 		});
-		btnDude.setBounds(228, 298, 160, 141);
+		btnDude.setBounds(182, 177, 144, 141);
 		contentPane.add(btnDude);
+		
+		JButton btnNewButton = new JButton("魚池");
+		btnNewButton.setBounds(345, 18, 137, 141);
+		contentPane.add(btnNewButton);
 	}
 }
