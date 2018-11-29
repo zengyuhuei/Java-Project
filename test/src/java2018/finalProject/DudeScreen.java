@@ -24,6 +24,7 @@ public class DudeScreen {
 
 	  public DudeScreen() 
 	  {
+		 
 	    JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);
 	    f=new JFrame("JButton1");
