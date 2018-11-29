@@ -2,7 +2,9 @@ package java2018.finalProject;
 
 
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,9 +33,11 @@ public class MainScreen extends JFrame {
 	public MainScreen(WareHouse warehouse) {
 		this.warehouse = warehouse;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 661, 522);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setSize(screen.width * 7 / 8, screen.height * 7 / 8);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		

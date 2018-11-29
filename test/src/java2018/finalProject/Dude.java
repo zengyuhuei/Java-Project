@@ -38,7 +38,7 @@ public class Dude {
 			{
 				pondLand.add(animal);
 				num++;
-				house.removeYoungAnimal (animal);
+				house.removeYoungAnimal (animal.getName());
 				return true;
 			}
 			else
@@ -62,7 +62,7 @@ public class Dude {
 			{
 				pondLand.add(animal);
 				num++;
-				house.removeYoungAnimal (animal);
+				house.removeYoungAnimal (animal.getName());
 				return true;
 			}
 			else
@@ -86,7 +86,7 @@ public class Dude {
 			{
 				pondLand.add(animal);
 				num++;
-				house.removeYoungAnimal (animal);
+				house.removeYoungAnimal (animal.getName());
 				return true;
 			}
 			else

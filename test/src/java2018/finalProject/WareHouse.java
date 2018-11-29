@@ -203,7 +203,7 @@ public class WareHouse {
 			if(feed.getName() == name)
 			{
 				feedList.remove(feed);
-
+				return true;
 			}
 		}
 		

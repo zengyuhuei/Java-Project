@@ -100,7 +100,7 @@ public class DudeScreen {
 	        }
 	    });
 	    
-	   /* JButton b5 = new JButton("餵食");
+	    JButton b5 = new JButton("餵食");
 	    b5.setBounds(90,20,60,25);  //自行決定元件位置與大小
 	    cp.add(b5);
 	    b5.addActionListener(new ActionListener() {
@@ -163,7 +163,7 @@ public class DudeScreen {
 	        	System.out.println("牧場目前動物數量  ouo");
 	        }
 	    });
-	    */
+	    
 	    b11.setBounds(250,20,60,25);  //自行決定元件位置與大小
 	    cp.add(b11);
 
@@ -192,7 +192,7 @@ public class DudeScreen {
 	        }
 	    });
 	    
-	    /*JButton b14 = new JButton("4");
+	    JButton b14 = new JButton("4");
 	    b14.setBounds(250,110,60,25);  //自行決定元件位置與大小
 	    cp.add(b14);
 	    b14.addActionListener(new ActionListener() {
@@ -270,7 +270,7 @@ public class DudeScreen {
 	        }
 	    });
 	    //System.out.println("ouo??");
-	    */
+	    
 	    
 	    f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	    f.addWindowListener(new WindowAdapter()
@@ -289,8 +289,10 @@ public class DudeScreen {
 	      }    
 	    });
 	  }
+	  
 	  public static void reload(Dude dude, JButton b)
 	  {
+		 
 	  	    if(dude.getNum()<dude.getNum()+1)
 	  	    {
 	  	    	b.setEnabled(false);
