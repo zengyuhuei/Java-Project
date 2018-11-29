@@ -20,7 +20,7 @@ public class WareHouse {
 	
 	public WareHouse()
 	{
-		this.holdMoney = 1000;
+		this.holdMoney = 50;
 		this.fertilizerNumber = 0;
 		
 		
@@ -80,9 +80,14 @@ public class WareHouse {
 	{ 
 		try
 	    {
-			cropList.add(crop);
+			if(crop.getGrowingRate() == isMatured)
+			{
+				cropList.add(crop);
+				
+			}
 			return true;
-	    }catch(Exception e)
+	    }
+		catch(Exception e)
 	    {
 	        System.out.println(e.getMessage());
 	        return false;
@@ -91,21 +96,20 @@ public class WareHouse {
 	}
 	
 	//(call by shop) remove the crop from the list.If success, return true, or return false
-	public boolean removeCrop (Crop crop) 
+	public boolean removeCrop (String name) 
 	{
-		if(crop.getGrowingRate() == isMatured)
+		
+		for(Crop cp :cropList)
 		{
-			for(Crop cp :cropList)
+			if(cp.getName() == name)
 			{
-				if(cp.equals(crop))
-				{
-					cropList.remove(cp);
-					return true;
-	
-				}
-				
+				cropList.remove(cp);
+				return true;
+
 			}
+			
 		}
+		
 		return false;
 		
 	}
@@ -125,19 +129,18 @@ public class WareHouse {
 		
 	}
 	//(call by farm) remove the seed from the list.If success, return true, or return false
-	public boolean removeSeed(Crop crop) 
+	public boolean removeSeed(String name) 
 	{
-		if(crop.getGrowingRate() == unMatured)
-		{
+		
 			for(Crop cp :cropSeedList)
 			{
-				if(cp.equals(crop))
+				if(cp.getName() == name)
 				{
 					cropSeedList.remove(cp);
 					return true;
 				}
 			}
-		}
+		
 		return false;
 	}
 	
@@ -192,14 +195,14 @@ public class WareHouse {
 	}
 	
 	//(call by pond) remove feed to the list. If success, return true, or return false
-	public boolean removeFeed (Feed fd)
+	public boolean removeFeed (String name)
 	{
 		
 		for(Feed feed :feedList)
 		{
-			if(feed.equals(fd))
+			if(feed.getName() == name)
 			{
-				youngAnimalList.remove(feed);
+				feedList.remove(feed);
 
 			}
 		}
@@ -238,22 +241,21 @@ public class WareHouse {
 		
 	}
 	
-	//(call by pond) remove young animal to the list. If success, return true, or return false
-	public boolean removeYoungAnimal (Animal animal) 
+	//(call by Dude) remove young animal to the list. If success, return true, or return false
+	public boolean removeYoungAnimal (String name) 
 	{
-		if(animal.getGrowingRate() == unMatured)
-		{
+		
 			for(Animal an :youngAnimalList)
 			{
 				
-				if(an.equals(animal))
+				if(an.getName() == name)
 				{
 					youngAnimalList.remove(an);
 					return true;
 
 				}
 			}
-		}
+		
 		return false;
 	}
 	
@@ -263,7 +265,10 @@ public class WareHouse {
 		
 		try
 	    {
-			AnimalList.add(animal);
+			if(animal.getGrowingRate() == isMatured)
+			{
+				AnimalList.add(animal);
+			}
 			return true;
 	    }catch(Exception e)
 	    {
@@ -274,21 +279,21 @@ public class WareHouse {
 	}
 	
 	//(call by shop) remove animal to the list. If success, return true, or return false
-	public boolean removeAnimal (Animal o) 
+	public boolean removeAnimal (String name) 
 	{
-		if(o.getGrowingRate() == isMatured)
+		
+			
+		for(Animal an :AnimalList)
 		{
 			
-			for(Animal an :AnimalList)
+			if(an.getName() == name)
 			{
-				
-				if(an.equals(o))
-				{
-					AnimalList.remove(an);
-	
-				}
+				AnimalList.remove(an);
+				return true;
+
 			}
 		}
+		
 		return false;
 	}
 	//get the number of young cow

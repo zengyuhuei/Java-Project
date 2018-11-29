@@ -9,10 +9,10 @@ public class FeedTest {
 
 	public static void main(String[] args) {
 		ArrayList<Feed> feed = new ArrayList<Feed>();
-		feed.add(new SimpleSeed());
-		feed.add(new GeneralSeed());
-		feed.add(new AdvancedSeed());
-		feed.add(new SimpleSeed());
+		feed.add(new SimpleFeed());
+		feed.add(new GeneralFeed());
+		feed.add(new AdvancedFeed());
+		feed.add(new SimpleFeed());
 		
 		int a = 0;
 		for(Feed fd: feed)

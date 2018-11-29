@@ -29,6 +29,7 @@ public class WareHouseTest {
 		e.setGrowingRate();
 		pig.setGrowingRate();
 		
+		
 		wareHouse.addAnimal(a);
 		wareHouse.addAnimal(c);
 		wareHouse.addAnimal(b);
@@ -65,12 +66,16 @@ public class WareHouseTest {
 			}
 		});
 		
+
 		System.out.println(wareHouse.getChickenNumber());
+	
+		
 		System.out.println(wareHouse.getPigNumber());
 		System.out.println(wareHouse.getCowNumber());
 		System.out.println(wareHouse.getWheatNumber());
 		System.out.println(wareHouse.getCornNumber());
 		System.out.println(wareHouse.getCabbageNumber());
+		
 		//System.out.println(wareHouse.getGeneralFeedNumber());
 		//System.out.println(wareHouse.getSimpleFeedNumber());
 		//System.out.println(wareHouse.getSimpleFeedNumber());
@@ -78,6 +83,8 @@ public class WareHouseTest {
 		//System.out.println(wareHouse.getCabbageNumber());
 		//System.out.println(wareHouse.getCornNumber());
 		//System.out.println(wareHouse.getWheatNumber());
+		
+		
 	}
 
 }

@@ -41,8 +41,10 @@ public abstract class Crop
 	//借我測試 你們之後再改
 	public void setGrowingRate()
 	{
-		growingRate = 0;
+		growingRate = 100;
 	}
+	
+	
 	
 	//替植物澆水，將植物的growingRate增加3，更新lastWaterDate，若成功return 1，失敗return 0
 	public boolean water()
