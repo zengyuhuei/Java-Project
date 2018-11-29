@@ -48,7 +48,7 @@ public class DudeScreen {
 	    JButton b12 = new JButton("2");
 	    JButton b13 = new JButton("3");
 	    
-	    b1.setBounds(20,20,60,25);  //自行決定元件位置與大小   (x, y, 橫, 直
+	    b1.setBounds(20,20,60,25);  //自行決定元件位置與大小   (x, y, 橫, 直)
 	    cp.add(b1);
 	    b1.addActionListener(new ActionListener() {
 	        @Override
