@@ -32,13 +32,19 @@ public class AnimalTest {
 		}
 		
 		//System.out.println(a);*/
+		
 		//Feed feed1=new SimpleSeed();
 		//Feed feed2=new GeneralSeed();
 		//Feed feed3=new AdvancedSeed();
+
+		Feed feed2=new GeneralFeed();
+		Feed feed3=new AdvancedFeed();
 		Animal cow = new Cow();
 		Animal pig = new Pig();
 		Animal chicken = new Chicken();
-		
+		Animal aa = new Chicken();
+		Animal cc
+		= new Chicken();
 		Animal a = new Cow();
 		Animal b = new Chicken();
 		Animal c = new Cow();
@@ -49,6 +55,10 @@ public class AnimalTest {
 		//Feed g = new SimpleSeed();
 		//Feed h = new AdvancedSeed();
 		//Feed i = new SimpleSeed();
+		Feed j = new GeneralFeed();
+		Feed g = new SimpleFeed();
+		Feed h = new AdvancedFeed();
+		Feed i = new SimpleFeed();
 		
 		Crop k = new Corn();
 		Crop m = new Corn();
@@ -60,6 +70,8 @@ public class AnimalTest {
 		wareHouse.addAnimal(c);
 		wareHouse.addYoungAnimal(b);
 		wareHouse.addYoungAnimal(e);
+		wareHouse.addYoungAnimal(chicken);
+		wareHouse.addYoungAnimal(chicken);
 		wareHouse.addYoungAnimal(chicken);
 		
 		//wareHouse.addFeed(f);
@@ -75,20 +87,20 @@ public class AnimalTest {
 		wareHouse.addCrop(n); //wheat
 		wareHouse.addCrop(o); //cabbage
 		Dude dude = new Dude(wareHouse);
-		dude.startFeedChicken(chicken);
+		dude.startFeedChicken(cc);
 		//dude.startFeedPig(pig);
 		wareHouse.addCrop(o); //cabbage
-		/*chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);*/
+		
+		dude.startFeedChicken(chicken);
+		dude.startFeedChicken(aa);
+	
 		//dude.getPondLand();
-		System.out.printf("%d\n", dude.getNum());
-		dude.capturing(chicken);
-		System.out.printf("%d\n", dude.getNum());
-		System.out.println("ouo");
+		System.out.printf("%d\n", dude.getPondLand().get(0).getGrowingRate());
+		System.out.printf("%d\n", dude.getPondLand().get(1).getGrowingRate());
+		System.out.printf("%d\n", dude.getPondLand().get(2).getGrowingRate());
+		dude.getPondLand().get(0).feeding(j);
+		System.out.printf("%d\n", dude.getPondLand().get(0).getGrowingRate());
+		System.out.printf("%d\n", dude.getPondLand().get(1).getGrowingRate());
+		System.out.printf("%d\n", dude.getPondLand().get(2).getGrowingRate());
 	}
 }
