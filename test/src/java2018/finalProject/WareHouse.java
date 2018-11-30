@@ -243,21 +243,21 @@ public class WareHouse {
 	
 	//(call by Dude) remove young animal to the list. If success, return true, or return false
 	public boolean removeYoungAnimal (String name) 
-	{
-		
-			for(Animal an :youngAnimalList)
-			{
-				
-				if(an.getName() == name)
-				{
-					youngAnimalList.remove(an);
-					return true;
+	 {
+	  
+	   for(Animal an :youngAnimalList)
+	   {
+	    
+	    if(an.getName() == name)
+	    {
+	     youngAnimalList.remove(an);
+	     return true;
 
-				}
-			}
-		
-		return false;
-	}
+	    }
+	   }
+	  
+	  return false;
+	 }
 	
 	//(call by pond) add animal to the list. If success, return true, or return false
 	public boolean addAnimal (Animal animal) 

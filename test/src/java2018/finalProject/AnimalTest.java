@@ -32,9 +32,9 @@ public class AnimalTest {
 		}
 		
 		//System.out.println(a);*/
-		Feed feed1=new SimpleSeed();
-		Feed feed2=new GeneralSeed();
-		Feed feed3=new AdvancedSeed();
+		//Feed feed1=new SimpleSeed();
+		//Feed feed2=new GeneralSeed();
+		//Feed feed3=new AdvancedSeed();
 		Animal cow = new Cow();
 		Animal pig = new Pig();
 		Animal chicken = new Chicken();
@@ -44,11 +44,11 @@ public class AnimalTest {
 		Animal c = new Cow();
 		Animal e = new Chicken();
 		
-		Feed f = new SimpleSeed();
-		Feed j = new GeneralSeed();
-		Feed g = new SimpleSeed();
-		Feed h = new AdvancedSeed();
-		Feed i = new SimpleSeed();
+		//Feed f = new SimpleSeed();
+		//Feed j = new GeneralSeed();
+		//Feed g = new SimpleSeed();
+		//Feed h = new AdvancedSeed();
+		//Feed i = new SimpleSeed();
 		
 		Crop k = new Corn();
 		Crop m = new Corn();
@@ -62,11 +62,11 @@ public class AnimalTest {
 		wareHouse.addYoungAnimal(e);
 		wareHouse.addYoungAnimal(chicken);
 		
-		wareHouse.addFeed(f);
-		wareHouse.addFeed(g);
-		wareHouse.addFeed(h);
-		wareHouse.addFeed(i);
-		wareHouse.addFeed(j);
+		//wareHouse.addFeed(f);
+		//wareHouse.addFeed(g);
+		//wareHouse.addFeed(h);
+		//wareHouse.addFeed(i);
+		//wareHouse.addFeed(j);
 		
 		n.setGrowingRate();
 		o.setGrowingRate();
@@ -78,13 +78,13 @@ public class AnimalTest {
 		dude.startFeedChicken(chicken);
 		//dude.startFeedPig(pig);
 		wareHouse.addCrop(o); //cabbage
+		/*chicken.feeding(feed3);
 		chicken.feeding(feed3);
 		chicken.feeding(feed3);
 		chicken.feeding(feed3);
 		chicken.feeding(feed3);
 		chicken.feeding(feed3);
-		chicken.feeding(feed3);
-		chicken.feeding(feed3);
+		chicken.feeding(feed3);*/
 		//dude.getPondLand();
 		System.out.printf("%d\n", dude.getNum());
 		dude.capturing(chicken);
