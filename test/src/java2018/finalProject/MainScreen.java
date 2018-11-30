@@ -21,6 +21,8 @@ public class MainScreen extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private WareHouse warehouse;
+	private WareHouseScreen whscreen;
+	private ShopScreen spscreen; 
 
 	/**
 	 * Launch the application.
@@ -50,9 +52,9 @@ public class MainScreen extends JFrame {
 					public void run() {
 						try {
 							
-							ShopScreen frame = new ShopScreen(warehouse);
+							spscreen= new ShopScreen(warehouse);
 						
-							frame.setVisible(true);
+							spscreen.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -72,9 +74,9 @@ public class MainScreen extends JFrame {
 					public void run() {
 						try {
 							
-							WareHouseScreen frame = new WareHouseScreen(warehouse);
+							whscreen = new WareHouseScreen(warehouse);
 						
-							frame.setVisible(true);
+							whscreen.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -93,7 +95,7 @@ public class MainScreen extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							
+							//把它設成private variable
 							//WareHouseScreen frame = new WareHouseScreen(warehouse);
 						
 							//frame.setVisible(true);
@@ -115,7 +117,7 @@ public class MainScreen extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							
+							//把它設成private variable
 							//WareHouseScreen frame = new WareHouseScreen(warehouse);
 						
 							//frame.setVisible(true);
