@@ -129,7 +129,7 @@ public abstract class Animal extends Object {
 	public boolean makeDelay()
 	{
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
