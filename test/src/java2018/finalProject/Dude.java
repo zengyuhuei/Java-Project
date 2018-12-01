@@ -13,12 +13,12 @@ public class Dude {
 		return  pondLand;
      	
      }
-	 public boolean capturing(Animal animal)
+	 public boolean capturing(int number)
 	 {
-		 if(animal.getGrowingRate()==100)
+		 if(pondLand.get(number-1).getGrowingRate()==100)
 		 {
-			 house.addAnimal(animal);
-			 pondLand.remove(animal);
+			 house.addAnimal(pondLand.get(number-1));
+			 pondLand.remove(number-1);
 			 num--;
 			 return true;
 		 }
