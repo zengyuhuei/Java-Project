@@ -21,11 +21,35 @@ public class FarmScreenTest extends JFrame {
 
 	private JPanel contentPane;
 	private final Action action = new SwingAction();
-	ArrayList<Crop> crop = new ArrayList<Crop>(12);
-	int[] storeCropArray = new int[12];
-	int count = 0;
+	//private ArrayList<Crop> crop = new ArrayList<Crop>(12);
+	//private int[] storeCropArray = new int[12];
+	private int count = 0;
+	private int landNum = -1;
+	WareHouse wareHouse = new WareHouse();
+	Farm farm = new Farm(wareHouse);
+	
+	
 	JButton btn = new JButton();   //測試用button 不會出現
-
+	JButton waterButton = new JButton("澆水");
+	JButton fertilizeButton = new JButton("施肥");
+	JButton sowingButton = new JButton("播種");
+	JButton harvestButton = new JButton("收割");
+	JButton cornButton = new JButton("玉米");
+	JButton wheatButton = new JButton("小麥");
+	JButton cabbageButton = new JButton("高麗菜");
+	JButton btnNewButton = new JButton("Land0");
+	JButton button = new JButton("Land4");
+	JButton button_1 = new JButton("Land8");
+	JButton button_2 = new JButton("Land1");
+	JButton button_3 = new JButton("Land5");
+	JButton button_4 = new JButton("Land9");
+	JButton button_5 = new JButton("Land2");
+	JButton button_6 = new JButton("Land6");
+	JButton button_7 = new JButton("Land10");
+	JButton button_8 = new JButton("Land3");
+	JButton button_9 = new JButton("Land7");
+	JButton button_10 = new JButton("Land11");
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,9 +67,73 @@ public class FarmScreenTest extends JFrame {
 
 	}
 	
+	
+	public void LandButton()
+	{
+		fertilizeButton.setVisible(true);
+		harvestButton.setVisible(true);
+		sowingButton.setVisible(true);
+		waterButton.setVisible(true);
+		if(farm.getStoreCropNum(landNum) == -1)
+		{
+			System.out.println("一無所有的土地ouq");
+			fertilizeButton.setEnabled(false);
+			harvestButton.setEnabled(false);
+			sowingButton.setEnabled(true);
+			waterButton.setEnabled(false);
+		}
+		else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
+		{
+			System.out.println("該宰了他了 =u=");
+			fertilizeButton.setEnabled(false);
+			harvestButton.setEnabled(true);
+			sowingButton.setEnabled(false);
+			waterButton.setEnabled(false);
+		}
+		else
+		{
+			System.out.println("這裡種"+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed());
+			System.out.println("GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+			if(wareHouse.getFertilizer() == 0)
+				fertilizeButton.setEnabled(false);
+			else
+				fertilizeButton.setEnabled(true);
+			harvestButton.setEnabled(false);
+			sowingButton.setEnabled(false);
+			waterButton.setEnabled(true);
+		}
+	}
+	
 	public FarmScreenTest() {
-		for(int i = 0; i < 12; i++)
-			storeCropArray[i] = -1;
+		
+		Crop corn1 = new Corn();
+		wareHouse.addSeed(corn1);
+		
+		Crop corn2 = new Corn();
+		Crop corn3 = new Corn();
+		Crop corn4 = new Corn();
+		Crop corn5 = new Corn();
+		Crop wheat1 = new Wheat();
+		Crop wheat2 = new Wheat();
+		Crop cabbage1 = new Cabbage();
+		Crop cabbage2 = new Cabbage();
+		Crop cabbage3 = new Cabbage();
+		
+		wareHouse.addSeed(corn2);
+		/*wareHouse.addSeed(corn3);
+		wareHouse.addSeed(corn4);
+		wareHouse.addSeed(corn5);
+		wareHouse.addSeed(wheat1);
+		wareHouse.addSeed(wheat2);
+		wareHouse.addSeed(cabbage1);
+		wareHouse.addSeed(cabbage2);
+		wareHouse.addSeed(cabbage3);
+		*/
+		
+		wareHouse.editFertilizer(10);
+		
+		farm.setStoreCropNum();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 778, 589);
 		contentPane = new JPanel();
@@ -53,544 +141,298 @@ public class FarmScreenTest extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton waterButton = new JButton("澆水");
+
+		//澆水button
 		waterButton.setBounds(589, 69, 111, 31);
 		waterButton.setVisible(false);
 		contentPane.add(waterButton);
-		
-		JButton fertilizeButton = new JButton("施肥");
+		waterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).water();
+				System.out.println("澆水後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
+				{
+					fertilizeButton.setEnabled(false);
+					harvestButton.setEnabled(true);
+					sowingButton.setEnabled(false);
+					waterButton.setEnabled(false);
+				}
+			}
+		});
+
+		//施肥button
 		fertilizeButton.setBounds(589, 120, 111, 31);
 		fertilizeButton.setVisible(false);
 		contentPane.add(fertilizeButton);
+		if(wareHouse.getFertilizer() == 0)
+			fertilizeButton.setEnabled(false);
+		else
+			fertilizeButton.setEnabled(true);
+		fertilizeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).fertilize();
+				System.out.println("施肥後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				wareHouse.editFertilizer(-1);
+				
+				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
+				{
+					fertilizeButton.setEnabled(false);
+					harvestButton.setEnabled(true);
+					sowingButton.setEnabled(false);
+					waterButton.setEnabled(false);
+				}
+			}
+		});
 		
-		JButton sowingButton = new JButton("播種");
+
+		//播種button
 		sowingButton.setBounds(589, 171, 111, 31);
 		sowingButton.setVisible(false);
 		contentPane.add(sowingButton);
-		
-		JButton harvestButton = new JButton("收割");
+		sowingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cornButton.setVisible(true);
+				wheatButton.setVisible(true);
+				cabbageButton.setVisible(true);
+				if(wareHouse.getCornSeedNumber() == 0)
+					cornButton.setEnabled(false);
+				if(wareHouse.getWheatSeedNumber() == 0)
+					wheatButton.setEnabled(false);
+				if(wareHouse.getCabbageSeedNumber() == 0)
+					cabbageButton.setEnabled(false);
+			cornButton.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		        	if(farm.getStoreCropNum(landNum)== -1)
+		        	{
+			        	farm.sowingCorn(landNum);
+			        	
+		    			wareHouse.removeSeed("玉米");
+		    			cornButton.setVisible(false);
+						wheatButton.setVisible(false);
+						cabbageButton.setVisible(false);
+						sowingButton.setEnabled(false);
+						waterButton.setEnabled(true);
+						if(wareHouse.getFertilizer() == 0)
+							fertilizeButton.setEnabled(false);
+						else
+							fertilizeButton.setEnabled(true);
+		        	}
+		        }
+		    });
+			
+			
+			wheatButton.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		        	if(farm.getStoreCropNum(landNum) == -1)
+		        	{
+		        		farm.sowingWheat(landNum);
+		        		
+		    			wareHouse.removeSeed("小麥");
+		    			cornButton.setVisible(false);
+						wheatButton.setVisible(false);
+						cabbageButton.setVisible(false);
+						sowingButton.setEnabled(false);
+						waterButton.setEnabled(true);
+						if(wareHouse.getFertilizer() == 0)
+							fertilizeButton.setEnabled(false);
+						else
+							fertilizeButton.setEnabled(true);
+		        	}
+		        	
+		        }
+		    });
+			
+			
+			cabbageButton.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		        	if(farm.getStoreCropNum(landNum) == -1)
+		        	{
+			        	farm.sowingCabbage(landNum);
+			        	
+		    			wareHouse.removeSeed("高麗菜");
+		    			cornButton.setVisible(false);
+						wheatButton.setVisible(false);
+						cabbageButton.setVisible(false);
+						sowingButton.setEnabled(false);
+						waterButton.setEnabled(true);
+						if(wareHouse.getFertilizer() == 0)
+							fertilizeButton.setEnabled(false);
+						else
+							fertilizeButton.setEnabled(true);
+		        	}
+		        	
+		        }
+		    });
+			
+		}
+	});
+				
+	
+		//收割button
 		harvestButton.setBounds(589, 18, 111, 31);
 		harvestButton.setVisible(false);
 		contentPane.add(harvestButton);
+		harvestButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
+				{
+					farm.harvest(landNum);
+					
+					fertilizeButton.setEnabled(false);
+					harvestButton.setEnabled(false);
+					sowingButton.setEnabled(true);
+					waterButton.setEnabled(false);	
+				}
+			}
+		});
 		
-		JButton cornButton = new JButton("玉米");
+		
+		
 		cornButton.setBounds(529, 171, 46, 31);
 		cornButton.setVisible(false);
 		contentPane.add(cornButton);
 		
-		JButton wheatButton = new JButton("小麥");
+		
 		wheatButton.setBounds(469, 171, 46, 31);
 		wheatButton.setVisible(false);
 		contentPane.add(wheatButton);
 		
-		JButton cabbageButton = new JButton("高麗菜");
+		
 		cabbageButton.setBounds(409, 171, 46, 36);
 		cabbageButton.setVisible(false);
 		contentPane.add(cabbageButton);
 		
-		
-		JButton btnNewButton = new JButton("Land11");
+		//Land0
 		btnNewButton.setAction(action);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btn = (JButton) e.getSource();
-				
-				//施肥button
-				fertilizeButton.setVisible(true);
-				if(storeCropArray[0] == -1)
-					fertilizeButton.setEnabled(false);
-				else
-				{
-					fertilizeButton.setEnabled(true);
-					fertilizeButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == btnNewButton)
-							{
-								crop.get(storeCropArray[0]).fertilize();
-								System.out.println("GrowingRate1 = "+crop.get(storeCropArray[0]).getGrowingRate());
-						
-							}
-						}
-					});
-				}
-				
-				//澆水button
-				waterButton.setVisible(true);
-				
-				
-				if(storeCropArray[0] == -1)
-					waterButton.setEnabled(false);
-				else
-				{
-					waterButton.setEnabled(true);
-					waterButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == btnNewButton)
-							{
-								crop.get(storeCropArray[0]).water();
-								System.out.println("GrowingRate1 = "+crop.get(storeCropArray[0]).getGrowingRate());
-							}
-						}
-					});
-				}
-				
-				
-				//播種button
-				sowingButton.setVisible(true);
-				if(storeCropArray[0] != -1)
-					sowingButton.setEnabled(false);
-				else 
-				{
-					sowingButton.setEnabled(true);
-					sowingButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						cornButton.setVisible(true);
-						wheatButton.setVisible(true);
-						cabbageButton.setVisible(true);
-						cornButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[0] == -1)
-					        	{
-						        	storeCropArray[0] = count;
-					    			crop.add(count,new Corn());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouo|");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-									
-					        	}
-					        }
-					    });
-						
-						
-						wheatButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[0] == -1)
-					        	{
-					        		storeCropArray[0] = count;
-					    			crop.add(count,new Wheat());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouo||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        	
-					        }
-					    });
-						
-						
-						cabbageButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[0] == -1)
-					        	{
-						        	storeCropArray[0] = count;
-					    			crop.add(count,new Cabbage());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouo|||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        	
-					        }
-					    });
-						
-					}
-				});
-				}
-				
-				
-				//收割button
-				harvestButton.setVisible(true);
-				if(storeCropArray[0] == -1)
-					harvestButton.setEnabled(false);
-				else
-				{
-					harvestButton.setEnabled(true);
-					harvestButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							
-							
-						}
-					});
-				}
-				
-				
+				landNum = 0;
+				LandButton();
 			}
 		});
 		btnNewButton.setBounds(15, 15, 111, 36);
 		contentPane.add(btnNewButton);
 		
-		JButton button = new JButton("Land21");
+		//Land4
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btn = (JButton) e.getSource();
-				
-				//施肥button
-				fertilizeButton.setVisible(true);
-				if(storeCropArray[4] == -1)
-					fertilizeButton.setEnabled(false);
-				else
-				{
-					fertilizeButton.setEnabled(true);
-					fertilizeButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == button)
-							{
-								crop.get(storeCropArray[4]).fertilize();
-								System.out.println("GrowingRate2 = "+crop.get(storeCropArray[4]).getGrowingRate());
-							}
-						}
-					});
-				}
-				
-				//澆水button
-				waterButton.setVisible(true);
-				if(storeCropArray[4] == -1)
-					waterButton.setEnabled(false);
-				else
-				{
-					waterButton.setEnabled(true);
-					waterButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == button)
-							{
-								crop.get(storeCropArray[4]).water();
-								System.out.println("GrowingRate2 = "+crop.get(storeCropArray[4]).getGrowingRate());
-							
-							}
-						}
-					});
-				}
-				
-				
-				//播種button
-				sowingButton.setVisible(true);
-				if(storeCropArray[4] != -1)
-					sowingButton.setEnabled(false);
-				else 
-				{
-					sowingButton.setEnabled(true);
-					sowingButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						cornButton.setVisible(true);
-						wheatButton.setVisible(true);
-						cabbageButton.setVisible(true);
-						cornButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[4] == -1)
-					        	{
-						        	storeCropArray[4] = count;
-					    			crop.add(count,new Corn());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouq|");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        }
-					    });
-						
-						
-						wheatButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[4] == -1)
-					        	{
-						        	storeCropArray[4] = count;
-					    			crop.add(count,new Wheat());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouq||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        }
-					    });
-						
-						
-						cabbageButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[4] == -1)
-					        	{
-						        	storeCropArray[4] = count;
-					    			crop.add(count,new Cabbage());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"ouq|||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        }
-					    });
-						
-					}
-				});
-				}
-				
-				
-				//收割button
-				harvestButton.setVisible(true);
-				if(storeCropArray[4] == -1)
-					harvestButton.setEnabled(false);
-				else
-				{
-					harvestButton.setEnabled(true);
-					harvestButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							
-							
-						}
-					});
-				}
-				
-				
+				landNum = 4;
+				LandButton();
 			}
 		});
 		button.setAction(action);
 		button.setBounds(15, 66, 111, 36);
 		contentPane.add(button);
 		
-		JButton button_1 = new JButton("Land31");
+		//Land8
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btn = (JButton) e.getSource();
-				
-				//施肥button
-				fertilizeButton.setVisible(true);
-				if(storeCropArray[8] == -1)
-					fertilizeButton.setEnabled(false);
-				else
-				{
-					fertilizeButton.setEnabled(true);
-					fertilizeButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == button_1)
-							{
-								crop.get(storeCropArray[8]).fertilize();
-								System.out.println("GrowingRate3 = "+crop.get(storeCropArray[8]).getGrowingRate());
-							}
-							
-						}
-					});
-				}
-				
-				//澆水button
-				waterButton.setVisible(true);
-				if(storeCropArray[8] == -1)
-					waterButton.setEnabled(false);
-				else
-				{
-					waterButton.setEnabled(true);
-					waterButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							if(btn == button_1)
-							{
-								crop.get(storeCropArray[8]).water();
-								System.out.println("GrowingRate3 = "+crop.get(storeCropArray[8]).getGrowingRate());
-							}
-						}
-					});
-				}
-				
-				
-				//播種button
-				sowingButton.setVisible(true);
-				if(storeCropArray[8] != -1)
-					sowingButton.setEnabled(false);
-				else 
-				{
-					sowingButton.setEnabled(true);
-					sowingButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						cornButton.setVisible(true);
-						wheatButton.setVisible(true);
-						cabbageButton.setVisible(true);
-						cornButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[8] == -1)
-					        	{
-						        	storeCropArray[8] = count;
-					    			crop.add(count,new Corn());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"quq|");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        	
-					        }
-					    });
-						
-						
-						wheatButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[8] == -1)
-					        	{
-						        	storeCropArray[8] = count;
-					    			crop.add(count,new Wheat());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"quq||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        }
-					    });
-						
-						
-						cabbageButton.addActionListener(new ActionListener() {
-					        public void actionPerformed(ActionEvent e) {
-					        	if(storeCropArray[8] == -1)
-					        	{
-						        	storeCropArray[8] = count;
-					    			crop.add(count,new Cabbage());
-					    			String cropName;
-					    			cropName = crop.get(count).pickSeed();
-					    			System.out.println(count+"你按了"+cropName+"quq|||");
-					    			crop.get(count).setGrowingRate();
-					    			count++;
-					    			cornButton.setVisible(false);
-									wheatButton.setVisible(false);
-									cabbageButton.setVisible(false);
-									sowingButton.setEnabled(false);
-									fertilizeButton.setEnabled(true);
-									waterButton.setEnabled(true);
-					        	}
-					        }
-					        
-					    });
-						
-					}
-				});
-				}
-				
-				
-				//收割button
-				harvestButton.setVisible(true);
-				if(storeCropArray[8] == -1)
-					harvestButton.setEnabled(false);
-				else
-				{
-					harvestButton.setEnabled(true);
-					harvestButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							
-							
-						}
-					});
-				}
-				
-				
+				landNum = 8;
+				LandButton();
 			}
 		});
 		button_1.setAction(action);
 		button_1.setBounds(15, 117, 111, 36);
 		contentPane.add(button_1);
 		
-		/*JButton button_2 = new JButton("Land41");
-		button_2.addActionListener(new Listener(1));
+		//Land1
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 1;
+				LandButton();
+			}
+		});
 		button_2.setAction(action);
 		button_2.setBounds(15, 168, 111, 36);
 		contentPane.add(button_2);
 		
-		JButton button_3 = new JButton("Land12");
-		button_3.addActionListener(new Listener(5));
+		//Land5
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 5;
+				LandButton();
+			}
+		});
 		button_3.setAction(action);
 		button_3.setBounds(141, 18, 111, 36);
 		contentPane.add(button_3);
 		
-		
-		JButton button_4 = new JButton("Land22");
-		button_4.addActionListener(new Listener(9));
+		//Land9
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 9;
+				LandButton();
+			}
+		});
 		button_4.setAction(action);
 		button_4.setBounds(141, 69, 111, 36);
 		contentPane.add(button_4);
 		
-		JButton button_5 = new JButton("Land32");
-		button_5.addActionListener(new Listener(2));
+		//Land2
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 2;
+				LandButton();
+			}
+		});
 		button_5.setAction(action);
 		button_5.setBounds(141, 120, 111, 36);
 		contentPane.add(button_5);
 		
-		JButton button_6 = new JButton("Land42");
-		button_6.addActionListener(new Listener(6));
+		//Land6
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 6;
+				LandButton();
+			}
+		});
 		button_6.setAction(action);
 		button_6.setBounds(141, 171, 111, 36);
 		contentPane.add(button_6);
 		
-		JButton button_7 = new JButton("Land13");
-		button_7.addActionListener(new Listener(10));
+		//Land10
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 10;
+				LandButton();
+			}
+		});
 		button_7.setAction(action);
 		button_7.setBounds(267, 18, 111, 36);
 		contentPane.add(button_7);
 		
-		JButton button_8 = new JButton("Land23");
-		button_8.addActionListener(new Listener(3));
+		//Land3
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 3;
+				LandButton();
+			}
+		});
 		button_8.setAction(action);
 		button_8.setBounds(267, 69, 111, 36);
 		contentPane.add(button_8);
 		
-		JButton button_9 = new JButton("Land33");
-		button_9.addActionListener(new Listener(7));
+		//Land7
+		button_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 7;
+				LandButton();
+			}
+		});
 		button_9.setAction(action);
 		button_9.setBounds(267, 120, 111, 36);
 		contentPane.add(button_9);
 		
-		JButton button_10 = new JButton("Land43");
-		button_10.addActionListener(new Listener(11));
+		//Land11
+		button_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 11;
+				LandButton();
+			}
+		});
 		button_10.setAction(action);
 		button_10.setBounds(267, 171, 111, 36);
-		contentPane.add(button_10);*/
+		contentPane.add(button_10);
 		
 	}
 	private class SwingAction extends AbstractAction {
