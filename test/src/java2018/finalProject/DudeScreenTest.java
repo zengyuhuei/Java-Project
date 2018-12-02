@@ -414,6 +414,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=1;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(0).getName());
 		        	if(dude.getPondLand().get(0).getGrowingRate()<100)
 		        	{
@@ -442,6 +445,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=2;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(1).getName());
 		        	if(dude.getPondLand().get(1).getGrowingRate()<100)
 		        	{
@@ -468,6 +474,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=3;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(2).getName());
 		        	if(dude.getPondLand().get(2).getGrowingRate()<100)
 		        	{
@@ -495,6 +504,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=4;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(3).getName());
 		        	if(dude.getPondLand().get(3).getGrowingRate()<100)
 		        	{
@@ -522,6 +534,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=5;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(4).getName());
 		        	if(dude.getPondLand().get(4).getGrowingRate()<100)
 		        	{
@@ -549,6 +564,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=6;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(5).getName());
 		        	if(dude.getPondLand().get(5).getGrowingRate()<100)
 		        	{
@@ -575,6 +593,9 @@ public class DudeScreenTest {
 		    b17.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	num=7;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(6).getName());
 		        	if(dude.getPondLand().get(6).getGrowingRate()<100)
@@ -603,6 +624,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=8;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(7).getName());
 		        	if(dude.getPondLand().get(7).getGrowingRate()<100)
 		        	{
@@ -629,6 +653,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=9;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(8).getName());
 		        	if(dude.getPondLand().get(8).getGrowingRate()<100)
 		        	{
@@ -655,6 +682,9 @@ public class DudeScreenTest {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	num=10;
+		        	b2.setVisible(false);
+	        		b3.setVisible(false);
+	        		b4.setVisible(false);
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(9).getName());
 		        	if(dude.getPondLand().get(9).getGrowingRate()<100)
 		        	{
@@ -705,6 +735,7 @@ public class DudeScreenTest {
 		    b9.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	
 		        	System.out.println("抓他阿笨蛋");
 		        	System.out.println(num);
 		        	dude.capturing(num);
@@ -712,7 +743,7 @@ public class DudeScreenTest {
 		        	System.out.printf("豬=%d\n",wareHouse.getPigNumber());
 		        	System.out.printf("雞=%d\n",wareHouse.getChickenNumber());
 		        	System.out.printf("牛=%d\n",wareHouse.getCowNumber());
-		        	
+		        	b9.setVisible(false);
 		        	
 		        }
 		    });
