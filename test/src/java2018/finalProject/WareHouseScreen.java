@@ -62,8 +62,6 @@ public class WareHouseScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 668);
 		contentPane = new JPanel();
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setSize(screen.width * 7 / 8, screen.height * 7 / 8);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLocationRelativeTo(null);
 		setContentPane(contentPane);

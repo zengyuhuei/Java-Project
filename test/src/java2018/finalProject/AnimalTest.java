@@ -32,7 +32,11 @@ public class AnimalTest {
 		}
 		
 		//System.out.println(a);*/
-		Feed feed1=new SimpleFeed();
+		
+		//Feed feed1=new SimpleSeed();
+		//Feed feed2=new GeneralSeed();
+		//Feed feed3=new AdvancedSeed();
+
 		Feed feed2=new GeneralFeed();
 		Feed feed3=new AdvancedFeed();
 		Animal cow = new Cow();
@@ -46,7 +50,11 @@ public class AnimalTest {
 		Animal c = new Cow();
 		Animal e = new Chicken();
 		
-		Feed f = new SimpleFeed();
+		//Feed f = new SimpleSeed();
+		//Feed j = new GeneralSeed();
+		//Feed g = new SimpleSeed();
+		//Feed h = new AdvancedSeed();
+		//Feed i = new SimpleSeed();
 		Feed j = new GeneralFeed();
 		Feed g = new SimpleFeed();
 		Feed h = new AdvancedFeed();
@@ -66,11 +74,11 @@ public class AnimalTest {
 		wareHouse.addYoungAnimal(chicken);
 		wareHouse.addYoungAnimal(chicken);
 		
-		wareHouse.addFeed(f);
-		wareHouse.addFeed(g);
-		wareHouse.addFeed(h);
-		wareHouse.addFeed(i);
-		wareHouse.addFeed(j);
+		//wareHouse.addFeed(f);
+		//wareHouse.addFeed(g);
+		//wareHouse.addFeed(h);
+		//wareHouse.addFeed(i);
+		//wareHouse.addFeed(j);
 		
 		n.setGrowingRate();
 		o.setGrowingRate();
@@ -82,6 +90,7 @@ public class AnimalTest {
 		dude.startFeedChicken(cc);
 		//dude.startFeedPig(pig);
 		wareHouse.addCrop(o); //cabbage
+		
 		dude.startFeedChicken(chicken);
 		dude.startFeedChicken(aa);
 	
@@ -89,7 +98,7 @@ public class AnimalTest {
 		System.out.printf("%d\n", dude.getPondLand().get(0).getGrowingRate());
 		System.out.printf("%d\n", dude.getPondLand().get(1).getGrowingRate());
 		System.out.printf("%d\n", dude.getPondLand().get(2).getGrowingRate());
-		dude.getPondLand().get(0).feeding(feed1);
+		dude.getPondLand().get(0).feeding(j);
 		System.out.printf("%d\n", dude.getPondLand().get(0).getGrowingRate());
 		System.out.printf("%d\n", dude.getPondLand().get(1).getGrowingRate());
 		System.out.printf("%d\n", dude.getPondLand().get(2).getGrowingRate());

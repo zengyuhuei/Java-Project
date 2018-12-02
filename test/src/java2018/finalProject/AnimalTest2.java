@@ -5,7 +5,7 @@ public class AnimalTest2 {
 	public static void main(String[] args) {
 		ArrayList<Animal> animal = new ArrayList<Animal>();
 		int [] arr = new int[2];
-		int test=15;
+		int test=5;
 		animal.add(new Pig());
 		arr[0] = (int) (Math.random()*50+1);
 		arr[1] = (int) (Math.random()*50+1);

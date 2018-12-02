@@ -65,56 +65,44 @@ public abstract class Animal extends Object {
 
 			//上
 			if(derection==4){
-				for(int i=0;i<count;i++){
 					coordinateY += 1;
 					if(coordinateY==300)
 					{
-						coordinateY -= 5;
-						break;
+						coordinateY -= 1;
 					}
 					//print(coordinateX, coordinateY, coordinateZ);
 					//makeDelay();
-				}
 			}
 			//下
 			if(derection==2){
-				for(int i=0;i<count;i++){
 					coordinateY -= 1;
 					if(coordinateY==150)
 					{
-						coordinateY += 5;
-						break;
+						coordinateY += 1;
 					}
 					//print(coordinateX, coordinateY, coordinateZ);
 					//makeDelay();
-				}
 			}
 			//右
 			if(derection==3){
-				for(int i=0;i<count;i++){
 					coordinateX += 1;
 					if(coordinateX==320)
 					{
-						coordinateX -= 5;
-						break;
+						coordinateX -= 1;
 					}
 					//print(coordinateX, coordinateY, coordinateZ);
 					//makeDelay();
-				}
 			}
 			//左
 			if(derection==1){
-				for(int i=0;i<count;i++){
 					coordinateX -= 1;
 					if(coordinateX==20)
 					{
-						coordinateX += 5;
-						break;
+						coordinateX += 1;
 					}
 					//print(coordinateX, coordinateY, coordinateZ);
 					//makeDelay();
 				}
-			}
 			arr[0] = coordinateX;
 			arr[1] = coordinateY;
 			//derection = (int)(Math.random()*4+1);
@@ -134,7 +122,7 @@ public abstract class Animal extends Object {
 	public boolean makeDelay()
 	{
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

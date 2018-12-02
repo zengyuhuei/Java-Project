@@ -57,7 +57,7 @@ public class DudeScreenTest {
 		button.add(b20);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);
-		f=new JFrame("JButton1");
+		f=new JFrame("Dude");
 		f.setBounds(0,0,450,800); 
 		f.setVisible(true); 
 		Container cp=f.getContentPane();
