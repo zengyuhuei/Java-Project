@@ -13,7 +13,7 @@ public class Farm
 	ArrayList<Crop> farmLand = new ArrayList<Crop>(12); 
 	private int[] storeCropArray = new int[12];
 	WareHouse house;
-	int count = 0;
+	private int count = 0;
 	
 	public Farm(WareHouse house) {   
 		 this.house=house;
@@ -36,27 +36,44 @@ public class Farm
 	{
 		System.out.println("該收割囉!!!");
 		System.out.println("目標收割土地landNum="+index);
+		/*for(Crop i: farmLand)
+			System.out.println("ArrayList:"+i.getName());
+		for(int i = 0; i < 12; i++)
+			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
+		*/
 		// 把收割的作物加到倉庫
 		house.addCrop(farmLand.get(storeCropArray[index]));
 		// 拔作物
 		farmLand.remove(storeCropArray[index]);
 		// 移動storeCArray的index
-		for(int i = 0; i < count; i++){
-			if(storeCropArray[i] > index)
+		for(int i = 0; i < 12; i++){
+			if(storeCropArray[i] > storeCropArray[index])
 			{
 				storeCropArray[i] -= 1;
 			}
 		}
+		
+		storeCropArray[index] = -1;
 		count--;
+		for(Crop i: farmLand)
+			System.out.println("ArrayList:"+i.getName());
+		for(int i = 0; i < 12; i++)
+			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
 		return true;
 	}
 	
 	// 種植玉米，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingCorn(int num)
 	{
+		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
 		farmLand.add(count,new Corn());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
+		/*for(Crop i: farmLand)
+			System.out.println("ArrayList:"+i.getName());
+		for(int i = 0; i < 12; i++)
+			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
+		*/
 		farmLand.get(count).setGrowingRate();
 		count++;
 		house.removeSeed("玉米");
@@ -66,9 +83,15 @@ public class Farm
 	// 種植小麥，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingWheat(int num)
 	{
+		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
 		farmLand.add(count,new Wheat());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
+		/*for(Crop i: farmLand)
+			System.out.println("ArrayList:"+i.getName());
+		for(int i = 0; i < 12; i++)
+			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
+		*/
 		farmLand.get(count).setGrowingRate();
 		count++;
 		house.removeSeed("小麥");
@@ -78,9 +101,15 @@ public class Farm
 	// 種植高麗菜，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingCabbage(int num)
 	{
+		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
 		farmLand.add(count,new Cabbage());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
+		/*for(Crop i: farmLand)
+			System.out.println("ArrayList:"+i.getName());
+		for(int i = 0; i < 12; i++)
+			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
+		*/
 		farmLand.get(count).setGrowingRate();
 		count++;
 		house.removeSeed("高麗菜");

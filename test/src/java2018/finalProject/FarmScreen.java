@@ -17,7 +17,7 @@ import javax.swing.Action;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FarmScreenTest extends JFrame {
+public class FarmScreen extends JFrame {
 
 	private JPanel contentPane;
 	private final Action action = new SwingAction();
@@ -37,35 +37,20 @@ public class FarmScreenTest extends JFrame {
 	JButton cornButton = new JButton("玉米");
 	JButton wheatButton = new JButton("小麥");
 	JButton cabbageButton = new JButton("高麗菜");
-	JButton btnNewButton = new JButton("Land0");
-	JButton button = new JButton("Land4");
-	JButton button_1 = new JButton("Land8");
-	JButton button_2 = new JButton("Land1");
-	JButton button_3 = new JButton("Land5");
-	JButton button_4 = new JButton("Land9");
-	JButton button_5 = new JButton("Land2");
+	JButton button_0 = new JButton("Land0");
+	JButton button_3 = new JButton("Land3");
 	JButton button_6 = new JButton("Land6");
-	JButton button_7 = new JButton("Land10");
-	JButton button_8 = new JButton("Land3");
-	JButton button_9 = new JButton("Land7");
-	JButton button_10 = new JButton("Land11");
+	JButton button_9 = new JButton("Land9");
+	JButton button_1 = new JButton("Land1");
+	JButton button_4 = new JButton("Land4");
+	JButton button_7 = new JButton("Land7");
+	JButton button_10 = new JButton("Land10");
+	JButton button_2 = new JButton("Land2");
+	JButton button_5 = new JButton("Land5");
+	JButton button_8 = new JButton("Land8");
+	JButton button_11 = new JButton("Land11");
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FarmScreenTest frame = new FarmScreenTest();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-	}
+	
 	
 	
 	public void LandButton()
@@ -81,6 +66,10 @@ public class FarmScreenTest extends JFrame {
 			harvestButton.setEnabled(false);
 			sowingButton.setEnabled(true);
 			waterButton.setEnabled(false);
+
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
 		}
 		else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
 		{
@@ -89,6 +78,10 @@ public class FarmScreenTest extends JFrame {
 			harvestButton.setEnabled(true);
 			sowingButton.setEnabled(false);
 			waterButton.setEnabled(false);
+			
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
 		}
 		else
 		{
@@ -101,14 +94,16 @@ public class FarmScreenTest extends JFrame {
 			harvestButton.setEnabled(false);
 			sowingButton.setEnabled(false);
 			waterButton.setEnabled(true);
+
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
 		}
 	}
 	
-	public FarmScreenTest() {
+	public FarmScreen() {
 		
 		Crop corn1 = new Corn();
-		wareHouse.addSeed(corn1);
-		
 		Crop corn2 = new Corn();
 		Crop corn3 = new Corn();
 		Crop corn4 = new Corn();
@@ -118,9 +113,9 @@ public class FarmScreenTest extends JFrame {
 		Crop cabbage1 = new Cabbage();
 		Crop cabbage2 = new Cabbage();
 		Crop cabbage3 = new Cabbage();
-		
+		wareHouse.addSeed(corn1);
 		wareHouse.addSeed(corn2);
-		/*wareHouse.addSeed(corn3);
+		wareHouse.addSeed(corn3);
 		wareHouse.addSeed(corn4);
 		wareHouse.addSeed(corn5);
 		wareHouse.addSeed(wheat1);
@@ -128,7 +123,10 @@ public class FarmScreenTest extends JFrame {
 		wareHouse.addSeed(cabbage1);
 		wareHouse.addSeed(cabbage2);
 		wareHouse.addSeed(cabbage3);
-		*/
+		
+		System.out.println("玉米數量 = "+wareHouse.getCornSeedNumber());
+		System.out.println("小麥數量 = "+wareHouse.getWheatSeedNumber());
+		System.out.println("高麗菜數量 = "+wareHouse.getCabbageSeedNumber());
 		
 		wareHouse.editFertilizer(10);
 		
@@ -205,8 +203,6 @@ public class FarmScreenTest extends JFrame {
 		        	if(farm.getStoreCropNum(landNum)== -1)
 		        	{
 			        	farm.sowingCorn(landNum);
-			        	
-		    			wareHouse.removeSeed("玉米");
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -226,8 +222,6 @@ public class FarmScreenTest extends JFrame {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
 		        		farm.sowingWheat(landNum);
-		        		
-		    			wareHouse.removeSeed("小麥");
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -248,8 +242,6 @@ public class FarmScreenTest extends JFrame {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
 			        	farm.sowingCabbage(landNum);
-			        	
-		    			wareHouse.removeSeed("高麗菜");
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -303,81 +295,26 @@ public class FarmScreenTest extends JFrame {
 		contentPane.add(cabbageButton);
 		
 		//Land0
-		btnNewButton.setAction(action);
-		btnNewButton.addActionListener(new ActionListener() {
+		button_0.setAction(action);
+		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 0;
 				LandButton();
 			}
 		});
-		btnNewButton.setBounds(15, 15, 111, 36);
-		contentPane.add(btnNewButton);
+		button_0.setBounds(15, 15, 111, 36);
+		contentPane.add(button_0);
 		
-		//Land4
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				landNum = 4;
-				LandButton();
-			}
-		});
-		button.setAction(action);
-		button.setBounds(15, 66, 111, 36);
-		contentPane.add(button);
-		
-		//Land8
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				landNum = 8;
-				LandButton();
-			}
-		});
-		button_1.setAction(action);
-		button_1.setBounds(15, 117, 111, 36);
-		contentPane.add(button_1);
-		
-		//Land1
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				landNum = 1;
-				LandButton();
-			}
-		});
-		button_2.setAction(action);
-		button_2.setBounds(15, 168, 111, 36);
-		contentPane.add(button_2);
-		
-		//Land5
+		//Land3
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				landNum = 5;
+				landNum = 3;
 				LandButton();
 			}
 		});
 		button_3.setAction(action);
-		button_3.setBounds(141, 18, 111, 36);
+		button_3.setBounds(15, 66, 111, 36);
 		contentPane.add(button_3);
-		
-		//Land9
-		button_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				landNum = 9;
-				LandButton();
-			}
-		});
-		button_4.setAction(action);
-		button_4.setBounds(141, 69, 111, 36);
-		contentPane.add(button_4);
-		
-		//Land2
-		button_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				landNum = 2;
-				LandButton();
-			}
-		});
-		button_5.setAction(action);
-		button_5.setBounds(141, 120, 111, 36);
-		contentPane.add(button_5);
 		
 		//Land6
 		button_6.addActionListener(new ActionListener() {
@@ -387,52 +324,107 @@ public class FarmScreenTest extends JFrame {
 			}
 		});
 		button_6.setAction(action);
-		button_6.setBounds(141, 171, 111, 36);
+		button_6.setBounds(15, 117, 111, 36);
 		contentPane.add(button_6);
 		
-		//Land10
-		button_7.addActionListener(new ActionListener() {
+		//Land9
+		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				landNum = 10;
+				landNum = 9;
 				LandButton();
 			}
 		});
-		button_7.setAction(action);
-		button_7.setBounds(267, 18, 111, 36);
-		contentPane.add(button_7);
+		button_9.setAction(action);
+		button_9.setBounds(15, 168, 111, 36);
+		contentPane.add(button_9);
 		
-		//Land3
-		button_8.addActionListener(new ActionListener() {
+		//Land1
+		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				landNum = 3;
+				landNum = 1;
 				LandButton();
 			}
 		});
-		button_8.setAction(action);
-		button_8.setBounds(267, 69, 111, 36);
-		contentPane.add(button_8);
+		button_1.setAction(action);
+		button_1.setBounds(141, 18, 111, 36);
+		contentPane.add(button_1);
+		
+		//Land4
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 4;
+				LandButton();
+			}
+		});
+		button_4.setAction(action);
+		button_4.setBounds(141, 69, 111, 36);
+		contentPane.add(button_4);
 		
 		//Land7
-		button_9.addActionListener(new ActionListener() {
+		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 7;
 				LandButton();
 			}
 		});
-		button_9.setAction(action);
-		button_9.setBounds(267, 120, 111, 36);
-		contentPane.add(button_9);
+		button_7.setAction(action);
+		button_7.setBounds(141, 120, 111, 36);
+		contentPane.add(button_7);
+		
+		//Land10
+		button_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 10;
+				LandButton();
+			}
+		});
+		button_10.setAction(action);
+		button_10.setBounds(141, 171, 111, 36);
+		contentPane.add(button_10);
+		
+		//Land2
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 2;
+				LandButton();
+			}
+		});
+		button_2.setAction(action);
+		button_2.setBounds(267, 18, 111, 36);
+		contentPane.add(button_2);
+		
+		//Land5
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 5;
+				LandButton();
+			}
+		});
+		button_5.setAction(action);
+		button_5.setBounds(267, 69, 111, 36);
+		contentPane.add(button_5);
+		
+		//Land8
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				landNum = 8;
+				LandButton();
+			}
+		});
+		button_8.setAction(action);
+		button_8.setBounds(267, 120, 111, 36);
+		contentPane.add(button_8);
 		
 		//Land11
-		button_10.addActionListener(new ActionListener() {
+		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 11;
 				LandButton();
 			}
 		});
-		button_10.setAction(action);
-		button_10.setBounds(267, 171, 111, 36);
-		contentPane.add(button_10);
+		button_11.setAction(action);
+		button_11.setBounds(267, 171, 111, 36);
+		contentPane.add(button_11);
 		
 	}
 	private class SwingAction extends AbstractAction {
