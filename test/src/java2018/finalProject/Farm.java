@@ -10,7 +10,11 @@ public class Farm
 {
 
 	// 用來儲存農地的農作物資料，上限12個
-	ArrayList<Crop> farmLand = new ArrayList<Crop>(); 
+	ArrayList<Crop> farmLand = new ArrayList<Crop>(12); 
+	WareHouse house;
+	public Farm(WareHouse house) {   
+		 this.house=house;
+    }
 	
 	// 回傳farmLand資料
 	public ArrayList<Crop> getFarmLand()
