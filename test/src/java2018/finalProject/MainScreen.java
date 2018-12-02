@@ -23,6 +23,7 @@ public class MainScreen extends JFrame {
 	private WareHouse warehouse;
 	private WareHouseScreen whscreen;
 	private ShopScreen spscreen; 
+	private DudeScreen dudescreen;
 
 	/**
 	 * Launch the application.
@@ -117,9 +118,11 @@ public class MainScreen extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							
 							//把它設成private variable
 							//WareHouseScreen frame = new WareHouseScreen(warehouse);
-						
+							dudescreen = new DudeScreen(warehouse);
+							//dudescreen.setVisible(true);
 							//frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

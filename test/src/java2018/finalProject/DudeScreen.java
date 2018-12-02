@@ -18,37 +18,38 @@ import javax.swing.WindowConstants;
 import java2018.finalProject.DudeScreenTest2.RunningButton;
 
 public class DudeScreen {
+	//WareHouse wareHouse = new WareHouse();
 	JFrame f;
-	int num;
-	JButton b1 = new JButton("養殖");
-	JButton b2 = new JButton("牛");
-	JButton b3 = new JButton("豬");
-	JButton b4 = new JButton("雞");
-	JButton b5 = new JButton("餵食");
-	JButton b6 = new JButton("高級飼料");
-	JButton b7 = new JButton("中級飼料");
-	JButton b8 = new JButton("低級飼料");
-	JButton b9 = new JButton("捕捉");
-	JButton b11 = new JButton("動物");
-	JButton b12 = new JButton("動物");
-	JButton b13 = new JButton("動物");
-	JButton b14 = new JButton("動物");
-	JButton b15 = new JButton("動物");
-	JButton b16 = new JButton("動物");
-	JButton b17 = new JButton("動物");
-	JButton b18 = new JButton("動物");
-	JButton b19 = new JButton("動物");
-	JButton b20 = new JButton("動物");
-	ArrayList<JButton> button = new ArrayList<JButton>(10);
+	private int num;
+	private JButton b1 = new JButton("養殖");
+	private JButton b2 = new JButton("牛");
+	private JButton b3 = new JButton("豬");
+	private JButton b4 = new JButton("雞");
+	private JButton b5 = new JButton("餵食");
+	private JButton b6 = new JButton("高級飼料");
+	private JButton b7 = new JButton("中級飼料");
+	private JButton b8 = new JButton("低級飼料");
+	private JButton b9 = new JButton("捕捉");
+	private JButton b11 = new JButton("動物");
+	private JButton b12 = new JButton("動物");
+	private JButton b13 = new JButton("動物");
+	private JButton b14 = new JButton("動物");
+	private JButton b15 = new JButton("動物");
+	private JButton b16 = new JButton("動物");
+	private JButton b17 = new JButton("動物");
+	private JButton b18 = new JButton("動物");
+	private JButton b19 = new JButton("動物");
+	private JButton b20 = new JButton("動物");
+	private ArrayList<JButton> button = new ArrayList<JButton>(10);
 	public double [] arrCoordinateX = new double[10];
 	public double [] arrCoordinateY = new double[10];
-	public static void main(String argv[]) 
+	/*public static void main(String argv[]) 
 	{
-		new DudeScreen();  
+		new DudeScreen(warehouse);  
 	    
-	}
+	}*/
 	  
-	public DudeScreen() 
+	public DudeScreen(WareHouse warehouse) 
 	{
 		
 		button.add(b11);
@@ -68,8 +69,9 @@ public class DudeScreen {
 		f.setVisible(true); 
 		Container cp=f.getContentPane();
 		cp.setLayout(null);  //取消預設之 BorderLayout
-		WareHouse wareHouse = new WareHouse();
-		Animal pig1 = new Pig();
+		
+		
+		/*Animal pig1 = new Pig();
 		Animal pig2 = new Pig();
 		Animal pig3 = new Pig();
 		Animal pig4 = new Pig();
@@ -120,14 +122,16 @@ public class DudeScreen {
 		wareHouse.addYoungAnimal(pig1);
 		wareHouse.addYoungAnimal(pig2);
 		wareHouse.addYoungAnimal(pig3);
+		wareHouse.addYoungAnimal(pig4);
 		wareHouse.addYoungAnimal(chicken1);
 		wareHouse.addYoungAnimal(chicken2);
 		wareHouse.addYoungAnimal(chicken3);
+		wareHouse.addYoungAnimal(chicken4);
 		wareHouse.addYoungAnimal(cow1);
 		wareHouse.addYoungAnimal(cow2);
 		wareHouse.addYoungAnimal(cow3);
-		wareHouse.addYoungAnimal(cow4);
-		Dude dude = new Dude(wareHouse);
+		wareHouse.addYoungAnimal(cow4);*/
+		Dude dude = new Dude(warehouse);
 			
 			
 		b2.setVisible(false);
@@ -154,24 +158,27 @@ public class DudeScreen {
 		b1.addActionListener(new ActionListener() {
 		@Override
 	    public void actionPerformed(ActionEvent e) {
-	    	if(wareHouse.getYoungCowNumber()==0) {
+	    	if(warehouse.getYoungCowNumber()==0) {
 	    		b2.setVisible(false);
 		    }
-		   	if(wareHouse.getYoungCowNumber()>0) {
+		   	if(warehouse.getYoungCowNumber()>0) {
 		   		b2.setVisible(true);
 		   	}
-		   	if(wareHouse.getYoungPigNumber()==0) {
+		   	if(warehouse.getYoungPigNumber()==0) {
 	    		b3.setVisible(false);
 	    	}
-		   	if(wareHouse.getYoungPigNumber()>0) {
+		   	if(warehouse.getYoungPigNumber()>0) {
 		    	b3.setVisible(true);
 		   	}
-		   	if(wareHouse.getYoungChickenNumber()==0) {
+		   	if(warehouse.getYoungChickenNumber()==0) {
 		   		b4.setVisible(false);
 	    	}
-	    	if(wareHouse.getYoungChickenNumber()>0) {
+	    	if(warehouse.getYoungChickenNumber()>0) {
 		    	b4.setVisible(true);
 		    }
+	    	System.out.printf("%d\n",warehouse.getYoungPigNumber());
+	    	System.out.printf("%d\n",warehouse.getYoungCowNumber());
+	    	System.out.printf("%d\n",warehouse.getYoungChickenNumber());
 		   	System.out.println("想養東西ouo");
 		    if(dude.getNum()==10)
 		    {
@@ -194,7 +201,7 @@ public class DudeScreen {
 		    	@Override
 		        public void actionPerformed(ActionEvent e) {
 		        	dude.startFeedCow(new Cow());
-		        	if(wareHouse.getYoungCowNumber()==0) {
+		        	if(warehouse.getYoungCowNumber()==0) {
 		        		b2.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -319,7 +326,7 @@ public class DudeScreen {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	dude.startFeedPig(new Pig());
-		        	if(wareHouse.getYoungPigNumber()==0) {
+		        	if(warehouse.getYoungPigNumber()==0) {
 		      	    	b3.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -444,7 +451,7 @@ public class DudeScreen {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	dude.startFeedChicken(new Chicken());
-		        	if(wareHouse.getYoungChickenNumber()==0) {
+		        	if(warehouse.getYoungChickenNumber()==0) {
 		      	    	b4.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -787,6 +794,7 @@ public class DudeScreen {
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
 		        		b9.setVisible(false);
+		        		
 		        	}
 		        	else
 		        	{
@@ -795,6 +803,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -821,6 +830,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -847,6 +857,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -883,9 +894,9 @@ public class DudeScreen {
 		        	System.out.println(num);
 		        	dude.capturing(num);
 		        	Capture(num, dude);
-		        	System.out.printf("豬=%d\n",wareHouse.getPigNumber());
-		        	System.out.printf("雞=%d\n",wareHouse.getChickenNumber());
-		        	System.out.printf("牛=%d\n",wareHouse.getCowNumber());
+		        	System.out.printf("豬=%d\n",warehouse.getPigNumber());
+		        	System.out.printf("雞=%d\n",warehouse.getChickenNumber());
+		        	System.out.printf("牛=%d\n",warehouse.getCowNumber());
 		        	
 		        	
 		        }
@@ -897,12 +908,15 @@ public class DudeScreen {
 		    b5.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	if(wareHouse.getSimpleFeedNumber()>0)
+		        	if(warehouse.getSimpleFeedNumber()>0)
 		        		b6.setVisible(true);
-		        	if(wareHouse.getGeneralFeedNumber()>0)
+		        	if(warehouse.getGeneralFeedNumber()>0)
 		        		b7.setVisible(true);
-		        	if(wareHouse.getAdvencedFeedNumber()>0)
+		        	if(warehouse.getAdvencedFeedNumber()>0)
 		        		b8.setVisible(true);
+		        	System.out.printf("高%d\n",warehouse.getAdvencedFeedNumber());
+		        	System.out.printf("中%d\n",warehouse.getGeneralFeedNumber());
+		        	System.out.printf("低%d\n",warehouse.getSimpleFeedNumber());
 		        }
 		    });
 		    
@@ -912,12 +926,14 @@ public class DudeScreen {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	
-		        	Feed(num, dude, feed3);
-		        	wareHouse.removeFeed("高級飼料");
-		        	System.out.printf("%d\n", wareHouse.getAdvencedFeedNumber());
+		        	Feed(num, dude, new AdvancedFeed());
+		        	warehouse.removeFeed("高級飼料");
+		        	System.out.printf("%d\n", warehouse.getAdvencedFeedNumber());
 		        	System.out.println("高級飼料+20 ouo");
-		        	if(wareHouse.getAdvencedFeedNumber()==0)
+		        	if(warehouse.getAdvencedFeedNumber()==0)
 		        		b6.setVisible(false);
+		        	else
+		        		b6.setVisible(true);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
 		        		b5.setVisible(false);
@@ -934,11 +950,11 @@ public class DudeScreen {
 		    b7.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, feed2);
-		        	wareHouse.removeFeed("中級飼料");
-		        	System.out.printf("%d\n", wareHouse.getGeneralFeedNumber());
+		        	Feed(num, dude, new GeneralFeed());
+		        	warehouse.removeFeed("中級飼料");
+		        	System.out.printf("%d\n", warehouse.getGeneralFeedNumber());
 		        	System.out.println("中級飼料+10 ouo");
-		        	if(wareHouse.getGeneralFeedNumber()==0)
+		        	if(warehouse.getGeneralFeedNumber()==0)
 		        		b7.setVisible(false);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
@@ -955,11 +971,11 @@ public class DudeScreen {
 		    b8.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, feed1);
-		        	wareHouse.removeFeed("低級飼料");
-		        	System.out.printf("%d\n", wareHouse.getSimpleFeedNumber());
+		        	Feed(num, dude, new SimpleFeed());
+		        	warehouse.removeFeed("低級飼料");
+		        	System.out.printf("%d\n", warehouse.getSimpleFeedNumber());
 		        	System.out.println("低級飼料+5 ouo");
-		        	if(wareHouse.getSimpleFeedNumber()==0)
+		        	if(warehouse.getSimpleFeedNumber()==0)
 		        		b8.setVisible(false);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
