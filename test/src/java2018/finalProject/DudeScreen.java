@@ -887,6 +887,10 @@ public class DudeScreen {
 		    b9.setBounds(170,20,60,25);  //自行決定元件位置與大小
 		    cp.add(b9);
 		    
+		    
+		    //timer要close
+		    
+		    
 		    b9.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
