@@ -14,7 +14,8 @@ import javax.swing.JFrame;
 
 public class DudeScreenTest2 {
 	  JFrame f;
-	  public double coordinateX, coordinateY, coordinateX2, coordinateY2;
+	  public double [] arrCoordinateX = new double[10];
+	  public double [] arrCoordinateY = new double[10];
 	  public int count = 0;
 	  public static void main(String argv[]) 
 	  {
@@ -67,22 +68,28 @@ public class DudeScreenTest2 {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	if(count==0) {
-		        		randomFirstlocation(coordinateX, coordinateY);
-		        		b11.setBounds((int)coordinateX, (int)coordinateY,60,25);
+		        		randomFirstlocation(0, arrCoordinateX, arrCoordinateY);
+		        		b11.setBounds((int)arrCoordinateX[0], (int)arrCoordinateY[0],60,25);
 		        		b11.setVisible(true);
 			        	System.out.println("來養牛啦");
 			        	b11.setText("牛");			        	
 			        	Timer timer = new Timer();
-			            randomStatus(timer, b11);
-	             	}
+			        	RunningButton r0 = new RunningButton(b11, arrCoordinateX[0], arrCoordinateY[0]);
+			        	timer.schedule(r0, 1000, 180);
+			            count++;
+			            System.out.println(count);
+		        	}
 		        	if(count==1) {
-		        		randomFirstlocation(coordinateX2, coordinateY2);
-		        		b12.setBounds((int)coordinateX2, (int)coordinateY2,60,25);
+		        		randomFirstlocation(1, arrCoordinateX, arrCoordinateY);
+		        		b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
 		        		b12.setVisible(true);
 			        	System.out.println("來養牛啦");
 			        	b12.setText("牛牛");			        	
-			        	//Timer timer = new Timer();
-			            //randomStatus(timer, b12);
+			        	Timer timer = new Timer();
+			        	RunningButton r1 = new RunningButton(b12, arrCoordinateX[1], arrCoordinateY[1]);
+			        	timer.schedule(r1, 1000, 180);
+			            count++;
+			            System.out.println(count);
 		        	}
 		        }    
 		    });
@@ -97,7 +104,7 @@ public class DudeScreenTest2 {
 		        }
 		    });   
 		    
-		    b12.setBounds((int)coordinateX, (int)coordinateY,60,25);
+		    b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
 		    cp.add(b12);
 		    b12.addActionListener(new ActionListener() {
 		        @Override
@@ -108,26 +115,20 @@ public class DudeScreenTest2 {
 		    }); 
 	  }
 	  
-	  public void randomFirstlocation(double x, double y) {
-		  coordinateX = (int) (Math.random()*450+20);
-	      coordinateY = (int) (Math.random()*450+100);
-	  }
-	  
-	  public void randomStatus(Timer timer, JButton b11) {
-			timer.schedule(new RunningButton(b11), 1000, 180);
-			
-	    }
-	  
-	  public void showLocation(JButton btn) {
-		  btn.setBounds((int) coordinateX, (int) coordinateY, 60, 25);
+	  public void randomFirstlocation(int i, double arrCoordinateX[], double arrCoordinateY[]) {
+		  arrCoordinateX[i] = (int) (Math.random()*450+20);
+	      arrCoordinateY[i] = (int) (Math.random()*450+100);
 	  }
 	  
 	    class RunningButton extends TimerTask {
 	    	private JButton btn;
+	    	private double coordinateX, coordinateY;
 	    	private double vx = Math.sin(1) * 5;
 	    	private double vy = Math.cos(1) * 5; 
-	    	public RunningButton(JButton btn) {
+	    	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
 	        	this.btn = btn;
+	        	this.coordinateX = coordinateX;
+	        	this.coordinateY = coordinateY;
         	}
 	        public void run() {
 	            if (coordinateX + vx < 0) {
@@ -147,7 +148,6 @@ public class DudeScreenTest2 {
 	            btn.setBounds((int) coordinateX, (int) coordinateY, 60, 25);
 	    		
 	        }
-
 	    }
 }
 
