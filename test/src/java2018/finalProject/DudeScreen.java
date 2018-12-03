@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class DudeScreen {
+	//WareHouse wareHouse = new WareHouse();
 	JFrame f;
 	int num;
 	JButton b1 = new JButton("養殖");
@@ -41,16 +42,18 @@ public class DudeScreen {
 	JButton b20 = new JButton("動物");
 	JLabel dudeNum = new JLabel();
 	JLabel animalRate = new JLabel();
+	JLabel FeedNum = new JLabel();
 	ArrayList<JButton> button = new ArrayList<JButton>(10);
+
 	public double [] arrCoordinateX = new double[10];
 	public double [] arrCoordinateY = new double[10];
-	public static void main(String argv[]) 
+	/*public static void main(String argv[]) 
 	{
-		new DudeScreen();  
+		new DudeScreen(warehouse);  
 	    
-	}
+	}*/
 	  
-	public DudeScreen() 
+	public DudeScreen(WareHouse warehouse) 
 	{
 		
 		button.add(b11);
@@ -70,8 +73,9 @@ public class DudeScreen {
 		f.setVisible(true); 
 		Container cp=f.getContentPane();
 		cp.setLayout(null);  //取消預設之 BorderLayout
-		WareHouse wareHouse = new WareHouse();
-		Animal pig1 = new Pig();
+		
+		
+		/*Animal pig1 = new Pig();
 		Animal pig2 = new Pig();
 		Animal pig3 = new Pig();
 		Animal pig4 = new Pig();
@@ -122,14 +126,16 @@ public class DudeScreen {
 		wareHouse.addYoungAnimal(pig1);
 		wareHouse.addYoungAnimal(pig2);
 		wareHouse.addYoungAnimal(pig3);
+		wareHouse.addYoungAnimal(pig4);
 		wareHouse.addYoungAnimal(chicken1);
 		wareHouse.addYoungAnimal(chicken2);
 		wareHouse.addYoungAnimal(chicken3);
+		wareHouse.addYoungAnimal(chicken4);
 		wareHouse.addYoungAnimal(cow1);
 		wareHouse.addYoungAnimal(cow2);
 		wareHouse.addYoungAnimal(cow3);
-		wareHouse.addYoungAnimal(cow4);
-		Dude dude = new Dude(wareHouse);
+		wareHouse.addYoungAnimal(cow4);*/
+		Dude dude = new Dude(warehouse);
 			
 			
 		b2.setVisible(false);
@@ -150,9 +156,11 @@ public class DudeScreen {
 		b18.setVisible(false);
 		b19.setVisible(false);
 		b20.setVisible(false);
+		FeedNum.setVisible(false);
 	    
 		cp.add(dudeNum);
 		cp.add(animalRate);  
+		cp.add(FeedNum);
 		
 		printDudeNum(dude);
 		
@@ -170,24 +178,28 @@ public class DudeScreen {
 		b1.addActionListener(new ActionListener() {
 		@Override
 	    public void actionPerformed(ActionEvent e) {
-	    	if(wareHouse.getYoungCowNumber()==0) {
+			FeedNum.setVisible(false);
+	    	if(warehouse.getYoungCowNumber()==0) {
 	    		b2.setVisible(false);
 		    }
-		   	if(wareHouse.getYoungCowNumber()>0) {
+		   	if(warehouse.getYoungCowNumber()>0) {
 		   		b2.setVisible(true);
 		   	}
-		   	if(wareHouse.getYoungPigNumber()==0) {
+		   	if(warehouse.getYoungPigNumber()==0) {
 	    		b3.setVisible(false);
 	    	}
-		   	if(wareHouse.getYoungPigNumber()>0) {
+		   	if(warehouse.getYoungPigNumber()>0) {
 		    	b3.setVisible(true);
 		   	}
-		   	if(wareHouse.getYoungChickenNumber()==0) {
+		   	if(warehouse.getYoungChickenNumber()==0) {
 		   		b4.setVisible(false);
 	    	}
-	    	if(wareHouse.getYoungChickenNumber()>0) {
+	    	if(warehouse.getYoungChickenNumber()>0) {
 		    	b4.setVisible(true);
 		    }
+	    	System.out.printf("%d\n",warehouse.getYoungPigNumber());
+	    	System.out.printf("%d\n",warehouse.getYoungCowNumber());
+	    	System.out.printf("%d\n",warehouse.getYoungChickenNumber());
 		   	System.out.println("想養東西ouo");
 		    if(dude.getNum()==10)
 		    {
@@ -209,8 +221,9 @@ public class DudeScreen {
 		    b2.addActionListener(new ActionListener() {
 		    	@Override
 		        public void actionPerformed(ActionEvent e) {
+		    		FeedNum.setVisible(false);
 		        	dude.startFeedCow(new Cow());
-		        	if(wareHouse.getYoungCowNumber()==0) {
+		        	if(warehouse.getYoungCowNumber()==0) {
 		        		b2.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -220,9 +233,9 @@ public class DudeScreen {
 		      	    	b11.setBounds((int)arrCoordinateX[0], (int)arrCoordinateY[0],60,25);
 		      	    	b11.setVisible(true);
 		      	    	b11.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer0 = new Timer();
 			        	RunningButton r0 = new RunningButton(b11, arrCoordinateX[0], arrCoordinateY[0]);
-			        	timer.schedule(r0, 1000, 180);
+			        	timer0.schedule(r0, 1000, 180);
 		      	    }
 		      	    if(dude.getNum()==2)
 		      	    {
@@ -231,9 +244,9 @@ public class DudeScreen {
 		      	    	b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
 		      	    	b12.setVisible(true);
 		      	    	b12.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer1 = new Timer();
 			        	RunningButton r1 = new RunningButton(b12, arrCoordinateX[1], arrCoordinateY[1]);
-			        	timer.schedule(r1, 1000, 180);
+			        	timer1.schedule(r1, 1000, 180);
 		      	    }
 		      	    if(dude.getNum()==3)
 		      	    {
@@ -242,9 +255,9 @@ public class DudeScreen {
 		      	    	b13.setBounds((int)arrCoordinateX[2], (int)arrCoordinateY[2],60,25);
 		      	    	b13.setVisible(true);
 		      	    	b13.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer2 = new Timer();
 			        	RunningButton r2 = new RunningButton(b13, arrCoordinateX[2], arrCoordinateY[2]);
-			        	timer.schedule(r2, 1000, 180);
+			        	timer2.schedule(r2, 1000, 180);
 		      	    }
 		      	    if(dude.getNum()==4)
 		      	    {
@@ -253,9 +266,9 @@ public class DudeScreen {
 		      	    	b14.setBounds((int)arrCoordinateX[3], (int)arrCoordinateY[3],60,25);
 		      	    	b14.setVisible(true);
 		      	    	b14.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer3 = new Timer();
 			        	RunningButton r3 = new RunningButton(b14, arrCoordinateX[3], arrCoordinateY[3]);
-			        	timer.schedule(r3, 1000, 180);
+			        	timer3.schedule(r3, 1000, 180);
 		      	    }
 		      	    if(dude.getNum()==5)
 		      	    {
@@ -264,9 +277,9 @@ public class DudeScreen {
 		      	    	b15.setBounds((int)arrCoordinateX[4], (int)arrCoordinateY[4],60,25);
 		      	    	b15.setVisible(true);
 		      	    	b15.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer4 = new Timer();
 			        	RunningButton r4 = new RunningButton(b15, arrCoordinateX[4], arrCoordinateY[4]);
-			        	timer.schedule(r4, 1000, 180);
+			        	timer4.schedule(r4, 1000, 180);
 		      	    }
 		      	    if(dude.getNum()==6)
 		      	    {
@@ -275,9 +288,9 @@ public class DudeScreen {
 		      	    	b16.setBounds((int)arrCoordinateX[5], (int)arrCoordinateY[5],60,25);
 		      	    	b16.setVisible(true);
 		      	    	b16.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer5 = new Timer();
 			        	RunningButton r5 = new RunningButton(b16, arrCoordinateX[5], arrCoordinateY[5]);
-			        	timer.schedule(r5, 1000, 180);
+			        	timer5.schedule(r5, 1000, 180);
 		      	    }
 			      	if(dude.getNum()==7)
 		      	    {
@@ -286,9 +299,9 @@ public class DudeScreen {
 		      	    	b17.setBounds((int)arrCoordinateX[6], (int)arrCoordinateY[6],60,25);
 		      	    	b17.setVisible(true);
 		      	    	b17.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer6 = new Timer();
 			        	RunningButton r6 = new RunningButton(b17, arrCoordinateX[6], arrCoordinateY[6]);
-			        	timer.schedule(r6, 1000, 180);
+			        	timer6.schedule(r6, 1000, 180);
 		      	    }
 			      	if(dude.getNum()==8)
 		      	    {
@@ -297,9 +310,9 @@ public class DudeScreen {
 		      	    	b18.setBounds((int)arrCoordinateX[7], (int)arrCoordinateY[7],60,25);
 		      	    	b18.setVisible(true);
 		      	    	b18.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer7 = new Timer();
 			        	RunningButton r7 = new RunningButton(b18, arrCoordinateX[7], arrCoordinateY[7]);
-			        	timer.schedule(r7, 1000, 180);
+			        	timer7.schedule(r7, 1000, 180);
 		      	    }
 			      	if(dude.getNum()==9)
 		      	    {
@@ -308,9 +321,9 @@ public class DudeScreen {
 		      	    	b19.setBounds((int)arrCoordinateX[8], (int)arrCoordinateY[8],60,25);
 		      	    	b19.setVisible(true);
 		      	    	b19.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer8 = new Timer();
 			        	RunningButton r8 = new RunningButton(b19, arrCoordinateX[8], arrCoordinateY[8]);
-			        	timer.schedule(r8, 1000, 180);;
+			        	timer8.schedule(r8, 1000, 180);;
 		      	    }
 			      	if(dude.getNum()==10)
 		      	    {
@@ -319,9 +332,9 @@ public class DudeScreen {
 		      	    	b20.setBounds((int)arrCoordinateX[9], (int)arrCoordinateY[9],60,25);
 		      	    	b20.setVisible(true);
 		      	    	b20.setText("牛");
-		      	    	Timer timer = new Timer();
+		      	    	Timer timer9 = new Timer();
 			        	RunningButton r9 = new RunningButton(b20, arrCoordinateX[9], arrCoordinateY[9]);
-			        	timer.schedule(r9, 1000, 180);
+			        	timer9.schedule(r9, 1000, 180);
 		      	    }
 			      	b2.setVisible(false);
 	      	    	b3.setVisible(false);
@@ -335,8 +348,9 @@ public class DudeScreen {
 		    b3.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	dude.startFeedPig(new Pig());
-		        	if(wareHouse.getYoungPigNumber()==0) {
+		        	if(warehouse.getYoungPigNumber()==0) {
 		      	    	b3.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -461,8 +475,9 @@ public class DudeScreen {
 		    b4.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	dude.startFeedChicken(new Chicken());
-		        	if(wareHouse.getYoungChickenNumber()==0) {
+		        	if(warehouse.getYoungChickenNumber()==0) {
 		      	    	b4.setVisible(false);
 		        	}
 		      	    if(dude.getNum()==1)
@@ -606,6 +621,7 @@ public class DudeScreen {
 		    b11.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=1;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(0).getName());
 		        	if(dude.getPondLand().get(0).getGrowingRate()<100)
@@ -635,6 +651,7 @@ public class DudeScreen {
 		    b12.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=2;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(1).getName());
 		        	if(dude.getPondLand().get(1).getGrowingRate()<100)
@@ -662,6 +679,7 @@ public class DudeScreen {
 		    b13.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=3;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(2).getName());
 		        	if(dude.getPondLand().get(2).getGrowingRate()<100)
@@ -690,6 +708,7 @@ public class DudeScreen {
 		    b14.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=4;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(3).getName());
 		        	if(dude.getPondLand().get(3).getGrowingRate()<100)
@@ -718,6 +737,7 @@ public class DudeScreen {
 		    b15.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=5;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(4).getName());
 		        	if(dude.getPondLand().get(4).getGrowingRate()<100)
@@ -746,6 +766,7 @@ public class DudeScreen {
 		    b16.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=6;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(5).getName());
 		        	if(dude.getPondLand().get(5).getGrowingRate()<100)
@@ -774,6 +795,7 @@ public class DudeScreen {
 		    b17.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=7;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(6).getName());
 		        	if(dude.getPondLand().get(6).getGrowingRate()<100)
@@ -802,6 +824,7 @@ public class DudeScreen {
 		    b18.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=8;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(7).getName());
 		        	if(dude.getPondLand().get(7).getGrowingRate()<100)
@@ -814,6 +837,7 @@ public class DudeScreen {
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
 		        		b9.setVisible(false);
+		        		
 		        	}
 		        	else
 		        	{
@@ -822,6 +846,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -829,6 +854,7 @@ public class DudeScreen {
 		    b19.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=9;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(8).getName());
 		        	if(dude.getPondLand().get(8).getGrowingRate()<100)
@@ -849,6 +875,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -856,6 +883,7 @@ public class DudeScreen {
 		    b20.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
+		        	FeedNum.setVisible(false);
 		        	num=10;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(9).getName());
 		        	if(dude.getPondLand().get(9).getGrowingRate()<100)
@@ -876,6 +904,7 @@ public class DudeScreen {
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
 		        		b8.setVisible(false);
+		        		b9.setVisible(true);
 		        	}
 		      	    
 		        }
@@ -905,8 +934,8 @@ public class DudeScreen {
 		    b9.setBounds(170,20,60,25);  //自行決定元件位置與大小
 		    cp.add(b9);
 		    
-		    
-		    //捕捉
+		    //timer要close
+
 		    b9.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
@@ -918,6 +947,10 @@ public class DudeScreen {
 		        	System.out.printf("雞=%d\n",wareHouse.getChickenNumber());
 		        	System.out.printf("牛=%d\n",wareHouse.getCowNumber());*/
 		        	printDudeNum(dude);
+		        	System.out.printf("豬=%d\n",warehouse.getPigNumber());
+		        	System.out.printf("雞=%d\n",warehouse.getChickenNumber());
+		        	System.out.printf("牛=%d\n",warehouse.getCowNumber());
+		        	
 		        }
 		    });
 
@@ -927,12 +960,16 @@ public class DudeScreen {
 		    b5.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	if(wareHouse.getSimpleFeedNumber()>0)
+		        	if(warehouse.getSimpleFeedNumber()>0)
 		        		b6.setVisible(true);
-		        	if(wareHouse.getGeneralFeedNumber()>0)
+		        	if(warehouse.getGeneralFeedNumber()>0)
 		        		b7.setVisible(true);
-		        	if(wareHouse.getAdvencedFeedNumber()>0)
+		        	if(warehouse.getAdvencedFeedNumber()>0)
 		        		b8.setVisible(true);
+		        	//System.out.printf("高%d\n",warehouse.getAdvencedFeedNumber());
+		        	//System.out.printf("中%d\n",warehouse.getGeneralFeedNumber());
+		        	//System.out.printf("低%d\n",warehouse.getSimpleFeedNumber());
+		        	printFeedNumber(warehouse);
 		        }
 		    });
 		    
@@ -942,12 +979,16 @@ public class DudeScreen {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	
-		        	Feed(num, dude, feed3);
-		        	wareHouse.removeFeed("高級飼料");
-		        	System.out.printf("%d\n", wareHouse.getAdvencedFeedNumber());
-		        	System.out.println("高級飼料+20 ouo");
-		        	if(wareHouse.getAdvencedFeedNumber()==0)
+		        	Feed(num, dude, new AdvancedFeed());
+		        	warehouse.removeFeed("高級飼料");
+		        	//System.out.printf("%d\n", warehouse.getAdvencedFeedNumber());
+		        	//System.out.println("高級飼料+20 ouo");
+		        	printAnimalRate(dude, num-1);
+		        	printFeedNumber(warehouse);
+		        	if(warehouse.getAdvencedFeedNumber()==0)
 		        		b6.setVisible(false);
+		        	else
+		        		b6.setVisible(true);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
 		        		b5.setVisible(false);
@@ -964,11 +1005,13 @@ public class DudeScreen {
 		    b7.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, feed2);
-		        	wareHouse.removeFeed("中級飼料");
-		        	System.out.printf("%d\n", wareHouse.getGeneralFeedNumber());
-		        	System.out.println("中級飼料+10 ouo");
-		        	if(wareHouse.getGeneralFeedNumber()==0)
+		        	Feed(num, dude, new GeneralFeed());
+		        	warehouse.removeFeed("中級飼料");
+		        	//System.out.printf("%d\n", warehouse.getGeneralFeedNumber());
+		        	//System.out.println("中級飼料+10 ouo");
+		        	printAnimalRate(dude, num-1);
+		        	printFeedNumber(warehouse);
+		        	if(warehouse.getGeneralFeedNumber()==0)
 		        		b7.setVisible(false);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
@@ -985,11 +1028,13 @@ public class DudeScreen {
 		    b8.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, feed1);
-		        	wareHouse.removeFeed("低級飼料");
-		        	System.out.printf("%d\n", wareHouse.getSimpleFeedNumber());
-		        	System.out.println("低級飼料+5 ouo");
-		        	if(wareHouse.getSimpleFeedNumber()==0)
+		        	Feed(num, dude, new SimpleFeed());
+		        	warehouse.removeFeed("低級飼料");
+		        	//System.out.printf("%d\n", warehouse.getSimpleFeedNumber());
+		        	//System.out.println("低級飼料+5 ouo");
+		        	printAnimalRate(dude, num-1);
+		        	printFeedNumber(warehouse);
+		        	if(warehouse.getSimpleFeedNumber()==0)
 		        		b8.setVisible(false);
 		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
 		        	{
@@ -1041,9 +1086,13 @@ public class DudeScreen {
 		    animalRate.setText("成長值: "+ dude.getPondLand().get(i).getGrowingRate());
 		    animalRate.setBounds(300, 150, 200, 60);
 	  }
+	  public void printFeedNumber(WareHouse warehouse) {
+		  FeedNum.setText("高級飼料: "+ warehouse.getAdvencedFeedNumber()+" 中級飼料: "+ warehouse.getGeneralFeedNumber() +" 低級飼料: "+ warehouse.getSimpleFeedNumber());
+		  FeedNum.setBounds(50, 170, 280, 60);
+	  }
 	  public void randomFirstlocation(int i, double arrCoordinateX[], double arrCoordinateY[]) {
 		  arrCoordinateX[i] = (int) (Math.random()*450+20);
-	      arrCoordinateY[i] = (int) (Math.random()*450+100);
+	      arrCoordinateY[i] = (int) (Math.random()*400+220);
 	  }
 	  
 	    class RunningButton extends TimerTask {
@@ -1063,10 +1112,10 @@ public class DudeScreen {
 	            if (coordinateX + vx + 60 > 500) {
 	                vx = -vx;
 	            }
-	            if (coordinateY + vy < 150) {
+	            if (coordinateY + vy < 200) {
 	                vy = -vy;
 	            }
-	            if (coordinateY + vy + 25 > 580) {
+	            if (coordinateY + vy + 25 > 650) {
 	                vy = -vy;
 	            }
 	            coordinateX += vx;
