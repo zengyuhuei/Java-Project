@@ -51,6 +51,9 @@ public class DudeScreen {
 	  
 	public DudeScreen(WareHouse warehouse) 
 	{
+		System.out.printf("%d\n", warehouse.getAdvencedFeedNumber());
+		System.out.printf("%d\n", warehouse.getGeneralFeedNumber());
+		System.out.printf("%d\n", warehouse.getSimpleFeedNumber());
 		
 		button.add(b11);
 		button.add(b12);
@@ -69,68 +72,7 @@ public class DudeScreen {
 		f.setVisible(true); 
 		Container cp=f.getContentPane();
 		cp.setLayout(null);  //取消預設之 BorderLayout
-		
-		
-		/*Animal pig1 = new Pig();
-		Animal pig2 = new Pig();
-		Animal pig3 = new Pig();
-		Animal pig4 = new Pig();
-		Animal chicken1 = new Chicken();
-		Animal chicken2 = new Chicken();
-		Animal chicken3 = new Chicken();
-		Animal chicken4 = new Chicken();
-		Animal cow1 = new Cow();
-		Animal cow2 = new Cow();
-		Animal cow3 = new Cow();
-		Animal cow4 = new Cow();
-		Feed feed1=new SimpleFeed();
-		Feed feed2=new GeneralFeed();
-		Feed feed3=new AdvancedFeed();
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed1);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed2);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addFeed(feed3);
-		wareHouse.addYoungAnimal(pig1);
-		wareHouse.addYoungAnimal(pig2);
-		wareHouse.addYoungAnimal(pig3);
-		wareHouse.addYoungAnimal(pig4);
-		wareHouse.addYoungAnimal(chicken1);
-		wareHouse.addYoungAnimal(chicken2);
-		wareHouse.addYoungAnimal(chicken3);
-		wareHouse.addYoungAnimal(chicken4);
-		wareHouse.addYoungAnimal(cow1);
-		wareHouse.addYoungAnimal(cow2);
-		wareHouse.addYoungAnimal(cow3);
-		wareHouse.addYoungAnimal(cow4);*/
+
 		Dude dude = new Dude(warehouse);
 			
 			
@@ -913,11 +855,11 @@ public class DudeScreen {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	if(warehouse.getSimpleFeedNumber()>0)
-		        		b6.setVisible(true);
+		        		b8.setVisible(true);
 		        	if(warehouse.getGeneralFeedNumber()>0)
 		        		b7.setVisible(true);
 		        	if(warehouse.getAdvencedFeedNumber()>0)
-		        		b8.setVisible(true);
+		        		b6.setVisible(true);
 		        	System.out.printf("高%d\n",warehouse.getAdvencedFeedNumber());
 		        	System.out.printf("中%d\n",warehouse.getGeneralFeedNumber());
 		        	System.out.printf("低%d\n",warehouse.getSimpleFeedNumber());
