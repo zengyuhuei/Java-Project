@@ -102,5 +102,29 @@ public class Dude {
 	 {
 		 return num;
 	 }
+	public int getAnimalNum(ArrayList<Animal> list,String name)
+	{
+		int num = 0;
+		for(Animal i: list)
+		{
+			if(i.getName() == name)
+				num++;
+		}
+		return num;
+	}
+	public int getCowNumber() 
+	{
+		return getAnimalNum(pondLand,"牛");
+	}
+	//get the number of pig
+	public int getPigNumber() 
+	{
+		return getAnimalNum(pondLand,"豬");
+	}
+	//get the number of chicken
+	public int getChickenNumber() 
+	{
+		return getAnimalNum(pondLand,"雞");
+	}
 
 }

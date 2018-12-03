@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 
 public class DudeScreenTest2 {
@@ -31,17 +32,25 @@ public class DudeScreenTest2 {
 		    f.setVisible(true); 
 		    Container cp=f.getContentPane();
 		    cp.setLayout(null);  //取消預設之 BorderLayout
+		    WareHouse wareHouse = new WareHouse(); 
+		    Dude dude = new Dude(wareHouse);
 		    
+		    //牧場數量
+		    JLabel dudeNum = new JLabel();
+		    dudeNum.setText("牧場動物數量  牛: "+ dude.getCowNumber()+" 豬: "+ dude.getPigNumber()+" 雞: "+ dude.getChickenNumber());
+		    dudeNum.setBounds(50, 50, 200, 60);
+		    cp.add(dudeNum);
 		    
-		    //倉庫
-		    /*WareHouse wareHouse = new WareHouse();
-		    Animal pig = new Pig();
-		    Animal chicken = new Chicken();
-		    Animal cow = new Cow();
-		    wareHouse.addYoungAnimal(pig);
-		    wareHouse.addYoungAnimal(chicken);
-		    wareHouse.addYoungAnimal(cow);
-		    Dude dude = new Dude(wareHouse);*/
+		    //成長值
+		    JLabel animalRate = new JLabel();
+		    animalRate.setText("成長值:");
+		    cp.add(animalRate);
+		    
+		    //飼料
+		    JLabel feedNum = new JLabel();
+		    feedNum.setText("高級飼料");
+		    feedNum.setBounds(50, 50, 200, 60);
+		    cp.add(feedNum);
 		    
 		    //按鈕
 		    JButton b1 = new JButton("養殖");

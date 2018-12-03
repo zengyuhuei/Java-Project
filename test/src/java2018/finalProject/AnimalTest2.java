@@ -11,7 +11,7 @@ public class AnimalTest2 {
 		arr[1] = (int) (Math.random()*50+1);
 		int count, sum;
 		int derection; //left1 down2 right3 up4
-		animal.get(0).print(arr);
+		//animal.get(0).print(arr);
 		while(test>0)
 		{
 			derection = (int)(Math.random()*4+1);
@@ -19,9 +19,9 @@ public class AnimalTest2 {
 			count = 5;
 			for(int i=1;i<sum;i++)
 			{
-				animal.get(0).moving(arr, count, derection);
+				/*animal.get(0).moving(arr, count, derection);
 				animal.get(0).print(arr);
-				animal.get(0).makeDelay();
+				animal.get(0).makeDelay();*/
 			}
 			test--;
 		}
