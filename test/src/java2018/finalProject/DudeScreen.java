@@ -152,6 +152,7 @@ public class DudeScreen {
 	    	if(warehouse.getYoungChickenNumber()>0) {
 		    	b4.setVisible(true);
 		    }
+	    	
 	    	/*System.out.printf("%d\n",warehouse.getYoungPigNumber());
 	    	System.out.printf("%d\n",warehouse.getYoungCowNumber());
 	    	System.out.printf("%d\n",warehouse.getYoungChickenNumber());
@@ -168,7 +169,7 @@ public class DudeScreen {
 		  	b6.setVisible(false);
 		  	b7.setVisible(false);
 		    b8.setVisible(false);
-
+		    b9.setVisible(false);
 		}
 	});
 		    
@@ -552,11 +553,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=1;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(0).getName());
+		        	printAnimalRate(dude, 0);
 		        	if(dude.getPondLand().get(0).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(0).getGrowingRate());
-		        		printAnimalRate(dude, 0);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -585,11 +587,14 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=2;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(1).getName());
+		        	
+		        	printAnimalRate(dude, 1);
+		        	
 		        	if(dude.getPondLand().get(1).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(1).getGrowingRate());
-		        		printAnimalRate(dude, 1);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -616,11 +621,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=3;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(2).getName());
+		        	printAnimalRate(dude, 2);
 		        	if(dude.getPondLand().get(2).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(2).getGrowingRate());
-		        		printAnimalRate(dude, 2);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -647,11 +653,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=4;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(3).getName());
+		        	printAnimalRate(dude, 3);
 		        	if(dude.getPondLand().get(3).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(3).getGrowingRate());
-		        		printAnimalRate(dude, 3);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -678,11 +685,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=5;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(4).getName());
+		        	printAnimalRate(dude, 4);
 		        	if(dude.getPondLand().get(4).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(4).getGrowingRate());
-		        		printAnimalRate(dude, 4);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -709,11 +717,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=6;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(5).getName());
+		        	printAnimalRate(dude, 5);
 		        	if(dude.getPondLand().get(5).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(5).getGrowingRate());
-		        		printAnimalRate(dude, 5);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -740,11 +749,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=7;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(6).getName());
+		        	printAnimalRate(dude, 6);
 		        	if(dude.getPondLand().get(6).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(6).getGrowingRate());
-		        		printAnimalRate(dude, 6);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -771,11 +781,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=8;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(7).getName());
+		        	printAnimalRate(dude, 7);
 		        	if(dude.getPondLand().get(7).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(7).getGrowingRate());
-		        		printAnimalRate(dude, 7);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -803,11 +814,11 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=9;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(8).getName());
+		        	printAnimalRate(dude, 8);
 		        	if(dude.getPondLand().get(8).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(8).getGrowingRate());
-		        		printAnimalRate(dude, 8);
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
@@ -835,11 +846,12 @@ public class DudeScreen {
 		        	FeedNum.setVisible(true);
 		        	num=10;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(9).getName());
+		        	printAnimalRate(dude, 9);
 		        	if(dude.getPondLand().get(9).getGrowingRate()<100)
 		        	{
 		        		
 		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(9).getGrowingRate());
-		        		printAnimalRate(dude, 9);
+		        		
 		        		b5.setVisible(true);
 		        		b6.setVisible(false);
 		        		b7.setVisible(false);
