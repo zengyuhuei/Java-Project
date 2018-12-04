@@ -130,7 +130,7 @@ public class ShopScreen extends JFrame {
 		
 		shop = new Shop(warehouse);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 757);
+		setBounds(100, 100, 1094, 962);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLocationRelativeTo(null);
@@ -462,8 +462,14 @@ public class ShopScreen extends JFrame {
 		btnReturn.setBounds(332, 0, 144, 62);
 		contentPane.add(btnReturn);
 		
+		String holdMoney = String.format("擁有金額:%d", shop.getHoldMoney() );
+		lblHoldmoney = new JLabel(holdMoney);
+		lblHoldmoney.setFont(new Font("新細明體", Font.PLAIN, 24));
+		lblHoldmoney.setBounds(571, 4, 230, 58);
+		contentPane.add(lblHoldmoney);
+		
 		Panel panel = new Panel();
-		panel.setBounds(41, 630, 1009, 268);
+		panel.setBounds(10, 630, 1009, 268);
 		contentPane.add(panel);
 		panel.setVisible(false);
 		
@@ -677,12 +683,6 @@ public class ShopScreen extends JFrame {
 		});
 		btnDelcabbage.setBounds(727, 209, 150, 32);
 		panel.add(btnDelcabbage);
-		
-		String holdMoney = String.format("擁有金額:%d", shop.getHoldMoney() );
-		lblHoldmoney = new JLabel(holdMoney);
-		lblHoldmoney.setFont(new Font("新細明體", Font.PLAIN, 24));
-		lblHoldmoney.setBounds(571, 4, 230, 58);
-		contentPane.add(lblHoldmoney);
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		
