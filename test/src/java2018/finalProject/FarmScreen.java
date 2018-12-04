@@ -335,17 +335,17 @@ public class FarmScreen extends JFrame {
 		
 		
 		
-		cornButton.setBounds(529, 171, 46, 31);
+		cornButton.setBounds(529, 171, 70, 31);
 		cornButton.setVisible(false);
 		contentPane.add(cornButton);
 		
 		
-		wheatButton.setBounds(469, 171, 46, 31);
+		wheatButton.setBounds(469, 171, 70, 31);
 		wheatButton.setVisible(false);
 		contentPane.add(wheatButton);
 		
 		
-		cabbageButton.setBounds(409, 171, 46, 36);
+		cabbageButton.setBounds(409, 171, 70, 31);
 		cabbageButton.setVisible(false);
 		contentPane.add(cabbageButton);
 		
