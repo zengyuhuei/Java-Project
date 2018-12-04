@@ -110,7 +110,7 @@ public class DudeScreen {
 		b18.setVisible(false);
 		b19.setVisible(false);
 		b20.setVisible(false);
-		FeedNum.setVisible(false);
+		//FeedNum.setVisible(false);
 	    
 		cp.add(dudeNum);
 		cp.add(animalRate);  
@@ -549,7 +549,7 @@ public class DudeScreen {
 		    b11.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=1;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(0).getName());
 		        	if(dude.getPondLand().get(0).getGrowingRate()<100)
@@ -573,13 +573,16 @@ public class DudeScreen {
 		        		b9.setVisible(true);
 		        		
 		        	}
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    
 		    b12.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=2;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(1).getName());
 		        	if(dude.getPondLand().get(1).getGrowingRate()<100)
@@ -602,12 +605,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b13.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=3;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(2).getName());
 		        	if(dude.getPondLand().get(2).getGrowingRate()<100)
@@ -630,13 +636,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b14.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=4;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(3).getName());
 		        	if(dude.getPondLand().get(3).getGrowingRate()<100)
@@ -659,13 +667,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b15.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=5;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(4).getName());
 		        	if(dude.getPondLand().get(4).getGrowingRate()<100)
@@ -688,13 +698,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b16.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=6;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(5).getName());
 		        	if(dude.getPondLand().get(5).getGrowingRate()<100)
@@ -717,13 +729,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b17.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=7;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(6).getName());
 		        	if(dude.getPondLand().get(6).getGrowingRate()<100)
@@ -746,13 +760,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b18.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=8;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(7).getName());
 		        	if(dude.getPondLand().get(7).getGrowingRate()<100)
@@ -776,13 +792,15 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b19.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=9;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(8).getName());
 		        	if(dude.getPondLand().get(8).getGrowingRate()<100)
@@ -805,13 +823,16 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    b20.addActionListener(new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
+		        	FeedNum.setVisible(true);
 		        	num=10;
 		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(9).getName());
 		        	if(dude.getPondLand().get(9).getGrowingRate()<100)
@@ -834,7 +855,9 @@ public class DudeScreen {
 		        		b8.setVisible(false);
 		        		b9.setVisible(true);
 		        	}
-		      	    
+		        	b2.setVisible(false);
+		        	b3.setVisible(false);
+		        	b4.setVisible(false);
 		        }
 		    });
 		    
@@ -1059,8 +1082,9 @@ public class DudeScreen {
 		    animalRate.setBounds(300, 150, 200, 60);
 	  }
 	  public void printFeedNumber(WareHouse warehouse) {
-		  FeedNum.setText("高級飼料: "+ warehouse.getAdvencedFeedNumber()+" 中級飼料: "+ warehouse.getGeneralFeedNumber() +" 低級飼料: "+ warehouse.getSimpleFeedNumber());
 		  FeedNum.setBounds(50, 170, 280, 60);
+		  FeedNum.setText("高級飼料: "+ warehouse.getAdvencedFeedNumber()+" 中級飼料: "+ warehouse.getGeneralFeedNumber() +" 低級飼料: "+ warehouse.getSimpleFeedNumber());
+		  System.out.printf("%d %d %d", warehouse.getAdvencedFeedNumber(),warehouse.getGeneralFeedNumber(),warehouse.getSimpleFeedNumber());
 	  }
 	  public void printHouseNum(WareHouse warehouse) {
 		  houseNum.setBounds(50, 150, 200, 60);
