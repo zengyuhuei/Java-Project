@@ -3,7 +3,13 @@
 package java2018.finalProject;
 
 import java.util.ArrayList;
+
 import java.util.Random;
+
+import java.util.Date;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+
 
 // 提供農場相關功能
 public class Farm
@@ -75,8 +81,10 @@ public class Farm
 			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
 		*/
 		farmLand.get(count).setGrowingRate();
+		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
 		house.removeSeed("玉米");
+		
 		return true;
 	}
 	
@@ -93,6 +101,7 @@ public class Farm
 			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
 		*/
 		farmLand.get(count).setGrowingRate();
+		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
 		house.removeSeed("小麥");
 		return true;
@@ -111,22 +120,38 @@ public class Farm
 			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
 		*/
 		farmLand.get(count).setGrowingRate();
+		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
 		house.removeSeed("高麗菜");
 		return true;
 	}
+	public Date getDateTime()
+	{
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String strDate = sdFormat.format(date);
+		System.out.println(strDate);
+		return date;
+	}
 	
 	//決定何時呼叫randomCheck()
-	public boolean decideCallRandomCheck()
+	public boolean decideCallRandomCheck(Crop crop)
 	{
-		Random random = new Random();
-		Crop crop;
-		if(random.nextInt(1) == 1)
-			return true;//crop.randomCheck();
+		Date mainDate = new Date();
+		long diff = mainDate.getTime() - crop.getLastWaterDate().getTime();
+		diff = diff / 100;
+		System.out.println("diff = "+diff);
+		if(diff >= 20)   //20秒重新亮起澆水
+		{
+			/*if(crop.randomCheck())
+				return true;
+			else
+				crop.setLastWaterDate(mainDate)*/
+				
+			return true;
+		}
 		return false;
-		//ex. 
-		//     if( main的時間 - 上次澆水時間 == 20s)
-		//         call randomCheck()
+			
 	}
 	public int getLandNum()
 	 {
@@ -138,10 +163,21 @@ public class Farm
 		for(int i = 0; i < 12; i++)
 			storeCropArray[i] = -1;
 	 }
-
-
+	
 	public int getStoreCropNum(int index)
 	 {
 		 return storeCropArray[index];
 	 }
+	
+	public Date getOneHOurToNowDate()
+	{
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY)-1); 
+		//SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		// 1 hour before
+		//String oneHourBeforeTime = sdFormat.format(calendar.getTime());
+		//System.out.println(oneHourBeforeTime);
+		return calendar.getTime();
+	}
 }

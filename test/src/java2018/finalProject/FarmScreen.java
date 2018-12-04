@@ -51,7 +51,54 @@ public class FarmScreen extends JFrame {
 	JButton button_11 = new JButton("Land11");
 	
 	
-	
+	public void reload()
+	{
+		if(farm.getStoreCropNum(landNum) == -1)
+		{
+			//System.out.println("一無所有的土地ouq");
+			fertilizeButton.setEnabled(false);
+			harvestButton.setEnabled(false);
+			sowingButton.setEnabled(true);
+			waterButton.setEnabled(false);
+
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
+		}
+		else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
+		{
+			//System.out.println("該宰了他了 =u=");
+			fertilizeButton.setEnabled(false);
+			harvestButton.setEnabled(true);
+			sowingButton.setEnabled(false);
+			waterButton.setEnabled(false);
+			
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
+		}
+		else
+		{
+			//System.out.println("這裡種"+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed());
+			//System.out.println("GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+			if(wareHouse.getFertilizer() == 0)
+				fertilizeButton.setEnabled(false);
+			else
+				fertilizeButton.setEnabled(true);
+
+			if(farm.decideCallRandomCheck(farm.getFarmLand().get(farm.getStoreCropNum(landNum))))
+				waterButton.setEnabled(true);
+			else
+				waterButton.setEnabled(false);
+			
+			harvestButton.setEnabled(false);
+			sowingButton.setEnabled(false);
+
+			cornButton.setVisible(false);
+			wheatButton.setVisible(false);
+			cabbageButton.setVisible(false);
+		}
+	}
 	
 	public void LandButton()
 	{
@@ -91,9 +138,14 @@ public class FarmScreen extends JFrame {
 				fertilizeButton.setEnabled(false);
 			else
 				fertilizeButton.setEnabled(true);
+
+			if(farm.decideCallRandomCheck(farm.getFarmLand().get(farm.getStoreCropNum(landNum))))
+				waterButton.setEnabled(true);
+			else
+				waterButton.setEnabled(false);
+			
 			harvestButton.setEnabled(false);
 			sowingButton.setEnabled(false);
-			waterButton.setEnabled(true);
 
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
@@ -101,9 +153,9 @@ public class FarmScreen extends JFrame {
 		}
 	}
 	
-	public FarmScreen() {
+	public FarmScreen(WareHouse wareHouse) {
 		
-		Crop corn1 = new Corn();
+		/*Crop corn1 = new Corn();
 		Crop corn2 = new Corn();
 		Crop corn3 = new Corn();
 		Crop corn4 = new Corn();
@@ -123,12 +175,8 @@ public class FarmScreen extends JFrame {
 		wareHouse.addSeed(cabbage1);
 		wareHouse.addSeed(cabbage2);
 		wareHouse.addSeed(cabbage3);
-		
-		System.out.println("玉米數量 = "+wareHouse.getCornSeedNumber());
-		System.out.println("小麥數量 = "+wareHouse.getWheatSeedNumber());
-		System.out.println("高麗菜數量 = "+wareHouse.getCabbageSeedNumber());
-		
-		wareHouse.editFertilizer(10);
+		*/
+		//wareHouse.editFertilizer(10);
 		
 		farm.setStoreCropNum();
 		
@@ -146,6 +194,7 @@ public class FarmScreen extends JFrame {
 		contentPane.add(waterButton);
 		waterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				farm.getOneHOurToNowDate();
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).water();
 				System.out.println("澆水後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
@@ -155,6 +204,7 @@ public class FarmScreen extends JFrame {
 					sowingButton.setEnabled(false);
 					waterButton.setEnabled(false);
 				}
+				reload();
 			}
 		});
 
@@ -179,6 +229,7 @@ public class FarmScreen extends JFrame {
 					sowingButton.setEnabled(false);
 					waterButton.setEnabled(false);
 				}
+				reload();
 			}
 		});
 		
@@ -189,6 +240,10 @@ public class FarmScreen extends JFrame {
 		contentPane.add(sowingButton);
 		sowingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("玉米種子數量 = "+wareHouse.getCornSeedNumber());
+				System.out.println("小麥種子數量 = "+wareHouse.getWheatSeedNumber());
+				System.out.println("高麗菜種子數量 = "+wareHouse.getCabbageSeedNumber());
+				
 				cornButton.setVisible(true);
 				wheatButton.setVisible(true);
 				cabbageButton.setVisible(true);

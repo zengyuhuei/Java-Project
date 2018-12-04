@@ -3,6 +3,8 @@
 package java2018.finalProject;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.Random;
 
 //定義農作物的基本功能
@@ -55,7 +57,13 @@ public abstract class Crop
 		if(growingRate < 100)
 		{
 			growingRate += 3;
+			
 			//更新lastWaterDate
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			Date date = new Date();
+			String strDate = sdFormat.format(date);
+			setLastWaterDate(date);
+			System.out.println(strDate);
 			return true;
 		}
 		else
@@ -86,7 +94,8 @@ public abstract class Crop
 	public boolean randomCheck()
 	{
 		Random random = new Random();
-		int randomProbablilty = random.nextInt(1);
+		int randomProbablilty = random.nextInt(2);
+		System.out.println("random = "+randomProbablilty);
 		if(randomProbablilty == 0)
 			return false;
 		else
@@ -100,6 +109,13 @@ public abstract class Crop
 	
 	public abstract String pickSeed();
 	
+	public Date getLastWaterDate()
+	{
+		return lastWaterDate;
+	}
 	
-	
+	public void setLastWaterDate(Date lastWaterDate)
+	{
+		this.lastWaterDate = lastWaterDate;
+	}
 }

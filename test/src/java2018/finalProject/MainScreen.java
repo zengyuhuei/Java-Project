@@ -97,7 +97,7 @@ public class MainScreen extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							farmscreen = new FarmScreen();
+							farmscreen = new FarmScreen(warehouse);
 							farmscreen.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
