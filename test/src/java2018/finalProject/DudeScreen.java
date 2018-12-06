@@ -338,6 +338,7 @@ public class DudeScreen extends JFrame {
 				closeFeed();
 				closeStart();
 				dude.capturing(num);
+				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
 		animal1.addActionListener(new ActionListener() {
@@ -508,6 +509,11 @@ public class DudeScreen extends JFrame {
 		if(warehouse.getAdvencedFeedNumber()!=0) {
 			highFeed.setEnabled(true);
 		}
+	}
+	public void printdudeAnimalNum(Dude dude, JLabel dudeChickenNum, JLabel dudePigNum, JLabel dudeCowNum) {
+		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
+		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
+		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
 	}
     class RunningButton extends TimerTask {
     	private JButton btn;
