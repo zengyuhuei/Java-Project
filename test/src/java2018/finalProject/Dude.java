@@ -17,7 +17,7 @@ public class Dude {
 	 {
 		 if(pondLand.get(number).getGrowingRate()==100)
 		 {
-			 house.addAnimal(pondLand.get(number-1));
+			 house.addAnimal(pondLand.get(number));
 			 pondLand.set(number, null);
 			 num--;
 			 return true;
@@ -110,6 +110,8 @@ public class Dude {
 		int num = 0;
 		for(Animal i: list)
 		{
+			if(i==null)
+				continue;
 			if(i.getName() == name)
 				num++;
 		}
@@ -131,12 +133,11 @@ public class Dude {
 	}
 	public boolean getNullNum(Animal animal)
 	{
-		for(Animal i: pondLand)
+		for(int i=0; i<pondLand.size(); i++)
 		{
-			if(i == null)
+			if(pondLand.get(i)==null)
 			{
-				System.out.printf("養%s", animal.getName());
-				i=animal;
+				pondLand.set(i, animal);
 				num++;
 				return true;
 			}

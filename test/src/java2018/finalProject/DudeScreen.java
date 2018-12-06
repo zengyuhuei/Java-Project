@@ -327,6 +327,7 @@ public class DudeScreen extends JFrame {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
 				printAnimalRate(dude, num);
+				returnAnimalEat(dude, num);
 			}
 		});
 		midFeed.addActionListener(new ActionListener() {
@@ -336,6 +337,7 @@ public class DudeScreen extends JFrame {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
 				printAnimalRate(dude, num);
+				returnAnimalEat(dude, num);
 			}
 		});
 		highFeed.addActionListener(new ActionListener() {
@@ -344,9 +346,9 @@ public class DudeScreen extends JFrame {
 				warehouse.removeFeed(new AdvancedFeed().getName());
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
-				printAnimalRate(dude, 0);
-				dude.getPondLand().get(num).feeding(new AdvancedFeed());
 				printAnimalRate(dude, num);
+				returnAnimalEat(dude, num);
+				
 			}
 		});
 		catchAnimal.addActionListener(new ActionListener() {
@@ -355,6 +357,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
+				showButton(dude);
 			}
 		});
 		animal1.addActionListener(new ActionListener() {
@@ -445,9 +448,10 @@ public class DudeScreen extends JFrame {
 		if(dude.getPondLand().get(i).getGrowingRate()<100) {
 			feedAnimal.setEnabled(true);
 			printAnimalRate(dude, i);
-	}
+		}
 		else {
 			feedAnimal.setEnabled(false);
+			closeFeed();
 			catchAnimal.setEnabled(true);
 		}
 	}
@@ -547,9 +551,13 @@ public class DudeScreen extends JFrame {
     			System.out.printf("%d是null啦!!!\n", i);
     			button.get(i).setVisible(false);
     		}
-			System.out.printf("%s\n", dude.getPondLand().get(i).getName());
-			button.get(i).setText(dude.getPondLand().get(i).getName());
-			button.get(i).setVisible(true);
+    		else
+    		{
+    			System.out.printf("%s\n", dude.getPondLand().get(i).getName());
+    			button.get(i).setText(dude.getPondLand().get(i).getName());
+    			button.get(i).setVisible(true);
+    		}
+			
 		}
     }
 }
