@@ -2,7 +2,9 @@ package java2018.finalProject;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -53,51 +55,10 @@ public class FarmScreen extends JFrame {
 	
 	public void reload()
 	{
-		if(farm.getStoreCropNum(landNum) == -1)
-		{
-			//System.out.println("一無所有的土地ouq");
-			fertilizeButton.setEnabled(false);
-			harvestButton.setEnabled(false);
-			sowingButton.setEnabled(true);
-			waterButton.setEnabled(false);
-
-			cornButton.setVisible(false);
-			wheatButton.setVisible(false);
-			cabbageButton.setVisible(false);
-		}
-		else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
-		{
-			//System.out.println("該宰了他了 =u=");
-			fertilizeButton.setEnabled(false);
-			harvestButton.setEnabled(true);
-			sowingButton.setEnabled(false);
-			waterButton.setEnabled(false);
-			
-			cornButton.setVisible(false);
-			wheatButton.setVisible(false);
-			cabbageButton.setVisible(false);
-		}
-		else
-		{
-			//System.out.println("這裡種"+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed());
-			//System.out.println("GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
-			if(wareHouse.getFertilizer() == 0)
-				fertilizeButton.setEnabled(false);
-			else
-				fertilizeButton.setEnabled(true);
-
-			if(farm.decideCallRandomCheck(farm.getFarmLand().get(farm.getStoreCropNum(landNum))))
-				waterButton.setEnabled(true);
-			else
-				waterButton.setEnabled(false);
-			
-			harvestButton.setEnabled(false);
-			sowingButton.setEnabled(false);
-
-			cornButton.setVisible(false);
-			wheatButton.setVisible(false);
-			cabbageButton.setVisible(false);
-		}
+		fertilizeButton.setVisible(false);
+		harvestButton.setVisible(false);
+		sowingButton.setVisible(false);
+		waterButton.setVisible(false);
 	}
 	
 	public void LandButton()
@@ -181,11 +142,13 @@ public class FarmScreen extends JFrame {
 		farm.setStoreCropNum();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 778, 589);
+		//setBounds(100, 100, 778, 589);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		  this.setSize(1200, 675);
 		
 
 		//澆水button
@@ -267,6 +230,7 @@ public class FarmScreen extends JFrame {
 							fertilizeButton.setEnabled(false);
 						else
 							fertilizeButton.setEnabled(true);
+						reload();
 		        	}
 		        }
 		    });
@@ -286,6 +250,7 @@ public class FarmScreen extends JFrame {
 							fertilizeButton.setEnabled(false);
 						else
 							fertilizeButton.setEnabled(true);
+						reload();
 		        	}
 		        	
 		        }
@@ -306,6 +271,7 @@ public class FarmScreen extends JFrame {
 							fertilizeButton.setEnabled(false);
 						else
 							fertilizeButton.setEnabled(true);
+						reload();
 		        	}
 		        	
 		        }
@@ -329,6 +295,7 @@ public class FarmScreen extends JFrame {
 					harvestButton.setEnabled(false);
 					sowingButton.setEnabled(true);
 					waterButton.setEnabled(false);	
+					reload();
 				}
 			}
 		});
