@@ -1,1139 +1,484 @@
 package java2018.finalProject;
 
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import java2018.finalProject.DudeScreenTest.RunningButton;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.awt.event.ActionEvent;
 
-public class DudeScreen {
-	//WareHouse wareHouse = new WareHouse();
-	JFrame f;
-	int num;
-	JButton b1 = new JButton("養殖");
-	JButton b2 = new JButton("牛");
-	JButton b3 = new JButton("豬");
-	JButton b4 = new JButton("雞");
-	JButton b5 = new JButton("餵食");
-	JButton b6 = new JButton("高級飼料");
-	JButton b7 = new JButton("中級飼料");
-	JButton b8 = new JButton("低級飼料");
-	JButton b9 = new JButton("捕捉");
-	JButton b10 = new JButton("回首頁");
-	JButton b11 = new JButton("動物");
-	JButton b12 = new JButton("動物");
-	JButton b13 = new JButton("動物");
-	JButton b14 = new JButton("動物");
-	JButton b15 = new JButton("動物");
-	JButton b16 = new JButton("動物");
-	JButton b17 = new JButton("動物");
-	JButton b18 = new JButton("動物");
-	JButton b19 = new JButton("動物");
-	JButton b20 = new JButton("動物");
-	JLabel dudeNum = new JLabel();
-	JLabel animalRate = new JLabel();
-	JLabel FeedNum = new JLabel();
-	JLabel houseNum = new JLabel();
-	ArrayList<JButton> button = new ArrayList<JButton>(10);
-	public double [] arrCoordinateX = new double[10];
-	public double [] arrCoordinateY = new double[10];
+public class DudeScreen extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		//EventQueue.invokeLater(new Runnable() {
+			//public void run() {
+				try {
+					WareHouse warehouse = new WareHouse();
+					DudeScreen frame = new DudeScreen(warehouse);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			//}
+		//});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	JButton startFeed = new JButton("養殖");	
+	JButton feedChicken = new JButton(); 
+	JButton feedPig = new JButton("豬");
+	JButton feedCow = new JButton("牛");
+	JButton feedAnimal = new JButton("餵食");
+	JButton lowFeed = new JButton("低級飼料");
+	JButton midFeed = new JButton("中級飼料");
+	JButton highFeed = new JButton("高級飼料");
+	JButton catchAnimal = new JButton("捕捉");
+	JButton home = new JButton("回首頁");
+	JButton animal1 = new JButton("動物1");
+	JButton animal2 = new JButton("動物2");
+	JButton animal3 = new JButton("動物3");
+	JButton animal4 = new JButton("動物4");
+	JButton animal5 = new JButton("動物5");
+	JButton animal6 = new JButton("動物6");
+	JButton animal7 = new JButton("動物7");
+	JButton animal8 = new JButton("動物8");
+	JButton animal9 = new JButton("動物9");
+	JButton animal10 = new JButton("動物10");
 	
-	private Timer timer0 = new Timer();
-	Timer timer1 = new Timer();
-	Timer timer2 = new Timer();
-	Timer timer3 = new Timer();
-	Timer timer4 = new Timer();
-	Timer timer5 = new Timer();
-	Timer timer6 = new Timer();
-	Timer timer7 = new Timer();
-	Timer timer8 = new Timer();
-	Timer timer9 = new Timer();
-	
-	/*public static void main(String argv[]) 
-	{
-		new DudeScreen(warehouse);  
-	    
-	}*/
-	  
-	public DudeScreen(WareHouse warehouse) 
-	{
-		System.out.printf("%d\n", warehouse.getAdvencedFeedNumber());
-		System.out.printf("%d\n", warehouse.getGeneralFeedNumber());
-		System.out.printf("%d\n", warehouse.getSimpleFeedNumber());
+	public DudeScreen(WareHouse warehouse) {
 		
-		button.add(b11);
-		button.add(b12);
-		button.add(b13);
-		button.add(b14);
-		button.add(b15);
-		button.add(b16);
-		button.add(b17);
-		button.add(b18);
-		button.add(b19);
-		button.add(b20);
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		f=new JFrame("Dude");
-		f.setBounds(0,0,550,700); 
-		f.setVisible(true); 
-		Container cp=f.getContentPane();
-		cp.setLayout(null);  //取消預設之 BorderLayout
-
 		Dude dude = new Dude(warehouse);
-			
-			
-		b2.setVisible(false);
-		b3.setVisible(false);
-		b4.setVisible(false);
-		b5.setVisible(false);
-		b6.setVisible(false);
-		b7.setVisible(false);
-		b8.setVisible(false);
-		b9.setVisible(false);
-		b11.setVisible(false);
-		b12.setVisible(false);
-		b13.setVisible(false);
-		b14.setVisible(false);
-		b15.setVisible(false);
-		b16.setVisible(false);
-		b17.setVisible(false);
-		b18.setVisible(false);
-		b19.setVisible(false);
-		b20.setVisible(false);
-		//FeedNum.setVisible(false);
-	    
-		cp.add(dudeNum);
-		cp.add(animalRate);  
-		cp.add(FeedNum);
-		cp.add(houseNum);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(1200, 675);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		printDudeNum(dude);
+		JLabel dudeAnimalNum = new JLabel("牧場動物:");
+		dudeAnimalNum.setBounds(94, 567, 145, 43);
+		contentPane.add(dudeAnimalNum);
+		dudeAnimalNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		
-		b10.setBounds(400,20,80,25);  //自行決定元件位置與大小   (x, y, 橫, 直)
-		cp.add(b10);
-		b10.addActionListener(new ActionListener() {
-			@Override
-		    public void actionPerformed(ActionEvent e) {
+		
+		startFeed.setBounds(1049, 97, 76, 65);
+		contentPane.add(startFeed);
+		startFeed.setFont(new java.awt.Font("Dialog", 1, 20));
+		
+		//圖片上亮倉庫數量
+		feedChicken.setFont(new Font("Dialog", Font.BOLD, 20));
+		feedChicken.setBounds(963, 97, 76, 65);
+		contentPane.add(feedChicken);
+		feedChicken.setVisible(false);
+		
+		feedPig.setFont(new Font("Dialog", Font.BOLD, 20));
+		feedPig.setBounds(877, 97, 76, 65);
+		contentPane.add(feedPig);
+		feedPig.setVisible(false);
+		
+		feedCow.setFont(new Font("Dialog", Font.BOLD, 20));
+		feedCow.setBounds(791, 97, 76, 65);
+		contentPane.add(feedCow);
+		feedCow.setVisible(false);
+		
+		feedAnimal.setBounds(1049, 226, 76, 65);
+		contentPane.add(feedAnimal);
+		feedAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
+		feedAnimal.setEnabled(false);
+		
+		lowFeed.setFont(new Font("Dialog", Font.BOLD, 16));
+		lowFeed.setBounds(902, 226, 137, 65);
+		contentPane.add(lowFeed);
+		lowFeed.setVisible(false);
+		
+		midFeed.setFont(new Font("Dialog", Font.BOLD, 16));
+		midFeed.setBounds(755, 227, 137, 65);
+		contentPane.add(midFeed);
+		midFeed.setVisible(false);
+		
+		highFeed.setFont(new Font("Dialog", Font.BOLD, 16));
+		highFeed.setBounds(608, 227, 137, 65);
+		contentPane.add(highFeed);
+		highFeed.setVisible(false);
+		
+		catchAnimal.setBounds(1049, 350, 76, 65);
+		contentPane.add(catchAnimal);
+		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
+		catchAnimal.setEnabled(false);
+		
+		JLabel dudeCowNum = new JLabel();
+		dudeCowNum.setBounds(274, 567, 104, 34);
+		contentPane.add(dudeCowNum);
+		dudeCowNum.setFont(new java.awt.Font("Dialog", 1, 30));
+		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
+		
+		JLabel dudePigNum = new JLabel();
+		dudePigNum.setBounds(411, 567, 104, 34);
+		contentPane.add(dudePigNum);
+		dudePigNum.setFont(new java.awt.Font("Dialog", 1, 30));
+		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
+		
+		JLabel dudeChickenNum = new JLabel();
+		dudeChickenNum.setBounds(555, 567, 104, 34);
+		contentPane.add(dudeChickenNum);
+		dudeChickenNum.setFont(new java.awt.Font("Dialog", 1, 30));
+		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
+		
+		home.setFont(new Font("Dialog", Font.BOLD, 20));
+		home.setBounds(1008, 526, 117, 65);
+		contentPane.add(home);
+		
+		JLabel animalRate = new JLabel(); //成長值
+		animalRate.setBounds(50, 30, 189, 55);
+		contentPane.add(animalRate);
+		animalRate.setFont(new java.awt.Font("Dialog", 1, 30));
+		
+		animal1.setBounds(411, 236, 87, 55);
+		contentPane.add(animal1);
+		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
+		Timer timer1 = new Timer();
+		RunningButton run1 = new RunningButton(animal1, 411, 236);
+		timer1.schedule(run1, 1000, 180);
+		
+		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal2.setBounds(287, 150, 87, 55);
+		contentPane.add(animal2);
+		Timer timer2 = new Timer();
+		RunningButton run2 = new RunningButton(animal2, 287, 150);
+		timer2.schedule(run2, 1000, 180);
+		animal2.setVisible(false);
+		
+		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal3.setBounds(185, 274, 87, 55);
+		contentPane.add(animal3);
+		Timer timer3 = new Timer();
+		RunningButton run3 = new RunningButton(animal3, 287, 150);
+		timer3.schedule(run3, 1000, 180);
+		animal3.setVisible(false);
+		
+		animal4.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal4.setBounds(336, 350, 87, 55);
+		contentPane.add(animal4);
+		Timer timer4 = new Timer();
+		RunningButton run4 = new RunningButton(animal4, 287, 150);
+		timer4.schedule(run4, 1000, 180);
+		animal4.setVisible(false);
+		
+		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal5.setBounds(136, 107, 87, 55);
+		contentPane.add(animal5);
+		Timer timer5 = new Timer();
+		RunningButton run5 = new RunningButton(animal5, 287, 150);
+		timer5.schedule(run5, 1000, 180);
+		animal5.setVisible(false);
+		
+		animal6.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal6.setBounds(105, 373, 87, 55);
+		contentPane.add(animal6);
+		Timer timer6 = new Timer();
+		RunningButton run6 = new RunningButton(animal6, 105, 373);
+		timer6.schedule(run6, 1000, 180);
+		animal6.setVisible(false);
+		
+		animal7.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal7.setBounds(428, 97, 87, 55);
+		contentPane.add(animal7);
+		Timer timer7 = new Timer();
+		RunningButton run7 = new RunningButton(animal7, 428, 97);
+		timer7.schedule(run7, 1000, 180);
+		animal7.setVisible(false);
+		
+		animal8.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal8.setBounds(491, 312, 87, 55);
+		contentPane.add(animal8);
+		Timer timer8 = new Timer();
+		RunningButton run8 = new RunningButton(animal8, 491, 312);
+		timer8.schedule(run8, 1000, 180);
+		animal8.setVisible(false);
+		
+		animal9.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal9.setBounds(620, 150, 87, 55);
+		contentPane.add(animal9);
+		Timer timer9 = new Timer();
+		RunningButton run9 = new RunningButton(animal9, 620, 150);
+		timer9.schedule(run9, 1000, 180);
+		animal9.setVisible(false);
+		
+		animal10.setFont(new Font("Dialog", Font.BOLD, 20));
+		animal10.setBounds(708, 330, 87, 55);
+		contentPane.add(animal10);
+		Timer timer10 = new Timer();
+		RunningButton run10 = new RunningButton(animal10, 708, 330);
+		timer10.schedule(run10, 1000, 180);
+		animal10.setVisible(false);
+		
+		startFeed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseAnimalNum(warehouse);
+				returnHouseAnimal(warehouse);
+				closeFeed();
+				feedChicken.setVisible(true);
+				feedPig.setVisible(true);
+				feedCow.setVisible(true);
+				feedAnimal.setEnabled(false);
+			}
+		});
+		feedChicken.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseAnimalNum(warehouse);
+				returnHouseAnimal(warehouse);
+			}
+		});
+		feedPig.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseAnimalNum(warehouse);
+				returnHouseAnimal(warehouse);
+			}
+		});
+		feedCow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseAnimalNum(warehouse);
+				returnHouseAnimal(warehouse);
+			}
+		});
+		feedAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeStart();
+				printHouseFeedNum(warehouse);
+				returnHouseFeed(warehouse);
+				lowFeed.setVisible(true);
+				midFeed.setVisible(true);
+				highFeed.setVisible(true);
+			}
+		});
+		lowFeed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseFeedNum(warehouse);
+				returnHouseFeed(warehouse);
+			}
+		});
+		midFeed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseFeedNum(warehouse);
+				returnHouseFeed(warehouse);
+			}
+		});
+		highFeed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printHouseFeedNum(warehouse);
+				returnHouseFeed(warehouse);
+				printAnimalRate(animalRate, dude, 0);
+			}
+		});
+		catchAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+			}
+		});
+		animal1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feedAnimal.setEnabled(true);
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 0);
+				returnAnimalEat(dude, 0);
+			}
+		});
+		animal2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 1);
+				returnAnimalEat(dude, 1);
+			}
+		});
+		animal3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 2);
+				returnAnimalEat(dude, 2);
+			}
+		});
+		animal4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 3);
+				returnAnimalEat(dude, 3);
+			}
+		});
+		animal5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 4);
+				returnAnimalEat(dude, 4);
+			}
+		});
+		animal6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 5);
+				returnAnimalEat(dude, 5);
+			}
+		});
+		animal7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 6);
+				returnAnimalEat(dude, 6);
+			}
+		});
+		animal8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 7);
+				returnAnimalEat(dude, 7);
+			}
+		});
+		animal9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 8);
+				returnAnimalEat(dude, 8);
+			}
+		});
+		animal10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
+				printAnimalRate(animalRate, dude, 9);
+				returnAnimalEat(dude, 9);
+			}
+		});
+		home.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				closeFeed();
+				closeStart();
 				
 			}
 		});
-		
-		b1.setBounds(20,20,60,25);  //自行決定元件位置與大小   (x, y, 橫, 直)
-		cp.add(b1);
-		b1.addActionListener(new ActionListener() {
-		@Override
-	    public void actionPerformed(ActionEvent e) {
-			FeedNum.setVisible(false);
-	    	if(warehouse.getYoungCowNumber()==0) {
-	    		b2.setVisible(false);
-		    }
-		   	if(warehouse.getYoungCowNumber()>0) {
-		   		b2.setVisible(true);
-		   	}
-		   	if(warehouse.getYoungPigNumber()==0) {
-	    		b3.setVisible(false);
-	    	}
-		   	if(warehouse.getYoungPigNumber()>0) {
-		    	b3.setVisible(true);
-		   	}
-		   	if(warehouse.getYoungChickenNumber()==0) {
-		   		b4.setVisible(false);
-	    	}
-	    	if(warehouse.getYoungChickenNumber()>0) {
-		    	b4.setVisible(true);
-		    }
-	    	
-	    	/*System.out.printf("%d\n",warehouse.getYoungPigNumber());
-	    	System.out.printf("%d\n",warehouse.getYoungCowNumber());
-	    	System.out.printf("%d\n",warehouse.getYoungChickenNumber());
-		   	System.out.println("想養東西ouo");*/
-		   	printHouseNum(warehouse);
-		    if(dude.getNum()==10)
-		    {
-			    b2.setVisible(false);
-			    b3.setVisible(false);
-			    b4.setVisible(false);
-				System.out.println("牧場已經塞不下動物了!!");
-		  	}
-		    b5.setVisible(false);
-		  	b6.setVisible(false);
-		  	b7.setVisible(false);
-		    b8.setVisible(false);
-		    b9.setVisible(false);
+	}
+	public void closeFeed() {
+		lowFeed.setVisible(false);
+		midFeed.setVisible(false);
+		highFeed.setVisible(false);
+	}
+	public void closeStart() {
+		feedChicken.setVisible(false);
+		feedPig.setVisible(false);
+		feedCow.setVisible(false);
+	}
+	public void returnAnimalEat(Dude dude, int i) {
+		if(dude.getPondLand().get(i).getGrowingRate()<100)
+			feedAnimal.setEnabled(true);
+		else
+			feedAnimal.setEnabled(true);
+			catchAnimal.setEnabled(true);
+	}
+	public void printAnimalRate(JLabel animalRate, Dude dude, int i) {
+		animalRate.setText("成長值: "+dude.getPondLand().get(i).getGrowingRate());
+	}
+	public void printHouseAnimalNum(WareHouse warehouse) {
+		feedChicken.setText("雞 "+warehouse.getYoungChickenNumber());
+		feedPig.setText("豬 "+warehouse.getYoungPigNumber());
+		feedCow.setText("牛 "+warehouse.getYoungCowNumber());
+	}
+	public void returnHouseAnimal(WareHouse warehouse) {
+		if(warehouse.getYoungChickenNumber()==0) {
+			feedChicken.setEnabled(false);
 		}
-	});
-		    
-			b2.setBounds(20,50,60,25);  //自行決定元件位置與大小
-		    cp.add(b2);
-		    b2.addActionListener(new ActionListener() {
-		    	@Override
-		        public void actionPerformed(ActionEvent e) {
-		    		FeedNum.setVisible(false);
-		        	dude.startFeedCow(new Cow());
-		        	if(warehouse.getYoungCowNumber()==0) {
-		        		b2.setVisible(false);
-		        	}
-		      	    if(dude.getNum()==1)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(0, arrCoordinateX, arrCoordinateY);
-		      	    	b11.setBounds((int)arrCoordinateX[0], (int)arrCoordinateY[0],60,25);
-		      	    	b11.setVisible(true);
-		      	    	b11.setText("牛");
-		      	    	timerStart();
-		      	    }
-		      	    if(dude.getNum()==2)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(1, arrCoordinateX, arrCoordinateY);
-		      	    	b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
-		      	    	b12.setVisible(true);
-		      	    	b12.setText("牛");
-			        	RunningButton r1 = new RunningButton(b12, arrCoordinateX[1], arrCoordinateY[1]);
-			        	timer1.schedule(r1, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==3)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(2, arrCoordinateX, arrCoordinateY);
-		      	    	b13.setBounds((int)arrCoordinateX[2], (int)arrCoordinateY[2],60,25);
-		      	    	b13.setVisible(true);
-		      	    	b13.setText("牛");
-			        	RunningButton r2 = new RunningButton(b13, arrCoordinateX[2], arrCoordinateY[2]);
-			        	timer2.schedule(r2, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==4)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(3, arrCoordinateX, arrCoordinateY);
-		      	    	b14.setBounds((int)arrCoordinateX[3], (int)arrCoordinateY[3],60,25);
-		      	    	b14.setVisible(true);
-		      	    	b14.setText("牛");
-			        	RunningButton r3 = new RunningButton(b14, arrCoordinateX[3], arrCoordinateY[3]);
-			        	timer3.schedule(r3, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==5)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(4, arrCoordinateX, arrCoordinateY);
-		      	    	b15.setBounds((int)arrCoordinateX[4], (int)arrCoordinateY[4],60,25);
-		      	    	b15.setVisible(true);
-		      	    	b15.setText("牛");
-			        	RunningButton r4 = new RunningButton(b15, arrCoordinateX[4], arrCoordinateY[4]);
-			        	timer4.schedule(r4, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==6)
-		      	    {
-		      	    	System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(5, arrCoordinateX, arrCoordinateY);
-		      	    	b16.setBounds((int)arrCoordinateX[5], (int)arrCoordinateY[5],60,25);
-		      	    	b16.setVisible(true);
-		      	    	b16.setText("牛");
-			        	RunningButton r5 = new RunningButton(b16, arrCoordinateX[5], arrCoordinateY[5]);
-			        	timer5.schedule(r5, 1000, 180);
-		      	    }
-			      	if(dude.getNum()==7)
-		      	    {
-			      		System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(6, arrCoordinateX, arrCoordinateY);
-		      	    	b17.setBounds((int)arrCoordinateX[6], (int)arrCoordinateY[6],60,25);
-		      	    	b17.setVisible(true);
-		      	    	b17.setText("牛");
-			        	RunningButton r6 = new RunningButton(b17, arrCoordinateX[6], arrCoordinateY[6]);
-			        	timer6.schedule(r6, 1000, 180);
-		      	    }
-			      	if(dude.getNum()==8)
-		      	    {
-			      		System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(7, arrCoordinateX, arrCoordinateY);
-		      	    	b18.setBounds((int)arrCoordinateX[7], (int)arrCoordinateY[7],60,25);
-		      	    	b18.setVisible(true);
-		      	    	b18.setText("牛");
-			        	RunningButton r7 = new RunningButton(b18, arrCoordinateX[7], arrCoordinateY[7]);
-			        	timer7.schedule(r7, 1000, 180);
-		      	    }
-			      	if(dude.getNum()==9)
-		      	    {
-			      		System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(8, arrCoordinateX, arrCoordinateY);
-		      	    	b19.setBounds((int)arrCoordinateX[8], (int)arrCoordinateY[8],60,25);
-		      	    	b19.setVisible(true);
-		      	    	b19.setText("牛");
-			        	RunningButton r8 = new RunningButton(b19, arrCoordinateX[8], arrCoordinateY[8]);
-			        	timer8.schedule(r8, 1000, 180);;
-		      	    }
-			      	if(dude.getNum()==10)
-		      	    {
-			      		System.out.println("你可以養這隻牛ouo");
-		      	    	randomFirstlocation(9, arrCoordinateX, arrCoordinateY);
-		      	    	b20.setBounds((int)arrCoordinateX[9], (int)arrCoordinateY[9],60,25);
-		      	    	b20.setVisible(true);
-		      	    	b20.setText("牛");
-			        	RunningButton r9 = new RunningButton(b20, arrCoordinateX[9], arrCoordinateY[9]);
-			        	timer9.schedule(r9, 1000, 180);
-		      	    }
-			      	b2.setVisible(false);
-	      	    	b3.setVisible(false);
-	      	    	b4.setVisible(false);
-	      	    	printDudeNum(dude);
-	      	    	printHouseNum(warehouse);
-	    	 	}    
-		    });
-		    
-		    b3.setBounds(20,80,60,25);  //自行決定元件位置與大小
-		    cp.add(b3);
-		    b3.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
-		        	dude.startFeedPig(new Pig());
-		        	if(warehouse.getYoungPigNumber()==0) {
-		      	    	b3.setVisible(false);
-		        	}
-		      	    if(dude.getNum()==1)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(0, arrCoordinateX, arrCoordinateY);
-		      	    	b11.setBounds((int)arrCoordinateX[0], (int)arrCoordinateY[0],60,25);
-		      	    	b11.setVisible(true);
-		      	    	b11.setText("豬");
-			        	RunningButton r0 = new RunningButton(b11, arrCoordinateX[0], arrCoordinateY[0]);
-			        	timer0.schedule(r0, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==2)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(1, arrCoordinateX, arrCoordinateY);
-		      	    	b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
-		      	    	b12.setVisible(true);
-		      	    	b12.setText("豬");
-			        	RunningButton r1 = new RunningButton(b12, arrCoordinateX[1], arrCoordinateY[1]);
-			        	timer1.schedule(r1, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==3)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(2, arrCoordinateX, arrCoordinateY);
-		      	    	b13.setBounds((int)arrCoordinateX[2], (int)arrCoordinateY[2],60,25);
-		      	    	b13.setVisible(true);
-		      	    	b13.setText("豬");
-			        	RunningButton r2 = new RunningButton(b13, arrCoordinateX[2], arrCoordinateY[2]);
-			        	timer2.schedule(r2, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==4)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(3, arrCoordinateX, arrCoordinateY);
-		      	    	b14.setBounds((int)arrCoordinateX[3], (int)arrCoordinateY[3],60,25);
-		      	    	b14.setVisible(true);
-		      	    	b14.setText("豬");
-			        	RunningButton r3 = new RunningButton(b14, arrCoordinateX[3], arrCoordinateY[3]);
-			        	timer3.schedule(r3, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==5)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(4, arrCoordinateX, arrCoordinateY);
-		      	    	b15.setBounds((int)arrCoordinateX[4], (int)arrCoordinateY[4],60,25);
-		      	    	b15.setVisible(true);
-		      	    	b15.setText("豬");
-			        	RunningButton r4 = new RunningButton(b15, arrCoordinateX[4], arrCoordinateY[4]);
-			        	timer4.schedule(r4, 1000, 180);
-		      	    }
-		      	  if(dude.getNum()==6)
-		      	    {
-			      		System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(5, arrCoordinateX, arrCoordinateY);
-		      	    	b16.setBounds((int)arrCoordinateX[5], (int)arrCoordinateY[5],60,25);
-		      	    	b16.setVisible(true);
-		      	    	b16.setText("豬");
-			        	RunningButton r5 = new RunningButton(b16, arrCoordinateX[5], arrCoordinateY[5]);
-			        	timer5.schedule(r5, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==7)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(6, arrCoordinateX, arrCoordinateY);
-		      	    	b17.setBounds((int)arrCoordinateX[6], (int)arrCoordinateY[6],60,25);
-		      	    	b17.setVisible(true);
-		      	    	b17.setText("豬");
-			        	RunningButton r6 = new RunningButton(b17, arrCoordinateX[6], arrCoordinateY[6]);
-			        	timer6.schedule(r6, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==8)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(7, arrCoordinateX, arrCoordinateY);
-		      	    	b18.setBounds((int)arrCoordinateX[7], (int)arrCoordinateY[7],60,25);
-		      	    	b18.setVisible(true);
-		      	    	b18.setText("豬");
-			        	RunningButton r7 = new RunningButton(b18, arrCoordinateX[7], arrCoordinateY[7]);
-			        	timer7.schedule(r7, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==9)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(8, arrCoordinateX, arrCoordinateY);
-		      	    	b19.setBounds((int)arrCoordinateX[8], (int)arrCoordinateY[8],60,25);
-		      	    	b19.setVisible(true);
-		      	    	b19.setText("豬");
-			        	RunningButton r8 = new RunningButton(b19, arrCoordinateX[8], arrCoordinateY[8]);
-			        	timer8.schedule(r8, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==10)
-		      	    {
-		      	    	System.out.println("你可以養這隻豬ouo");
-		      	    	randomFirstlocation(9, arrCoordinateX, arrCoordinateY);
-		      	    	b20.setBounds((int)arrCoordinateX[9], (int)arrCoordinateY[9],60,25);
-		      	    	b20.setVisible(true);
-		      	    	b20.setText("豬");
-			        	RunningButton r9 = new RunningButton(b20, arrCoordinateX[9], arrCoordinateY[9]);
-			        	timer9.schedule(r9, 1000, 180);
-		      	    }
-		      	    b2.setVisible(false);
-	      	    	b3.setVisible(false);
-	      	    	b4.setVisible(false);
-	      	    	printDudeNum(dude);
-	      	    	printHouseNum(warehouse);
-		        }
-		    });
-		    
-		    b4.setBounds(20,110,60,25);  //自行決定元件位置與大小
-		    cp.add(b4);
-		    b4.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(false);
-		        	dude.startFeedChicken(new Chicken());
-		        	if(warehouse.getYoungChickenNumber()==0) {
-		      	    	b4.setVisible(false);
-		        	}
-		      	    if(dude.getNum()==1)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(0, arrCoordinateX, arrCoordinateY);
-		      	    	b11.setBounds((int)arrCoordinateX[0], (int)arrCoordinateY[0],60,25);
-		      	    	b11.setVisible(true);
-		      	    	b11.setText("雞");
-		      	    	b11.setVisible(true);
-		      	    	b11.setText("雞");
-			        	RunningButton r0 = new RunningButton(b11, arrCoordinateX[0], arrCoordinateY[0]);
-			        	timer0.schedule(r0, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==2)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(1, arrCoordinateX, arrCoordinateY);
-		      	    	b12.setBounds((int)arrCoordinateX[1], (int)arrCoordinateY[1],60,25);
-		      	    	b12.setVisible(true);
-		      	    	b12.setText("雞");
-		      	    	b12.setVisible(true);
-		      	    	b12.setText("雞");
-			        	RunningButton r1 = new RunningButton(b12, arrCoordinateX[1], arrCoordinateY[1]);
-			        	timer1.schedule(r1, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==3)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(2, arrCoordinateX, arrCoordinateY);
-		      	    	b13.setBounds((int)arrCoordinateX[2], (int)arrCoordinateY[2],60,25);
-		      	    	b13.setVisible(true);
-		      	    	b13.setText("雞");
-		      	    	b13.setVisible(true);
-		      	    	b13.setText("雞");
-			        	RunningButton r2 = new RunningButton(b13, arrCoordinateX[2], arrCoordinateY[2]);
-			        	timer2.schedule(r2, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==4)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(3, arrCoordinateX, arrCoordinateY);
-		      	    	b14.setBounds((int)arrCoordinateX[3], (int)arrCoordinateY[3],60,25);
-		      	    	b14.setVisible(true);
-		      	    	b14.setText("雞");
-		      	    	b14.setVisible(true);
-		      	    	b14.setText("雞");
-			        	RunningButton r3 = new RunningButton(b14, arrCoordinateX[3], arrCoordinateY[3]);
-			        	timer3.schedule(r3, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==5)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(4, arrCoordinateX, arrCoordinateY);
-		      	    	b15.setBounds((int)arrCoordinateX[4], (int)arrCoordinateY[4],60,25);
-		      	    	b15.setVisible(true);
-		      	    	b15.setText("雞");
-		      	    	b15.setVisible(true);
-		      	    	b15.setText("雞");
-			        	RunningButton r4 = new RunningButton(b15, arrCoordinateX[4], arrCoordinateY[4]);
-			        	timer4.schedule(r4, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==6)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(5, arrCoordinateX, arrCoordinateY);
-		      	    	b16.setBounds((int)arrCoordinateX[5], (int)arrCoordinateY[5],60,25);
-		      	    	b16.setVisible(true);
-		      	    	b16.setText("雞");
-		      	    	b16.setVisible(true);
-		      	    	b16.setText("雞");
-			        	RunningButton r5 = new RunningButton(b16, arrCoordinateX[5], arrCoordinateY[5]);
-			        	timer5.schedule(r5, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==7)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(6, arrCoordinateX, arrCoordinateY);
-		      	    	b17.setBounds((int)arrCoordinateX[6], (int)arrCoordinateY[6],60,25);
-		      	    	b17.setVisible(true);
-		      	    	b17.setText("雞");
-		      	    	b17.setVisible(true);
-		      	    	b17.setText("雞");
-			        	RunningButton r6 = new RunningButton(b17, arrCoordinateX[6], arrCoordinateY[6]);
-			        	timer6.schedule(r6, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==8)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(7, arrCoordinateX, arrCoordinateY);
-		      	    	b18.setBounds((int)arrCoordinateX[7], (int)arrCoordinateY[7],60,25);
-		      	    	b18.setVisible(true);
-		      	    	b18.setText("雞");
-		      	    	b18.setVisible(true);
-		      	    	b18.setText("雞");
-			        	RunningButton r7 = new RunningButton(b18, arrCoordinateX[7], arrCoordinateY[7]);
-			        	timer7.schedule(r7, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==9)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(8, arrCoordinateX, arrCoordinateY);
-		      	    	b19.setBounds((int)arrCoordinateX[8], (int)arrCoordinateY[8],60,25);
-		      	    	b19.setVisible(true);
-		      	    	b19.setText("雞");
-		      	    	b19.setVisible(true);
-		      	    	b19.setText("雞");
-			        	RunningButton r8 = new RunningButton(b19, arrCoordinateX[8], arrCoordinateY[8]);
-			        	timer8.schedule(r8, 1000, 180);
-		      	    }
-		      	    if(dude.getNum()==10)
-		      	    {
-		      	    	System.out.println("你可以養這隻雞ouo");
-		      	    	randomFirstlocation(9, arrCoordinateX, arrCoordinateY);
-		      	    	b20.setBounds((int)arrCoordinateX[9], (int)arrCoordinateY[9],60,25);
-		      	    	b20.setVisible(true);
-		      	    	b20.setText("雞");
-		      	    	b20.setVisible(true);
-		      	    	b20.setText("雞");
-			        	RunningButton r9 = new RunningButton(b20, arrCoordinateX[9], arrCoordinateY[9]);
-			        	timer9.schedule(r9, 1000, 180);	
-		      	    }
-		      	    b2.setVisible(false);
-	      	    	b3.setVisible(false);
-	      	    	b4.setVisible(false);
-	      	    	printDudeNum(dude);
-	      	    	printHouseNum(warehouse);
-		        }
-		    });
-		    
-		    
-		    b11.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=1;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(0).getName());
-		        	printAnimalRate(dude, 0);
-		        	if(dude.getPondLand().get(0).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(0).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        		
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    
-		    b12.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=2;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(1).getName());
-		        	
-		        	printAnimalRate(dude, 1);
-		        	
-		        	if(dude.getPondLand().get(1).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(1).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b13.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=3;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(2).getName());
-		        	printAnimalRate(dude, 2);
-		        	if(dude.getPondLand().get(2).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(2).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b14.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=4;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(3).getName());
-		        	printAnimalRate(dude, 3);
-		        	if(dude.getPondLand().get(3).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(3).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b15.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=5;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(4).getName());
-		        	printAnimalRate(dude, 4);
-		        	if(dude.getPondLand().get(4).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(4).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b16.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=6;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(5).getName());
-		        	printAnimalRate(dude, 5);
-		        	if(dude.getPondLand().get(5).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(5).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b17.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=7;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(6).getName());
-		        	printAnimalRate(dude, 6);
-		        	if(dude.getPondLand().get(6).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(6).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b18.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=8;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(7).getName());
-		        	printAnimalRate(dude, 7);
-		        	if(dude.getPondLand().get(7).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(7).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        		
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b19.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=9;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(8).getName());
-		        	printAnimalRate(dude, 8);
-		        	if(dude.getPondLand().get(8).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(8).getGrowingRate());
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    b20.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	FeedNum.setVisible(true);
-		        	num=10;
-		        	System.out.printf("這是一隻%s\n", dude.getPondLand().get(9).getName());
-		        	printAnimalRate(dude, 9);
-		        	if(dude.getPondLand().get(9).getGrowingRate()<100)
-		        	{
-		        		
-		        		//System.out.printf("成長值=%d\n",dude.getPondLand().get(9).getGrowingRate());
-		        		
-		        		b5.setVisible(true);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(false);
-		        	}
-		        	else
-		        	{
-		        		System.out.printf("他不能再吃了!!!\n");
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        		b9.setVisible(true);
-		        	}
-		        	b2.setVisible(false);
-		        	b3.setVisible(false);
-		        	b4.setVisible(false);
-		        }
-		    });
-		    
-		    
-		    //b11.setBounds(250,20,60,25);  //自行決定元件位置與大小   
-		    cp.add(b11);
-		    //b12.setBounds(250,50,60,25);  //自行決定元件位置與大小   
-		    cp.add(b12);
-		    //b13.setBounds(250,80,60,25);  //自行決定元件位置與大小   
-		    cp.add(b13);
-		    //b14.setBounds(250,110,60,25);  //自行決定元件位置與大小   
-		    cp.add(b14);
-		    //b15.setBounds(250,140,60,25);  //自行決定元件位置與大小   
-		    cp.add(b15);
-		    //b16.setBounds(330,20,60,25);  //自行決定元件位置與大小
-		    cp.add(b16);
-		    //b17.setBounds(330,50,60,25);  //自行決定元件位置與大小
-		    cp.add(b17);
-		   // b18.setBounds(330,80,60,25);  //自行決定元件位置與大小
-		    cp.add(b18);
-		    //b19.setBounds(330,110,60,25);  //自行決定元件位置與大小
-		    cp.add(b19); 
-		    //b20.setBounds(330,140,60,25);  //自行決定元件位置與大小
-		    cp.add(b20);
-		    b9.setBounds(170,20,60,25);  //自行決定元件位置與大小
-		    cp.add(b9);
-		    
-		    //timer要close
-		    
-		    //捕捉
-		    b9.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	//System.out.println("抓他阿笨蛋");
-		        	//System.out.println(num);
-		        	dude.capturing(num);
-		        	Capture(num, dude);
-		        	/*System.out.printf("豬=%d\n",wareHouse.getPigNumber());
-		        	System.out.printf("雞=%d\n",wareHouse.getChickenNumber());
-		        	System.out.printf("牛=%d\n",wareHouse.getCowNumber());*/
-		        	printDudeNum(dude);
-		        	/*System.out.printf("豬=%d\n",warehouse.getPigNumber());
-		        	System.out.printf("雞=%d\n",warehouse.getChickenNumber());
-		        	System.out.printf("牛=%d\n",warehouse.getCowNumber());*/
-		        	timerStop(dude);
-		        	
-		        	
-		        }
-		    });
-
-		    //飼料
-		    b5.setBounds(90,20,60,25);  //自行決定元件位置與大小
-		    cp.add(b5);
-		    b5.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	if(warehouse.getSimpleFeedNumber()>0)
-		        		b8.setVisible(true);
-		        	if(warehouse.getGeneralFeedNumber()>0)
-		        		b7.setVisible(true);
-		        	if(warehouse.getAdvencedFeedNumber()>0)
-		        		b6.setVisible(true);
-		        	/*System.out.printf("高%d\n",warehouse.getAdvencedFeedNumber());
-		        	System.out.printf("中%d\n",warehouse.getGeneralFeedNumber());
-		        	System.out.printf("低%d\n",warehouse.getSimpleFeedNumber());*/
-		        	printFeedNumber(warehouse);
-		        }
-		    });
-		    
-		    b6.setBounds(90,50,150,25);  //自行決定元件位置與大小
-		    cp.add(b6);
-		    b6.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	
-		        	Feed(num, dude, new AdvancedFeed());
-		        	warehouse.removeFeed("高級飼料");
-		        	//System.out.printf("%d\n", warehouse.getAdvencedFeedNumber());
-		        	//System.out.println("高級飼料+20 ouo");
-		        	printAnimalRate(dude, num-1);
-		        	printFeedNumber(warehouse);
-		        	if(warehouse.getAdvencedFeedNumber()==0)
-		        		b6.setVisible(false);
-		        	else
-		        		b6.setVisible(true);
-		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
-		        	{
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        	}
-		        	printFeedNumber(warehouse);
-		        }
-		    });
-		    
-		    b7.setBounds(90,80,150,25);  //自行決定元件位置與大小
-		    cp.add(b7);
-		    b7.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, new GeneralFeed());
-		        	warehouse.removeFeed("中級飼料");
-		        	//System.out.printf("%d\n", warehouse.getGeneralFeedNumber());
-		        	//System.out.println("中級飼料+10 ouo");
-		        	printAnimalRate(dude, num-1);
-		        	printFeedNumber(warehouse);
-		        	if(warehouse.getGeneralFeedNumber()==0)
-		        		b7.setVisible(false);
-		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
-		        	{
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        	}
-		        	printFeedNumber(warehouse);
-		        }
-		    });
-		    
-		    b8.setBounds(90,110,150,25);  //自行決定元件位置與大小
-		    cp.add(b8);
-		    b8.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	Feed(num, dude, new SimpleFeed());
-		        	warehouse.removeFeed("低級飼料");
-		        	//System.out.printf("%d\n", warehouse.getSimpleFeedNumber());
-		        	//System.out.println("低級飼料+5 ouo");
-		        	printAnimalRate(dude, num-1);
-		        	printFeedNumber(warehouse);
-		        	if(warehouse.getSimpleFeedNumber()==0)
-		        		b8.setVisible(false);
-		        	if(dude.getPondLand().get(num-1).getGrowingRate()==100)
-		        	{
-		        		b5.setVisible(false);
-		        		b6.setVisible(false);
-		        		b7.setVisible(false);
-		        		b8.setVisible(false);
-		        	}
-		        	printFeedNumber(warehouse);
-		        }
-		    });
-		    
-		    f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		    f.addWindowListener(new WindowAdapter()
-		    {
-		      public void windowClosing(WindowEvent e) 
-		      {
-		        int result=JOptionPane.showConfirmDialog(f,
-		                   "確定要結束程式嗎?",
-		                   "確認訊息",
-		                   JOptionPane.YES_NO_OPTION,
-		                   JOptionPane.WARNING_MESSAGE);
-		        if (result==JOptionPane.YES_OPTION) 
-		        {
-		          System.exit(0);
-		        }
-		      }    
-		    });
-	  }
-	  public void timerStart() {
-		  	if(timer0.purge()==0) {
-		  		this.timer0 = new Timer();
-		  		RunningButton r0 = new RunningButton(b11, arrCoordinateX[0], arrCoordinateY[0]);
-	        	timer0.schedule(r0, 1000, 180);
-		  	}
-	  }
-	  public void timerStop(Dude dude) {
-		  if(dude.getNum()==9) {
-			  timer9.cancel();
-		  }
-		  if(dude.getNum()==8) {
-			  timer8.cancel();
-		  }
-		  if(dude.getNum()==7) {
-			  timer7.cancel();
-		  }
-		  if(dude.getNum()==6) {
-			  timer6.cancel();
-		  }
-		  if(dude.getNum()==5) {
-			  timer5.cancel();
-		  }
-		  if(dude.getNum()==4) {
-			  timer4.cancel();
-		  }
-		  if(dude.getNum()==3) {
-			  timer3.cancel();
-		  }
-		  if(dude.getNum()==2) {
-			  timer2.cancel();
-		  }
-		  if(dude.getNum()==1) {
-			  timer1.cancel();
-		  }
-		  if(dude.getNum()==0) {
-			  timer0.cancel();
-		  }
-	  }
-	  public void Feed(int num, Dude dude, Feed feed)
-	  {
-		  System.out.printf("num=%d\n", num);
-		  dude.getPondLand().get(num-1).feeding(feed);
-	  }
-	  public void Capture(int num, Dude dude)
-	  {
-	  		for(int i=num; i<=dude.getNum(); i++)
-	  		{
-	  			button.get(i-1).setText(dude.getPondLand().get(i-1).getName());
-	  		}
-	  		button.get(dude.getNum()).setVisible(false);
-	  }
-	  public void printDudeNum(Dude dude ) {
-			//牧場數量
-		    dudeNum.setText("牧場動物數量  牛: "+ dude.getCowNumber()+" 豬: "+ dude.getPigNumber()+" 雞: "+ dude.getChickenNumber());
-		    dudeNum.setBounds(50, 130, 200, 60);
-	  }
-	  public void printAnimalRate(Dude dude, int i) {
-		  	//成長值
-		    animalRate.setText("成長值: "+ dude.getPondLand().get(i).getGrowingRate());
-		    animalRate.setBounds(300, 150, 200, 60);
-	  }
-	  public void printFeedNumber(WareHouse warehouse) {
-		  FeedNum.setBounds(50, 170, 280, 60);
-		  FeedNum.setText("高級飼料: "+ warehouse.getAdvencedFeedNumber()+" 中級飼料: "+ warehouse.getGeneralFeedNumber() +" 低級飼料: "+ warehouse.getSimpleFeedNumber());
-		  System.out.printf("%d %d %d", warehouse.getAdvencedFeedNumber(),warehouse.getGeneralFeedNumber(),warehouse.getSimpleFeedNumber());
-	  }
-	  public void printHouseNum(WareHouse warehouse) {
-		  houseNum.setBounds(50, 150, 200, 60);
-		  houseNum.setText("倉庫數量為 牛: "+warehouse.getYoungCowNumber()+" 豬: "+warehouse.getYoungPigNumber()+" 雞: "+warehouse.getYoungChickenNumber());
-	  }
-	  public void randomFirstlocation(int i, double arrCoordinateX[], double arrCoordinateY[]) {
-		  arrCoordinateX[i] = (int) (Math.random()*450+20);
-	      arrCoordinateY[i] = (int) (Math.random()*400+220);
-	  }
-	  
-	    class RunningButton extends TimerTask {
-	    	private JButton btn;
-	    	private double coordinateX, coordinateY;
-	    	private double vx = Math.sin(1) * 5;
-	    	private double vy = Math.cos(1) * 5; 
-	    	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
-	        	this.btn = btn;
-	        	this.coordinateX = coordinateX;
-	        	this.coordinateY = coordinateY;
-	  	}
-	        public void run() {
-	            if (coordinateX + vx < 0) {
-	                vx = -vx;
-	            }
-	            if (coordinateX + vx + 60 > 500) {
-	                vx = -vx;
-	            }
-	            if (coordinateY + vy < 200) {
-	                vy = -vy;
-	            }
-	            if (coordinateY + vy + 25 > 650) {
-	                vy = -vy;
-	            }
-	            coordinateX += vx;
-	            coordinateY += vy;
-	            btn.setBounds((int) coordinateX, (int) coordinateY, 60, 25);
-	    		
-	        }
-	    }
+		if(warehouse.getYoungChickenNumber()!=0) {
+			feedChicken.setEnabled(true);
+		}
+		if(warehouse.getYoungPigNumber()==0) {
+			feedPig.setEnabled(false);
+		}
+		if(warehouse.getYoungPigNumber()!=0) {
+			feedPig.setEnabled(true);
+		}
+		if(warehouse.getYoungCowNumber()==0) {
+			feedCow.setEnabled(false);
+		}
+		if(warehouse.getYoungCowNumber()!=0) {
+			feedCow.setEnabled(true);
+		}
+	}
+	public void printHouseFeedNum(WareHouse warehouse) {
+		lowFeed.setText("低級飼料 "+warehouse.getSimpleFeedNumber());
+		midFeed.setText("中級飼料 "+warehouse.getGeneralFeedNumber());
+		highFeed.setText("高級飼料 "+warehouse.getAdvencedFeedNumber());
+	}
+	public void returnHouseFeed(WareHouse warehouse) {
+		if(warehouse.getSimpleFeedNumber()==0) {
+			lowFeed.setEnabled(false);
+		}
+		if(warehouse.getSimpleFeedNumber()!=0) {
+			lowFeed.setEnabled(true);
+		}
+		if(warehouse.getGeneralFeedNumber()==0) {
+			midFeed.setEnabled(false);
+		}
+		if(warehouse.getGeneralFeedNumber()!=0) {
+			midFeed.setEnabled(true);
+		}
+		if(warehouse.getAdvencedFeedNumber()==0) {
+			highFeed.setEnabled(false);
+		}
+		if(warehouse.getAdvencedFeedNumber()!=0) {
+			highFeed.setEnabled(true);
+		}
+	}
+    class RunningButton extends TimerTask {
+    	private JButton btn;
+    	private double coordinateX, coordinateY;
+    	private double vx = Math.sin(1) * 5;
+    	private double vy = Math.cos(1) * 5; 
+    	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
+        	this.btn = btn;
+        	this.coordinateX = coordinateX;
+        	this.coordinateY = coordinateY;
+  	}
+        public void run() {
+            if (coordinateX + vx < 50) {
+                vx = -vx;
+            }
+            if (coordinateX + vx + 60 > 950) {
+                vx = -vx;
+            }
+            if (coordinateY + vy < 90) {
+                vy = -vy;
+            }
+            if (coordinateY + vy + 25 > 500) {
+                vy = -vy;
+            }
+            coordinateX += vx;
+            coordinateY += vy;
+            btn.setBounds((int) coordinateX, (int) coordinateY, 87, 55);
+    		
+        }
+    }
 }
