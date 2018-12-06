@@ -37,8 +37,7 @@ public class MainScreen extends JFrame {
 	public MainScreen(WareHouse warehouse) {
 		this.warehouse = warehouse;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setSize(screen.width * 7 / 8, screen.height * 7 / 8);
+		this.setSize(1200, 675);
 		contentPane = new JPanel();
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
