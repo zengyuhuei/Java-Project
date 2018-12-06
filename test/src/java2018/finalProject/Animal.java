@@ -33,7 +33,6 @@ public abstract class Animal extends Object {
     	if(growingRate<100)
     	{
     		growingRate+=feed.getNutrition();
-
     		if(growingRate>100)setGrowingRate();
     		return true;
     	}
