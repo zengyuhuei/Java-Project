@@ -27,6 +27,7 @@ public class Main {
 		Crop m = new Corn();
 		Crop n = new Wheat();
 		Crop o = new Cabbage();
+		Crop corn = new Corn();
 		
 		a.setGrowingRate100();
 		c.setGrowingRate100();
@@ -47,6 +48,7 @@ public class Main {
 		wareHouse.addFeed(i);
 		wareHouse.addFeed(j);
 		
+		
 		n.setGrowingRate100();
 		o.setGrowingRate100();
 		k.setGrowingRate100();		
@@ -56,7 +58,8 @@ public class Main {
 		wareHouse.addCrop(m); //corn
 		wareHouse.addCrop(n); //wheat
 		wareHouse.addCrop(o); //cabbage
-		
+		wareHouse.addSeed(corn);
+		wareHouse.removeSeed("玉米");
 		//  chicken*2 pig *1  cow*2  wheat*1 corn *2  cabbage *1 
 		//simple *3 general*1  advanced*1
 		

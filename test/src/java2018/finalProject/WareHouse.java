@@ -131,16 +131,16 @@ public class WareHouse {
 	//(call by farm) remove the seed from the list.If success, return true, or return false
 	public boolean removeSeed(String name) 
 	{
-		
 			for(Crop cp :cropSeedList)
 			{
+				
 				if(cp.getName() == name)
 				{
+					
 					cropSeedList.remove(cp);
 					return true;
 				}
 			}
-		
 		return false;
 	}
 	
