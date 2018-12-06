@@ -267,10 +267,6 @@ public class DudeScreen extends JFrame {
 				{
 					dude.startFeedChicken(new Chicken());
 				}
-				else
-				{
-					dude.getNullNum(new Chicken());
-				}
 				showButton(dude);
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
@@ -284,10 +280,6 @@ public class DudeScreen extends JFrame {
 				{
 					dude.startFeedPig(new Pig());
 				}
-				else
-				{
-					dude.getNullNum(new Pig());
-				}
 				showButton(dude);
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
@@ -300,10 +292,6 @@ public class DudeScreen extends JFrame {
 				if(dude.getNullNum(new Cow())==false)
 				{
 					dude.startFeedCow(new Cow());
-				}
-				else
-				{
-					dude.getNullNum(new Cow());
 				}
 				showButton(dude);
 				printHouseAnimalNum(warehouse);
@@ -431,6 +419,8 @@ public class DudeScreen extends JFrame {
 	public void buttonAction(Dude dude, int num) { //動物按鈕
 		closeFeed();
 		closeStart();
+		if(dude.getPondLand().get(num).getGrowingRate()>=100)catchAnimal.setEnabled(true);
+		else catchAnimal.setEnabled(false);
 		printAnimalRate(dude, num);
 		returnAnimalEat(dude, num);
 	}
