@@ -28,7 +28,7 @@ public class DudeScreen extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		//EventQueue.invokeLater(new Runnable() {
 			//public void run() {
 				try {
@@ -40,7 +40,7 @@ public class DudeScreen extends JFrame {
 				}
 			//}
 		//});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -168,26 +168,27 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animalRate);
 		animalRate.setFont(new java.awt.Font("Dialog", 1, 30));
 		
-		animal1.setBounds(411, 236, 87, 55);
+		animal1.setBounds(456, 231, 87, 55);
 		contentPane.add(animal1);
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		Timer timer1 = new Timer();
-		RunningButton run1 = new RunningButton(animal1, 411, 236);
+		RunningButton run1 = new RunningButton(animal1, 456, 231);
 		timer1.schedule(run1, 1000, 180);
+		animal1.setVisible(false);
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal2.setBounds(287, 150, 87, 55);
+		animal2.setBounds(231, 208, 87, 55);
 		contentPane.add(animal2);
 		Timer timer2 = new Timer();
-		RunningButton run2 = new RunningButton(animal2, 287, 150);
+		RunningButton run2 = new RunningButton(animal2, 231, 208);
 		timer2.schedule(run2, 1000, 180);
 		animal2.setVisible(false);
 		
 		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal3.setBounds(185, 274, 87, 55);
+		animal3.setBounds(214, 312, 87, 55);
 		contentPane.add(animal3);
 		Timer timer3 = new Timer();
-		RunningButton run3 = new RunningButton(animal3, 287, 150);
+		RunningButton run3 = new RunningButton(animal3, 214, 312);
 		timer3.schedule(run3, 1000, 180);
 		animal3.setVisible(false);
 		
@@ -195,39 +196,39 @@ public class DudeScreen extends JFrame {
 		animal4.setBounds(336, 350, 87, 55);
 		contentPane.add(animal4);
 		Timer timer4 = new Timer();
-		RunningButton run4 = new RunningButton(animal4, 287, 150);
+		RunningButton run4 = new RunningButton(animal4, 336, 350);
 		timer4.schedule(run4, 1000, 180);
 		animal4.setVisible(false);
 		
 		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal5.setBounds(136, 107, 87, 55);
+		animal5.setBounds(185, 102, 87, 55);
 		contentPane.add(animal5);
 		Timer timer5 = new Timer();
-		RunningButton run5 = new RunningButton(animal5, 287, 150);
+		RunningButton run5 = new RunningButton(animal5, 185, 102);
 		timer5.schedule(run5, 1000, 180);
 		animal5.setVisible(false);
 		
 		animal6.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal6.setBounds(105, 373, 87, 55);
+		animal6.setBounds(84, 247, 87, 55);
 		contentPane.add(animal6);
 		Timer timer6 = new Timer();
-		RunningButton run6 = new RunningButton(animal6, 105, 373);
+		RunningButton run6 = new RunningButton(animal6, 84, 247);
 		timer6.schedule(run6, 1000, 180);
 		animal6.setVisible(false);
 		
 		animal7.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal7.setBounds(428, 97, 87, 55);
+		animal7.setBounds(397, 118, 87, 55);
 		contentPane.add(animal7);
 		Timer timer7 = new Timer();
-		RunningButton run7 = new RunningButton(animal7, 428, 97);
+		RunningButton run7 = new RunningButton(animal7, 397, 118);
 		timer7.schedule(run7, 1000, 180);
 		animal7.setVisible(false);
 		
 		animal8.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal8.setBounds(491, 312, 87, 55);
+		animal8.setBounds(555, 330, 87, 55);
 		contentPane.add(animal8);
 		Timer timer8 = new Timer();
-		RunningButton run8 = new RunningButton(animal8, 491, 312);
+		RunningButton run8 = new RunningButton(animal8, 555, 330);
 		timer8.schedule(run8, 1000, 180);
 		animal8.setVisible(false);
 		
@@ -256,6 +257,7 @@ public class DudeScreen extends JFrame {
 				feedPig.setVisible(true);
 				feedCow.setVisible(true);
 				feedAnimal.setEnabled(false);
+				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
 		feedChicken.addActionListener(new ActionListener() {
@@ -269,8 +271,10 @@ public class DudeScreen extends JFrame {
 				{
 					dude.getNullNum(new Chicken());
 				}
+				showButton(dude);
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
+				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
 		feedPig.addActionListener(new ActionListener() {
@@ -278,14 +282,16 @@ public class DudeScreen extends JFrame {
 
 				if(dude.getNullNum(new Pig())==false)
 				{
-					dude.startFeedChicken(new Pig());
+					dude.startFeedPig(new Pig());
 				}
 				else
 				{
 					dude.getNullNum(new Pig());
 				}
+				showButton(dude);
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
+				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
 		feedCow.addActionListener(new ActionListener() {
@@ -293,12 +299,13 @@ public class DudeScreen extends JFrame {
 
 				if(dude.getNullNum(new Cow())==false)
 				{
-					dude.startFeedChicken(new Cow());
+					dude.startFeedCow(new Cow());
 				}
 				else
 				{
 					dude.getNullNum(new Cow());
 				}
+				showButton(dude);
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
 			}
@@ -315,24 +322,31 @@ public class DudeScreen extends JFrame {
 		});
 		lowFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dude.getPondLand().get(num).feeding(new SimpleFeed());
+				warehouse.removeFeed(new SimpleFeed().getName());
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
-				dude.getPondLand().get(num).feeding(new SimpleFeed());
+				printAnimalRate(dude, num);
 			}
 		});
 		midFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dude.getPondLand().get(num).feeding(new GeneralFeed());
+				warehouse.removeFeed(new GeneralFeed().getName());
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
-				dude.getPondLand().get(num).feeding(new GeneralFeed());
+				printAnimalRate(dude, num);
 			}
 		});
 		highFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dude.getPondLand().get(num).feeding(new AdvancedFeed());
+				warehouse.removeFeed(new AdvancedFeed().getName());
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
 				printAnimalRate(dude, 0);
 				dude.getPondLand().get(num).feeding(new AdvancedFeed());
+				printAnimalRate(dude, num);
 			}
 		});
 		catchAnimal.addActionListener(new ActionListener() {
@@ -345,93 +359,62 @@ public class DudeScreen extends JFrame {
 		});
 		animal1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				feedAnimal.setEnabled(true);
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 0);
-				returnAnimalEat(dude, 0);
 				num=0;
+				buttonAction(dude, num);
 			}
 		});
 		animal2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 1);
-				returnAnimalEat(dude, 1);
 				num=1;
+				buttonAction(dude, num);
 			}
 		});
 		animal3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 2);
-				returnAnimalEat(dude, 2);
 				num=2;
+				buttonAction(dude, num);
 			}
 		});
 		animal4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 3);
-				returnAnimalEat(dude, 3);
 				num=3;
+				buttonAction(dude, num);
 			}
 		});
 		animal5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 4);
-				returnAnimalEat(dude, 4);
 				num=4;
+				buttonAction(dude, num);
 			}
 		});
 		animal6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 5);
-				returnAnimalEat(dude, 5);
 				num=5;
+				buttonAction(dude, num);
 			}
 		});
 		animal7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 6);
-				returnAnimalEat(dude, 6);
 				num=6;
+				buttonAction(dude, num);
 			}
 		});
 		animal8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 7);
-				returnAnimalEat(dude, 7);
 				num=7;
+				buttonAction(dude, num);
 			}
 		});
 		animal9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 8);
-				returnAnimalEat(dude, 8);
 				num=8;
+				buttonAction(dude, num);
 			}
 		});
 		animal10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeFeed();
-				closeStart();
-				printAnimalRate(dude, 9);
-				returnAnimalEat(dude, 9);
 				num=9;
+				buttonAction(dude, num);
 			}
 		});
 		home.addActionListener(new ActionListener() {
@@ -535,7 +518,7 @@ public class DudeScreen extends JFrame {
         	this.btn = btn;
         	this.coordinateX = coordinateX;
         	this.coordinateY = coordinateY;
-  	}
+    	}
         public void run() {
             if (coordinateX + vx < 50) {
                 vx = -vx;
@@ -554,16 +537,19 @@ public class DudeScreen extends JFrame {
             btn.setBounds((int) coordinateX, (int) coordinateY, 87, 55);
     		
         }
-        public void showButton(Dude dude) {
-        	for(int i=0; i<dude.getPondLand().size(); i++)
+        
+    }
+    public void showButton(Dude dude) {
+    	for(int i=0; i<dude.getPondLand().size(); i++)
+		{
+    		if(dude.getPondLand().get(i)==null)
     		{
-        		if(dude.getPondLand().get(i)==null)
-        		{
-        			button.get(i).setVisible(false);
-        		}
-        		else
-        			button.get(i).setVisible(true);
+    			System.out.printf("%d是null啦!!!\n", i);
+    			button.get(i).setVisible(false);
     		}
-        }
+			System.out.printf("%s\n", dude.getPondLand().get(i).getName());
+			button.get(i).setText(dude.getPondLand().get(i).getName());
+			button.get(i).setVisible(true);
+		}
     }
 }
