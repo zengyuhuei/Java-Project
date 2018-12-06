@@ -45,6 +45,12 @@ public class DudeScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
+	JLabel dudeAnimalNum = new JLabel("牧場動物:");
+	JLabel dudeCowNum = new JLabel();
+	JLabel dudePigNum = new JLabel();
+	JLabel dudeChickenNum = new JLabel();
+	JLabel animalRate = new JLabel();
 	JButton startFeed = new JButton("養殖");	
 	JButton feedChicken = new JButton("雞"); 
 	JButton feedPig = new JButton("豬");
@@ -88,7 +94,6 @@ public class DudeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel dudeAnimalNum = new JLabel("牧場動物:");
 		dudeAnimalNum.setBounds(94, 567, 145, 43);
 		contentPane.add(dudeAnimalNum);
 		dudeAnimalNum.setFont(new java.awt.Font("Dialog", 1, 30));
@@ -139,19 +144,16 @@ public class DudeScreen extends JFrame {
 		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		catchAnimal.setEnabled(false);
 		
-		JLabel dudeCowNum = new JLabel();
 		dudeCowNum.setBounds(274, 567, 104, 34);
 		contentPane.add(dudeCowNum);
 		dudeCowNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
 		
-		JLabel dudePigNum = new JLabel();
 		dudePigNum.setBounds(411, 567, 104, 34);
 		contentPane.add(dudePigNum);
 		dudePigNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
 		
-		JLabel dudeChickenNum = new JLabel();
 		dudeChickenNum.setBounds(555, 567, 104, 34);
 		contentPane.add(dudeChickenNum);
 		dudeChickenNum.setFont(new java.awt.Font("Dialog", 1, 30));
@@ -160,8 +162,8 @@ public class DudeScreen extends JFrame {
 		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setBounds(1008, 526, 117, 65);
 		contentPane.add(home);
-		
-		JLabel animalRate = new JLabel(); //成長值
+		 
+		//成長值
 		animalRate.setBounds(50, 30, 189, 55);
 		contentPane.add(animalRate);
 		animalRate.setFont(new java.awt.Font("Dialog", 1, 30));
@@ -329,7 +331,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
-				printAnimalRate(animalRate, dude, 0);
+				printAnimalRate(dude, 0);
 				dude.getPondLand().get(num).feeding(new AdvancedFeed());
 			}
 		});
@@ -346,7 +348,7 @@ public class DudeScreen extends JFrame {
 				feedAnimal.setEnabled(true);
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 0);
+				printAnimalRate(dude, 0);
 				returnAnimalEat(dude, 0);
 				num=0;
 			}
@@ -355,7 +357,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 1);
+				printAnimalRate(dude, 1);
 				returnAnimalEat(dude, 1);
 				num=1;
 			}
@@ -364,7 +366,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 2);
+				printAnimalRate(dude, 2);
 				returnAnimalEat(dude, 2);
 				num=2;
 			}
@@ -373,7 +375,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 3);
+				printAnimalRate(dude, 3);
 				returnAnimalEat(dude, 3);
 				num=3;
 			}
@@ -382,7 +384,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 4);
+				printAnimalRate(dude, 4);
 				returnAnimalEat(dude, 4);
 				num=4;
 			}
@@ -391,7 +393,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 5);
+				printAnimalRate(dude, 5);
 				returnAnimalEat(dude, 5);
 				num=5;
 			}
@@ -400,7 +402,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 6);
+				printAnimalRate(dude, 6);
 				returnAnimalEat(dude, 6);
 				num=6;
 			}
@@ -409,7 +411,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 7);
+				printAnimalRate(dude, 7);
 				returnAnimalEat(dude, 7);
 				num=7;
 			}
@@ -418,7 +420,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 8);
+				printAnimalRate(dude, 8);
 				returnAnimalEat(dude, 8);
 				num=8;
 			}
@@ -427,7 +429,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
-				printAnimalRate(animalRate, dude, 9);
+				printAnimalRate(dude, 9);
 				returnAnimalEat(dude, 9);
 				num=9;
 			}
@@ -440,32 +442,41 @@ public class DudeScreen extends JFrame {
 			}
 		});
 	}
-	public void closeFeed() {
+	public void buttonAction(Dude dude, int num) { //動物按鈕
+		closeFeed();
+		closeStart();
+		printAnimalRate(dude, num);
+		returnAnimalEat(dude, num);
+	}
+	public void closeFeed() { //隱身三飼料按鈕
 		lowFeed.setVisible(false);
 		midFeed.setVisible(false);
 		highFeed.setVisible(false);
 	}
-	public void closeStart() {
+	public void closeStart() { //隱身三動物按鈕
 		feedChicken.setVisible(false);
 		feedPig.setVisible(false);
 		feedCow.setVisible(false);
 	}
-	public void returnAnimalEat(Dude dude, int i) {
-		if(dude.getPondLand().get(i).getGrowingRate()<100)
+	public void returnAnimalEat(Dude dude, int i) { //判斷該動物可否進食
+		if(dude.getPondLand().get(i).getGrowingRate()<100) {
 			feedAnimal.setEnabled(true);
-		else
+			printAnimalRate(dude, i);
+	}
+		else {
 			feedAnimal.setEnabled(false);
 			catchAnimal.setEnabled(true);
+		}
 	}
-	public void printAnimalRate(JLabel animalRate, Dude dude, int i) {
+	public void printAnimalRate(Dude dude, int i) { //印該動物成長值
 		animalRate.setText("成長值: "+dude.getPondLand().get(i).getGrowingRate());
 	}
-	public void printHouseAnimalNum(WareHouse warehouse) {
+	public void printHouseAnimalNum(WareHouse warehouse) { //印待成長動物數量
 		feedChicken.setText("雞 "+warehouse.getYoungChickenNumber());
 		feedPig.setText("豬 "+warehouse.getYoungPigNumber());
 		feedCow.setText("牛 "+warehouse.getYoungCowNumber());
 	}
-	public void returnHouseAnimal(WareHouse warehouse) {
+	public void returnHouseAnimal(WareHouse warehouse) { //判斷倉庫待成長動物數量
 		if(warehouse.getYoungChickenNumber()==0) {
 			feedChicken.setEnabled(false);
 		}
@@ -485,12 +496,12 @@ public class DudeScreen extends JFrame {
 			feedCow.setEnabled(true);
 		}
 	}
-	public void printHouseFeedNum(WareHouse warehouse) {
+	public void printHouseFeedNum(WareHouse warehouse) { //印飼料數量
 		lowFeed.setText("低級飼料 "+warehouse.getSimpleFeedNumber());
 		midFeed.setText("中級飼料 "+warehouse.getGeneralFeedNumber());
 		highFeed.setText("高級飼料 "+warehouse.getAdvencedFeedNumber());
 	}
-	public void returnHouseFeed(WareHouse warehouse) {
+	public void returnHouseFeed(WareHouse warehouse) { //判斷倉庫飼料數量
 		if(warehouse.getSimpleFeedNumber()==0) {
 			lowFeed.setEnabled(false);
 		}
@@ -510,7 +521,7 @@ public class DudeScreen extends JFrame {
 			highFeed.setEnabled(true);
 		}
 	}
-	public void printdudeAnimalNum(Dude dude, JLabel dudeChickenNum, JLabel dudePigNum, JLabel dudeCowNum) {
+	public void printdudeAnimalNum(Dude dude, JLabel dudeChickenNum, JLabel dudePigNum, JLabel dudeCowNum) { //印牧場動物數量
 		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
 		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
 		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
