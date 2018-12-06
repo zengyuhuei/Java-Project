@@ -83,7 +83,7 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		house.removeSeed("玉米");
+		System.out.println(house.removeSeed(farmLand.get(count-1).pickSeed()));
 		
 		return true;
 	}
@@ -139,7 +139,7 @@ public class Farm
 	{
 		Date mainDate = new Date();
 		long diff = mainDate.getTime() - crop.getLastWaterDate().getTime();
-		diff = diff / 100;
+		diff = diff / 1000;
 		System.out.println("diff = "+diff);
 		if(diff >= 20)   //20秒重新亮起澆水
 		{
