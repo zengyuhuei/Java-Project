@@ -16,6 +16,7 @@ import java.awt.Container;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
@@ -45,7 +46,7 @@ public class DudeScreen extends JFrame {
 	 * Create the frame.
 	 */
 	JButton startFeed = new JButton("養殖");	
-	JButton feedChicken = new JButton(); 
+	JButton feedChicken = new JButton("雞"); 
 	JButton feedPig = new JButton("豬");
 	JButton feedCow = new JButton("牛");
 	JButton feedAnimal = new JButton("餵食");
@@ -64,8 +65,20 @@ public class DudeScreen extends JFrame {
 	JButton animal8 = new JButton("動物8");
 	JButton animal9 = new JButton("動物9");
 	JButton animal10 = new JButton("動物10");
+	ArrayList<JButton> button = new ArrayList<JButton>(10);
+	private int num;
 	
 	public DudeScreen(WareHouse warehouse) {
+		button.add(animal1);
+		button.add(animal2);
+		button.add(animal3);
+		button.add(animal4);
+		button.add(animal5);
+		button.add(animal6);
+		button.add(animal7);
+		button.add(animal8);
+		button.add(animal9);
+		button.add(animal10);
 		
 		Dude dude = new Dude(warehouse);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -245,18 +258,45 @@ public class DudeScreen extends JFrame {
 		});
 		feedChicken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if(dude.getNullNum(new Chicken())==false)
+				{
+					dude.startFeedChicken(new Chicken());
+				}
+				else
+				{
+					dude.getNullNum(new Chicken());
+				}
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
 			}
 		});
 		feedPig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				if(dude.getNullNum(new Pig())==false)
+				{
+					dude.startFeedChicken(new Pig());
+				}
+				else
+				{
+					dude.getNullNum(new Pig());
+				}
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
 			}
 		});
 		feedCow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				if(dude.getNullNum(new Cow())==false)
+				{
+					dude.startFeedChicken(new Cow());
+				}
+				else
+				{
+					dude.getNullNum(new Cow());
+				}
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
 			}
@@ -275,12 +315,14 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
+				dude.getPondLand().get(num).feeding(new SimpleFeed());
 			}
 		});
 		midFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
+				dude.getPondLand().get(num).feeding(new GeneralFeed());
 			}
 		});
 		highFeed.addActionListener(new ActionListener() {
@@ -288,12 +330,14 @@ public class DudeScreen extends JFrame {
 				printHouseFeedNum(warehouse);
 				returnHouseFeed(warehouse);
 				printAnimalRate(animalRate, dude, 0);
+				dude.getPondLand().get(num).feeding(new AdvancedFeed());
 			}
 		});
 		catchAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
+				dude.capturing(num);
 			}
 		});
 		animal1.addActionListener(new ActionListener() {
@@ -303,6 +347,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 0);
 				returnAnimalEat(dude, 0);
+				num=0;
 			}
 		});
 		animal2.addActionListener(new ActionListener() {
@@ -311,6 +356,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 1);
 				returnAnimalEat(dude, 1);
+				num=1;
 			}
 		});
 		animal3.addActionListener(new ActionListener() {
@@ -319,6 +365,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 2);
 				returnAnimalEat(dude, 2);
+				num=2;
 			}
 		});
 		animal4.addActionListener(new ActionListener() {
@@ -327,6 +374,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 3);
 				returnAnimalEat(dude, 3);
+				num=3;
 			}
 		});
 		animal5.addActionListener(new ActionListener() {
@@ -335,6 +383,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 4);
 				returnAnimalEat(dude, 4);
+				num=4;
 			}
 		});
 		animal6.addActionListener(new ActionListener() {
@@ -343,6 +392,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 5);
 				returnAnimalEat(dude, 5);
+				num=5;
 			}
 		});
 		animal7.addActionListener(new ActionListener() {
@@ -351,6 +401,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 6);
 				returnAnimalEat(dude, 6);
+				num=6;
 			}
 		});
 		animal8.addActionListener(new ActionListener() {
@@ -359,6 +410,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 7);
 				returnAnimalEat(dude, 7);
+				num=7;
 			}
 		});
 		animal9.addActionListener(new ActionListener() {
@@ -367,6 +419,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 8);
 				returnAnimalEat(dude, 8);
+				num=8;
 			}
 		});
 		animal10.addActionListener(new ActionListener() {
@@ -375,6 +428,7 @@ public class DudeScreen extends JFrame {
 				closeStart();
 				printAnimalRate(animalRate, dude, 9);
 				returnAnimalEat(dude, 9);
+				num=9;
 			}
 		});
 		home.addActionListener(new ActionListener() {
@@ -399,7 +453,7 @@ public class DudeScreen extends JFrame {
 		if(dude.getPondLand().get(i).getGrowingRate()<100)
 			feedAnimal.setEnabled(true);
 		else
-			feedAnimal.setEnabled(true);
+			feedAnimal.setEnabled(false);
 			catchAnimal.setEnabled(true);
 	}
 	public void printAnimalRate(JLabel animalRate, Dude dude, int i) {
@@ -482,6 +536,17 @@ public class DudeScreen extends JFrame {
             coordinateY += vy;
             btn.setBounds((int) coordinateX, (int) coordinateY, 87, 55);
     		
+        }
+        public void showButton(Dude dude) {
+        	for(int i=0; i<dude.getPondLand().size(); i++)
+    		{
+        		if(dude.getPondLand().get(i)==null)
+        		{
+        			button.get(i).setVisible(false);
+        		}
+        		else
+        			button.get(i).setVisible(true);
+    		}
         }
     }
 }

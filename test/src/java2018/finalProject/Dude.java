@@ -15,10 +15,10 @@ public class Dude {
      }
 	 public boolean capturing(int number)
 	 {
-		 if(pondLand.get(number-1).getGrowingRate()==100)
+		 if(pondLand.get(number).getGrowingRate()==100)
 		 {
 			 house.addAnimal(pondLand.get(number-1));
-			 pondLand.remove(number-1);
+			 pondLand.set(number, null);
 			 num--;
 			 return true;
 		 }
@@ -36,6 +36,7 @@ public class Dude {
 		 {
 			if(house.getYoungPigNumber()>0)
 			{
+				System.out.println("養了一隻豬");
 				pondLand.add(animal);
 				num++;
 				house.removeYoungAnimal (animal.getName());
@@ -60,6 +61,7 @@ public class Dude {
 		 {
 			if(house.getYoungChickenNumber()>0)
 			{
+				System.out.println("養了一隻雞");
 				pondLand.add(animal);
 				num++;
 				house.removeYoungAnimal (animal.getName());
@@ -84,6 +86,7 @@ public class Dude {
 		 {
 			if(house.getYoungCowNumber()>0)
 			{
+				System.out.println("養了一隻牛");
 				pondLand.add(animal);
 				num++;
 				house.removeYoungAnimal (animal.getName());
@@ -125,6 +128,20 @@ public class Dude {
 	public int getChickenNumber() 
 	{
 		return getAnimalNum(pondLand,"雞");
+	}
+	public boolean getNullNum(Animal animal)
+	{
+		for(Animal i: pondLand)
+		{
+			if(i == null)
+			{
+				System.out.printf("養%s", animal.getName());
+				i=animal;
+				num++;
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

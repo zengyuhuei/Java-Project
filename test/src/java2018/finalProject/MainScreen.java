@@ -119,8 +119,8 @@ public class MainScreen extends JFrame {
 							
 							//把它設成private variable
 							//WareHouseScreen frame = new WareHouseScreen(warehouse);
-							//dudescreen = new DudeScreen(warehouse);
-							//dudescreen.setVisible(true);
+							dudescreen = new DudeScreen(warehouse);
+							dudescreen.setVisible(true);
 							//frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
