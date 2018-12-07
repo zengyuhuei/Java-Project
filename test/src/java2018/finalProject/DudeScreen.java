@@ -12,6 +12,7 @@ import java2018.finalProject.DudeScreenTest.RunningButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Container;
 
 import java.awt.event.ActionEvent;
@@ -21,6 +22,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 
+import java.awt.Font;
+import java.io.File;
+ 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 public class DudeScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -45,7 +51,8 @@ public class DudeScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-
+	/*String path="C:/Users/趙芷婷/Desktop/Java-Project/picture/cow.jpg";
+	Icon cow=new ImageIcon(path);*/
 	JLabel dudeAnimalNum = new JLabel("牧場動物:");
 	JLabel dudeCowNum = new JLabel();
 	JLabel dudePigNum = new JLabel();
@@ -263,7 +270,7 @@ public class DudeScreen extends JFrame {
 		feedChicken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(dude.getNullNum(new Chicken())==false)
+				if(dude.getNullNum(new Chicken(),warehouse)==false)
 				{
 					dude.startFeedChicken(new Chicken());
 				}
@@ -276,7 +283,7 @@ public class DudeScreen extends JFrame {
 		feedPig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(dude.getNullNum(new Pig())==false)
+				if(dude.getNullNum(new Pig(),warehouse)==false)
 				{
 					dude.startFeedPig(new Pig());
 				}
@@ -289,7 +296,7 @@ public class DudeScreen extends JFrame {
 		feedCow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(dude.getNullNum(new Cow())==false)
+				if(dude.getNullNum(new Cow(),warehouse)==false)
 				{
 					dude.startFeedCow(new Cow());
 				}

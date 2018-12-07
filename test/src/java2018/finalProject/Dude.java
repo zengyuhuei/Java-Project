@@ -131,13 +131,14 @@ public class Dude {
 	{
 		return getAnimalNum(pondLand,"雞");
 	}
-	public boolean getNullNum(Animal animal)
+	public boolean getNullNum(Animal animal, WareHouse warehouse)
 	{
 		for(int i=0; i<pondLand.size(); i++)
 		{
 			if(pondLand.get(i)==null)
 			{
 				pondLand.set(i, animal);
+				warehouse.removeYoungAnimal(animal.getName());
 				num++;
 				return true;
 			}
