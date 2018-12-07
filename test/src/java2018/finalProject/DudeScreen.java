@@ -11,12 +11,16 @@ import java2018.finalProject.DudeScreenTest.RunningButton;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Container;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -53,7 +57,7 @@ public class DudeScreen extends JFrame {
 	 */
 	/*String path="C:/Users/趙芷婷/Desktop/Java-Project/picture/cow.jpg";
 	Icon cow=new ImageIcon(path);*/
-	JLabel dudeAnimalNum = new JLabel("牧場動物:");
+	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
 	JLabel dudeCowNum = new JLabel();
 	JLabel dudePigNum = new JLabel();
 	JLabel dudeChickenNum = new JLabel();
@@ -101,7 +105,7 @@ public class DudeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		dudeAnimalNum.setBounds(94, 567, 145, 43);
+		dudeAnimalNum.setBounds(70, 563, 303, 43);
 		contentPane.add(dudeAnimalNum);
 		dudeAnimalNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		
@@ -151,17 +155,17 @@ public class DudeScreen extends JFrame {
 		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		catchAnimal.setEnabled(false);
 		
-		dudeCowNum.setBounds(274, 567, 104, 34);
+		dudeCowNum.setBounds(396, 567, 104, 34);
 		contentPane.add(dudeCowNum);
 		dudeCowNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
 		
-		dudePigNum.setBounds(411, 567, 104, 34);
+		dudePigNum.setBounds(538, 567, 104, 34);
 		contentPane.add(dudePigNum);
 		dudePigNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
 		
-		dudeChickenNum.setBounds(555, 567, 104, 34);
+		dudeChickenNum.setBounds(666, 567, 104, 34);
 		contentPane.add(dudeChickenNum);
 		dudeChickenNum.setFont(new java.awt.Font("Dialog", 1, 30));
 		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
@@ -264,45 +268,56 @@ public class DudeScreen extends JFrame {
 				feedPig.setVisible(true);
 				feedCow.setVisible(true);
 				feedAnimal.setEnabled(false);
+				catchAnimal.setEnabled(false);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
+		if(dude.getNum()==9) {
+			startFeed.addMouseListener(new MouseAdapter() {  //提醒牧場數量上限
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					int input = JOptionPane.showOptionDialog(null, "牧場動物數量已達上限!", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				}
+			});		
+		}
 		feedChicken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if(dude.getNum()==9) {
+					closeStart();
+					startFeed.setEnabled(false);
+				}
 				if(dude.getNullNum(new Chicken(),warehouse)==false)
 				{
 					dude.startFeedChicken(new Chicken());
 				}
-				showButton(dude);
-				printHouseAnimalNum(warehouse);
-				returnHouseAnimal(warehouse);
-				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
+				animalAction(dude, warehouse);
 			}
 		});
 		feedPig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(dude.getNum()==9) {
+					closeStart();
+					startFeed.setEnabled(false);
+				}
 				if(dude.getNullNum(new Pig(),warehouse)==false)
 				{
 					dude.startFeedPig(new Pig());
 				}
-				showButton(dude);
-				printHouseAnimalNum(warehouse);
-				returnHouseAnimal(warehouse);
-				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
+				animalAction(dude, warehouse);
 			}
 		});
 		feedCow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(dude.getNum()==9) {
+					closeStart();
+					startFeed.setEnabled(false);
+				}
 				if(dude.getNullNum(new Cow(),warehouse)==false)
 				{
 					dude.startFeedCow(new Cow());
 				}
-				showButton(dude);
-				printHouseAnimalNum(warehouse);
-				returnHouseAnimal(warehouse);
+				animalAction(dude, warehouse);
 			}
 		});
 		feedAnimal.addActionListener(new ActionListener() {
@@ -319,42 +334,45 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dude.getPondLand().get(num).feeding(new SimpleFeed());
 				warehouse.removeFeed(new SimpleFeed().getName());
-				printHouseFeedNum(warehouse);
-				returnHouseFeed(warehouse);
-				printAnimalRate(dude, num);
-				returnAnimalEat(dude, num);
+				feedAction(dude,warehouse);
 			}
 		});
 		midFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dude.getPondLand().get(num).feeding(new GeneralFeed());
 				warehouse.removeFeed(new GeneralFeed().getName());
-				printHouseFeedNum(warehouse);
-				returnHouseFeed(warehouse);
-				printAnimalRate(dude, num);
-				returnAnimalEat(dude, num);
+				feedAction(dude,warehouse);
 			}
 		});
 		highFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dude.getPondLand().get(num).feeding(new AdvancedFeed());
 				warehouse.removeFeed(new AdvancedFeed().getName());
-				printHouseFeedNum(warehouse);
-				returnHouseFeed(warehouse);
-				printAnimalRate(dude, num);
-				returnAnimalEat(dude, num);
-				
+				feedAction(dude,warehouse);
 			}
 		});
 		catchAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				startFeed.setEnabled(true);
 				closeFeed();
 				closeStart();
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 				showButton(dude);
+				catchAnimal.setEnabled(false);
 			}
 		});
+		/*catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+				if(input == 0) //ok
+				{
+					
+				}	
+			}
+		});*/
 		animal1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num=0;
@@ -423,7 +441,24 @@ public class DudeScreen extends JFrame {
 			}
 		});
 	}
-	public void buttonAction(Dude dude, int num) { //動物按鈕
+	public void animalAction(Dude dude, WareHouse warehouse) { //養殖動物統一動作
+		catchAnimal.setEnabled(false);
+		showButton(dude);
+		printHouseAnimalNum(warehouse);
+		returnHouseAnimal(warehouse);
+		printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
+	}
+	public void feedAction(Dude dude, WareHouse warehouse) { //飼料統一動作
+		printHouseFeedNum(warehouse);
+		returnHouseFeed(warehouse);
+		printAnimalRate(dude, num);
+		returnAnimalEat(dude, num);
+		if(warehouse.getGeneralFeedNumber()==0&&warehouse.getSimpleFeedNumber()==0&&warehouse.getAdvencedFeedNumber()==0) {
+			feedAnimal.setEnabled(false);
+			closeFeed();
+		}
+	}
+	public void buttonAction(Dude dude, int num) { //場上動物統一動作
 		closeFeed();
 		closeStart();
 		if(dude.getPondLand().get(num).getGrowingRate()>=100)catchAnimal.setEnabled(true);
@@ -513,12 +548,29 @@ public class DudeScreen extends JFrame {
     class RunningButton extends TimerTask {
     	private JButton btn;
     	private double coordinateX, coordinateY;
-    	private double vx = Math.sin(1) * 5;
-    	private double vy = Math.cos(1) * 5; 
+    	private double vx, vy;
+    	private int random = (int)(Math.random()*4);
+    	
     	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
         	this.btn = btn;
         	this.coordinateX = coordinateX;
         	this.coordinateY = coordinateY;
+        	if(random==0) {
+        		vx = Math.sin(1) * 5;
+            	vy = Math.cos(1) * 5;
+        	}
+        	if(random==1) {
+        		vx = -Math.sin(1) * 5;
+            	vy = Math.cos(1) * 5;
+        	}
+        	if(random==2) {
+        		vx = Math.sin(1) * 5;
+            	vy = -Math.cos(1) * 5;
+        	}
+        	else {
+        		vx = -Math.sin(1) * 5;
+            	vy = -Math.cos(1) * 5;
+        	}
     	}
         public void run() {
             if (coordinateX + vx < 50) {
