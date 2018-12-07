@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,6 +38,7 @@ public class FarmScreen extends JFrame {
 	JButton sowingButton = new JButton("播種");
 	JButton harvestButton = new JButton("收割");
 	JButton cornButton = new JButton("玉米");
+	//ImageIcon iconCorn = new ImageIcon("C:\\Users\\user\\Desktop\\Java-Project\\picture\\cornImage.jpg");
 	JButton wheatButton = new JButton("小麥");
 	JButton cabbageButton = new JButton("高麗菜");
 	JButton button_0 = new JButton("Land0");
@@ -142,7 +144,7 @@ public class FarmScreen extends JFrame {
 		farm.setStoreCropNum();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 778, 589);
+		setBounds(100, 100, 778, 589);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -150,11 +152,14 @@ public class FarmScreen extends JFrame {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		  this.setSize(1200, 675);
 		
+		
 
 		//澆水button
 		waterButton.setBounds(589, 69, 111, 31);
 		waterButton.setVisible(false);
+		//waterButton.setIcon(iconCorn);
 		contentPane.add(waterButton);
+		//waterButton.setSize(200,200);
 		waterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				farm.getOneHOurToNowDate();
@@ -220,7 +225,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum)== -1)
 		        	{
-			        	farm.sowingCorn(landNum);
+			        	farm.sowingCorn(landNum, wareHouse);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -240,7 +245,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
-		        		farm.sowingWheat(landNum);
+		        		farm.sowingWheat(landNum, wareHouse);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -261,7 +266,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
-			        	farm.sowingCabbage(landNum);
+			        	farm.sowingCabbage(landNum,wareHouse);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
