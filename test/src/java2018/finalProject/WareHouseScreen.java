@@ -11,10 +11,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
@@ -34,34 +36,42 @@ public class WareHouseScreen extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable isMaturedItemTable;
-	private JTable unMaturedItemTable;
 	private JTable holdingItemTable;
+	private JTable unMaturedItemTable;
+	private JTable isMaturedItemTable;
+	private JScrollPane unMaturedScrollPane;
+	private JScrollPane isMaturedScrollPane;
+	private JScrollPane holdingScrollPane;
 	private WareHouse warehouse;
-	private JPanel panel;
-	private JLabel label_1;
+	private boolean isMatured = false;
+	private boolean unMatured = false;
+	private boolean holding = false;
+	
     
 	/**
 	 * Launch the application.
 	 */
-	public ImageIcon resizeImage(ImageIcon img)
+	public ImageIcon resizeImage(int width, int height, ImageIcon img)
 	{
 		Image i = img.getImage();
-		Image new_img = i.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return  new ImageIcon(new_img);
 		
 	}
-	public void setTableColumnWidth(JTable table)
+	
+	
+	public void setTableColumnWidth(JTable table,JScrollPane scrollPane)
 	{
+		
 		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setMinWidth(table.getWidth()/2);
-		table.getColumnModel().getColumn(0).setMaxWidth(table.getWidth()/2);
+		table.getColumnModel().getColumn(0).setMinWidth(scrollPane.getWidth()/2);
+		table.getColumnModel().getColumn(0).setMaxWidth(scrollPane.getWidth()/2);
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setMinWidth(table.getWidth()/2);
-		table.getColumnModel().getColumn(1).setMaxWidth(table.getWidth()/2);
+		table.getColumnModel().getColumn(1).setMinWidth(scrollPane.getWidth()/2);
+		table.getColumnModel().getColumn(1).setMaxWidth(scrollPane.getWidth()/2);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		
-		table.setRowHeight(table.getHeight()/table.getRowCount());
+		table.setRowHeight((scrollPane.getHeight())/table.getRowCount());
 		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -99,6 +109,7 @@ public class WareHouseScreen extends JFrame {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	public WareHouseScreen(WareHouse warehouse) {
 		this.warehouse = warehouse;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,77 +122,88 @@ public class WareHouseScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		//resize the image
-		ImageIcon chicken =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon pig =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon cow =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon wheat =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon corn =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon cabbage =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon fertilizer =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon simple =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon general =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon advanced =resizeImage (new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon chicken =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon pig =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon cow =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon wheat =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon corn =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon cabbage =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon fertilizer =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon simple =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon general =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon advanced =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
 		
 		JButton btnisMaturedItem = new JButton("熟成品");
+		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnIsMatured.png")));
 		
 		btnisMaturedItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnisMaturedItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateMaturedItem();
-				unMaturedItemTable.setVisible(false);
-				holdingItemTable.setVisible(false);
-				isMaturedItemTable.setVisible(true);
+				if(isMatured == false)
+				{
+					updateMaturedItem();
+					unMaturedScrollPane.setVisible(false);
+					holdingScrollPane.setVisible(false);
+					isMaturedScrollPane.setVisible(true);
+					isMatured = true;
+					unMatured = false;
+					holding = false;
+				}
+				
 				
 			}
 		});
-		btnisMaturedItem.setBounds(363, 0, 159, 74);
+		btnisMaturedItem.setBounds(123, 46, 176, 68);
 		contentPane.add(btnisMaturedItem);
 		
 		JButton btnReadyToFeed = new JButton("待成長");
+		btnReadyToFeed.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnUnMatured.png")));
 	
 		btnReadyToFeed.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnReadyToFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateunMaturedItem();
-				isMaturedItemTable.setVisible(false);
-				holdingItemTable.setVisible(false);
-				unMaturedItemTable.setVisible(true);
+				if(unMatured == false)
+				{
+					updateunMaturedItem();
+					isMaturedScrollPane.setVisible(false);
+					holdingScrollPane.setVisible(false);
+					unMaturedScrollPane.setVisible(true);
+					isMatured = false;
+					unMatured = true;
+					holding = false;
+				}
 			}
 		});
-		btnReadyToFeed.setBounds(521, 0, 159, 74);
+		btnReadyToFeed.setBounds(123, 127, 176, 58);
 		contentPane.add(btnReadyToFeed);
 		
 		JButton btnHoldItem = new JButton("持有物");
+		btnHoldItem.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnHolding.png")));
+		
 	
 		btnHoldItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		btnHoldItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateHoldItem();
-				unMaturedItemTable.setVisible(false);
-				isMaturedItemTable.setVisible(false);
-				holdingItemTable.setVisible(true);
+		btnHoldItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(holding == false)
+				{
+					updateHoldItem();
+					
+					unMaturedScrollPane.setVisible(false);
+					isMaturedScrollPane.setVisible(false);
+					holdingScrollPane.setVisible(true);
+					
+					isMatured = false;
+					holding = true;
+					unMatured = false;
+				}
 				
 			}
 		});
-		btnHoldItem.setBounds(680, 0, 159, 74);
+		
+		btnHoldItem.setBounds(123, 198, 176, 58);
 		contentPane.add(btnHoldItem);
-		
-		panel = new JPanel();
-		panel.setBackground(SystemColor.info);
-		panel.setBounds(363, 74, 476, 554);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		isMaturedItemTable = new JTable();
-		isMaturedItemTable.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), null));
-		isMaturedItemTable.setForeground(new Color(0, 0, 0));
-		isMaturedItemTable.setBackground(SystemColor.info);
-		isMaturedItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		
-
-		isMaturedItemTable.setBounds(0, 66, 476, 488);
 		Object[][] organism = {
-				
 			{chicken , 0},
 			{pig, 0},
 			{cow, 0},
@@ -198,59 +220,21 @@ public class WareHouseScreen extends JFrame {
 				
 			};
 	    String[] label = {"物品", "數量"};
-		isMaturedItemTable.setModel(new DefaultTableModel(organism,label) {
-			private static final long serialVersionUID = 1L;
-
-			public Class<? extends Object> getColumnClass(int column)
-            {
-                return getValueAt(0, column).getClass();
-            }
-			
-			@Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false;
-		    }
-		});
-			
-		setTableColumnWidth(isMaturedItemTable);
-        panel.add(isMaturedItemTable);
-		
-			
-				
-			
-			
-			unMaturedItemTable = new JTable();
-			unMaturedItemTable.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), null));
-			unMaturedItemTable.setBounds(0, 66, 476, 488);
-			panel.add(unMaturedItemTable);
-			unMaturedItemTable.setBackground(SystemColor.info);
-			unMaturedItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-			
-			unMaturedItemTable.setModel(new DefaultTableModel(organism, label){
-				private static final long serialVersionUID = 1L;
-
-				public Class<? extends Object> getColumnClass(int column)
-	            {
-	                return getValueAt(0, column).getClass();
-	            }
-				@Override
-			    public boolean isCellEditable(int row, int column) {
-			        return false;
-			    }
-			});
-			setTableColumnWidth(unMaturedItemTable);
-			
-			unMaturedItemTable.setVisible(false);
 		
 		
 		
+		holdingScrollPane = new JScrollPane();
+		holdingScrollPane.setBounds(330, 46, 522, 556);
+		holdingScrollPane.setBackground(new Color(204 ,135 ,125,50));
+		holdingScrollPane.getVerticalScrollBar().setEnabled(false);
+		holdingScrollPane.disable();
+		holdingScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		contentPane.add(holdingScrollPane);
 		
 		holdingItemTable = new JTable();
-		holdingItemTable.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), null));
-		holdingItemTable.setBackground(SystemColor.info);
-		holdingItemTable.setBounds(0, 66, 476, 488);
-		holdingItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-
+		holdingItemTable.disable();
+		holdingItemTable.getTableHeader().disable();
+		holdingItemTable.setBackground(new Color(204, 135, 125,50));
 		holdingItemTable.setModel(new DefaultTableModel(holding,label){
 			private static final long serialVersionUID = 1L;
 
@@ -263,34 +247,75 @@ public class WareHouseScreen extends JFrame {
 		        return false;
 		    }
 		});
-		setTableColumnWidth(holdingItemTable);
-		panel.add(holdingItemTable);
+		setTableColumnWidth(holdingItemTable,holdingScrollPane);
+		holdingScrollPane.setViewportView(holdingItemTable);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(-2, 567, 478, -565);
-		panel.add(scrollPane);
 		
-		label_1 = new JLabel("物品");
-		label_1.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
-		label_1.setBounds(97, 0, 56, 64);
-		panel.add(label_1);
+		unMaturedScrollPane = new JScrollPane();
+		unMaturedScrollPane.setBounds(330, 46, 522, 556);
+		unMaturedScrollPane.setBackground(new Color(189, 216 ,97,50));
+		unMaturedScrollPane.disable();
+		unMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		contentPane.add(unMaturedScrollPane);
 		
-		JLabel label_2 = new JLabel("數量");
-		label_2.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
-		label_2.setBounds(333, 13, 76, 40);
-		panel.add(label_2);
+		unMaturedItemTable = new JTable();
+		unMaturedItemTable.disable();
+		unMaturedItemTable.getTableHeader().disable();
+		unMaturedItemTable.setBackground(new Color(189, 216 ,97,50));
+		unMaturedItemTable.setModel(new DefaultTableModel(organism,label){
+			private static final long serialVersionUID = 1L;
+
+			public Class<? extends Object> getColumnClass(int column)
+            {
+                return getValueAt(0, column).getClass();
+            }
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		});
+		setTableColumnWidth(unMaturedItemTable,unMaturedScrollPane);
+		unMaturedScrollPane.setViewportView(unMaturedItemTable);
+		
+		isMaturedScrollPane = new JScrollPane();
+		isMaturedScrollPane.disable();
+		
+		isMaturedScrollPane.setBackground(new Color(181, 169, 154,50));
+		isMaturedScrollPane.setBounds(330, 46, 522, 556);
+		isMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		contentPane.add(isMaturedScrollPane);
+		isMaturedItemTable = new JTable();
+		isMaturedItemTable.disable();
+		isMaturedItemTable.getTableHeader().disable();
+		isMaturedItemTable.setBackground(new Color(181, 169, 154,50));
+		isMaturedItemTable.setModel(new DefaultTableModel(organism,label){
+			private static final long serialVersionUID = 1L;
+
+			public Class<? extends Object> getColumnClass(int column)
+            {
+                return getValueAt(0, column).getClass();
+            }
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		});
+		setTableColumnWidth(isMaturedItemTable,isMaturedScrollPane);
+		isMaturedScrollPane.setViewportView(isMaturedItemTable);
+		
+		unMaturedScrollPane.setVisible(false);
+		isMaturedScrollPane.setVisible(false);
+		holdingScrollPane.setVisible(false);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		
-		ImageIcon img = new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/warehouse.png");
+		
+		
+		ImageIcon img = new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/warehouse.jpg");
 		Image i = img.getImage();
-		Image new_img = i.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
-		lblNewLabel.setIcon(  new ImageIcon(new_img));
-		lblNewLabel.setBounds(0, 0, this.getWidth(), this.getHeight());
+		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+		lblNewLabel.setIcon(new ImageIcon(new_img));
+		lblNewLabel.setSize(1200, 675);
 		contentPane.add(lblNewLabel);
-
-		isMaturedItemTable.setVisible(false);
-		holdingItemTable.setVisible(false);
-		unMaturedItemTable.setVisible(false);
 	}
 }
