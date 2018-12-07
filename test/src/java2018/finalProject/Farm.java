@@ -69,7 +69,7 @@ public class Farm
 	}
 	
 	// 種植玉米，把他從Warehouse中拿出。成功回傳1，失敗回傳0
-	public boolean sowingCorn(int num, WareHouse warehouse)
+	public boolean sowingCorn(int num)
 	{
 		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
@@ -83,13 +83,13 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		System.out.println(warehouse.removeSeed("玉米"));
+		System.out.println(house.removeSeed("玉米"));
 		
 		return true;
 	}
 	
 	// 種植小麥，把他從Warehouse中拿出。成功回傳1，失敗回傳0
-	public boolean sowingWheat(int num, WareHouse warehouse)
+	public boolean sowingWheat(int num)
 	{
 		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
@@ -103,12 +103,12 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		warehouse.removeSeed("小麥");
+		house.removeSeed("小麥");
 		return true;
 	}
 		
 	// 種植高麗菜，把他從Warehouse中拿出。成功回傳1，失敗回傳0
-	public boolean sowingCabbage(int num, WareHouse warehouse)
+	public boolean sowingCabbage(int num)
 	{
 		//System.out.println("count:"+count+" num:"+num);
 		storeCropArray[num] = count;
@@ -122,7 +122,7 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		warehouse.removeSeed("高麗菜");
+	    house.removeSeed("高麗菜");
 		return true;
 	}
 	public Date getDateTime()

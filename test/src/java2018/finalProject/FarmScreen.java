@@ -28,9 +28,6 @@ public class FarmScreen extends JFrame {
 	//private int[] storeCropArray = new int[12];
 	private int count = 0;
 	private int landNum = -1;
-	WareHouse wareHouse = new WareHouse();
-	Farm farm = new Farm(wareHouse);
-	
 	
 	JButton btn = new JButton();   //測試用button 不會出現
 	JButton waterButton = new JButton("澆水");
@@ -63,7 +60,7 @@ public class FarmScreen extends JFrame {
 		waterButton.setVisible(false);
 	}
 	
-	public void LandButton()
+	public void LandButton(Farm farm, WareHouse wareHouse)
 	{
 		fertilizeButton.setVisible(true);
 		harvestButton.setVisible(true);
@@ -141,6 +138,7 @@ public class FarmScreen extends JFrame {
 		*/
 		//wareHouse.editFertilizer(10);
 		
+		Farm farm = new Farm(wareHouse);
 		farm.setStoreCropNum();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -225,7 +223,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum)== -1)
 		        	{
-			        	farm.sowingCorn(landNum, wareHouse);
+			        	farm.sowingCorn(landNum);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -245,7 +243,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
-		        		farm.sowingWheat(landNum, wareHouse);
+		        		farm.sowingWheat(landNum);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -266,7 +264,7 @@ public class FarmScreen extends JFrame {
 		        public void actionPerformed(ActionEvent e) {
 		        	if(farm.getStoreCropNum(landNum) == -1)
 		        	{
-			        	farm.sowingCabbage(landNum,wareHouse);
+			        	farm.sowingCabbage(landNum);
 		    			cornButton.setVisible(false);
 						wheatButton.setVisible(false);
 						cabbageButton.setVisible(false);
@@ -326,7 +324,7 @@ public class FarmScreen extends JFrame {
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 0;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_0.setBounds(15, 15, 111, 36);
@@ -336,7 +334,7 @@ public class FarmScreen extends JFrame {
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 3;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_3.setAction(action);
@@ -347,7 +345,7 @@ public class FarmScreen extends JFrame {
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 6;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_6.setAction(action);
@@ -358,7 +356,7 @@ public class FarmScreen extends JFrame {
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 9;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_9.setAction(action);
@@ -369,7 +367,7 @@ public class FarmScreen extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 1;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_1.setAction(action);
@@ -380,7 +378,7 @@ public class FarmScreen extends JFrame {
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 4;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_4.setAction(action);
@@ -391,7 +389,7 @@ public class FarmScreen extends JFrame {
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 7;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_7.setAction(action);
@@ -402,7 +400,7 @@ public class FarmScreen extends JFrame {
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 10;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_10.setAction(action);
@@ -413,7 +411,7 @@ public class FarmScreen extends JFrame {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 2;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_2.setAction(action);
@@ -424,7 +422,7 @@ public class FarmScreen extends JFrame {
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 5;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_5.setAction(action);
@@ -435,7 +433,7 @@ public class FarmScreen extends JFrame {
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 8;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_8.setAction(action);
@@ -446,7 +444,7 @@ public class FarmScreen extends JFrame {
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 11;
-				LandButton();
+				LandButton(farm, wareHouse);
 			}
 		});
 		button_11.setAction(action);
