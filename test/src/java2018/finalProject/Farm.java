@@ -83,7 +83,7 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		System.out.println(house.removeSeed(farmLand.get(count-1).pickSeed()));
+		System.out.println(house.removeSeed("玉米"));
 		
 		return true;
 	}
@@ -122,7 +122,7 @@ public class Farm
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
-		house.removeSeed("高麗菜");
+	    house.removeSeed("高麗菜");
 		return true;
 	}
 	public Date getDateTime()
