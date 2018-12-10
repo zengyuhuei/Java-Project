@@ -84,9 +84,12 @@ public class DudeScreen extends JFrame {
 	JButton animal10 = new JButton();
 	ArrayList<JButton> button = new ArrayList<JButton>(10);
 	private int num;
-	ImageIcon chicken = new ImageIcon("../picture/chicken.gif");
-	ImageIcon pig = new ImageIcon("../picture/pig.gif");
-	ImageIcon cow = new ImageIcon("../picture/cow.gif");
+	ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
+	ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
+	ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
+	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
+	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
+	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
 	
 	public DudeScreen(WareHouse warehouse) {
 		button.add(animal1);
@@ -100,10 +103,6 @@ public class DudeScreen extends JFrame {
 		button.add(animal9);
 		button.add(animal10);
 		//ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/chicken.gif"));
-		
-		animal1.setIcon(chicken);
-		animal2.setIcon(pig);
-		animal3.setIcon(cow);
 		Dude dude = new Dude(warehouse);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
@@ -447,6 +446,13 @@ public class DudeScreen extends JFrame {
 				
 			}
 		});
+		JLabel lblNewLabel = new JLabel("New label");
+		ImageIcon img = new ImageIcon("../picture/dude.jpg");
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+		lblNewLabel.setIcon(new ImageIcon(new_img));
+		lblNewLabel.setSize(1200, 675);
+		contentPane.add(lblNewLabel);
 	}
 	public void animalAction(Dude dude, WareHouse warehouse) { //養殖動物統一動作
 		catchAnimal.setEnabled(false);
@@ -614,25 +620,20 @@ public class DudeScreen extends JFrame {
     			//button.get(i).setText(dude.getPondLand().get(i).getName());
     			if(dude.getPondLand().get(i).getName()=="雞")
     			{
-    				button.get(i).setIcon(chicken);
+    				button.get(i).setIcon(chickenleft);
     			}
     			if(dude.getPondLand().get(i).getName()=="豬")
     			{
-    				button.get(i).setIcon(pig);
+    				button.get(i).setIcon(pigleft);
     			}
     			if(dude.getPondLand().get(i).getName()=="牛")
     			{
-    				button.get(i).setIcon(cow);
+    				button.get(i).setIcon(cowleft);
     			}
     			button.get(i).setVisible(true);
     		}
 			
 		}
-    }
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
-        Image img = icon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
     }
     public void buttonGIF()
     {
