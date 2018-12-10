@@ -96,7 +96,6 @@ public class DudeScreen extends JFrame {
 		button.add(animal8);
 		button.add(animal9);
 		button.add(animal10);
-		
 		Dude dude = new Dude(warehouse);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
