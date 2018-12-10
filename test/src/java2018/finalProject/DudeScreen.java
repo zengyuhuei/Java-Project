@@ -72,18 +72,21 @@ public class DudeScreen extends JFrame {
 	JButton highFeed = new JButton("高級飼料");
 	JButton catchAnimal = new JButton("捕捉");
 	JButton home = new JButton("回首頁");
-	JButton animal1 = new JButton("動物1");
-	JButton animal2 = new JButton("動物2");
-	JButton animal3 = new JButton("動物3");
-	JButton animal4 = new JButton("動物4");
-	JButton animal5 = new JButton("動物5");
-	JButton animal6 = new JButton("動物6");
-	JButton animal7 = new JButton("動物7");
-	JButton animal8 = new JButton("動物8");
-	JButton animal9 = new JButton("動物9");
-	JButton animal10 = new JButton("動物10");
+	JButton animal1 = new JButton();
+	JButton animal2 = new JButton();
+	JButton animal3 = new JButton();
+	JButton animal4 = new JButton();
+	JButton animal5 = new JButton();
+	JButton animal6 = new JButton();
+	JButton animal7 = new JButton();
+	JButton animal8 = new JButton();
+	JButton animal9 = new JButton();
+	JButton animal10 = new JButton();
 	ArrayList<JButton> button = new ArrayList<JButton>(10);
 	private int num;
+	ImageIcon chicken = new ImageIcon("../picture/chicken.gif");
+	ImageIcon pig = new ImageIcon("../picture/pig.gif");
+	ImageIcon cow = new ImageIcon("../picture/cow.gif");
 	
 	public DudeScreen(WareHouse warehouse) {
 		button.add(animal1);
@@ -96,6 +99,11 @@ public class DudeScreen extends JFrame {
 		button.add(animal8);
 		button.add(animal9);
 		button.add(animal10);
+		//ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/chicken.gif"));
+		
+		animal1.setIcon(chicken);
+		animal2.setIcon(pig);
+		animal3.setIcon(cow);
 		Dude dude = new Dude(warehouse);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
@@ -178,7 +186,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animalRate);
 		animalRate.setFont(new java.awt.Font("Dialog", 1, 30));
 		
-		animal1.setBounds(456, 231, 87, 55);
+		animal1.setBounds(456, 231, 100, 100);
 		contentPane.add(animal1);
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		Timer timer1 = new Timer();
@@ -187,7 +195,7 @@ public class DudeScreen extends JFrame {
 		animal1.setVisible(false);
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal2.setBounds(231, 208, 87, 55);
+		animal2.setBounds(231, 208, 100, 100);
 		contentPane.add(animal2);
 		Timer timer2 = new Timer();
 		RunningButton run2 = new RunningButton(animal2, 231, 208);
@@ -195,7 +203,7 @@ public class DudeScreen extends JFrame {
 		animal2.setVisible(false);
 		
 		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
-		animal3.setBounds(214, 312, 87, 55);
+		animal3.setBounds(214, 312, 100, 100);
 		contentPane.add(animal3);
 		Timer timer3 = new Timer();
 		RunningButton run3 = new RunningButton(animal3, 214, 312);
@@ -586,12 +594,13 @@ public class DudeScreen extends JFrame {
             }
             coordinateX += vx;
             coordinateY += vy;
-            btn.setBounds((int) coordinateX, (int) coordinateY, 87, 55);
+            btn.setBounds((int) coordinateX, (int) coordinateY, 150, 150);
     		
         }
         
     }
     public void showButton(Dude dude) {
+    	buttonGIF();
     	for(int i=0; i<dude.getPondLand().size(); i++)
 		{
     		if(dude.getPondLand().get(i)==null)
@@ -602,10 +611,44 @@ public class DudeScreen extends JFrame {
     		else
     		{
     			System.out.printf("%s\n", dude.getPondLand().get(i).getName());
-    			button.get(i).setText(dude.getPondLand().get(i).getName());
+    			//button.get(i).setText(dude.getPondLand().get(i).getName());
+    			if(dude.getPondLand().get(i).getName()=="雞")
+    			{
+    				button.get(i).setIcon(chicken);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="豬")
+    			{
+    				button.get(i).setIcon(pig);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛")
+    			{
+    				button.get(i).setIcon(cow);
+    			}
     			button.get(i).setVisible(true);
     		}
 			
 		}
     }
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+        Image img = icon.getImage();  
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        return new ImageIcon(resizedImage);
+    }
+    public void buttonGIF()
+    {
+    	for(int i=0; i<button.size(); i++)
+    	{
+    		button.get(i).setOpaque(false);
+    		button.get(i).setContentAreaFilled(false);
+    		button.get(i).setFocusPainted(false);
+    		button.get(i).setBorder(null);
+    	}
+    }
 }
+
+
+
+
+
+
+
