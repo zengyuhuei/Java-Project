@@ -34,6 +34,7 @@ public class FarmScreen extends JFrame {
 	JButton fertilizeButton = new JButton("施肥");
 	JButton sowingButton = new JButton("播種");
 	JButton harvestButton = new JButton("收割");
+	JButton pesticideButton = new JButton("除蟲除草");
 	JButton cornButton = new JButton("玉米");
 	//ImageIcon iconCorn = new ImageIcon("C:\\Users\\user\\Desktop\\Java-Project\\picture\\cornImage.jpg");
 	JButton wheatButton = new JButton("小麥");
@@ -58,6 +59,7 @@ public class FarmScreen extends JFrame {
 		harvestButton.setVisible(false);
 		sowingButton.setVisible(false);
 		waterButton.setVisible(false);
+		pesticideButton.setVisible(false);
 	}
 	
 	public void LandButton(Farm farm, WareHouse wareHouse)
@@ -66,6 +68,7 @@ public class FarmScreen extends JFrame {
 		harvestButton.setVisible(true);
 		sowingButton.setVisible(true);
 		waterButton.setVisible(true);
+		pesticideButton.setVisible(true);
 		if(farm.getStoreCropNum(landNum) == -1)
 		{
 			System.out.println("一無所有的土地ouq");
@@ -73,7 +76,8 @@ public class FarmScreen extends JFrame {
 			harvestButton.setEnabled(false);
 			sowingButton.setEnabled(true);
 			waterButton.setEnabled(false);
-
+			pesticideButton.setEnabled(false);
+			
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
 			cabbageButton.setVisible(false);
@@ -85,6 +89,7 @@ public class FarmScreen extends JFrame {
 			harvestButton.setEnabled(true);
 			sowingButton.setEnabled(false);
 			waterButton.setEnabled(false);
+			pesticideButton.setEnabled(false);
 			
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
@@ -106,6 +111,7 @@ public class FarmScreen extends JFrame {
 			
 			harvestButton.setEnabled(false);
 			sowingButton.setEnabled(false);
+			pesticideButton.setEnabled(false);
 
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
@@ -169,6 +175,7 @@ public class FarmScreen extends JFrame {
 					harvestButton.setEnabled(true);
 					sowingButton.setEnabled(false);
 					waterButton.setEnabled(false);
+					pesticideButton.setEnabled(false);
 				}
 				reload();
 			}
@@ -194,6 +201,7 @@ public class FarmScreen extends JFrame {
 					harvestButton.setEnabled(true);
 					sowingButton.setEnabled(false);
 					waterButton.setEnabled(false);
+					pesticideButton.setEnabled(false);
 				}
 				reload();
 			}
@@ -298,12 +306,21 @@ public class FarmScreen extends JFrame {
 					harvestButton.setEnabled(false);
 					sowingButton.setEnabled(true);
 					waterButton.setEnabled(false);	
+					pesticideButton.setEnabled(false);
 					reload();
 				}
 			}
 		});
 		
-		
+		//除蟲除草button
+		pesticideButton.setBounds(589, 220, 111, 31);
+		pesticideButton.setVisible(false);
+		contentPane.add(pesticideButton);
+		harvestButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//farm.xxx;
+			}
+		});
 		
 		cornButton.setBounds(529, 171, 70, 31);
 		cornButton.setVisible(false);
