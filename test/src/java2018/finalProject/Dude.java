@@ -5,6 +5,7 @@ public class Dude {
 	 WareHouse house;
 	 ArrayList<Animal> pondLand = new ArrayList<Animal>(10);
 	 private int num=0;
+	 private int num2;
 	 public Dude(WareHouse house) {   
 		 this.house=house;
      }
@@ -140,10 +141,16 @@ public class Dude {
 				pondLand.set(i, animal);
 				warehouse.removeYoungAnimal(animal.getName());
 				num++;
+				num2=i;
 				return true;
 			}
 		}
+		num2=pondLand.size();
 		return false;
+	}
+	public int getButtonNum()
+	{
+		return num2;
 	}
 
 }

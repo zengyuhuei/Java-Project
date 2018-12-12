@@ -134,7 +134,7 @@ public class WareHouseScreen extends JFrame {
 		ImageIcon advanced =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
 		
 		JButton btnisMaturedItem = new JButton("熟成品");
-		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnIsMatured.png")));
+		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnIsMatured.png")));
 		
 		btnisMaturedItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnisMaturedItem.addActionListener(new ActionListener() {
@@ -157,7 +157,7 @@ public class WareHouseScreen extends JFrame {
 		contentPane.add(btnisMaturedItem);
 		
 		JButton btnReadyToFeed = new JButton("待成長");
-		btnReadyToFeed.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnUnMatured.png")));
+		btnReadyToFeed.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnUnMatured.png")));
 	
 		btnReadyToFeed.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnReadyToFeed.addActionListener(new ActionListener() {
@@ -178,7 +178,7 @@ public class WareHouseScreen extends JFrame {
 		contentPane.add(btnReadyToFeed);
 		
 		JButton btnHoldItem = new JButton("持有物");
-		btnHoldItem.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnHolding.png")));
+		btnHoldItem.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnHolding.png")));
 		
 	
 		btnHoldItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
@@ -311,7 +311,7 @@ public class WareHouseScreen extends JFrame {
 		
 		
 		
-		ImageIcon img = new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/warehouse.jpg");
+		ImageIcon img = new ImageIcon("../picture/warehouse.jpg");
 		Image i = img.getImage();
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		lblNewLabel.setIcon(new ImageIcon(new_img));
