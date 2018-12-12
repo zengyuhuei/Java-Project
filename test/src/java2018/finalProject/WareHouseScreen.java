@@ -122,16 +122,16 @@ public class WareHouseScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		//resize the image
-		ImageIcon chicken =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon pig =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon cow =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon wheat =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon corn =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon cabbage =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon fertilizer =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon simple =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon general =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
-		ImageIcon advanced =resizeImage (75,75,new ImageIcon("C:/Users/asus/Desktop/java/Java-Project/picture/pig.png"));
+		ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon pig =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon cow =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon wheat =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon corn =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon cabbage =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon fertilizer =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon simple =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon general =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon advanced =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
 		
 		JButton btnisMaturedItem = new JButton("熟成品");
 		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("C:\\Users\\asus\\Desktop\\java\\Java-Project\\picture\\btnIsMatured.png")));
@@ -227,7 +227,7 @@ public class WareHouseScreen extends JFrame {
 		holdingScrollPane.setBounds(330, 46, 522, 556);
 		holdingScrollPane.setBackground(new Color(204 ,135 ,125,50));
 		holdingScrollPane.getVerticalScrollBar().setEnabled(false);
-		holdingScrollPane.disable();
+		holdingScrollPane.setEnabled(false);
 		holdingScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		contentPane.add(holdingScrollPane);
 		
@@ -254,7 +254,7 @@ public class WareHouseScreen extends JFrame {
 		unMaturedScrollPane = new JScrollPane();
 		unMaturedScrollPane.setBounds(330, 46, 522, 556);
 		unMaturedScrollPane.setBackground(new Color(189, 216 ,97,50));
-		unMaturedScrollPane.disable();
+		unMaturedScrollPane.setEnabled(false);
 		unMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		contentPane.add(unMaturedScrollPane);
 		
@@ -285,7 +285,7 @@ public class WareHouseScreen extends JFrame {
 		isMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		contentPane.add(isMaturedScrollPane);
 		isMaturedItemTable = new JTable();
-		isMaturedItemTable.disable();
+		isMaturedItemTable.setEnabled(false);
 		isMaturedItemTable.getTableHeader().disable();
 		isMaturedItemTable.setBackground(new Color(181, 169, 154,50));
 		isMaturedItemTable.setModel(new DefaultTableModel(organism,label){
