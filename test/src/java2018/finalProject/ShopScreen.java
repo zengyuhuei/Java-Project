@@ -510,7 +510,7 @@ public class ShopScreen extends JFrame {
 					if(input == 0) //ok
 					{
 						addItem();
-						lblHoldmoney.setText("擁有金額: "+String.valueOf(shop.getHoldMoney()));
+						lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
 						
 					}
 					
@@ -672,7 +672,7 @@ public class ShopScreen extends JFrame {
 				if(input == 0) //ok
 				{
 					delItem();
-					lblHoldmoney.setText("擁有金額: "+String.valueOf(shop.getHoldMoney()));
+					lblHoldmoney.setText(": "+String.valueOf(shop.getHoldMoney()));
 				}
 				cleanTable(table);
 				
