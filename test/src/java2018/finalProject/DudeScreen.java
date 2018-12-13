@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import java.awt.Color;
 public class DudeScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -46,17 +47,11 @@ public class DudeScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	/*String path="C:/Users/趙芷婷/Desktop/Java-Project/picture/cow.jpg";
-	Icon cow=new ImageIcon(path);*/
-	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
-	JLabel dudeCowNum = new JLabel();
-	JLabel dudePigNum = new JLabel();
-	JLabel dudeChickenNum = new JLabel();
 	JLabel animalRate = new JLabel();
 	JButton startFeed = new JButton("養殖");	
 	JButton feedChicken = new JButton("雞"); 
 	JButton feedPig = new JButton("豬");
-	JButton feedCow = new JButton("牛");
+	JButton feedCow = new JButton();
 	JButton feedAnimal = new JButton("餵食");
 	JButton lowFeed = new JButton("低級飼料");
 	JButton midFeed = new JButton("中級飼料");
@@ -82,6 +77,19 @@ public class DudeScreen extends JFrame {
 	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
 	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
 	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
+	ImageIcon cowhead = new ImageIcon("../picture/cowhead.PNG");
+	ImageIcon pighead = new ImageIcon("../picture/pighead.png");
+	ImageIcon chickenhead = new ImageIcon("../picture/chickenhead.png");
+	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
+	JLabel rateBackGround = new JLabel(rateBackground);
+	ImageIcon feedBackground = new ImageIcon("../picture/feedBackground.PNG");
+	JLabel feedbackGround = new JLabel(feedBackground);
+	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
+	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
+	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
+	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
+	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
+	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
 	
 	public DudeScreen(WareHouse warehouse) {
 		button.add(animal1);
@@ -103,9 +111,9 @@ public class DudeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		dudeAnimalNum.setBounds(207, 21, 303, 43);
+		dudeAnimalNum.setBounds(268, 38, 286, 43);
 		contentPane.add(dudeAnimalNum);
-		dudeAnimalNum.setFont(new java.awt.Font("Dialog", 1, 30));
+		dudeAnimalNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
 		
 		startFeed.setBounds(1049, 97, 76, 65);
@@ -114,19 +122,23 @@ public class DudeScreen extends JFrame {
 		
 		//圖片上亮倉庫數量
 		feedChicken.setFont(new Font("Dialog", Font.BOLD, 20));
-		feedChicken.setBounds(963, 97, 76, 65);
+		feedChicken.setBounds(901, 97, 124, 65);
 		contentPane.add(feedChicken);
 		feedChicken.setVisible(false);
 		
 		feedPig.setFont(new Font("Dialog", Font.BOLD, 20));
-		feedPig.setBounds(877, 97, 76, 65);
+		feedPig.setBounds(778, 97, 124, 65);
 		contentPane.add(feedPig);
 		feedPig.setVisible(false);
 		
 		feedCow.setFont(new Font("Dialog", Font.BOLD, 20));
-		feedCow.setBounds(791, 97, 76, 65);
+		feedCow.setBounds(656, 97, 124, 65);
 		contentPane.add(feedCow);
 		feedCow.setVisible(false);
+		
+		feedbackGround.setBounds(641, 97, 410, 65);	
+		contentPane.add(feedbackGround);
+		feedbackGround.setVisible(false);
 		
 		feedAnimal.setBounds(1049, 226, 76, 65);
 		contentPane.add(feedAnimal);
@@ -153,29 +165,37 @@ public class DudeScreen extends JFrame {
 		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		catchAnimal.setEnabled(false);
 		
-		dudeCowNum.setBounds(503, 25, 104, 34);
+		dudeCowNum.setBounds(561, 35, 131, 43);
 		contentPane.add(dudeCowNum);
-		dudeCowNum.setFont(new java.awt.Font("Dialog", 1, 30));
-		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
+		dudeCowNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		dudeCowNum.setText(" X "+dude.getCowNumber());
 		
-		dudePigNum.setBounds(608, 25, 104, 34);
+		dudePigNum.setBounds(693, 35, 131, 43);
 		contentPane.add(dudePigNum);
-		dudePigNum.setFont(new java.awt.Font("Dialog", 1, 30));
-		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
+		dudePigNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		dudePigNum.setText(" X "+dude.getPigNumber());
 		
-		dudeChickenNum.setBounds(722, 25, 104, 34);
+		dudeChickenNum.setBounds(825, 32, 131, 43);
 		contentPane.add(dudeChickenNum);
-		dudeChickenNum.setFont(new java.awt.Font("Dialog", 1, 30));
-		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
+		dudeChickenNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		dudeChickenNum.setText(" X "+dude.getChickenNumber());
+		
+		dudeNumBack.setBounds(194, 10, 780, 99);
+		contentPane.add(dudeNumBack);
 		
 		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setBounds(1008, 526, 117, 65);
 		contentPane.add(home);
+		animalRate.setForeground(new Color(128, 0, 0));
 		 
 		//成長值
-		animalRate.setBounds(31, 30, 189, 55);
+		animalRate.setBounds(52, 40, 189, 55);
 		contentPane.add(animalRate);
-		animalRate.setFont(new java.awt.Font("Dialog", 1, 30));
+		animalRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 25));
+		
+		rateBackGround.setBounds(-11,  10,  258,  111);
+		contentPane.add(rateBackGround);
+		rateBackGround.setVisible(false);
 		
 		animal1.setBounds(456, 231, 100, 100);
 		contentPane.add(animal1);
@@ -273,6 +293,7 @@ public class DudeScreen extends JFrame {
 				printHouseAnimalNum(warehouse);
 				returnHouseAnimal(warehouse);
 				closeFeed();
+				closeAnimalRate(dude);
 				feedChicken.setVisible(true);
 				feedPig.setVisible(true);
 				feedCow.setVisible(true);
@@ -446,6 +467,7 @@ public class DudeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
+				closeAnimalRate(dude);
 				
 			}
 		});
@@ -457,6 +479,7 @@ public class DudeScreen extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
 		contentPane.add(lblNewLabel);
+		
 	}
 	public void animalAction(Dude dude, WareHouse warehouse) { //養殖動物統一動作
 		catchAnimal.setEnabled(false);
@@ -489,6 +512,7 @@ public class DudeScreen extends JFrame {
 		highFeed.setVisible(false);
 	}
 	public void closeStart() { //隱身三動物按鈕
+		feedbackGround.setVisible(false);
 		feedChicken.setVisible(false);
 		feedPig.setVisible(false);
 		feedCow.setVisible(false);
@@ -505,12 +529,25 @@ public class DudeScreen extends JFrame {
 		}
 	}
 	public void printAnimalRate(Dude dude, int i) { //印該動物成長值
+		rateBackGround.setVisible(true);
+		animalRate.setVisible(true);
 		animalRate.setText("成長值: "+dude.getPondLand().get(i).getGrowingRate());
 	}
+	public void closeAnimalRate(Dude dude) { //關閉動物成長值
+		rateBackGround.setVisible(false);
+		animalRate.setVisible(false);;
+	}
 	public void printHouseAnimalNum(WareHouse warehouse) { //印待成長動物數量
-		feedChicken.setText("雞 "+warehouse.getYoungChickenNumber());
-		feedPig.setText("豬 "+warehouse.getYoungPigNumber());
-		feedCow.setText("牛 "+warehouse.getYoungCowNumber());
+		feedbackGround.setVisible(true);
+		buttonOFF(feedChicken);
+		buttonOFF(feedPig);
+		buttonOFF(feedCow);
+		feedChicken.setIcon(chickenhead);
+		feedChicken.setText("X "+warehouse.getYoungChickenNumber());
+		feedPig.setIcon(pighead);
+		feedPig.setText("X "+warehouse.getYoungPigNumber());
+		feedCow.setIcon(cowhead);
+		feedCow.setText("X "+warehouse.getYoungCowNumber());
 	}
 	public void returnHouseAnimal(WareHouse warehouse) { //判斷倉庫待成長動物數量
 		if(warehouse.getYoungChickenNumber()==0) {
@@ -558,9 +595,9 @@ public class DudeScreen extends JFrame {
 		}
 	}
 	public void printdudeAnimalNum(Dude dude, JLabel dudeChickenNum, JLabel dudePigNum, JLabel dudeCowNum) { //印牧場動物數量
-		dudeChickenNum.setText("雞 "+dude.getChickenNumber()+" 隻");
-		dudePigNum.setText("豬 "+dude.getPigNumber()+" 隻");
-		dudeCowNum.setText("牛 "+dude.getCowNumber()+" 隻");
+		dudeChickenNum.setText(" X "+dude.getChickenNumber());
+		dudePigNum.setText(" X "+dude.getPigNumber());
+		dudeCowNum.setText(" X "+dude.getCowNumber());
 	}
     class RunningButton extends TimerTask {
     	private JButton btn;
@@ -711,6 +748,12 @@ public class DudeScreen extends JFrame {
     		button.get(i).setFocusPainted(false);
     		button.get(i).setBorder(null);
     	}
+    }
+    public void buttonOFF(JButton btn) {
+    	btn.setOpaque(false);
+		btn.setContentAreaFilled(false);
+		btn.setFocusPainted(false);
+		btn.setBorder(null);
     }
 }
 
