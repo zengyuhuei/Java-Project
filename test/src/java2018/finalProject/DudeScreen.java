@@ -7,16 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import java2018.finalProject.DudeScreenTest.RunningButton;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Container;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,11 +20,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.awt.event.ActionEvent;
-
-import java.awt.Font;
-import java.io.File;
- 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 public class DudeScreen extends JFrame {
@@ -191,7 +182,7 @@ public class DudeScreen extends JFrame {
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		Timer timer1 = new Timer();
 		RunningButton run1 = new RunningButton(animal1, 456, 231, dude, 0);
-		timer1.schedule(run1, 1000, 180);
+		timer1.schedule(run1, 1000, 220);
 		animal1.setVisible(false);
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -199,7 +190,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal2);
 		Timer timer2 = new Timer();
 		RunningButton run2 = new RunningButton(animal2, 384, 415, dude, 1);
-		timer2.schedule(run2, 1000, 180);
+		timer2.schedule(run2, 1000, 220);
 		animal2.setVisible(false);
 		
 		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -207,7 +198,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal3);
 		Timer timer3 = new Timer();
 		RunningButton run3 = new RunningButton(animal3, 214, 312, dude, 2);
-		timer3.schedule(run3, 1000, 180);
+		timer3.schedule(run3, 1000, 220);
 		animal3.setVisible(false);
 		
 		animal4.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -215,7 +206,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal4);
 		Timer timer4 = new Timer();
 		RunningButton run4 = new RunningButton(animal4, 658, 318, dude, 3);
-		timer4.schedule(run4, 1000, 180);
+		timer4.schedule(run4, 1000, 220);
 		animal4.setVisible(false);
 		
 		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -223,7 +214,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal5);
 		Timer timer5 = new Timer();
 		RunningButton run5 = new RunningButton(animal5, 207, 183, dude, 4);
-		timer5.schedule(run5, 1000, 180);
+		timer5.schedule(run5, 1000, 220);
 		animal5.setVisible(false);
 		
 		animal6.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -231,7 +222,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal6);
 		Timer timer6 = new Timer();
 		RunningButton run6 = new RunningButton(animal6, 260, 403, dude, 5);
-		timer6.schedule(run6, 1000, 180);
+		timer6.schedule(run6, 1000, 220);
 		animal6.setVisible(false);
 		
 		animal7.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -239,7 +230,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal7);
 		Timer timer7 = new Timer();
 		RunningButton run7 = new RunningButton(animal7, 336, 217, dude, 6);
-		timer7.schedule(run7, 1000, 180);
+		timer7.schedule(run7, 1000, 220);
 		animal7.setVisible(false);
 		
 		animal8.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -247,7 +238,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal8);
 		Timer timer8 = new Timer();
 		RunningButton run8 = new RunningButton(animal8, 585, 394, dude, 7);
-		timer8.schedule(run8, 1000, 180);
+		timer8.schedule(run8, 1000, 220);
 		animal8.setVisible(false);
 		
 		animal9.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -255,7 +246,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal9);
 		Timer timer9 = new Timer();
 		RunningButton run9 = new RunningButton(animal9, 620, 150, dude, 8);
-		timer9.schedule(run9, 1000, 180);
+		timer9.schedule(run9, 1000, 220);
 		animal9.setVisible(false);
 		
 		animal10.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -263,7 +254,7 @@ public class DudeScreen extends JFrame {
 		contentPane.add(animal10);
 		Timer timer10 = new Timer();
 		RunningButton run10 = new RunningButton(animal10, 708, 330, dude, 9);
-		timer10.schedule(run10, 1000, 180);
+		timer10.schedule(run10, 1000, 220);
 		animal10.setVisible(false);
 		
 		runbutton.add(run1);
@@ -623,63 +614,43 @@ public class DudeScreen extends JFrame {
         }
         public void showButtonLeft(Dude dude, int i) {
         	buttonGIF();
-        	/*for(int i=0; i<dude.getPondLand().size(); i++)
-    		{
-        		if(dude.getPondLand().get(i)==null)
-        		{
-        			System.out.printf("%d是null啦!!!\n", i);
-        			button.get(i).setVisible(false);
-        		}
-        		else
-        		{*/
-        			//System.out.printf("%s\n", dude.getPondLand().get(i).getName());
-        			//button.get(i).setText(dude.getPondLand().get(i).getName());
-        			if(dude.getPondLand().get(i).getName()=="雞")
-        			{
-        				button.get(i).setIcon(chickenleft);
-        			}
-        			if(dude.getPondLand().get(i).getName()=="豬")
-        			{
-        				button.get(i).setIcon(pigleft);
-        			}
-        			if(dude.getPondLand().get(i).getName()=="牛")
-        			{
-        				button.get(i).setIcon(cowleft);
-        			}
-        			button.get(i).setVisible(true);
-        	//	}
-    			
-    	//	}
+        	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
+        	{
+        		if(dude.getPondLand().get(i).getName()=="雞")
+    			{
+    				btn.setIcon(chickenleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="豬")
+    			{
+    				btn.setIcon(pigleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛")
+    			{
+    				btn.setIcon(cowleft);
+    			}
+    			btn.setVisible(true);
+        	}
+		
         }
         public void showButtonRight(Dude dude, int i) {
         	buttonGIF();
-        	/*for(int i=0; i<dude.getPondLand().size(); i++)
-    		{
-        		if(dude.getPondLand().get(i)==null)
-        		{
-        			System.out.printf("%d是null啦!!!\n", i);
-        			button.get(i).setVisible(false);
-        		}
-        		else
-        		{*/
-        			//System.out.printf("%s\n", dude.getPondLand().get(i).getName());
-        			//button.get(i).setText(dude.getPondLand().get(i).getName());
-        			if(dude.getPondLand().get(i).getName()=="雞")
-        			{
-        				button.get(i).setIcon(chickenright);
-        			}
-        			if(dude.getPondLand().get(i).getName()=="豬")
-        			{
-        				button.get(i).setIcon(pigright);
-        			}
-        			if(dude.getPondLand().get(i).getName()=="牛")
-        			{
-        				button.get(i).setIcon(cowright);
-        			}
-        			button.get(i).setVisible(true);
-        	//	}
-    			
-    	//	}
+        	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
+        	{
+				if(dude.getPondLand().get(i).getName()=="雞")
+				{
+					btn.setIcon(chickenright);
+				}
+				if(dude.getPondLand().get(i).getName()=="豬")
+				{
+					btn.setIcon(pigright);
+				}
+				if(dude.getPondLand().get(i).getName()=="牛")
+				{
+					btn.setIcon(cowright);
+				}
+				btn.setVisible(true);
+        	}
+
         }
         public void buttonGIF()
         {
@@ -729,6 +700,7 @@ public class DudeScreen extends JFrame {
 				button.get(buttonNum).setIcon(cowright);
 		}
 		button.get(buttonNum).setVisible(true);
+		System.out.println(runbutton.get(buttonNum).getVX());
     }
     public void buttonGIF()
     {
