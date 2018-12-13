@@ -232,8 +232,8 @@ public class WareHouseScreen extends JFrame {
 		contentPane.add(holdingScrollPane);
 		
 		holdingItemTable = new JTable();
-		holdingItemTable.disable();
-		holdingItemTable.getTableHeader().disable();
+		holdingItemTable.setEnabled(false);
+		holdingItemTable.getTableHeader().setEnabled(false);
 		holdingItemTable.setBackground(new Color(204, 135, 125,50));
 		holdingItemTable.setModel(new DefaultTableModel(holding,label){
 			private static final long serialVersionUID = 1L;
@@ -259,8 +259,8 @@ public class WareHouseScreen extends JFrame {
 		contentPane.add(unMaturedScrollPane);
 		
 		unMaturedItemTable = new JTable();
-		unMaturedItemTable.disable();
-		unMaturedItemTable.getTableHeader().disable();
+		unMaturedItemTable.setEnabled(false);
+		unMaturedItemTable.getTableHeader().setEnabled(false);
 		unMaturedItemTable.setBackground(new Color(189, 216 ,97,50));
 		unMaturedItemTable.setModel(new DefaultTableModel(organism,label){
 			private static final long serialVersionUID = 1L;
@@ -286,7 +286,7 @@ public class WareHouseScreen extends JFrame {
 		contentPane.add(isMaturedScrollPane);
 		isMaturedItemTable = new JTable();
 		isMaturedItemTable.setEnabled(false);
-		isMaturedItemTable.getTableHeader().disable();
+		isMaturedItemTable.getTableHeader().setEnabled(false);
 		isMaturedItemTable.setBackground(new Color(181, 169, 154,50));
 		isMaturedItemTable.setModel(new DefaultTableModel(organism,label){
 			private static final long serialVersionUID = 1L;
