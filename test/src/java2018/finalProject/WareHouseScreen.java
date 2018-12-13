@@ -122,9 +122,9 @@ public class WareHouseScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		//resize the image
-		ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
-		ImageIcon pig =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
-		ImageIcon cow =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
+		ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/chickenhead.png"));
+		ImageIcon pig =resizeImage (75,75,new ImageIcon("../picture/pighead.png"));
+		ImageIcon cow =resizeImage (75,75,new ImageIcon("../picture/cowhead.png"));
 		ImageIcon wheat =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
 		ImageIcon corn =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
 		ImageIcon cabbage =resizeImage (75,75,new ImageIcon("../picture/pig.png"));
