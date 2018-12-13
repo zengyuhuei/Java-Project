@@ -171,17 +171,17 @@ public class ShopScreen extends JFrame {
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		
 		//resize the image
-		ImageIcon chicken =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon pig =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon cow =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon wheat =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon corn =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon cabbage =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon fertilizer =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon simple =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon general =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon advanced =resizeImage (30,30,new ImageIcon("../picture/pig.png"));
-		ImageIcon total =resizeImage (30,30,new ImageIcon("../picture/total.png"));
+		ImageIcon chicken =resizeImage (50,50,new ImageIcon("../picture/chickenhead.png"));
+		ImageIcon pig =resizeImage (50,50,new ImageIcon("../picture/pighead.png"));
+		ImageIcon cow =resizeImage (50,50,new ImageIcon("../picture/cowhead.png"));
+		ImageIcon wheat =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon corn =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon cabbage =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon fertilizer =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon simple =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon total =resizeImage (50,50,new ImageIcon("../picture/total.png"));
 				
 		JButton btnSell = new JButton();
 		btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
