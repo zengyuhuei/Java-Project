@@ -186,12 +186,12 @@ public class DudeScreen extends JFrame {
 		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setBounds(1008, 526, 117, 65);
 		contentPane.add(home);
-		animalRate.setForeground(new Color(128, 0, 0));
 		 
 		//成長值
 		animalRate.setBounds(52, 40, 189, 55);
 		contentPane.add(animalRate);
 		animalRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 25));
+		animalRate.setForeground(new Color(128, 0, 0));
 		
 		rateBackGround.setBounds(-11,  10,  258,  111);
 		contentPane.add(rateBackGround);
