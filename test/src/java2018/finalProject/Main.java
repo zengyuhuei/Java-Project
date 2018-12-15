@@ -7,11 +7,14 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Main extends JFrame implements MouseListener {
+public class Main extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JPanel dudeScreen;
+	private JPanel farmScreen;
+	private JPanel mainScreen;
 	private WareHouse warehouse;
 	
 	public Main(WareHouse warehouse) {
@@ -20,24 +23,48 @@ public class Main extends JFrame implements MouseListener {
 		this.setSize(1200, 675);
 		this.setLocationRelativeTo(null);
 		
+		this.dudeScreen = new DudeScreen(this, this.warehouse);
+		this.farmScreen = new FarmScreen(this, this.warehouse);
+		this.mainScreen = new MainScreen(this);
+		
 		this.changeToMainScreen();
 	}
 	
 	public void changeToMainScreen() {
-		JPanel mainScreen = new MainScreen(this);
+		this.setTitle("主畫面");
 		this.setContentPane(mainScreen);
 	}
 	
 	public void changeToShopScreen() {
 		JPanel shopScreen = new ShopScreen(this, this.warehouse);
+		this.setTitle("商店");
 		this.setContentPane(shopScreen);
 	}
 	
+	public void changeToDudeScreen() {
+		this.setTitle("牧場");
+		this.setContentPane(dudeScreen);
+	}
+	
+	public void changeToWareHouseScreen() {
+		JPanel wareHouseScreen = new WareHouseScreen(this, this.warehouse);
+		this.setTitle("倉庫");
+		this.setContentPane(wareHouseScreen);
+	}
+	
+	public void changeToPondScreen() {
+		JPanel pondScreen = new PondScreen(this);
+		this.setTitle("魚池");
+		this.setContentPane(pondScreen);
+	}
+	
+	public void changeToFarmScreen() {
+		this.setTitle("農場");
+		this.setContentPane(farmScreen);
+	}
+	
+	
 	public static void main(String[] args) {
-		// TODO 自動產生的方法 Stub
-		
-
-			
 		WareHouse wareHouse = new WareHouse();
 		Animal a = new Cow();
 		Animal b = new Chicken();
@@ -109,35 +136,5 @@ public class Main extends JFrame implements MouseListener {
 			}
 		});
 
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

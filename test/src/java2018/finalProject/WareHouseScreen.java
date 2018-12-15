@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
@@ -29,23 +30,24 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 
-public class WareHouseScreen extends JFrame {
+public class WareHouseScreen extends JPanel implements MouseListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTable holdingItemTable;
 	private JTable unMaturedItemTable;
 	private JTable isMaturedItemTable;
 	private JScrollPane unMaturedScrollPane;
 	private JScrollPane isMaturedScrollPane;
 	private JScrollPane holdingScrollPane;
+	private JButton btnReturn;
 	private WareHouse warehouse;
 	private boolean isMatured = false;
 	private boolean unMatured = false;
 	private boolean holding = false;
+	private Main mainFrame;
 	
     
 	/**
@@ -110,16 +112,13 @@ public class WareHouseScreen extends JFrame {
 	
 	
 	@SuppressWarnings("deprecation")
-	public WareHouseScreen(WareHouse warehouse) {
+	public WareHouseScreen(Main mainFrame, WareHouse warehouse) {
+		this.mainFrame = mainFrame;
 		this.warehouse = warehouse;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
-		contentPane = new JPanel();
 		
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setLocationRelativeTo(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
 		
 		//resize the image
 		ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/chickenhead.png"));
@@ -154,7 +153,7 @@ public class WareHouseScreen extends JFrame {
 			}
 		});
 		btnisMaturedItem.setBounds(123, 46, 176, 68);
-		contentPane.add(btnisMaturedItem);
+		this.add(btnisMaturedItem);
 		
 		JButton btnReadyToFeed = new JButton("待成長");
 		btnReadyToFeed.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnUnMatured.png")));
@@ -175,7 +174,7 @@ public class WareHouseScreen extends JFrame {
 			}
 		});
 		btnReadyToFeed.setBounds(123, 127, 176, 58);
-		contentPane.add(btnReadyToFeed);
+		this.add(btnReadyToFeed);
 		
 		JButton btnHoldItem = new JButton("持有物");
 		btnHoldItem.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnHolding.png")));
@@ -202,7 +201,14 @@ public class WareHouseScreen extends JFrame {
 		});
 		
 		btnHoldItem.setBounds(123, 198, 176, 58);
-		contentPane.add(btnHoldItem);
+		this.add(btnHoldItem);
+		
+		btnReturn = new JButton("return");
+		btnReturn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		btnReturn.setBounds(123, 269, 176, 58);
+		btnReturn.addMouseListener(this);
+		this.add(btnReturn);
+		
 		Object[][] organism = {
 			{chicken , 0},
 			{pig, 0},
@@ -229,7 +235,7 @@ public class WareHouseScreen extends JFrame {
 		holdingScrollPane.getVerticalScrollBar().setEnabled(false);
 		holdingScrollPane.setEnabled(false);
 		holdingScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-		contentPane.add(holdingScrollPane);
+		this.add(holdingScrollPane);
 		
 		holdingItemTable = new JTable();
 		holdingItemTable.setEnabled(false);
@@ -256,7 +262,7 @@ public class WareHouseScreen extends JFrame {
 		unMaturedScrollPane.setBackground(new Color(189, 216 ,97,50));
 		unMaturedScrollPane.setEnabled(false);
 		unMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-		contentPane.add(unMaturedScrollPane);
+		this.add(unMaturedScrollPane);
 		
 		unMaturedItemTable = new JTable();
 		unMaturedItemTable.setEnabled(false);
@@ -283,7 +289,7 @@ public class WareHouseScreen extends JFrame {
 		isMaturedScrollPane.setBackground(new Color(181, 169, 154,50));
 		isMaturedScrollPane.setBounds(330, 46, 522, 556);
 		isMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-		contentPane.add(isMaturedScrollPane);
+		this.add(isMaturedScrollPane);
 		isMaturedItemTable = new JTable();
 		isMaturedItemTable.setEnabled(false);
 		isMaturedItemTable.getTableHeader().setEnabled(false);
@@ -316,6 +322,43 @@ public class WareHouseScreen extends JFrame {
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
-		contentPane.add(lblNewLabel);
+		this.add(lblNewLabel);
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == btnReturn) {
+			this.mainFrame.changeToMainScreen();
+		}
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

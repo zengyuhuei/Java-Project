@@ -26,6 +26,10 @@ public class MainScreen extends JPanel implements MouseListener {
 	private DudeScreen dudescreen;
 	private FarmScreen farmscreen;
 	private JButton shopBtn;
+	private JButton dudeBtn;
+	private JButton wareHouseBtn;
+	private JButton pondBtn;
+	private JButton farmBtn;
 	private Main mainFrame;
 
 	/**
@@ -50,81 +54,43 @@ public class MainScreen extends JPanel implements MouseListener {
 		shopBtn.setBounds(14, 13, 144, 151);
 		this.add(shopBtn);
 		
-		JButton btnNewWareHouse = new JButton("倉庫");
-		btnNewWareHouse.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							
-							whscreen = new WareHouseScreen(warehouse);
-						
-							whscreen.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+		dudeBtn = new JButton("牧場");
+		dudeBtn.addMouseListener(this);
+		dudeBtn.setBounds(182, 177, 144, 141);
+		this.add(dudeBtn);
 				
-			}
-		});
-		btnNewWareHouse.setBounds(24, 177, 137, 141);
-		this.add(btnNewWareHouse);
+		wareHouseBtn = new JButton("倉庫");
+		wareHouseBtn.addMouseListener(this);
+		wareHouseBtn.setBounds(24, 177, 137, 141);
+		this.add(wareHouseBtn);
 		
-		JButton btnFarm = new JButton("農場");
-		btnFarm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							farmscreen = new FarmScreen(warehouse);
-							farmscreen.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-			}
-		});
-		btnFarm.setBounds(172, 18, 144, 141);
-		this.add(btnFarm);
+		pondBtn = new JButton("魚池");
+		pondBtn.addMouseListener(this);
+		pondBtn.setBounds(345, 18, 137, 141);
+		this.add(pondBtn);
 		
-		JButton btnDude = new JButton("牧場");
-		btnDude.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							
-							//把它設成private variable
-							//WareHouseScreen frame = new WareHouseScreen(warehouse);
-							dudescreen = new DudeScreen(warehouse);
-							dudescreen.setVisible(true);
-							//frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-			}
-		});
-		btnDude.setBounds(182, 177, 144, 141);
-		this.add(btnDude);
-		
-		JButton btnNewButton = new JButton("魚池");
-		btnNewButton.setBounds(345, 18, 137, 141);
-		this.add(btnNewButton);
+		farmBtn = new JButton("農場");
+		farmBtn.addMouseListener(this);
+		farmBtn.setBounds(172, 18, 144, 141);
+		this.add(farmBtn);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == shopBtn) {
 			this.mainFrame.changeToShopScreen();
+		}
+		else if (e.getSource() == dudeBtn) {
+			this.mainFrame.changeToDudeScreen();
+		}
+		else if (e.getSource() == wareHouseBtn) {
+			this.mainFrame.changeToWareHouseScreen();
+		}
+		else if(e.getSource() == pondBtn) {
+			this.mainFrame.changeToPondScreen();
+		}
+		else if(e.getSource() == farmBtn) {
+			this.mainFrame.changeToFarmScreen();
 		}
 	}
 
