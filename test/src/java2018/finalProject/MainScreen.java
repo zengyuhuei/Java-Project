@@ -21,10 +21,6 @@ public class MainScreen extends JPanel implements MouseListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private WareHouse warehouse;
-	private WareHouseScreen whscreen;
-	private ShopScreen spscreen; 
-	private DudeScreen dudescreen;
-	private FarmScreen farmscreen;
 	private JButton shopBtn;
 	private JButton dudeBtn;
 	private JButton wareHouseBtn;
