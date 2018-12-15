@@ -166,21 +166,21 @@ public class ShopScreen extends JFrame {
 		this.setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		ImageIcon img = new ImageIcon("../picture/warehouse.jpg");
+		ImageIcon img = new ImageIcon("../picture/shop.png");
 		Image i = img.getImage();
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		
 		//resize the image
-		ImageIcon chicken =resizeImage (50,50,new ImageIcon("../picture/chickenhead.png"));
-		ImageIcon pig =resizeImage (50,50,new ImageIcon("../picture/pighead.png"));
-		ImageIcon cow =resizeImage (50,50,new ImageIcon("../picture/cowhead.png"));
-		ImageIcon wheat =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon corn =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon cabbage =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon fertilizer =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon simple =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
-		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/pig.png"));
+		ImageIcon chicken =resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
+		ImageIcon pig =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+		ImageIcon cow =resizeImage (50,50,new ImageIcon("../picture/cow.png"));
+		ImageIcon wheat =resizeImage (50,50,new ImageIcon("../picture/wheat.png"));
+		ImageIcon corn =resizeImage (50,50,new ImageIcon("../picture/corn.png"));
+		ImageIcon cabbage =resizeImage (50,50,new ImageIcon("../picture/cabbage.png"));
+		ImageIcon fertilizer =resizeImage (50,50,new ImageIcon("../picture/fertilizer.png"));
+		ImageIcon simple =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
 		ImageIcon total =resizeImage (50,50,new ImageIcon("../picture/total.png"));
 				
 		JButton btnSell = new JButton();
