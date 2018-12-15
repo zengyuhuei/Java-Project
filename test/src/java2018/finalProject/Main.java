@@ -1,9 +1,38 @@
 package java2018.finalProject;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Main {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+public class Main extends JFrame implements MouseListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private WareHouse warehouse;
+	
+	public Main(WareHouse warehouse) {
+		this.warehouse = warehouse;
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(1200, 675);
+		this.setLocationRelativeTo(null);
+		
+		this.changeToMainScreen();
+	}
+	
+	public void changeToMainScreen() {
+		JPanel mainScreen = new MainScreen(this);
+		this.setContentPane(mainScreen);
+	}
+	
+	public void changeToShopScreen() {
+		JPanel shopScreen = new ShopScreen(this, this.warehouse);
+		this.setContentPane(shopScreen);
+	}
+	
 	public static void main(String[] args) {
 		// TODO 自動產生的方法 Stub
 		
@@ -72,13 +101,43 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainScreen mainscreen = new MainScreen(wareHouse);
-					mainscreen.setVisible(true);
+					Main mainFrame = new Main(wareHouse);
+					mainFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
