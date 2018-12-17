@@ -48,15 +48,15 @@ public class DudeScreen extends JPanel implements MouseListener {
 	 */
 	private Main mainFrame;
 	JLabel animalRate = new JLabel();
-	JButton startFeed = new JButton("養殖");	
+	JButton startFeed = new JButton();	
 	JButton feedChicken = new JButton("雞"); 
 	JButton feedPig = new JButton("豬");
 	JButton feedCow = new JButton();
-	JButton feedAnimal = new JButton("餵食");
+	JButton feedAnimal = new JButton();
 	JButton lowFeed = new JButton("低級飼料");
 	JButton midFeed = new JButton("中級飼料");
 	JButton highFeed = new JButton("高級飼料");
-	JButton catchAnimal = new JButton("捕捉");
+	JButton catchAnimal = new JButton();
 	JButton home = new JButton("回首頁");
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
@@ -83,6 +83,12 @@ public class DudeScreen extends JPanel implements MouseListener {
 	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
 	JLabel rateBackGround = new JLabel(rateBackground);
 	ImageIcon feedBackground = new ImageIcon("../picture/feedBackground.PNG");
+	ImageIcon addAnimal =resizeImage (90,65,new ImageIcon("../picture/addAnimal.png"));
+	ImageIcon feed =resizeImage (80,65,new ImageIcon("../picture/feed.png"));
+	ImageIcon lowfeed =resizeImage (80,65,new ImageIcon("../picture/lowfeed.png"));
+	ImageIcon highfeed =resizeImage (80,65,new ImageIcon("../picture/highfeed.png"));
+	ImageIcon midfeed =resizeImage (80,65,new ImageIcon("../picture/midfeed.png"));
+	ImageIcon catchanimal =resizeImage (80,65,new ImageIcon("../picture/catch.png"));
 	JLabel feedbackGround = new JLabel(feedBackground);
 	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
@@ -109,7 +115,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		
-		dudeAnimalNum.setBounds(268, 38, 286, 43);
+		dudeAnimalNum.setBounds(268, 38, 301, 43);
 		this.add(dudeAnimalNum);
 		dudeAnimalNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
@@ -117,6 +123,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 		startFeed.setBounds(1049, 97, 76, 65);
 		this.add(startFeed);
 		startFeed.setFont(new java.awt.Font("Dialog", 1, 20));
+		startFeed.setIcon(addAnimal);
 		
 		//圖片上亮倉庫數量
 		feedChicken.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -142,26 +149,31 @@ public class DudeScreen extends JPanel implements MouseListener {
 		this.add(feedAnimal);
 		feedAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		feedAnimal.setEnabled(false);
+		feedAnimal.setIcon(feed);
 		
 		lowFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		lowFeed.setBounds(902, 226, 137, 65);
 		this.add(lowFeed);
 		lowFeed.setVisible(false);
+		lowFeed.setIcon(lowfeed);
 		
 		midFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		midFeed.setBounds(755, 227, 137, 65);
 		this.add(midFeed);
 		midFeed.setVisible(false);
+		midFeed.setIcon(midfeed);
 		
 		highFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		highFeed.setBounds(608, 227, 137, 65);
 		this.add(highFeed);
 		highFeed.setVisible(false);
+		highFeed.setIcon(highfeed);
 		
 		catchAnimal.setBounds(1049, 350, 76, 65);
 		this.add(catchAnimal);
 		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		catchAnimal.setEnabled(false);
+		catchAnimal.setIcon(catchanimal);
 		
 		dudeCowNum.setBounds(561, 35, 131, 43);
 		this.add(dudeCowNum);
@@ -296,6 +308,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 				feedChicken.setVisible(true);
 				feedPig.setVisible(true);
 				feedCow.setVisible(true);
+				feedbackGround.setVisible(true);
 				feedAnimal.setEnabled(false);
 				catchAnimal.setEnabled(false);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
@@ -387,21 +400,24 @@ public class DudeScreen extends JPanel implements MouseListener {
 				closeStart();
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
-				showButton(dude);
+				closeButton(dude);
 				catchAnimal.setEnabled(false);
 			}
 		});
-		/*catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
+		
+		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if(input == 0) //ok
-				{
-					
+				int random = (int)(Math.random()*5);
+				if(random==0) {
+					int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+					if(input == 0) //ok
+					{
+						//跳轉至牧場遊戲畫面
+					}	
 				}	
 			}
-		});*/
+		});
 		animal1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num=0;
@@ -530,7 +546,6 @@ public class DudeScreen extends JPanel implements MouseListener {
 		animalRate.setVisible(false);;
 	}
 	public void printHouseAnimalNum(WareHouse warehouse) { //印待成長動物數量
-		feedbackGround.setVisible(true);
 		buttonOFF(feedChicken);
 		buttonOFF(feedPig);
 		buttonOFF(feedCow);
@@ -683,13 +698,10 @@ public class DudeScreen extends JPanel implements MouseListener {
         }
         public void buttonGIF()
         {
-        	for(int i=0; i<button.size(); i++)
-        	{
-        		button.get(i).setOpaque(false);
-        		button.get(i).setContentAreaFilled(false);
-        		button.get(i).setFocusPainted(false);
-        		button.get(i).setBorder(null);
-        	}
+    		btn.setOpaque(false);
+    		btn.setContentAreaFilled(false);
+    		btn.setFocusPainted(false);
+    		btn.setBorder(null);
         }
         public int getVX() {
         	if(vx>0) {
@@ -700,7 +712,7 @@ public class DudeScreen extends JPanel implements MouseListener {
         	}
         }
     }
-    public void showButton(Dude dude) {
+    public void closeButton(Dude dude) {
     	buttonGIF();
     	buttonNum = dude.getButtonNum();
     	for(int i=0; i<dude.getPondLand().size();i++) {
@@ -708,11 +720,17 @@ public class DudeScreen extends JPanel implements MouseListener {
     			button.get(i).setVisible(false);
     		}
     	}
+    }
+    public void showButton(Dude dude) {
+    	buttonGIF();
+    	buttonNum = dude.getButtonNum();
 		if(dude.getPondLand().get(buttonNum).getName()=="雞")
-		{	if(runbutton.get(buttonNum).getVX()<0)
+		{	
+			if(runbutton.get(buttonNum).getVX()<0)
 				button.get(buttonNum).setIcon(chickenleft);
 			else
 				button.get(buttonNum).setIcon(chickenright);
+			button.get(buttonNum).setVisible(true);
 		}
 		if(dude.getPondLand().get(buttonNum).getName()=="豬")
 		{
@@ -720,6 +738,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 				button.get(buttonNum).setIcon(pigleft);
 			else
 				button.get(buttonNum).setIcon(pigright);
+			button.get(buttonNum).setVisible(true);
 		}
 		if(dude.getPondLand().get(buttonNum).getName()=="牛")
 		{
@@ -727,8 +746,9 @@ public class DudeScreen extends JPanel implements MouseListener {
 				button.get(buttonNum).setIcon(cowleft);
 			else
 				button.get(buttonNum).setIcon(cowright);
+			button.get(buttonNum).setVisible(true);
 		}
-		button.get(buttonNum).setVisible(true);
+		
 		System.out.println(runbutton.get(buttonNum).getVX());
     }
     public void buttonGIF()
@@ -747,6 +767,13 @@ public class DudeScreen extends JPanel implements MouseListener {
 		btn.setFocusPainted(false);
 		btn.setBorder(null);
     }
+    public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	{
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(new_img);
+		
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
