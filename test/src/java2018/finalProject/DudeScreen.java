@@ -721,7 +721,8 @@ public class DudeScreen extends JPanel implements MouseListener {
     		}
     	}
 		if(dude.getPondLand().get(buttonNum).getName()=="雞")
-		{	if(runbutton.get(buttonNum).getVX()<0)
+		{	
+			if(runbutton.get(buttonNum).getVX()<0)
 				button.get(buttonNum).setIcon(chickenleft);
 			else
 				button.get(buttonNum).setIcon(chickenright);
