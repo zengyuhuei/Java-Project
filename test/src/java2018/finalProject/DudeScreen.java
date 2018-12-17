@@ -115,7 +115,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		
-		dudeAnimalNum.setBounds(268, 38, 286, 43);
+		dudeAnimalNum.setBounds(268, 38, 301, 43);
 		this.add(dudeAnimalNum);
 		dudeAnimalNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
@@ -308,6 +308,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 				feedChicken.setVisible(true);
 				feedPig.setVisible(true);
 				feedCow.setVisible(true);
+				feedbackGround.setVisible(true);
 				feedAnimal.setEnabled(false);
 				catchAnimal.setEnabled(false);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
@@ -542,7 +543,6 @@ public class DudeScreen extends JPanel implements MouseListener {
 		animalRate.setVisible(false);;
 	}
 	public void printHouseAnimalNum(WareHouse warehouse) { //印待成長動物數量
-		feedbackGround.setVisible(true);
 		buttonOFF(feedChicken);
 		buttonOFF(feedPig);
 		buttonOFF(feedCow);

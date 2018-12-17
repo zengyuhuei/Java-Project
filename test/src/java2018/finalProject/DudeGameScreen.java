@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import java2018.finalProject.DudeScreen.RunningButton;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.awt.event.ActionEvent;
 
 public class DudeGameScreen extends JFrame {
@@ -59,20 +60,27 @@ public class DudeGameScreen extends JFrame {
 	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
 	JButton home = new JButton("回首頁");
-	JButton animal1 = new JButton("牛");
-	JButton animal2 = new JButton("豬");
-	JButton animal3 = new JButton("雞");
-	JButton animal4 = new JButton("牛");
-	JButton animal5 = new JButton("豬");
-	JButton animal6 = new JButton("雞");
-	JButton animal7 = new JButton("牛");
-	JButton animal8 = new JButton("豬");
-	JButton animal9 = new JButton("雞");
-	JButton animal10 = new JButton("豬");
-	JButton animal11 = new JButton("雞");
-	JButton animal12 = new JButton("雞");
-	ArrayList<JButton> button = new ArrayList<JButton>(10);
-
+	JButton animal1 = new JButton();
+	JButton animal2 = new JButton();
+	JButton animal3 = new JButton();
+	JButton animal4 = new JButton();
+	JButton animal5 = new JButton();
+	JButton animal6 = new JButton();
+	JButton animal7 = new JButton();
+	JButton animal8 = new JButton();
+	JButton animal9 = new JButton();
+	JButton animal10 = new JButton();
+	JButton animal11 = new JButton();
+	JButton animal12 = new JButton();
+	ArrayList<JButton> button = new ArrayList<JButton>(12);
+	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
+	ArrayList<Timer> time = new ArrayList<Timer>(12);
+	
+	int cowNum = (int)(Math.random()*6+3);
+	int pigNum = (int)(Math.random()*5+3);
+	int chickenNum = (int)(Math.random()*4+2);
+	int period = 220;
+	int sum = cowNum + pigNum + chickenNum;
 	
 	public DudeGameScreen() {
 		WareHouse warehouse = new WareHouse();
@@ -83,10 +91,7 @@ public class DudeGameScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		int cowNum = (int)(Math.random()*4);
-		int pigNum = (int)(Math.random()*5);
-		int chickenNum = (int)(Math.random()*6);
-		int period = 220;
+
 		button.add(animal1);
 		button.add(animal2);
 		button.add(animal3);
@@ -135,7 +140,7 @@ public class DudeGameScreen extends JFrame {
 		animal1.setBounds(456, 231, 100, 100);
 		contentPane.add(animal1);
 		Timer timer1 = new Timer();
-		RunningButton run1 = new RunningButton(animal1, 456, 231);
+		RunningButton run1 = new RunningButton(animal1, 456, 231); 
 		timer1.schedule(run1, 1000, period);
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -158,7 +163,6 @@ public class DudeGameScreen extends JFrame {
 		Timer timer4 = new Timer();
 		RunningButton run4 = new RunningButton(animal4, 658, 318);
 		timer4.schedule(run4, 1000, period);
-		
 		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal5.setBounds(207, 183, 100, 100);
 		contentPane.add(animal5);
@@ -215,21 +219,169 @@ public class DudeGameScreen extends JFrame {
 		RunningButton run12 = new RunningButton(animal12, 708, 330);
 		timer12.schedule(run12, 1000, period);
 		
+		run.add(run1);
+		run.add(run2);
+		run.add(run3);
+		run.add(run4);
+		run.add(run5);
+		run.add(run6);
+		run.add(run7);
+		run.add(run8);
+		run.add(run9);
+		run.add(run10);
+		run.add(run11);
+		run.add(run12);
+		
+		time.add(timer1);
+		time.add(timer2);
+		time.add(timer3);
+		time.add(timer4);
+		time.add(timer5);
+		time.add(timer6);
+		time.add(timer7);
+		time.add(timer8);
+		time.add(timer9);
+		time.add(timer10);
+		time.add(timer11);
+		time.add(timer12);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setLocation(66, 10);
+		lblNewLabel.setLocation(0, 0);
 		ImageIcon img = new ImageIcon("../picture/dude.jpg");
 		Image i = img.getImage();
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
 		contentPane.add(lblNewLabel);
-	}
-	public void returnLR(JButton btn) {
+		
+		showAnimal();
+		
+		animal1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chickenNum>0) {
+					animal1.setVisible(false);
+					chickenNum--;
+					animalAction();
+				}
+			}
+		});
+		animal2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chickenNum>0) {
+					animal2.setVisible(false);
+					chickenNum--;
+					animalAction();
+				}
+			}
+		});
+		animal3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chickenNum>0) {
+					animal3.setVisible(false);
+					chickenNum--;
+					animalAction();
+				}
+			}
+		});
+		animal4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pigNum>0) {
+					animal4.setVisible(false);
+					pigNum--;
+					animalAction();
+				}
+			}
+		});
+		animal5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pigNum>0) {
+					animal5.setVisible(false);
+					pigNum--;
+					animalAction();
+				}
+
+			}
+		});
+		animal6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pigNum>0) {
+					animal6.setVisible(false);
+					pigNum--;
+					animalAction();
+				}
+
+			}
+		});
+		animal7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pigNum>0) {
+					animal7.setVisible(false);
+					pigNum--;
+					animalAction();
+				}
+
+			}
+		});
+		animal8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cowNum>0) {
+					animal8.setVisible(false);
+					cowNum--;
+					animalAction();
+				}
+			}
+		});
+		animal9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cowNum>0) {
+					animal9.setVisible(false);
+					cowNum--;
+					animalAction();
+				}
+
+			}
+		});
+
+		animal10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cowNum>0) {
+					animal10.setVisible(false);
+					cowNum--;
+					animalAction();
+				}
+			}
+		});
+		animal11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cowNum>0) {
+					animal11.setVisible(false);
+					cowNum--;
+					animalAction();
+				}
+			}
+		});
+		animal12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cowNum>0) {
+					animal12.setVisible(false);
+					cowNum--;
+					animalAction();
+				}
+			}
+		});
 		
 	}
-	
-	  class RunningButton extends TimerTask {
+	public void animalAction() {
+		dudeCowNum.setText(" X "+(int)cowNum);
+		dudePigNum.setText(" X "+(int)pigNum);
+		dudeChickenNum.setText(" X "+(int)chickenNum);
+		sum--;
+		System.out.println(sum);
+		if(sum==0) {
+			System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
+		}
+	}
+class RunningButton extends TimerTask {
 	    	private JButton btn;
 	    	private double coordinateX, coordinateY;
 	    	private double vx, vy;
@@ -241,22 +393,18 @@ public class DudeGameScreen extends JFrame {
 	        	if(random==0) {
 	        		vx = Math.sin(1) * 5;
 	            	vy = Math.cos(1) * 5;
-	            	showButtonRight();
 	        	}
 	        	if(random==1) {
 	        		vx = -Math.sin(1) * 5;
 	            	vy = Math.cos(1) * 5;
-	            	showButtonLeft();
 	        	}
 	        	if(random==2) {
 	        		vx = Math.sin(1) * 5;
 	            	vy = -Math.cos(1) * 5;
-	            	showButtonRight();
 	        	}
 	        	else {
 	        		vx = -Math.sin(1) * 5;
 	            	vy = -Math.cos(1) * 5;
-	            	showButtonLeft();
 	        	}
 	    	}
 	        public void run() {
@@ -281,15 +429,15 @@ public class DudeGameScreen extends JFrame {
 	        }
 	        public void showButtonLeft() {
 	        	buttonGIF();
-	        	if(btn.getText()=="雞")
+	        	if(btn.getIcon()==chickenright)
     			{
     				btn.setIcon(chickenleft);
     			}
-    			if(btn.getText()=="豬")
+    			if(btn.getIcon()==pigright)
     			{
     				btn.setIcon(pigleft);
     			}
-    			if(btn.getText()=="牛")
+    			if(btn.getIcon()==cowright)
     			{
     				btn.setIcon(cowleft);
     			}
@@ -298,15 +446,15 @@ public class DudeGameScreen extends JFrame {
 	        }
 	        public void showButtonRight() {
 	        	buttonGIF();
-	        	if(btn.getText()=="雞")
+	        	if(btn.getIcon()==chickenleft)
 				{
 					btn.setIcon(chickenright);
 				}
-				if(btn.getText()=="豬")
+				if(btn.getIcon()==pigleft)
 				{
 					btn.setIcon(pigright);
 				}
-				if(btn.getText()=="牛")
+				if(btn.getIcon()==cowleft)
 				{
 					btn.setIcon(cowright);
 				}
@@ -316,22 +464,48 @@ public class DudeGameScreen extends JFrame {
 	        }
 	        public void buttonGIF()
 	        {
-	        	for(int i=0; i<button.size(); i++)
-	        	{
-	        		button.get(i).setOpaque(false);
-	        		button.get(i).setContentAreaFilled(false);
-	        		button.get(i).setFocusPainted(false);
-	        		button.get(i).setBorder(null);
-	        	}
+        		btn.setOpaque(false);
+        		btn.setContentAreaFilled(false);
+        		btn.setFocusPainted(false);
+        		btn.setBorder(null);
 	        }
-	        public int getVX() {
-	        	if(vx>0) {
-	        		return 1;
-	        	}
-	        	else {
-	        		return -1;
-	        	}
+	        public double getVX() {
+	        	return vx;
 	        }
 	    }
+	  public void showAnimal() {
+		  buttonGIF();
+		  for(int i=0;i<12;i++) {
+			  if(i<3) {
+				  if(run.get(i).getVX()>0)
+					  button.get(i).setIcon(chickenright);
+				  else
+					  button.get(i).setIcon(chickenleft);
+			  }
+			  if(i>=3&&i<7) {
+				  if(run.get(i).getVX()>0)
+					  button.get(i).setIcon(pigright);
+				  else
+					  button.get(i).setIcon(pigleft);
+			  }
+			  if(i>=7) {
+
+				  if(run.get(i).getVX()>0)
+					  button.get(i).setIcon(cowright);
+				  else
+					  button.get(i).setIcon(cowleft);
+			  }
+		  }
+	  }
+	  public void buttonGIF()
+	  {
+		  for(int i=0; i<button.size(); i++)
+		  {
+			  button.get(i).setOpaque(false);
+			  button.get(i).setContentAreaFilled(false);
+			  button.get(i).setFocusPainted(false);
+			  button.get(i).setBorder(null);
+		  }
+	  }
 
 }
