@@ -76,9 +76,9 @@ public class DudeGameScreen extends JFrame {
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
 	
-	int cowNum = (int)(Math.random()*6+3);
-	int pigNum = (int)(Math.random()*5+3);
-	int chickenNum = (int)(Math.random()*4+2);
+	int cowNum = (int)(Math.random()*6+6);
+	int pigNum = (int)(Math.random()*5+5);
+	int chickenNum = (int)(Math.random()*4+4);
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	
@@ -165,7 +165,7 @@ public class DudeGameScreen extends JFrame {
 		timer8.schedule(run8, 1000, period);
 		Timer timer9 = new Timer();
 		RunningButton run9 = new RunningButton(animal9, 620, 150);
-		timer9.schedule(run9, 1000, 220);
+		timer9.schedule(run9, 1000, period);
 		Timer timer10 = new Timer();
 		RunningButton run10 = new RunningButton(animal10, 582, 255);
 		timer10.schedule(run10, 1000, period);
@@ -379,7 +379,9 @@ public class DudeGameScreen extends JFrame {
 		sum--;
 		if(sum>0) {
 			System.out.println(sum);
-			period -= 30;
+			for(int i=0;i<12;i++) {
+				run.get(i).setVXVY();
+			}
 		}
 		if(sum==0) {
 			System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
@@ -475,6 +477,10 @@ class RunningButton extends TimerTask {
 	        }
 	        public double getVX() {
 	        	return vx;
+	        }
+	        public void setVXVY() {
+	        	vx = 1.1*vx;
+	        	vy = 1.1*vy;
 	        }
 	    }
 	  public void showAnimal() {

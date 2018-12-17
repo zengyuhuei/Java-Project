@@ -405,19 +405,19 @@ public class DudeScreen extends JPanel implements MouseListener {
 			}
 		});
 		
-		/*catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
+		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int random = (int)(Math.random()*3);
+				int random = (int)(Math.random()*5);
 				if(random==0) {
 					int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 					if(input == 0) //ok
 					{
-						System.out.println("YEAH!");
+						//跳轉至牧場遊戲畫面
 					}	
 				}	
 			}
-		});*/
+		});
 		animal1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				num=0;
