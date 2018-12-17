@@ -79,7 +79,7 @@ public class DudeGameScreen extends JFrame {
 	int cowNum = (int)(Math.random()*6+3);
 	int pigNum = (int)(Math.random()*5+3);
 	int chickenNum = (int)(Math.random()*4+2);
-	int period = 220;
+	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	
 	public DudeGameScreen() {
@@ -142,82 +142,83 @@ public class DudeGameScreen extends JFrame {
 		Timer timer1 = new Timer();
 		RunningButton run1 = new RunningButton(animal1, 456, 231); 
 		timer1.schedule(run1, 1000, period);
+		Timer timer2 = new Timer();
+		RunningButton run2 = new RunningButton(animal2, 384, 415);
+		timer2.schedule(run2, 1000, period);
+		Timer timer3 = new Timer();
+		RunningButton run3 = new RunningButton(animal3, 214, 312);
+		timer3.schedule(run3, 1000, period);
+		Timer timer4 = new Timer();
+		RunningButton run4 = new RunningButton(animal4, 658, 318);
+		timer4.schedule(run4, 1000, period);
+		Timer timer5 = new Timer();
+		RunningButton run5 = new RunningButton(animal5, 207, 183);
+		timer5.schedule(run5, 1000, period);
+		Timer timer6 = new Timer();
+		RunningButton run6 = new RunningButton(animal6, 260, 403);
+		timer6.schedule(run6, 1000, period);
+		Timer timer7 = new Timer();
+		RunningButton run7 = new RunningButton(animal7, 336, 217);
+		timer7.schedule(run7, 1000, period);
+		Timer timer8 = new Timer();
+		RunningButton run8 = new RunningButton(animal8, 585, 394);
+		timer8.schedule(run8, 1000, period);
+		Timer timer9 = new Timer();
+		RunningButton run9 = new RunningButton(animal9, 620, 150);
+		timer9.schedule(run9, 1000, 220);
+		Timer timer10 = new Timer();
+		RunningButton run10 = new RunningButton(animal10, 582, 255);
+		timer10.schedule(run10, 1000, period);
+		Timer timer11 = new Timer();
+		RunningButton run11 = new RunningButton(animal11, 469, 353);
+		timer10.schedule(run11, 1000, period);
+		Timer timer12 = new Timer();
+		RunningButton run12 = new RunningButton(animal12, 708, 330);
+		timer12.schedule(run12, 1000, period);
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal2.setBounds(384, 415, 100, 100);
 		contentPane.add(animal2);
-		Timer timer2 = new Timer();
-		RunningButton run2 = new RunningButton(animal2, 384, 415);
-		timer2.schedule(run2, 1000, period);
-		
+			
 		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal3.setBounds(214, 312, 100, 100);
 		contentPane.add(animal3);
-		Timer timer3 = new Timer();
-		RunningButton run3 = new RunningButton(animal3, 214, 312);
-		timer3.schedule(run3, 1000, period);
 		
 		animal4.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal4.setBounds(656, 318, 100, 100);
 		contentPane.add(animal4);
-		Timer timer4 = new Timer();
-		RunningButton run4 = new RunningButton(animal4, 658, 318);
-		timer4.schedule(run4, 1000, period);
+		
 		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal5.setBounds(207, 183, 100, 100);
 		contentPane.add(animal5);
-		Timer timer5 = new Timer();
-		RunningButton run5 = new RunningButton(animal5, 207, 183);
-		timer5.schedule(run5, 1000, period);
 		
 		animal6.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal6.setBounds(274, 403, 100, 100);
 		contentPane.add(animal6);
-		Timer timer6 = new Timer();
-		RunningButton run6 = new RunningButton(animal6, 260, 403);
-		timer6.schedule(run6, 1000, period);
 		
 		animal7.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal7.setBounds(336, 217, 100, 100);
 		contentPane.add(animal7);
-		Timer timer7 = new Timer();
-		RunningButton run7 = new RunningButton(animal7, 336, 217);
-		timer7.schedule(run7, 1000, period);
 		
 		animal8.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal8.setBounds(585, 394, 100, 100);
 		contentPane.add(animal8);
-		Timer timer8 = new Timer();
-		RunningButton run8 = new RunningButton(animal8, 585, 394);
-		timer8.schedule(run8, 1000, period);
 		
 		animal9.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal9.setBounds(620, 150, 100, 100);
 		contentPane.add(animal9);
-		Timer timer9 = new Timer();
-		RunningButton run9 = new RunningButton(animal9, 620, 150);
-		timer9.schedule(run9, 1000, 220);
 		
 		animal10.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal10.setBounds(582, 255, 100, 100);
 		contentPane.add(animal10);
-		Timer timer10 = new Timer();
-		RunningButton run10 = new RunningButton(animal10, 582, 255);
-		timer10.schedule(run10, 1000, period);
 
 		animal11.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal11.setBounds(469, 353, 100, 100);
 		contentPane.add(animal11);
-		Timer timer11 = new Timer();
-		RunningButton run11 = new RunningButton(animal11, 469, 353);
-		timer10.schedule(run11, 1000, period);
 		
 		animal12.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal12.setBounds(708, 330, 100, 100);
 		contentPane.add(animal12);
-		Timer timer12 = new Timer();
-		RunningButton run12 = new RunningButton(animal12, 708, 330);
-		timer12.schedule(run12, 1000, period);
 		
 		run.add(run1);
 		run.add(run2);
@@ -376,7 +377,10 @@ public class DudeGameScreen extends JFrame {
 		dudePigNum.setText(" X "+(int)pigNum);
 		dudeChickenNum.setText(" X "+(int)chickenNum);
 		sum--;
-		System.out.println(sum);
+		if(sum>0) {
+			System.out.println(sum);
+			period -= 30;
+		}
 		if(sum==0) {
 			System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
 		}

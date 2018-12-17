@@ -388,18 +388,21 @@ public class DudeScreen extends JPanel implements MouseListener {
 				closeStart();
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
-				showButton(dude);
+				closeButton(dude);
 				catchAnimal.setEnabled(false);
 			}
 		});
+		
 		/*catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if(input == 0) //ok
-				{
-					
+				int random = (int)(Math.random()*3);
+				if(random==0) {
+					int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+					if(input == 0) //ok
+					{
+						System.out.println("YEAH!");
+					}	
 				}	
 			}
 		});*/
@@ -683,13 +686,10 @@ public class DudeScreen extends JPanel implements MouseListener {
         }
         public void buttonGIF()
         {
-        	for(int i=0; i<button.size(); i++)
-        	{
-        		button.get(i).setOpaque(false);
-        		button.get(i).setContentAreaFilled(false);
-        		button.get(i).setFocusPainted(false);
-        		button.get(i).setBorder(null);
-        	}
+    		btn.setOpaque(false);
+    		btn.setContentAreaFilled(false);
+    		btn.setFocusPainted(false);
+    		btn.setBorder(null);
         }
         public int getVX() {
         	if(vx>0) {
@@ -700,7 +700,7 @@ public class DudeScreen extends JPanel implements MouseListener {
         	}
         }
     }
-    public void showButton(Dude dude) {
+    public void closeButton(Dude dude) {
     	buttonGIF();
     	buttonNum = dude.getButtonNum();
     	for(int i=0; i<dude.getPondLand().size();i++) {
@@ -708,11 +708,16 @@ public class DudeScreen extends JPanel implements MouseListener {
     			button.get(i).setVisible(false);
     		}
     	}
+    }
+    public void showButton(Dude dude) {
+    	buttonGIF();
+    	buttonNum = dude.getButtonNum();
 		if(dude.getPondLand().get(buttonNum).getName()=="雞")
 		{	if(runbutton.get(buttonNum).getVX()<0)
 				button.get(buttonNum).setIcon(chickenleft);
 			else
 				button.get(buttonNum).setIcon(chickenright);
+			button.get(buttonNum).setVisible(true);
 		}
 		if(dude.getPondLand().get(buttonNum).getName()=="豬")
 		{
@@ -720,6 +725,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 				button.get(buttonNum).setIcon(pigleft);
 			else
 				button.get(buttonNum).setIcon(pigright);
+			button.get(buttonNum).setVisible(true);
 		}
 		if(dude.getPondLand().get(buttonNum).getName()=="牛")
 		{
@@ -727,8 +733,9 @@ public class DudeScreen extends JPanel implements MouseListener {
 				button.get(buttonNum).setIcon(cowleft);
 			else
 				button.get(buttonNum).setIcon(cowright);
+			button.get(buttonNum).setVisible(true);
 		}
-		button.get(buttonNum).setVisible(true);
+		
 		System.out.println(runbutton.get(buttonNum).getVX());
     }
     public void buttonGIF()
