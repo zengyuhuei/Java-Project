@@ -26,7 +26,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   
   private static final long serialVersionUID = 1L;
   boolean isOver = false;  //設置標記，遊戲是否結束
-  private String dir = "../image/"; //圖片目錄  
+  private String dir = "../picture/"; //圖片目錄  
   JLabel jlbMouse;//地鼠  
   Timer timer;    //時間定時器
   Random random;  //隨機生成地鼠位置  
