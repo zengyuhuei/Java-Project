@@ -12,19 +12,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MainScreen extends JFrame {
+public class MainScreen extends JPanel implements MouseListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private WareHouse warehouse;
-	private WareHouseScreen whscreen;
-	private ShopScreen spscreen; 
-	private DudeScreen dudescreen;
-	private FarmScreen farmscreen;
+	private JButton shopBtn;
+	private JButton dudeBtn;
+	private JButton wareHouseBtn;
+	private JButton pondBtn;
+	private JButton farmBtn;
+	private Main mainFrame;
 
 	/**
 	 * Launch the application.
@@ -34,107 +36,81 @@ public class MainScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainScreen(WareHouse warehouse) {
+	public MainScreen(Main mainFrame) {
 		this.warehouse = warehouse;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.mainFrame = mainFrame;
 		this.setSize(1200, 675);
-		contentPane = new JPanel();
 		
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setLocationRelativeTo(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JButton btnShop = new JButton("商店");
-		btnShop.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							
-							spscreen= new ShopScreen(warehouse);
-						
-							spscreen.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
+		
+		shopBtn = new JButton("商店");
+		shopBtn.addMouseListener(this);
+		shopBtn.setBounds(14, 13, 144, 151);
+		this.add(shopBtn);
+		
+		dudeBtn = new JButton("牧場");
+		dudeBtn.addMouseListener(this);
+		dudeBtn.setBounds(182, 177, 144, 141);
+		this.add(dudeBtn);
 				
-			}
-		});
-		btnShop.setBounds(14, 13, 144, 151);
-		contentPane.add(btnShop);
+		wareHouseBtn = new JButton("倉庫");
+		wareHouseBtn.addMouseListener(this);
+		wareHouseBtn.setBounds(24, 177, 137, 141);
+		this.add(wareHouseBtn);
 		
-		JButton btnNewWareHouse = new JButton("倉庫");
-		btnNewWareHouse.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							
-							whscreen = new WareHouseScreen(warehouse);
-						
-							whscreen.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-			}
-		});
-		btnNewWareHouse.setBounds(24, 177, 137, 141);
-		contentPane.add(btnNewWareHouse);
+		pondBtn = new JButton("魚池");
+		pondBtn.addMouseListener(this);
+		pondBtn.setBounds(345, 18, 137, 141);
+		this.add(pondBtn);
 		
-		JButton btnFarm = new JButton("農場");
-		btnFarm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							farmscreen = new FarmScreen(warehouse);
-							farmscreen.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-			}
-		});
-		btnFarm.setBounds(172, 18, 144, 141);
-		contentPane.add(btnFarm);
+		farmBtn = new JButton("農場");
+		farmBtn.addMouseListener(this);
+		farmBtn.setBounds(172, 18, 144, 141);
+		this.add(farmBtn);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == shopBtn) {
+			this.mainFrame.changeToShopScreen();
+		}
+		else if (e.getSource() == dudeBtn) {
+			this.mainFrame.changeToDudeScreen();
+		}
+		else if (e.getSource() == wareHouseBtn) {
+			this.mainFrame.changeToWareHouseScreen();
+		}
+		else if(e.getSource() == pondBtn) {
+			this.mainFrame.changeToPondScreen();
+		}
+		else if(e.getSource() == farmBtn) {
+			this.mainFrame.changeToFarmScreen();
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
-		JButton btnDude = new JButton("牧場");
-		btnDude.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							
-							//把它設成private variable
-							//WareHouseScreen frame = new WareHouseScreen(warehouse);
-							dudescreen = new DudeScreen(warehouse);
-							dudescreen.setVisible(true);
-							//frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-			}
-		});
-		btnDude.setBounds(182, 177, 144, 141);
-		contentPane.add(btnDude);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
-		JButton btnNewButton = new JButton("魚池");
-		btnNewButton.setBounds(345, 18, 137, 141);
-		contentPane.add(btnNewButton);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

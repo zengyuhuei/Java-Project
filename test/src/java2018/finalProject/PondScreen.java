@@ -24,28 +24,27 @@ import java.util.TimerTask;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 
-public class PondScreen extends JFrame implements KeyListener {
+public class PondScreen extends JPanel implements KeyListener {
 	private JSlider slider;
 	private int sliderValue = 0;
 	private int sliderAdd = 1;
 	private Timer t;
 	private TimerTask tk;
 	private boolean stop = false;
-	public PondScreen() {
-		this.setSize(600, 400);
+	private Main mainFrame;
+	public PondScreen(Main mainFrame) {
+		this.mainFrame = mainFrame;
+		this.setSize(1200, 675);
 		this.setVisible(true);
-		this.setTitle("Pond");
-		this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.setFocusTraversalKeysEnabled(false);
 		this.addKeyListener(this);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, 0};
-		getContentPane().setLayout(gridBagLayout);
+		this.setLayout(gridBagLayout);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -53,7 +52,7 @@ public class PondScreen extends JFrame implements KeyListener {
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
-		getContentPane().add(panel_1, gbc_panel_1);
+		this.add(panel_1, gbc_panel_1);
 		
 		slider = new JSlider();
 		GridBagConstraints gbc_slider = new GridBagConstraints();
@@ -61,7 +60,7 @@ public class PondScreen extends JFrame implements KeyListener {
 		gbc_slider.insets = new Insets(0, 0, 5, 5);
 		gbc_slider.gridx = 1;
 		gbc_slider.gridy = 0;
-		getContentPane().add(slider, gbc_slider);
+		this.add(slider, gbc_slider);
 		slider.setMaximum(100);
 		slider.setMinimum(0);
 		slider.setValue(sliderValue);
@@ -84,7 +83,7 @@ public class PondScreen extends JFrame implements KeyListener {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(panel, gbc_panel);
+		this.add(panel, gbc_panel);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBackground(Color.BLACK);
@@ -94,7 +93,7 @@ public class PondScreen extends JFrame implements KeyListener {
 		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 1;
-		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		this.add(lblNewLabel, gbc_lblNewLabel);
 		
 		t = new Timer();
 		tk = new TimerTask() {

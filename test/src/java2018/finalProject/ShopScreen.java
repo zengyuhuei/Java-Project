@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -31,13 +32,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
-public class ShopScreen extends JFrame {
+public class ShopScreen extends JPanel implements MouseListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTable table;
 	private JButton btnOk;
 
@@ -47,10 +47,12 @@ public class ShopScreen extends JFrame {
 	private JButton btnAddwheat;
 	private JButton btnAddcorn;
 	private JButton btnAddcabbage;
+	private JButton btnReturn;
 	private JTable buyTable;
 	private Shop shop;
     private JLabel lblHoldmoney;
     private JLabel background;
+    private Main mainFrame;
     
     public void setTableColumnWidth(JTable table)
 	{
@@ -156,17 +158,15 @@ public class ShopScreen extends JFrame {
 	}
 	
 
-	public ShopScreen(WareHouse warehouse) {
-		
+	public ShopScreen(Main mainFrame, WareHouse warehouse) {
+		this.mainFrame = mainFrame;
 		shop = new Shop(warehouse);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setLocationRelativeTo(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		ImageIcon img = new ImageIcon("../picture/shop.png");
+
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
+		ImageIcon img = new ImageIcon("../picture/warehouse.jpg");
+
 		Image i = img.getImage();
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		
@@ -188,14 +188,14 @@ public class ShopScreen extends JFrame {
 		cleanButtom(btnSell);
 		btnSell.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
 		btnSell.setBounds(78, 158, 132, 74);
-		contentPane.add(btnSell);
+		this.add(btnSell);
 		
 		JButton btnBuy = new JButton();
 		btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
 		cleanButtom(btnBuy);
 		btnBuy.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
 		btnBuy.setBounds(78, 87, 132, 58);
-		contentPane.add(btnBuy);
+		this.add(btnBuy);
 		Object[][] organism = {
 				{chicken, 200, 0,"長大的雞"},
 				{pig, 210, 0,"長大的豬"},
@@ -210,7 +210,7 @@ public class ShopScreen extends JFrame {
 		JPanel buyPanel = new JPanel();
 		buyPanel.setBounds(253, 0, 915, 628);
 		buyPanel.setOpaque(false);
-		contentPane.add(buyPanel);
+		this.add(buyPanel);
 		buyPanel.setLayout(null);
 		buyPanel.setVisible(false);
 		
@@ -565,7 +565,7 @@ public class ShopScreen extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(268, 13, 882, 615);
-		contentPane.add(panel);
+		this.add(panel);
 		panel.setOpaque(false);
 		
 		panel.setVisible(false);
@@ -810,19 +810,20 @@ public class ShopScreen extends JFrame {
 			btnDelcabbage.setBounds(533, 468, 38, 40);
 			panel.add(btnDelcabbage);
 		
-		JButton btnReturn = new JButton("return");
+		btnReturn = new JButton("return");
 		
 		
 		btnReturn.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
 		btnReturn.setBounds(75, 259, 135, 35);
-		contentPane.add(btnReturn);
+		this.add(btnReturn);
+		btnReturn.addMouseListener(this);
 		
 		String holdMoney = String.format(":  %d", shop.getHoldMoney() );
 		
 		JPanel setMoney = new JPanel();
 		setMoney.setBounds(12, 497, 227, 102);
 		setMoney.setOpaque(false);
-		contentPane.add(setMoney);
+		this.add(setMoney);
 		
 		JLabel money = new JLabel();
 		setMoney.add(money);
@@ -838,7 +839,7 @@ public class ShopScreen extends JFrame {
 		background = new JLabel("background");
 		background.setBounds(0, 0, 1200, 675);
 		background.setBackground(new Color(204 ,135 ,125,50));
-		contentPane.add(background);
+		this.add(background);
 		background.setIcon(new ImageIcon(new_img));
 		
 		
@@ -869,6 +870,33 @@ public class ShopScreen extends JFrame {
 		
 		
 		
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == btnReturn) {
+			this.mainFrame.changeToMainScreen();
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
