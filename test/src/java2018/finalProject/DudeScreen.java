@@ -48,15 +48,15 @@ public class DudeScreen extends JPanel implements MouseListener {
 	 */
 	private Main mainFrame;
 	JLabel animalRate = new JLabel();
-	JButton startFeed = new JButton("養殖");	
+	JButton startFeed = new JButton();	
 	JButton feedChicken = new JButton("雞"); 
 	JButton feedPig = new JButton("豬");
 	JButton feedCow = new JButton();
-	JButton feedAnimal = new JButton("餵食");
+	JButton feedAnimal = new JButton();
 	JButton lowFeed = new JButton("低級飼料");
 	JButton midFeed = new JButton("中級飼料");
 	JButton highFeed = new JButton("高級飼料");
-	JButton catchAnimal = new JButton("捕捉");
+	JButton catchAnimal = new JButton();
 	JButton home = new JButton("回首頁");
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
@@ -83,6 +83,12 @@ public class DudeScreen extends JPanel implements MouseListener {
 	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
 	JLabel rateBackGround = new JLabel(rateBackground);
 	ImageIcon feedBackground = new ImageIcon("../picture/feedBackground.PNG");
+	ImageIcon addAnimal =resizeImage (90,65,new ImageIcon("../picture/addAnimal.png"));
+	ImageIcon feed =resizeImage (80,65,new ImageIcon("../picture/feed.png"));
+	ImageIcon lowfeed =resizeImage (80,65,new ImageIcon("../picture/lowfeed.png"));
+	ImageIcon highfeed =resizeImage (80,65,new ImageIcon("../picture/highfeed.png"));
+	ImageIcon midfeed =resizeImage (80,65,new ImageIcon("../picture/midfeed.png"));
+	ImageIcon catchanimal =resizeImage (80,65,new ImageIcon("../picture/catch.png"));
 	JLabel feedbackGround = new JLabel(feedBackground);
 	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
@@ -117,6 +123,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 		startFeed.setBounds(1049, 97, 76, 65);
 		this.add(startFeed);
 		startFeed.setFont(new java.awt.Font("Dialog", 1, 20));
+		startFeed.setIcon(addAnimal);
 		
 		//圖片上亮倉庫數量
 		feedChicken.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -142,26 +149,31 @@ public class DudeScreen extends JPanel implements MouseListener {
 		this.add(feedAnimal);
 		feedAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		feedAnimal.setEnabled(false);
+		feedAnimal.setIcon(feed);
 		
 		lowFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		lowFeed.setBounds(902, 226, 137, 65);
 		this.add(lowFeed);
 		lowFeed.setVisible(false);
+		lowFeed.setIcon(lowfeed);
 		
 		midFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		midFeed.setBounds(755, 227, 137, 65);
 		this.add(midFeed);
 		midFeed.setVisible(false);
+		midFeed.setIcon(midfeed);
 		
 		highFeed.setFont(new Font("Dialog", Font.BOLD, 16));
 		highFeed.setBounds(608, 227, 137, 65);
 		this.add(highFeed);
 		highFeed.setVisible(false);
+		highFeed.setIcon(highfeed);
 		
 		catchAnimal.setBounds(1049, 350, 76, 65);
 		this.add(catchAnimal);
 		catchAnimal.setFont(new java.awt.Font("Dialog", 1, 20));
 		catchAnimal.setEnabled(false);
+		catchAnimal.setIcon(catchanimal);
 		
 		dudeCowNum.setBounds(561, 35, 131, 43);
 		this.add(dudeCowNum);
@@ -747,6 +759,13 @@ public class DudeScreen extends JPanel implements MouseListener {
 		btn.setFocusPainted(false);
 		btn.setBorder(null);
     }
+    public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	{
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(new_img);
+		
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
