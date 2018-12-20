@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 public class DudeGameScreen extends JPanel {
 
 	private Main mainFrame;
+	private WareHouse warehouse;
 	/**
 	 * Launch the application.
 	 */
@@ -69,10 +70,10 @@ public class DudeGameScreen extends JPanel {
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	
-	public DudeGameScreen(Main mainFrame) {
+	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
-		WareHouse warehouse = new WareHouse();
-		Dude dude = new Dude(warehouse);
+		this.warehouse = warehouse;
+		Dude dude = new Dude(this.warehouse);
 		this.setSize(1200, 675);
 		
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -374,6 +375,7 @@ public class DudeGameScreen extends JPanel {
 			}
 		}
 		if(sum==0) {
+			this.warehouse.editHoldMoney(100);
 			System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
 		}
 	}
