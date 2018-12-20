@@ -2,14 +2,22 @@ package java2018.finalProject;
 
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -69,8 +77,41 @@ public class MainScreen extends JPanel implements MouseListener {
 		farmBtn.addMouseListener(this);
 		farmBtn.setBounds(172, 18, 144, 141);
 		this.add(farmBtn);
+
+		ImageIcon img = new ImageIcon("../picture/main.jpg");
+		Image i = img.getImage();
+		i = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+		JLabel background = new JLabel();
+		background.setIcon(new ImageIcon(i));
+		background.setSize(1200, 675);
+		this.add(background);
+		
+		MyButton testBtn = new MyButton("test");
+		testBtn.setLocation(150, 150);
+		testBtn.setOpaque(false);
+		testBtn.repaint();
+		this.add(testBtn);
 	}
 
+	private class MyButton extends JButton {
+		public MyButton(String title) {
+			super(title);
+			this.setBorderPainted(false);
+		}
+		
+		@Override
+		public void paintBorder(Graphics g) {
+			Polygon p = new Polygon();
+		    for (int i = 0; i < 5; i++) {
+			    p.addPoint((int) 
+			    (100 + 50 * Math.cos(i * 2 * Math.PI / 5)),
+			    (int) (100 + 50 * Math.sin(i * 2 * Math.PI / 5)));
+		    }
+		    g.setColor(Color.BLACK);
+		    g.drawPolygon(p);
+		}
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == shopBtn) {
