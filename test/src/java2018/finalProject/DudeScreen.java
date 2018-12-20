@@ -414,6 +414,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 					if(input == 0) //ok
 					{
 						//跳轉至牧場遊戲畫面
+						mainFrame.changeToDudeGameScreen();
 					}	
 				}	
 			}

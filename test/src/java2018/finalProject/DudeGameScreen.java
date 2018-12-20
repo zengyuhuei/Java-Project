@@ -21,25 +21,12 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
 
-public class DudeGameScreen extends JFrame {
+public class DudeGameScreen extends JPanel {
 
-	private JPanel contentPane;
-
+	private Main mainFrame;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DudeGameScreen frame = new DudeGameScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -59,7 +46,7 @@ public class DudeGameScreen extends JFrame {
 	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
 	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
-	JButton home = new JButton("回首頁");
+	JButton home = new JButton("回牧場");
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
 	JButton animal3 = new JButton();
@@ -82,15 +69,14 @@ public class DudeGameScreen extends JFrame {
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	
-	public DudeGameScreen() {
+	public DudeGameScreen(Main mainFrame) {
+		this.mainFrame = mainFrame;
 		WareHouse warehouse = new WareHouse();
 		Dude dude = new Dude(warehouse);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
 
 		button.add(animal1);
 		button.add(animal2);
@@ -106,39 +92,39 @@ public class DudeGameScreen extends JFrame {
 		button.add(animal12);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
-		contentPane.add(dudeAnimalNum);
+		this.add(dudeAnimalNum);
 		dudeAnimalNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		dudeAnimalNum.setVisible(true);
 		
 		dudeCowNum.setBounds(419, 47, 131, 43);
-		contentPane.add(dudeCowNum);
+		this.add(dudeCowNum);
 		dudeCowNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		dudeCowNum.setText(" X "+(int)cowNum);
 		dudeCowNum.setVisible(true);
 		
 		dudePigNum.setBounds(551, 45, 131, 43);
-		contentPane.add(dudePigNum);
+		this.add(dudePigNum);
 		dudePigNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		dudePigNum.setText(" X "+(int)pigNum);
 		dudePigNum.setVisible(true);
 		
 		dudeChickenNum.setBounds(683, 44, 131, 43);
-		contentPane.add(dudeChickenNum);
+		this.add(dudeChickenNum);
 		dudeChickenNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		dudeChickenNum.setText(" X "+(int)chickenNum);
 		dudeChickenNum.setVisible(true);
 		
 		dudeNumBack.setBounds(135, 22, 701, 99);
-		contentPane.add(dudeNumBack);
+		this.add(dudeNumBack);
 		dudeNumBack.setVisible(true);
 		
 		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setBounds(1008, 526, 117, 65);
-		contentPane.add(home);
+		this.add(home);
 		
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		animal1.setBounds(456, 231, 100, 100);
-		contentPane.add(animal1);
+		this.add(animal1);
 		Timer timer1 = new Timer();
 		RunningButton run1 = new RunningButton(animal1, 456, 231); 
 		timer1.schedule(run1, 1000, period);
@@ -178,47 +164,47 @@ public class DudeGameScreen extends JFrame {
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal2.setBounds(384, 415, 100, 100);
-		contentPane.add(animal2);
+		this.add(animal2);
 			
 		animal3.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal3.setBounds(214, 312, 100, 100);
-		contentPane.add(animal3);
+		this.add(animal3);
 		
 		animal4.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal4.setBounds(656, 318, 100, 100);
-		contentPane.add(animal4);
+		this.add(animal4);
 		
 		animal5.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal5.setBounds(207, 183, 100, 100);
-		contentPane.add(animal5);
+		this.add(animal5);
 		
 		animal6.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal6.setBounds(274, 403, 100, 100);
-		contentPane.add(animal6);
+		this.add(animal6);
 		
 		animal7.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal7.setBounds(336, 217, 100, 100);
-		contentPane.add(animal7);
+		this.add(animal7);
 		
 		animal8.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal8.setBounds(585, 394, 100, 100);
-		contentPane.add(animal8);
+		this.add(animal8);
 		
 		animal9.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal9.setBounds(620, 150, 100, 100);
-		contentPane.add(animal9);
+		this.add(animal9);
 		
 		animal10.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal10.setBounds(582, 255, 100, 100);
-		contentPane.add(animal10);
+		this.add(animal10);
 
 		animal11.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal11.setBounds(469, 353, 100, 100);
-		contentPane.add(animal11);
+		this.add(animal11);
 		
 		animal12.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal12.setBounds(708, 330, 100, 100);
-		contentPane.add(animal12);
+		this.add(animal12);
 		
 		run.add(run1);
 		run.add(run2);
@@ -253,7 +239,7 @@ public class DudeGameScreen extends JFrame {
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
-		contentPane.add(lblNewLabel);
+		this.add(lblNewLabel);
 		
 		showAnimal();
 		
@@ -370,7 +356,11 @@ public class DudeGameScreen extends JFrame {
 				}
 			}
 		});
-		
+		home.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.changeToDudeScreen();
+			}
+		});
 	}
 	public void animalAction() {
 		dudeCowNum.setText(" X "+(int)cowNum);

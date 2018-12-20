@@ -47,6 +47,12 @@ public class Main extends JFrame {
 		this.setContentPane(dudeScreen);
 	}
 	
+	public void changeToDudeGameScreen() {
+		JPanel dudeGameScreen = new DudeGameScreen(this);
+		this.setTitle("牧場遊戲");
+		this.setContentPane(dudeGameScreen);
+	}
+	
 	public void changeToWareHouseScreen() {
 		JPanel wareHouseScreen = new WareHouseScreen(this, this.warehouse);
 		this.setTitle("倉庫");
