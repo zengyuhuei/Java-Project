@@ -22,6 +22,7 @@ public class Main extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 675);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		
 		this.dudeScreen = new DudeScreen(this, this.warehouse);
 		this.farmScreen = new FarmScreen(this, this.warehouse);
