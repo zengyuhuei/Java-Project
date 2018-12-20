@@ -1,6 +1,7 @@
 package java2018.finalProject;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -20,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends JPanel {
@@ -108,8 +110,6 @@ public class MainScreen extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.printf("%d %d%n", e.getX(), e.getY());
-				
 				if (dudePoly.contains(e.getPoint())) {
 					mainFrame.changeToDudeScreen();
 				}
@@ -124,6 +124,30 @@ public class MainScreen extends JPanel {
 				}
 				else if (pondPoly.contains(e.getPoint())) {
 					mainFrame.changeToPondScreen();
+				}
+			}
+		});
+		
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if (dudePoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (wareHousePoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (shopPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (farmPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else if (pondPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				else {
+					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				}
 			}
 		});
