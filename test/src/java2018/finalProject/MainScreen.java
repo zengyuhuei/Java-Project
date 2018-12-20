@@ -19,6 +19,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends JPanel implements ActionListener {
@@ -54,27 +57,27 @@ public class MainScreen extends JPanel implements ActionListener {
 		
 		shopBtn = new JButton("商店");
 		shopBtn.addActionListener(this);
-		shopBtn.setBounds(14, 13, 144, 151);
+		shopBtn.setBounds(950, 175, 100, 50);
 		this.add(shopBtn);
 		
 		dudeBtn = new JButton("牧場");
 		dudeBtn.addActionListener(this);
-		dudeBtn.setBounds(182, 177, 144, 141);
+		dudeBtn.setBounds(150, 175, 100, 50);
 		this.add(dudeBtn);
 				
 		wareHouseBtn = new JButton("倉庫");
 		wareHouseBtn.addActionListener(this);
-		wareHouseBtn.setBounds(24, 177, 137, 141);
+		wareHouseBtn.setBounds(550, 175, 100, 50);
 		this.add(wareHouseBtn);
 		
 		pondBtn = new JButton("魚池");
 		pondBtn.addActionListener(this);
-		pondBtn.setBounds(345, 18, 137, 141);
+		pondBtn.setBounds(922, 360, 100, 50);
 		this.add(pondBtn);
 		
 		farmBtn = new JButton("農場");
 		farmBtn.addActionListener(this);
-		farmBtn.setBounds(172, 18, 144, 141);
+		farmBtn.setBounds(170, 360, 100, 50);
 		this.add(farmBtn);
 
 		ImageIcon img = new ImageIcon("../picture/main.jpg");
@@ -90,6 +93,13 @@ public class MainScreen extends JPanel implements ActionListener {
 		testBtn.setOpaque(false);
 		testBtn.repaint();
 		this.add(testBtn);
+		
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.printf("%d %d", e.getX(), e.getY());
+			}
+		});
 	}
 
 	private class MyButton extends JButton {
