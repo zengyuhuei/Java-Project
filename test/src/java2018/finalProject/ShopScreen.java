@@ -32,7 +32,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
-public class ShopScreen extends JPanel implements MouseListener {
+public class ShopScreen extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -816,7 +816,7 @@ public class ShopScreen extends JPanel implements MouseListener {
 		btnReturn.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
 		btnReturn.setBounds(75, 259, 135, 35);
 		this.add(btnReturn);
-		btnReturn.addMouseListener(this);
+		btnReturn.addActionListener(this);
 		
 		String holdMoney = String.format(":  %d", shop.getHoldMoney() );
 		
@@ -873,30 +873,10 @@ public class ShopScreen extends JPanel implements MouseListener {
 		
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == btnReturn) {
 			this.mainFrame.changeToMainScreen();
 		}
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

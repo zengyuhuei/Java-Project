@@ -24,7 +24,7 @@ import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-public class DudeScreen extends JPanel implements MouseListener {
+public class DudeScreen extends JPanel implements ActionListener {
 
 	/**
 	 * Launch the application.
@@ -195,7 +195,7 @@ public class DudeScreen extends JPanel implements MouseListener {
 		
 		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setBounds(1008, 526, 117, 65);
-		home.addMouseListener(this);
+		home.addActionListener(this);
 		this.add(home);
 		 
 		//成長值
@@ -776,31 +776,11 @@ public class DudeScreen extends JPanel implements MouseListener {
 		
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == home) {
 			this.mainFrame.changeToMainScreen();
 		}
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

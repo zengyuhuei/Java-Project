@@ -30,7 +30,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 
-public class WareHouseScreen extends JPanel implements MouseListener {
+public class WareHouseScreen extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -206,7 +206,7 @@ public class WareHouseScreen extends JPanel implements MouseListener {
 		btnReturn = new JButton("return");
 		btnReturn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnReturn.setBounds(123, 269, 176, 58);
-		btnReturn.addMouseListener(this);
+		btnReturn.addActionListener(this);
 		this.add(btnReturn);
 		
 		Object[][] organism = {
@@ -327,38 +327,10 @@ public class WareHouseScreen extends JPanel implements MouseListener {
 
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == btnReturn) {
 			this.mainFrame.changeToMainScreen();
 		}
-	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

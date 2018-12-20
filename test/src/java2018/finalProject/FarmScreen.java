@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FarmScreen extends JPanel implements MouseListener {
+public class FarmScreen extends JPanel implements ActionListener {
 
 	private final Action action = new SwingAction();
 	private Main mainFrame;
@@ -320,7 +320,7 @@ public class FarmScreen extends JPanel implements MouseListener {
 		
 		returnButton.setBounds(589, 269, 111, 31);
 		this.add(returnButton);
-		returnButton.addMouseListener(this);
+		returnButton.addActionListener(this);
 		
 		cornButton.setBounds(529, 171, 70, 31);
 		cornButton.setVisible(false);
@@ -479,34 +479,10 @@ public class FarmScreen extends JPanel implements MouseListener {
 		}
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == returnButton) {
 			this.mainFrame.changeToMainScreen();
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
