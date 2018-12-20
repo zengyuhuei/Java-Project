@@ -20,7 +20,7 @@ public class Main extends JFrame {
 	public Main(WareHouse warehouse) {
 		this.warehouse = warehouse;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1200, 675);
+		this.setSize(1200, 703);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		

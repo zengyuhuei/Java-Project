@@ -1,7 +1,5 @@
 package java2018.finalProject;
 
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -24,19 +22,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
-public class MainScreen extends JPanel implements ActionListener {
+public class MainScreen extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private WareHouse warehouse;
-	private JButton shopBtn;
-	private JButton dudeBtn;
-	private JButton wareHouseBtn;
-	private JButton pondBtn;
-	private JButton farmBtn;
 	private Main mainFrame;
+	private Polygon dudePoly;
+	private Polygon wareHousePoly;
+	private Polygon shopPoly;
+	private Polygon farmPoly;
+	private Polygon pondPoly;
 
 	/**
 	 * Launch the application.
@@ -54,31 +52,6 @@ public class MainScreen extends JPanel implements ActionListener {
 		
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
-		
-		shopBtn = new JButton("商店");
-		shopBtn.addActionListener(this);
-		shopBtn.setBounds(950, 175, 100, 50);
-		this.add(shopBtn);
-		
-		dudeBtn = new JButton("牧場");
-		dudeBtn.addActionListener(this);
-		dudeBtn.setBounds(150, 175, 100, 50);
-		this.add(dudeBtn);
-				
-		wareHouseBtn = new JButton("倉庫");
-		wareHouseBtn.addActionListener(this);
-		wareHouseBtn.setBounds(550, 175, 100, 50);
-		this.add(wareHouseBtn);
-		
-		pondBtn = new JButton("魚池");
-		pondBtn.addActionListener(this);
-		pondBtn.setBounds(922, 360, 100, 50);
-		this.add(pondBtn);
-		
-		farmBtn = new JButton("農場");
-		farmBtn.addActionListener(this);
-		farmBtn.setBounds(170, 360, 100, 50);
-		this.add(farmBtn);
 
 		ImageIcon img = new ImageIcon("../picture/main.jpg");
 		Image i = img.getImage();
@@ -94,10 +67,64 @@ public class MainScreen extends JPanel implements ActionListener {
 		testBtn.repaint();
 		this.add(testBtn);
 		
+		dudePoly = new Polygon();
+		dudePoly.addPoint(0, 0);
+		dudePoly.addPoint(540, 0);
+		dudePoly.addPoint(404, 124);
+		dudePoly.addPoint(416, 148);
+		dudePoly.addPoint(325, 261);
+		dudePoly.addPoint(0, 261);
+		
+		wareHousePoly = new Polygon();
+		wareHousePoly.addPoint(570, 0);
+		wareHousePoly.addPoint(874, 0);
+		wareHousePoly.addPoint(805, 64);
+		wareHousePoly.addPoint(805, 195);
+		wareHousePoly.addPoint(733, 258);
+		wareHousePoly.addPoint(443, 260);
+		wareHousePoly.addPoint(442, 120);
+		wareHousePoly.addPoint(413, 140);
+		wareHousePoly.addPoint(406, 127);
+
+		shopPoly = new Polygon();
+		shopPoly.addPoint(875, 0);
+		shopPoly.addPoint(1200, 0);
+		shopPoly.addPoint(1200, 254);
+		shopPoly.addPoint(807, 258);
+		shopPoly.addPoint(810, 60);
+		
+		farmPoly = new Polygon();
+		farmPoly.addPoint(0, 316);
+		farmPoly.addPoint(680, 326);
+		farmPoly.addPoint(386, 675);
+		farmPoly.addPoint(0, 675);
+		
+		pondPoly = new Polygon();
+		pondPoly.addPoint(822, 328);
+		pondPoly.addPoint(1200, 325);
+		pondPoly.addPoint(1200, 675);
+		pondPoly.addPoint(509, 675);
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				System.out.printf("%d %d", e.getX(), e.getY());
+			public void mouseClicked(MouseEvent e) {
+				System.out.printf("%d %d%n", e.getX(), e.getY());
+				
+				if (dudePoly.contains(e.getPoint())) {
+					mainFrame.changeToDudeScreen();
+				}
+				else if (wareHousePoly.contains(e.getPoint())) {
+					mainFrame.changeToWareHouseScreen();
+				}
+				else if (shopPoly.contains(e.getPoint())) {
+					mainFrame.changeToShopScreen();
+				}
+				else if (farmPoly.contains(e.getPoint())) {
+					mainFrame.changeToFarmScreen();
+				}
+				else if (pondPoly.contains(e.getPoint())) {
+					mainFrame.changeToPondScreen();
+				}
 			}
 		});
 	}
@@ -118,26 +145,6 @@ public class MainScreen extends JPanel implements ActionListener {
 		    }
 		    g.setColor(Color.BLACK);
 		    g.drawPolygon(p);
-		}
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getSource() == shopBtn) {
-			this.mainFrame.changeToShopScreen();
-		}
-		else if (e.getSource() == dudeBtn) {
-			this.mainFrame.changeToDudeScreen();
-		}
-		else if (e.getSource() == wareHouseBtn) {
-			this.mainFrame.changeToWareHouseScreen();
-		}
-		else if(e.getSource() == pondBtn) {
-			this.mainFrame.changeToPondScreen();
-		}
-		else if(e.getSource() == farmBtn) {
-			this.mainFrame.changeToFarmScreen();
 		}
 	}
 }
