@@ -50,9 +50,14 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 	private Main mainFrame;
 	
     
-	/**
-	 * Launch the application.
-	 */
+	public void cleanButtom(JButton button)
+    {
+    	button.setOpaque(false);
+		button.setContentAreaFilled(false);
+		button.setFocusPainted(false);
+		button.setBorder(null);
+    }
+	
 	public ImageIcon resizeImage(int width, int height, ImageIcon img)
 	{
 		Image i = img.getImage();
@@ -128,9 +133,9 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		ImageIcon corn =resizeImage (75,75,new ImageIcon("../picture/corn.png"));
 		ImageIcon cabbage =resizeImage (75,75,new ImageIcon("../picture/cabbage.png"));
 		ImageIcon fertilizer =resizeImage (75,75,new ImageIcon("../picture/fertilizer.png"));
-		ImageIcon simple =resizeImage (75,75,new ImageIcon("../picture/pig2.png"));
-		ImageIcon general =resizeImage (75,75,new ImageIcon("../picture/pig2.png"));
-		ImageIcon advanced =resizeImage (75,75,new ImageIcon("../picture/pig2.png"));
+		ImageIcon simple =resizeImage (75,75,new ImageIcon("../picture/lowfeed.png"));
+		ImageIcon general =resizeImage (75,75,new ImageIcon("../picture/midfeed.png"));
+		ImageIcon advanced =resizeImage (75,75,new ImageIcon("../picture/highfeed.png"));
 		
 		JButton btnisMaturedItem = new JButton("熟成品");
 		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnIsMatured.png")));
@@ -203,10 +208,23 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		btnHoldItem.setBounds(123, 198, 176, 58);
 		this.add(btnHoldItem);
 		
-		btnReturn = new JButton("return");
+		btnReturn = new JButton();
+		cleanButtom(btnReturn);
+		btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		btnReturn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		btnReturn.setBounds(123, 269, 176, 58);
+		btnReturn.setBounds(123, 269, 176, 114);
 		btnReturn.addActionListener(this);
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnReturn.setIcon(resizeImage(btnReturn.getIcon().getIconWidth()+10,btnReturn.getIcon().getIconHeight()+10,(ImageIcon)btnReturn.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+            } 
+			
+		});
 		this.add(btnReturn);
 		
 		Object[][] organism = {

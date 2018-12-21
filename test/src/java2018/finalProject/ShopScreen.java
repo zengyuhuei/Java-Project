@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
@@ -178,9 +179,9 @@ public class ShopScreen extends JPanel implements ActionListener {
 		ImageIcon corn =resizeImage (50,50,new ImageIcon("../picture/corn.png"));
 		ImageIcon cabbage =resizeImage (50,50,new ImageIcon("../picture/cabbage.png"));
 		ImageIcon fertilizer =resizeImage (50,50,new ImageIcon("../picture/fertilizer.png"));
-		ImageIcon simple =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
-		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
-		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+		ImageIcon simple =resizeImage (50,50,new ImageIcon("../picture/lowfeed.png"));
+		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/midfeed.png"));
+		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/highfeed.png"));
 		ImageIcon total =resizeImage (50,50,new ImageIcon("../picture/total.png"));
 				
 		JButton btnSell = new JButton();
@@ -207,362 +208,6 @@ public class ShopScreen extends JPanel implements ActionListener {
 			};
 		String[] label = {"物品", "價格", "數量","備註"};
 		
-		JPanel buyPanel = new JPanel();
-		buyPanel.setBounds(253, 0, 915, 628);
-		buyPanel.setOpaque(false);
-		this.add(buyPanel);
-		buyPanel.setLayout(null);
-		buyPanel.setVisible(false);
-		
-		JButton btnAddSimple = new JButton();
-		cleanButtom(btnAddSimple);
-		btnAddSimple.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddSimple.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		
-		btnAddSimple.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,0, 2,1);
-				
-			}
-		});
-		btnAddSimple.setBounds(634, 13, 35, 31);
-		buyPanel.add(btnAddSimple);
-		
-		JButton btnAddGeneral = new JButton();
-		cleanButtom(btnAddGeneral);
-		btnAddGeneral.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddGeneral.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		
-		btnAddGeneral.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,1, 2,1);
-				
-			}
-		});
-		btnAddGeneral.setBounds(634, 72, 35, 31);
-		buyPanel.add(btnAddGeneral);
-		
-		JButton btnAddAdvanced = new JButton("");
-		cleanButtom(btnAddAdvanced);
-		btnAddAdvanced.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddAdvanced.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddAdvanced.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,2, 2,1);
-				
-			}
-		});
-		btnAddAdvanced.setBounds(634, 122, 35, 31);
-		buyPanel.add(btnAddAdvanced);
-		
-		JButton btnAddYoungChicken = new JButton();
-		cleanButtom(btnAddYoungChicken);
-		btnAddYoungChicken.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddYoungChicken.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddYoungChicken.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,3, 2,1);
-				
-			}
-		});
-		btnAddYoungChicken.setBounds(634, 184, 40, 32);
-		buyPanel.add(btnAddYoungChicken);
-		
-		JButton btnAddYoungPig = new JButton();
-		cleanButtom(btnAddYoungPig);
-		btnAddYoungPig.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddYoungPig.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddYoungPig.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,4, 2,1);
-				
-			}
-		});
-		btnAddYoungPig.setBounds(634, 240, 40, 31);
-		buyPanel.add(btnAddYoungPig);
-		
-		JButton btnAddYoungCow = new JButton();
-		cleanButtom(btnAddYoungCow);
-		btnAddYoungCow.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddYoungCow.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddYoungCow.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,5, 2,1);
-				
-			}
-		});
-		btnAddYoungCow.setBounds(634, 297, 35, 31);
-		buyPanel.add(btnAddYoungCow);
-		
-		JButton btnAddwheatseed = new JButton();
-		cleanButtom(btnAddwheatseed);
-		btnAddwheatseed.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddwheatseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddwheatseed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,6, 2,1);
-				
-			}
-		});
-		btnAddwheatseed.setBounds(634, 356, 35, 31);
-		buyPanel.add(btnAddwheatseed);
-		
-		JButton btnAddCornSeed = new JButton();
-		cleanButtom(btnAddCornSeed);
-		btnAddCornSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddCornSeed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddCornSeed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,7, 2,1);
-				
-			}
-		});
-		btnAddCornSeed.setBounds(634, 409, 40, 31);
-		buyPanel.add(btnAddCornSeed);
-		
-		JButton btnAddCabbageSeed = new JButton();
-		cleanButtom(btnAddCabbageSeed);
-		btnAddCabbageSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddCabbageSeed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddCabbageSeed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,8, 2,1);
-				
-			}
-		});
-		btnAddCabbageSeed.setBounds(634, 463, 40, 31);
-		buyPanel.add(btnAddCabbageSeed);
-		
-		JButton btnAddFertilizer = new JButton();
-		cleanButtom(btnAddFertilizer);
-		btnAddFertilizer.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddFertilizer.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnAddFertilizer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,9, 2,1);
-				
-			}
-		});
-		btnAddFertilizer.setBounds(634, 516, 35, 31);
-		buyPanel.add(btnAddFertilizer);
-		
-		JButton btnDelSimple = new JButton();
-		cleanButtom(btnDelSimple);
-		btnDelSimple.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelSimple.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelSimple.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,0, 2,-1);
-				
-			}
-		});
-		btnDelSimple.setBounds(681, 13, 35, 31);
-		buyPanel.add(btnDelSimple);
-		
-		JButton btnDelgeneral = new JButton();
-		cleanButtom(btnDelgeneral);
-		btnDelgeneral.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelgeneral.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelgeneral.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,1, 2,-1);
-				
-			}
-		});
-		btnDelgeneral.setBounds(683, 72, 40, 28);
-		buyPanel.add(btnDelgeneral);
-		
-		JButton btnDeladvanced = new JButton();
-		cleanButtom(btnDeladvanced);
-		btnDeladvanced.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDeladvanced.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDeladvanced.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,2, 2,-1);
-				
-			}
-		});
-		btnDeladvanced.setBounds(683, 121, 40, 32);
-		buyPanel.add(btnDeladvanced);
-		
-		JButton btnDelYoungChicken = new JButton();
-		cleanButtom(btnDelYoungChicken);
-		btnDelYoungChicken.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelYoungChicken.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelYoungChicken.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,3, 2,-1);
-				
-			}
-		});
-		btnDelYoungChicken.setBounds(688, 185, 35, 31);
-		buyPanel.add(btnDelYoungChicken);
-		
-		JButton btnDelYoungPig = new JButton();
-		cleanButtom(btnDelYoungPig);
-		btnDelYoungPig.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelYoungPig.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelYoungPig.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,4, 2,-1);
-				
-			}
-		});
-		btnDelYoungPig.setBounds(688, 239, 35, 32);
-		buyPanel.add(btnDelYoungPig);
-		
-		JButton btnDelYoungCow = new JButton();
-		cleanButtom(btnDelYoungCow);
-		btnDelYoungCow.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelYoungCow.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelYoungCow.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,5, 2,-1);
-				
-			}
-		});
-		btnDelYoungCow.setBounds(683, 297, 35, 35);
-		buyPanel.add(btnDelYoungCow);
-		
-		JButton btnDelwheatseed = new JButton();
-		cleanButtom(btnDelwheatseed);
-		btnDelwheatseed.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelwheatseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelwheatseed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,6, 2,-1);
-				
-			}
-		});
-		btnDelwheatseed.setBounds(683, 356, 29, 31);
-		buyPanel.add(btnDelwheatseed);
-		
-		JButton btnDelcornseed = new JButton();
-		cleanButtom(btnDelcornseed);
-		btnDelcornseed.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelcornseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelcornseed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,7, 2,-1);
-				
-			}
-		});
-		btnDelcornseed.setBounds(688, 409, 35, 32);
-		buyPanel.add(btnDelcornseed);
-		
-		JButton btnDelcabbageseed = new JButton();
-		cleanButtom(btnDelcabbageseed);
-		btnDelcabbageseed.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelcabbageseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelcabbageseed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,8, 2,-1);
-				
-			}
-		});
-		btnDelcabbageseed.setBounds(688, 465, 35, 29);
-		buyPanel.add(btnDelcabbageseed);
-		
-		JButton btnDelfertilizer = new JButton();
-		cleanButtom(btnDelfertilizer);
-		btnDelfertilizer.setIcon(new ImageIcon("..\\picture\\del.png"));
-		btnDelfertilizer.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-		btnDelfertilizer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				editNumber(buyTable,9, 2,-1);
-				
-			}
-		});
-		
-		JButton btnBuyOk = new JButton("ok");
-		btnBuyOk.setBounds(695, 550, 197, 65);
-		buyPanel.add(btnBuyOk);
-		btnBuyOk.setIcon(new ImageIcon("..\\picture\\okbuy.png"));
-		cleanButtom(btnBuyOk);
-		btnBuyOk.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
-		btnBuyOk.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				if(isLegal(buyTable))//金錢足夠
-				{
-					int input = JOptionPane.showOptionDialog(null, "你確定要購買?", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-					if(input == 0) //ok
-					{
-						addItem();
-						lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
-						
-					}
-					
-				}
-				else
-				{
-					
-					String message = String.format("現有金錢為:%d元，金額不足",shop.getHoldMoney() );
-					JOptionPane.showMessageDialog(null,message);
-				}
-				cleanTable(buyTable);
-				
-			}
-		});
-		
-			buyTable = new JTable();
-			buyTable.setBounds(0, 0, 618, 615);
-			buyPanel.add(buyTable);
-			buyTable.setRowHeight(56);
-			buyTable.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
-			buyTable.setBackground(new Color(255 ,224 ,252));
-			buyTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{simple, 5, 0, "動物成長率增加5%"},
-					{general, 8, 0, "動物成長率增加10%"},
-					{advanced,15, 0, "動物成長率增加20%"},
-					{chicken, 20, 0, "小雞"},
-					{pig, 30, 0,"小豬"},
-					{cow, 50, 0, "小牛"},
-					{wheat,5, 0, "小麥種子"},
-					{corn,10, 0, "玉米種子"},
-					{cabbage, 15, 0, "高麗菜種子"},
-					{fertilizer, 20, 0, "植物成長率增加10%"},
-					{total, null, 0, null},
-				},label){
-				private static final long serialVersionUID = 1L;
-
-				public Class<? extends Object> getColumnClass(int column)
-	            {
-	                return getValueAt(0, column).getClass();
-	            }
-				@Override
-			    public boolean isCellEditable(int row, int column) {
-			        return false;
-			    }
-			});
-			
-			buyTable.setVisible(true);
-			setTableColumnWidth(buyTable);
-			btnDelfertilizer.setBounds(688, 516, 35, 31);
-			buyPanel.add(btnDelfertilizer);
-		
 		JPanel panel = new JPanel();
 		panel.setBounds(268, 13, 882, 615);
 		this.add(panel);
@@ -581,13 +226,21 @@ public class ShopScreen extends JPanel implements ActionListener {
 				if((int)table.getValueAt(0, 2) < shop.getChickenNumber())
 					editNumber(table,0, 2,1);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddchicken.setIcon(resizeImage(btnAddchicken.getIcon().getIconWidth()+5,btnAddchicken.getIcon().getIconHeight()+5,(ImageIcon)btnAddchicken.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddchicken.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddchicken.setBounds(481, 34, 38, 40);
 		
 		btnAddpig = new JButton();
 		cleanButtom(btnAddpig);
 		btnAddpig.setIcon(new ImageIcon("..\\picture\\add.png"));
-		btnAddchicken.setFont(new Font("微軟正黑體 Light", Font.PLAIN,17));
+		btnAddpig.setFont(new Font("微軟正黑體 Light", Font.PLAIN,17));
 		btnAddpig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -598,6 +251,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 				if((int)table.getValueAt(1, 2) < shop.getPigNumber())
 					editNumber(table,1, 2,1);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddpig.setIcon(resizeImage(btnAddpig.getIcon().getIconWidth()+5,btnAddpig.getIcon().getIconHeight()+5,(ImageIcon)btnAddpig.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddpig.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddpig.setBounds(481, 130, 38, 35);
 		
@@ -611,6 +272,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 				if((int)table.getValueAt(2, 2) < shop.getCowNumber())
 					editNumber(table,2, 2,1);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddcow.setIcon(resizeImage(btnAddcow.getIcon().getIconWidth()+5,btnAddcow.getIcon().getIconHeight()+5,(ImageIcon)btnAddcow.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddcow.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddcow.setBounds(481, 201, 38, 40);
 		
@@ -627,6 +296,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,3, 2,1);
 			
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddwheat.setIcon(resizeImage(btnAddwheat.getIcon().getIconWidth()+5,btnAddwheat.getIcon().getIconHeight()+5,(ImageIcon)btnAddwheat.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddwheat.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddwheat.setBounds(481, 290, 38, 40);
 		
@@ -641,6 +318,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 				if((int)table.getValueAt(4, 2) < shop.getCornNumber())
 					editNumber(table,4, 2,1);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddcorn.setIcon(resizeImage(btnAddcorn.getIcon().getIconWidth()+5,btnAddcorn.getIcon().getIconHeight()+5,(ImageIcon)btnAddcorn.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddcorn.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddcorn.setBounds(481, 375, 38, 40);
 		
@@ -655,8 +340,15 @@ public class ShopScreen extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				if((int)table.getValueAt(5, 2) < shop.getCabbageNumber())
 					editNumber(table,5, 2,1);
-				
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddcabbage.setIcon(resizeImage(btnAddcabbage.getIcon().getIconWidth()+5,btnAddcabbage.getIcon().getIconHeight()+5,(ImageIcon)btnAddcabbage.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddcabbage.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
 		});
 		btnAddcabbage.setBounds(481, 468, 44, 46);
 		
@@ -676,13 +368,17 @@ public class ShopScreen extends JPanel implements ActionListener {
 				}
 				cleanTable(table);
 				
-				
-					
-				
-				
-			}
+			}     
+            @Override
+            public void mouseEntered(MouseEvent arg0) {
+            	btnOk.setIcon(resizeImage(btnOk.getIcon().getIconWidth()+10,btnOk.getIcon().getIconHeight()+10,(ImageIcon)btnOk.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnOk.setIcon(new ImageIcon("..\\picture\\oksell.png"));
+            }  
 		});
-		btnOk.setBounds(640, 531, 196, 58);
+		btnOk.setBounds(618, 531, 218, 84);
 		btnOk.setHorizontalAlignment(SwingConstants.TRAILING);
 		
 		
@@ -731,6 +427,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,0, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelchicken.setIcon(resizeImage(btnDelchicken.getIcon().getIconWidth()+5,btnDelchicken.getIcon().getIconHeight()+5,(ImageIcon)btnDelchicken.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelchicken.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelchicken.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -750,6 +454,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,1, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelpig.setIcon(resizeImage(btnDelpig.getIcon().getIconWidth()+5,btnDelpig.getIcon().getIconHeight()+5,(ImageIcon)btnDelpig.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelpig.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelpig.setBounds(533, 125, 38, 40);
 			panel.add(btnDelpig);
@@ -764,6 +476,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,2, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelcow.setIcon(resizeImage(btnDelcow.getIcon().getIconWidth()+5,btnDelcow.getIcon().getIconHeight()+5,(ImageIcon)btnDelcow.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelcow.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelcow.setBounds(533, 201, 44, 40);
 			panel.add(btnDelcow);
@@ -778,6 +498,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,3, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelwheat.setIcon(resizeImage(btnDelwheat.getIcon().getIconWidth()+5,btnDelwheat.getIcon().getIconHeight()+5,(ImageIcon)btnDelwheat.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelwheat.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelwheat.setBounds(533, 295, 38, 35);
 			panel.add(btnDelwheat);
@@ -792,6 +520,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,4, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelcorn.setIcon(resizeImage(btnDelcorn.getIcon().getIconWidth()+5,btnDelcorn.getIcon().getIconHeight()+5,(ImageIcon)btnDelcorn.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelcorn.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelcorn.setBounds(533, 376, 40, 39);
 			panel.add(btnDelcorn);
@@ -806,17 +542,559 @@ public class ShopScreen extends JPanel implements ActionListener {
 					editNumber(table,5, 2,-1);
 					
 				}
+				@Override
+	            public void mouseEntered(MouseEvent arg0) {
+					btnDelcabbage.setIcon(resizeImage(btnDelcabbage.getIcon().getIconWidth()+5,btnDelcabbage.getIcon().getIconHeight()+5,(ImageIcon)btnDelcabbage.getIcon()));
+	            } 
+	            @Override
+	            public void mouseExited(MouseEvent arg0) {
+	            	btnDelcabbage.setIcon(new ImageIcon("..\\picture\\del.png"));
+	            } 
 			});
 			btnDelcabbage.setBounds(533, 468, 38, 40);
 			panel.add(btnDelcabbage);
 		
-		btnReturn = new JButton("return");
+		JPanel buyPanel = new JPanel();
+		buyPanel.setBounds(254, 13, 915, 628);
+		buyPanel.setOpaque(false);
+		this.add(buyPanel);
+		buyPanel.setLayout(null);
+		buyPanel.setVisible(false);
 		
+		JButton btnAddSimple = new JButton();
+		cleanButtom(btnAddSimple);
+		btnAddSimple.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddSimple.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		
+		btnAddSimple.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,0, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddSimple.setIcon(resizeImage(btnAddSimple.getIcon().getIconWidth()+5,btnAddSimple.getIcon().getIconHeight()+5,(ImageIcon)btnAddSimple.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddSimple.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddSimple.setBounds(634, 13, 35, 31);
+		buyPanel.add(btnAddSimple);
+		
+		JButton btnAddGeneral = new JButton();
+		cleanButtom(btnAddGeneral);
+		btnAddGeneral.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddGeneral.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		
+		btnAddGeneral.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,1, 2,1);
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddGeneral.setIcon(resizeImage(btnAddGeneral.getIcon().getIconWidth()+5,btnAddGeneral.getIcon().getIconHeight()+5,(ImageIcon)btnAddGeneral.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddGeneral.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddGeneral.setBounds(634, 72, 35, 31);
+		buyPanel.add(btnAddGeneral);
+		
+		JButton btnAddAdvanced = new JButton("");
+		cleanButtom(btnAddAdvanced);
+		btnAddAdvanced.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddAdvanced.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddAdvanced.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,2, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddAdvanced.setIcon(resizeImage(btnAddAdvanced.getIcon().getIconWidth()+5,btnAddAdvanced.getIcon().getIconHeight()+5,(ImageIcon)btnAddAdvanced.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddAdvanced.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddAdvanced.setBounds(634, 122, 35, 31);
+		buyPanel.add(btnAddAdvanced);
+		
+		JButton btnAddYoungChicken = new JButton();
+		cleanButtom(btnAddYoungChicken);
+		btnAddYoungChicken.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddYoungChicken.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddYoungChicken.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,3, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddYoungChicken.setIcon(resizeImage(btnAddYoungChicken.getIcon().getIconWidth()+5,btnAddYoungChicken.getIcon().getIconHeight()+5,(ImageIcon)btnAddYoungChicken.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddYoungChicken.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddYoungChicken.setBounds(634, 184, 40, 32);
+		buyPanel.add(btnAddYoungChicken);
+		
+		JButton btnAddYoungPig = new JButton();
+		cleanButtom(btnAddYoungPig);
+		btnAddYoungPig.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddYoungPig.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddYoungPig.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,4, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddYoungPig.setIcon(resizeImage(btnAddYoungPig.getIcon().getIconWidth()+5,btnAddYoungPig.getIcon().getIconHeight()+5,(ImageIcon)btnAddYoungPig.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddYoungPig.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddYoungPig.setBounds(634, 240, 40, 31);
+		buyPanel.add(btnAddYoungPig);
+		
+		JButton btnAddYoungCow = new JButton();
+		cleanButtom(btnAddYoungCow);
+		btnAddYoungCow.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddYoungCow.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddYoungCow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,5, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddYoungCow.setIcon(resizeImage(btnAddYoungCow.getIcon().getIconWidth()+5,btnAddYoungCow.getIcon().getIconHeight()+5,(ImageIcon)btnAddYoungCow.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddYoungCow.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddYoungCow.setBounds(634, 297, 35, 31);
+		buyPanel.add(btnAddYoungCow);
+		
+		JButton btnAddwheatseed = new JButton();
+		cleanButtom(btnAddwheatseed);
+		btnAddwheatseed.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddwheatseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddwheatseed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,6, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddwheatseed.setIcon(resizeImage(btnAddwheatseed.getIcon().getIconWidth()+5,btnAddwheatseed.getIcon().getIconHeight()+5,(ImageIcon)btnAddwheatseed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddwheatseed.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddwheatseed.setBounds(634, 356, 35, 31);
+		buyPanel.add(btnAddwheatseed);
+		
+		JButton btnAddCornSeed = new JButton();
+		cleanButtom(btnAddCornSeed);
+		btnAddCornSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddCornSeed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddCornSeed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,7, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddCornSeed.setIcon(resizeImage(btnAddCornSeed.getIcon().getIconWidth()+5,btnAddCornSeed.getIcon().getIconHeight()+5,(ImageIcon)btnAddCornSeed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddCornSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddCornSeed.setBounds(634, 409, 40, 31);
+		buyPanel.add(btnAddCornSeed);
+		
+		JButton btnAddCabbageSeed = new JButton();
+		cleanButtom(btnAddCabbageSeed);
+		btnAddCabbageSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddCabbageSeed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddCabbageSeed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,8, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddCabbageSeed.setIcon(resizeImage(btnAddCabbageSeed.getIcon().getIconWidth()+5,btnAddCabbageSeed.getIcon().getIconHeight()+5,(ImageIcon)btnAddCabbageSeed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddCabbageSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddCabbageSeed.setBounds(634, 463, 40, 31);
+		buyPanel.add(btnAddCabbageSeed);
+		
+		JButton btnAddFertilizer = new JButton();
+		cleanButtom(btnAddFertilizer);
+		btnAddFertilizer.setIcon(new ImageIcon("..\\picture\\add.png"));
+		btnAddFertilizer.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnAddFertilizer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,9, 2,1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnAddFertilizer.setIcon(resizeImage(btnAddFertilizer.getIcon().getIconWidth()+5,btnAddFertilizer.getIcon().getIconHeight()+5,(ImageIcon)btnAddFertilizer.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnAddFertilizer.setIcon(new ImageIcon("..\\picture\\add.png"));
+            } 
+		});
+		btnAddFertilizer.setBounds(634, 516, 35, 31);
+		buyPanel.add(btnAddFertilizer);
+		
+		JButton btnDelSimple = new JButton();
+		cleanButtom(btnDelSimple);
+		btnDelSimple.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelSimple.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelSimple.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,0, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelSimple.setIcon(resizeImage(btnDelSimple.getIcon().getIconWidth()+5,btnDelSimple.getIcon().getIconHeight()+5,(ImageIcon)btnDelSimple.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelSimple.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelSimple.setBounds(681, 13, 35, 31);
+		buyPanel.add(btnDelSimple);
+		
+		JButton btnDelgeneral = new JButton();
+		cleanButtom(btnDelgeneral);
+		btnDelgeneral.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelgeneral.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelgeneral.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,1, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelgeneral.setIcon(resizeImage(btnDelgeneral.getIcon().getIconWidth()+5,btnDelgeneral.getIcon().getIconHeight()+5,(ImageIcon)btnDelgeneral.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelgeneral.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelgeneral.setBounds(683, 72, 40, 28);
+		buyPanel.add(btnDelgeneral);
+		
+		JButton btnDeladvanced = new JButton();
+		cleanButtom(btnDeladvanced);
+		btnDeladvanced.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDeladvanced.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDeladvanced.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,2, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDeladvanced.setIcon(resizeImage(btnDeladvanced.getIcon().getIconWidth()+5,btnDeladvanced.getIcon().getIconHeight()+5,(ImageIcon)btnDeladvanced.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDeladvanced.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDeladvanced.setBounds(683, 121, 40, 32);
+		buyPanel.add(btnDeladvanced);
+		
+		JButton btnDelYoungChicken = new JButton();
+		cleanButtom(btnDelYoungChicken);
+		btnDelYoungChicken.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelYoungChicken.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelYoungChicken.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,3, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelYoungChicken.setIcon(resizeImage(btnDelYoungChicken.getIcon().getIconWidth()+5,btnDelYoungChicken.getIcon().getIconHeight()+5,(ImageIcon)btnDelYoungChicken.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelYoungChicken.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelYoungChicken.setBounds(688, 185, 35, 31);
+		buyPanel.add(btnDelYoungChicken);
+		
+		JButton btnDelYoungPig = new JButton();
+		cleanButtom(btnDelYoungPig);
+		btnDelYoungPig.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelYoungPig.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelYoungPig.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,4, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelYoungPig.setIcon(resizeImage(btnDelYoungPig.getIcon().getIconWidth()+5,btnDelYoungPig.getIcon().getIconHeight()+5,(ImageIcon)btnDelYoungPig.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelYoungPig.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelYoungPig.setBounds(688, 239, 35, 32);
+		buyPanel.add(btnDelYoungPig);
+		
+		JButton btnDelYoungCow = new JButton();
+		cleanButtom(btnDelYoungCow);
+		btnDelYoungCow.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelYoungCow.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelYoungCow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,5, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelYoungCow.setIcon(resizeImage(btnDelYoungCow.getIcon().getIconWidth()+5,btnDelYoungCow.getIcon().getIconHeight()+5,(ImageIcon)btnDelYoungCow.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelYoungCow.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelYoungCow.setBounds(683, 297, 35, 35);
+		buyPanel.add(btnDelYoungCow);
+		
+		JButton btnDelwheatseed = new JButton();
+		cleanButtom(btnDelwheatseed);
+		btnDelwheatseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelwheatseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelwheatseed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,6, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelwheatseed.setIcon(resizeImage(btnDelwheatseed.getIcon().getIconWidth()+5,btnDelwheatseed.getIcon().getIconHeight()+5,(ImageIcon)btnDelwheatseed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelwheatseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelwheatseed.setBounds(683, 356, 29, 31);
+		buyPanel.add(btnDelwheatseed);
+		
+		JButton btnDelcornseed = new JButton();
+		cleanButtom(btnDelcornseed);
+		btnDelcornseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelcornseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelcornseed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,7, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelcornseed.setIcon(resizeImage(btnDelcornseed.getIcon().getIconWidth()+5,btnDelcornseed.getIcon().getIconHeight()+5,(ImageIcon)btnDelcornseed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelcornseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelcornseed.setBounds(688, 409, 35, 32);
+		buyPanel.add(btnDelcornseed);
+		
+		JButton btnDelcabbageseed = new JButton();
+		cleanButtom(btnDelcabbageseed);
+		btnDelcabbageseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelcabbageseed.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelcabbageseed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,8, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelcabbageseed.setIcon(resizeImage(btnDelcabbageseed.getIcon().getIconWidth()+5,btnDelcabbageseed.getIcon().getIconHeight()+5,(ImageIcon)btnDelcabbageseed.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelcabbageseed.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		btnDelcabbageseed.setBounds(688, 465, 35, 29);
+		buyPanel.add(btnDelcabbageseed);
+		
+		JButton btnDelfertilizer = new JButton();
+		cleanButtom(btnDelfertilizer);
+		btnDelfertilizer.setIcon(new ImageIcon("..\\picture\\del.png"));
+		btnDelfertilizer.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+		btnDelfertilizer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				editNumber(buyTable,9, 2,-1);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnDelfertilizer.setIcon(resizeImage(btnDelfertilizer.getIcon().getIconWidth()+5,btnDelfertilizer.getIcon().getIconHeight()+5,(ImageIcon)btnDelfertilizer.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnDelfertilizer.setIcon(new ImageIcon("..\\picture\\del.png"));
+            } 
+		});
+		
+		JButton btnBuyOk = new JButton("ok");
+		btnBuyOk.setBounds(688, 560, 204, 55);
+		buyPanel.add(btnBuyOk);
+		btnBuyOk.setIcon(new ImageIcon("..\\picture\\okbuy.png"));
+		cleanButtom(btnBuyOk);
+		btnBuyOk.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
+		btnBuyOk.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(isLegal(buyTable))//金錢足夠
+				{
+					int input = JOptionPane.showOptionDialog(null, "你確定要購買?", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+					if(input == 0) //ok
+					{
+						addItem();
+						lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
+						
+					}
+					
+				}
+				else
+				{
+					
+					String message = String.format("現有金錢為:%d元，金額不足",shop.getHoldMoney() );
+					JOptionPane.showMessageDialog(null,message);
+				}
+				cleanTable(buyTable);
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnBuyOk.setIcon(resizeImage(btnBuyOk.getIcon().getIconWidth()+10,btnBuyOk.getIcon().getIconHeight()+10,(ImageIcon)btnBuyOk.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnBuyOk.setIcon(new ImageIcon("..\\picture\\okbuy.png"));
+            } 
+		});
+		
+			buyTable = new JTable();
+			buyTable.setBounds(0, 0, 618, 615);
+			buyPanel.add(buyTable);
+			buyTable.setRowHeight(56);
+			buyTable.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 17));
+			buyTable.setBackground(new Color(255 ,224 ,252));
+			buyTable.setModel(new DefaultTableModel(
+				new Object[][] {
+					{simple, 5, 0, "動物成長率增加5%"},
+					{general, 8, 0, "動物成長率增加10%"},
+					{advanced,15, 0, "動物成長率增加20%"},
+					{chicken, 20, 0, "小雞"},
+					{pig, 30, 0,"小豬"},
+					{cow, 50, 0, "小牛"},
+					{wheat,5, 0, "小麥種子"},
+					{corn,10, 0, "玉米種子"},
+					{cabbage, 15, 0, "高麗菜種子"},
+					{fertilizer, 20, 0, "植物成長率增加10%"},
+					{total, null, 0, null},
+				},label){
+				private static final long serialVersionUID = 1L;
+
+				public Class<? extends Object> getColumnClass(int column)
+	            {
+	                return getValueAt(0, column).getClass();
+	            }
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			        return false;
+			    }
+			});
+			
+			buyTable.setVisible(true);
+			setTableColumnWidth(buyTable);
+			btnDelfertilizer.setBounds(688, 516, 35, 31);
+			buyPanel.add(btnDelfertilizer);
+		
+		btnReturn = new JButton();
+		cleanButtom(btnReturn);
+		btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		
 		btnReturn.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
-		btnReturn.setBounds(75, 259, 135, 35);
+		btnReturn.setBounds(75, 245, 135, 102);
 		this.add(btnReturn);
 		btnReturn.addActionListener(this);
+		btnReturn.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnReturn.setIcon(resizeImage(btnReturn.getIcon().getIconWidth()+10,btnReturn.getIcon().getIconHeight()+10,(ImageIcon)btnReturn.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+            } 
+		});
 		
 		String holdMoney = String.format(":  %d", shop.getHoldMoney() );
 		
@@ -844,18 +1122,26 @@ public class ShopScreen extends JPanel implements ActionListener {
 		
 		
 		
-		btnBuy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnBuy.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(false);
 				buyPanel.setVisible(true);
 				cleanTable(table);
 				System.out.println(shop.getHoldMoney());
 
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnBuy.setIcon(resizeImage(btnBuy.getIcon().getIconWidth()+10,btnBuy.getIcon().getIconHeight()+10,(ImageIcon)btnBuy.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
+            } 
 		});
 		
-		btnSell.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnSell.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(true);
 				buyPanel.setVisible(false);
 				cleanTable(buyTable);
@@ -866,6 +1152,15 @@ public class ShopScreen extends JPanel implements ActionListener {
 				System.out.printf("Item %s num %d\n","玉米",shop.getCornNumber());
 				System.out.printf("Item %s num %d\n","高麗菜",shop.getCabbageNumber());
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				btnSell.setIcon(resizeImage(btnSell.getIcon().getIconWidth()+10,btnSell.getIcon().getIconHeight()+10,(ImageIcon)btnSell.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
+            } 
+			
 		});
 		
 		
@@ -879,4 +1174,5 @@ public class ShopScreen extends JPanel implements ActionListener {
 			this.mainFrame.changeToMainScreen();
 		}
 	}
+	
 }
