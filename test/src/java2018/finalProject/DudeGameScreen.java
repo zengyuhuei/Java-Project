@@ -38,9 +38,9 @@ public class DudeGameScreen extends JPanel {
 	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
 	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
 	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
-	ImageIcon cowhead = new ImageIcon("../picture/cowhead.PNG");
-	ImageIcon pighead = new ImageIcon("../picture/pighead.png");
-	ImageIcon chickenhead = new ImageIcon("../picture/chickenhead.png");
+	ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
+	ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
 	JLabel dudeAnimalNum = new JLabel("需捕捉數量:");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
 	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
@@ -508,6 +508,13 @@ class RunningButton extends TimerTask {
 			  button.get(i).setFocusPainted(false);
 			  button.get(i).setBorder(null);
 		  }
+	  }
+	  public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	  {
+		  Image i = img.getImage();
+		  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		  return  new ImageIcon(new_img);
+	
 	  }
 
 }
