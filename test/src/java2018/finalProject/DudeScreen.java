@@ -225,17 +225,6 @@ public class DudeScreen extends JPanel implements ActionListener {
 		RunningButton run1 = new RunningButton(animal1, 456, 231, dude, 0);
 		timer1.schedule(run1, 1000, 220);
 		animal1.setVisible(false);
-		animal1.addMouseListener(new MouseAdapter() {
-			@Override
-            public void mouseEntered(MouseEvent arg0) {
-				animal1.setIcon(resizeImage(animal1.getIcon().getIconWidth()+10,animal1.getIcon().getIconHeight()+10,(ImageIcon)animal1.getIcon()));
-            } 
-            @Override
-            public void mouseExited(MouseEvent arg0) {
-            	animal1.setIcon(new ImageIcon("..\\picture\\HOME.png"));
-            } 
-			
-		});
 		
 		animal2.setFont(new Font("Dialog", Font.BOLD, 20));
 		animal2.setBounds(384, 415, 100, 100);
