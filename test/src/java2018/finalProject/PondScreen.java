@@ -34,6 +34,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.GridLayout;
@@ -55,6 +56,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	private Timer timer;
 	private JLabel timeLabel;
 	private int time;
+	private ArrayList<ImageIcon> iconList;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -63,6 +65,8 @@ public class PondScreen extends JPanel implements ActionListener {
 
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
+		
+		loadBackgroundIcon();
 		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
@@ -141,7 +145,12 @@ public class PondScreen extends JPanel implements ActionListener {
 	            e.printStackTrace();
 	        }
     }
-
+    
+    private void loadBackgroundIcon() {
+    	for (int i = 1; i <= 98; ++i) {
+        	new ImageIcon("../picture/fishing-" + Integer.toString(i) + ".png");
+    	}
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
