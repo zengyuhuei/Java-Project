@@ -49,6 +49,8 @@ public class MainScreen extends JPanel {
 	private boolean farmPolyIn = false;
 	private Polygon pondPoly;
 	private boolean pondPolyIn = false;
+	
+	private ImageIcon enterWareHouse = imageResize(100, 30, new ImageIcon("../picture/enterWareHouse.png"));
 
 	/**
 	 * Launch the application.
@@ -63,7 +65,7 @@ public class MainScreen extends JPanel {
 		this.setSize(1200, 675);
 
 		toolTipText = new JLabel("", JLabel.CENTER);
-		toolTipText.setSize(60, 20);
+		toolTipText.setSize(100, 20);
 		toolTipText.setVisible(true);
 		this.add(toolTipText);
 		
@@ -162,7 +164,7 @@ public class MainScreen extends JPanel {
 						buttonSound();
 					}
 					hover = true;
-					toolTipText.setText("進入倉庫");
+					toolTipText.setIcon(enterWareHouse);
 					toolTipText.setLocation(e.getPoint());
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
@@ -213,12 +215,20 @@ public class MainScreen extends JPanel {
 				}
 				if (hover == false) {
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-					toolTipText.setText("");
+					toolTipText.setIcon(null);
+					toolTipText.setText(null);
 				}
 			}
 		});
 	}
     
+	private ImageIcon imageResize(int width, int height, ImageIcon imgIcon)
+	{
+		Image img = imgIcon.getImage();
+		Image imgR = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(imgR);
+	}
+	
     private void buttonSound()
     {
 		 try {
