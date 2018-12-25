@@ -19,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import java2018.finalProject.DudeScreen.RunningButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
 
@@ -48,6 +50,9 @@ public class DudeGameScreen extends JPanel {
 	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
 	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
+	JButton backToDudeBtn = new JButton();
+	JLabel successlbl = new JLabel();
+	JLabel faultlbl = new JLabel();
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
 	JButton animal3 = new JButton();
@@ -94,7 +99,7 @@ public class DudeGameScreen extends JPanel {
 		 }
 
 		 });
-		 gt.startTimer(41);
+		 gt.startTimer(31);
 
 
 		button.add(animal1);
@@ -148,6 +153,36 @@ public class DudeGameScreen extends JPanel {
 		dudeNumBack.setBounds(135, 22, 701, 99);
 		this.add(dudeNumBack);
 		dudeNumBack.setVisible(true);
+		
+		successlbl.setBounds(274, 159, 600, 400);
+		ImageIcon success = resizeImage(successlbl.getWidth(), successlbl.getHeight(), new ImageIcon("../picture/success.PNG"));
+		
+		faultlbl.setBounds(274, 159, 600, 400);
+		ImageIcon fault = resizeImage(faultlbl.getWidth(), faultlbl.getHeight(), new ImageIcon("../picture/fault.PNG"));
+		
+		backToDudeBtn.setBounds(518, 369, 118, 43);
+		ImageIcon backTodude = resizeImage(backToDudeBtn.getWidth(), backToDudeBtn.getHeight(), new ImageIcon("../picture/backToDude.PNG"));
+		backToDudeBtn.setIcon(backTodude);	
+		add(backToDudeBtn);
+		backToDudeBtn.setVisible(false);
+		backToDudeBtn.setOpaque(false);
+		backToDudeBtn.setContentAreaFilled(false);
+		backToDudeBtn.setFocusPainted(false);
+		backToDudeBtn.setBorder(null);
+		
+		backToDudeBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToDudeScreen();
+			}
+		});
+		successlbl.setIcon(success);	
+		add(successlbl);
+		successlbl.setVisible(false);
+		
+		faultlbl.setIcon(fault);	
+		add(faultlbl);
+		faultlbl.setVisible(false);
 		
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		animal1.setBounds(456, 231, 100, 100);
@@ -401,17 +436,29 @@ public class DudeGameScreen extends JPanel {
 				this.warehouse.editHoldMoney(100);
 				System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
 				gt.stopoTimer();
-				int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務達成，恭喜你獲得金幣!", null, JOptionPane.DEFAULT_OPTION);
+				/*int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務達成，恭喜你獲得金幣!", null, JOptionPane.DEFAULT_OPTION);
 				if(input==JOptionPane.YES_OPTION) {
 					mainFrame.changeToDudeScreen();
+				}*/
+				successlbl.setVisible(true);
+				for(int i=0; i<button.size(); i++)
+				{
+					button.get(i).setVisible(false);
 				}
+				backToDudeBtn.setVisible(true);
 			}
 		}
 		else {
-			int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務失敗，下次請加油!!", null, JOptionPane.DEFAULT_OPTION);
+			/*int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務失敗，下次請加油!!", null, JOptionPane.DEFAULT_OPTION);
 			if(input==JOptionPane.YES_OPTION) {
 				mainFrame.changeToDudeScreen();
+			}*/
+			faultlbl.setVisible(true);
+			for(int i=0; i<button.size(); i++)
+			{
+				button.get(i).setVisible(false);
 			}
+			backToDudeBtn.setVisible(true);
 		}
 	}
 class RunningButton extends TimerTask {
@@ -550,5 +597,4 @@ class RunningButton extends TimerTask {
 		  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		  return  new ImageIcon(new_img);
 	  }
-
 }
