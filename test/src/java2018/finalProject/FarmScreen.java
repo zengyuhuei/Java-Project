@@ -65,6 +65,14 @@ public class FarmScreen extends JPanel implements ActionListener {
 	ImageIcon fertilize = resizeImage (90,80,new ImageIcon("../picture/fertilizer.png"));
 	ImageIcon sowing = resizeImage (90,80,new ImageIcon("../picture/addCrop.png"));
 	ImageIcon killBug = resizeImage (80,85,new ImageIcon("../picture/killBug.png"));
+	ImageIcon seedBackground = new ImageIcon("../picture/feedBackground.PNG");
+	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
+	JLabel rateBackGround = new JLabel(rateBackground);
+	JLabel seedBackGround = new JLabel(seedBackground);
+	JLabel cornSeedNum = new JLabel();
+	JLabel wheatSeedNum = new JLabel();
+	JLabel cabbageSeedNum = new JLabel();
+	JLabel cropRate = new JLabel();
 	
 	
 	public void reload()
@@ -74,6 +82,15 @@ public class FarmScreen extends JPanel implements ActionListener {
 		sowingButton.setVisible(false);
 		waterButton.setVisible(false);
 		pesticideButton.setVisible(false);
+		cornButton.setVisible(false);
+		wheatButton.setVisible(false);
+		cabbageButton.setVisible(false);
+		cornSeedNum.setVisible(false);
+		wheatSeedNum.setVisible(false);
+		cabbageSeedNum.setVisible(false);
+		rateBackGround.setVisible(false);
+		seedBackGround.setVisible(false);
+		
 	}
 	
 	public void buttonOFF(JButton btn) {
@@ -109,6 +126,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
 			cabbageButton.setVisible(false);
+
+			seedBackGround.setVisible(false);
+			rateBackGround.setVisible(false);
 		}
 		else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
 		{
@@ -122,6 +142,11 @@ public class FarmScreen extends JPanel implements ActionListener {
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
 			cabbageButton.setVisible(false);
+			
+			seedBackGround.setVisible(false);
+			rateBackGround.setVisible(true);
+			cropRate.setVisible(true);
+			cropRate.setText("成長值: 100");
 		}
 		else
 		{
@@ -144,6 +169,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 			cornButton.setVisible(false);
 			wheatButton.setVisible(false);
 			cabbageButton.setVisible(false);
+
+			rateBackGround.setVisible(true);
+			cropRate.setVisible(true);
+			cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 		}
 	}
 	
@@ -154,12 +183,11 @@ public class FarmScreen extends JPanel implements ActionListener {
 		farm.setStoreCropNum();
 		
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
 		this.setLayout(null);
 		this.setSize(1200, 675);
 		
 		//收割button
-		harvestButton.setBounds(1065, 66, 130, 98);
+		harvestButton.setBounds(1075, 66, 130, 98);
 		harvestButton.setVisible(false);
 		buttonOFF(harvestButton);
 		this.add(harvestButton);
@@ -182,7 +210,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//澆水button
-		waterButton.setBounds(1065, 159, 130, 98);
+		waterButton.setBounds(1075, 159, 130, 98);
 		waterButton.setVisible(false);
 		this.add(waterButton);
 		buttonOFF(waterButton);
@@ -206,7 +234,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 
 		//施肥button
-		fertilizeButton.setBounds(1065, 251, 129, 98);
+		fertilizeButton.setBounds(1075, 252, 129, 98);
 		fertilizeButton.setVisible(false);
 		buttonOFF(fertilizeButton);
 		this.add(fertilizeButton);
@@ -236,7 +264,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		
 
 		//播種button
-		sowingButton.setBounds(1065, 345, 130, 98);
+		sowingButton.setBounds(1075, 346, 130, 98);
 		sowingButton.setVisible(false);
 		buttonOFF(sowingButton);
 		this.add(sowingButton);
@@ -247,16 +275,28 @@ public class FarmScreen extends JPanel implements ActionListener {
 				System.out.println("玉米種子數量 = "+wareHouse.getCornSeedNumber());
 				System.out.println("小麥種子數量 = "+wareHouse.getWheatSeedNumber());
 				System.out.println("高麗菜種子數量 = "+wareHouse.getCabbageSeedNumber());
+
+				cornSeedNum.setText(" X "+ wareHouse.getCornSeedNumber());
+				wheatSeedNum.setText(" X "+ wareHouse.getWheatSeedNumber());
+				cabbageSeedNum.setText(" X "+ wareHouse.getCabbageSeedNumber());
 				
 				cornButton.setVisible(true);
 				wheatButton.setVisible(true);
 				cabbageButton.setVisible(true);
+				seedBackGround.setVisible(true);
+				cornSeedNum.setVisible(true);
+				wheatSeedNum.setVisible(true);
+				cabbageSeedNum.setVisible(true);
 				if(wareHouse.getCornSeedNumber() == 0)
 					cornButton.setEnabled(false);
+				else cornButton.setEnabled(true);
 				if(wareHouse.getWheatSeedNumber() == 0)
 					wheatButton.setEnabled(false);
+				else wheatButton.setEnabled(true);
 				if(wareHouse.getCabbageSeedNumber() == 0)
 					cabbageButton.setEnabled(false);
+				else cabbageButton.setEnabled(true);
+				
 				cornButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
 			        	if(farm.getStoreCropNum(landNum)== -1)
@@ -267,6 +307,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 							cabbageButton.setVisible(false);
 							sowingButton.setEnabled(false);
 							waterButton.setEnabled(true);
+							seedBackGround.setVisible(false);
+							cornSeedNum.setVisible(false);
+							wheatSeedNum.setVisible(false);
+							cabbageSeedNum.setVisible(false);
 							if(wareHouse.getFertilizer() == 0)
 								fertilizeButton.setEnabled(false);
 							else
@@ -287,6 +331,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 							cabbageButton.setVisible(false);
 							sowingButton.setEnabled(false);
 							waterButton.setEnabled(true);
+							seedBackGround.setVisible(false);
+							cornSeedNum.setVisible(false);
+							wheatSeedNum.setVisible(false);
+							cabbageSeedNum.setVisible(false);
 							if(wareHouse.getFertilizer() == 0)
 								fertilizeButton.setEnabled(false);
 							else
@@ -308,6 +356,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 							cabbageButton.setVisible(false);
 							sowingButton.setEnabled(false);
 							waterButton.setEnabled(true);
+							seedBackGround.setVisible(false);
+							cornSeedNum.setVisible(false);
+							wheatSeedNum.setVisible(false);
+							cabbageSeedNum.setVisible(false);
 							if(wareHouse.getFertilizer() == 0)
 								fertilizeButton.setEnabled(false);
 							else
@@ -322,7 +374,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//除蟲除草button
-		pesticideButton.setBounds(1065, 439, 130, 92);
+		pesticideButton.setBounds(1075, 442, 130, 92);
 		pesticideButton.setVisible(false);
 		this.add(pesticideButton);
 		buttonOFF(pesticideButton);
@@ -352,37 +404,58 @@ public class FarmScreen extends JPanel implements ActionListener {
 			
 		});
 		this.add(returnButton);
-		cornButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
-		cornButton.setBounds(966, 363, 84, 69);
+		cornButton.setBounds(957, 369, 84, 75);
 		cornButton.setVisible(false);
 		this.add(cornButton);
 		buttonOFF(cornButton);
 		cornButton.setFont(new java.awt.Font("Dialog", 1, 20));
 		cornButton.setIcon(cornSeed);
 		
+		cornSeedNum.setBounds(1026, 379, 131, 43);
+		cornSeedNum.setVisible(false);
+		this.add(cornSeedNum);
+		cornSeedNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
-		wheatButton.setBounds(867, 363, 84, 69);
+		wheatButton.setBounds(822, 357, 84, 75);
 		wheatButton.setVisible(false);
 		this.add(wheatButton);
 		buttonOFF(wheatButton);
 		wheatButton.setFont(new java.awt.Font("Dialog", 1, 20));
 		wheatButton.setIcon(wheatSeed);
-		cabbageButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
+		wheatSeedNum.setBounds(894, 379, 131, 43);
+		wheatSeedNum.setVisible(false);
+		this.add(wheatSeedNum);
+		wheatSeedNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
-		cabbageButton.setBounds(768, 363, 84, 69);
+		cabbageButton.setBounds(678, 369, 84, 75);
 		cabbageButton.setVisible(false);
 		this.add(cabbageButton);
 		buttonOFF(cabbageButton);
 		cabbageButton.setFont(new java.awt.Font("Dialog", 1, 20));
 		cabbageButton.setIcon(cabbageSeed);
+		
+		cabbageSeedNum.setBounds(756, 379, 131, 43);
+		cabbageSeedNum.setVisible(false);
+		this.add(cabbageSeedNum);
+		cabbageSeedNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		
+		//種子工具列背景
+		seedBackGround.setBounds(689, 365, 400, 69);
+		seedBackGround.setVisible(false);
+		this.add(seedBackGround);
+		seedBackGround.setIcon(seedBackground);
+		
+		//成長值背景
+		cropRate.setBounds(59, 27, 167, 43);
+		cropRate.setVisible(false);
+		this.add(cropRate);
+		cropRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		rateBackGround.setBounds(-127, 15, 417, 69);
+		rateBackGround.setVisible(false);
+		this.add(rateBackGround);
+		rateBackGround.setIcon(rateBackground);
 		
 		//Land0
 		//button_0.setAction(action);
@@ -533,6 +606,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == returnButton) {
+			reload();
 			this.mainFrame.changeToMainScreen();
 		}
 	}
