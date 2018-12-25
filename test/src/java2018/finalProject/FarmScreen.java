@@ -17,8 +17,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -30,7 +38,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 
 	//private final Action action = new SwingAction();
 	private Main mainFrame;
-	private JButton returnButton = new JButton("return");
+	private JButton returnButton = new JButton("");
 	//private ArrayList<Crop> crop = new ArrayList<Crop>(12);
 	//private int[] storeCropArray = new int[12];
 	private int count = 0;
@@ -102,7 +110,23 @@ public class FarmScreen extends JPanel implements ActionListener {
 		cropRate.setVisible(false);
 		
 	}
-	
+	public void buttonSound()
+	{
+    	 try {           
+	            File soundFile = new File("..\\sound\\button.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	    
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+	}
 	public void buttonOFF(JButton btn) {
     	btn.setOpaque(false);
 		btn.setContentAreaFilled(false);
@@ -258,6 +282,17 @@ public class FarmScreen extends JPanel implements ActionListener {
 				}
 			}
 		});
+		harvestButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				harvestButton.setIcon(resizeImage(harvestButton.getIcon().getIconWidth()+10,harvestButton.getIcon().getIconHeight()+10,(ImageIcon)harvestButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	harvestButton.setIcon(resizeImage (100,80,new ImageIcon("../picture/harvest.png")));
+            } 
+		});
 		
 		//澆水button
 		waterButton.setBounds(1075, 159, 130, 98);
@@ -282,6 +317,17 @@ public class FarmScreen extends JPanel implements ActionListener {
 				}
 				reload();
 			}
+		});
+		waterButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				waterButton.setIcon(resizeImage(waterButton.getIcon().getIconWidth()+10,waterButton.getIcon().getIconHeight()+10,(ImageIcon)waterButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	waterButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/water.png")));
+            } 
 		});
 
 		//施肥button
@@ -313,7 +359,17 @@ public class FarmScreen extends JPanel implements ActionListener {
 				reload();
 			}
 		});
-		
+		fertilizeButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				fertilizeButton.setIcon(resizeImage(fertilizeButton.getIcon().getIconWidth()+10,fertilizeButton.getIcon().getIconHeight()+10,(ImageIcon)fertilizeButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	fertilizeButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/fertilizer.png")));
+            } 
+		});
 
 		//播種button
 		sowingButton.setBounds(1075, 346, 130, 98);
@@ -372,6 +428,17 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	}
 			        }
 			    });
+				cornButton.addMouseListener(new MouseAdapter() {
+					@Override
+		            public void mouseEntered(MouseEvent arg0) {
+						cornButton.setIcon(resizeImage(cornButton.getIcon().getIconWidth()+10,cornButton.getIcon().getIconHeight()+10,(ImageIcon)cornButton.getIcon()));
+						buttonSound();
+					} 
+		            @Override
+		            public void mouseExited(MouseEvent arg0) {
+		            	cornButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/corn.png")));
+		            } 
+				});
 			
 			
 				wheatButton.addActionListener(new ActionListener() {
@@ -398,7 +465,17 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	
 			        }
 			    });
-			
+				wheatButton.addMouseListener(new MouseAdapter() {
+					@Override
+		            public void mouseEntered(MouseEvent arg0) {
+						wheatButton.setIcon(resizeImage(wheatButton.getIcon().getIconWidth()+10,wheatButton.getIcon().getIconHeight()+10,(ImageIcon)wheatButton.getIcon()));
+						buttonSound();
+					} 
+		            @Override
+		            public void mouseExited(MouseEvent arg0) {
+		            	wheatButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/wheat.png")));
+		            } 
+				});
 			
 				cabbageButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
@@ -424,8 +501,30 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	
 			        }
 			    });
+				cabbageButton.addMouseListener(new MouseAdapter() {
+					@Override
+		            public void mouseEntered(MouseEvent arg0) {
+						cabbageButton.setIcon(resizeImage(cabbageButton.getIcon().getIconWidth()+10,cabbageButton.getIcon().getIconHeight()+10,(ImageIcon)cabbageButton.getIcon()));
+						buttonSound();
+					} 
+		            @Override
+		            public void mouseExited(MouseEvent arg0) {
+		            	cabbageButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/cabbage.png")));
+		            } 
+				});
 			
 			}
+		});
+		sowingButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				sowingButton.setIcon(resizeImage(sowingButton.getIcon().getIconWidth()+10,sowingButton.getIcon().getIconHeight()+10,(ImageIcon)sowingButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	sowingButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/addCrop.png")));
+            } 
 		});
 		
 		//除蟲除草button
@@ -439,19 +538,31 @@ public class FarmScreen extends JPanel implements ActionListener {
 				//farm.xxx;
 			}
 		});
+		pesticideButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				pesticideButton.setIcon(resizeImage(pesticideButton.getIcon().getIconWidth()+10,pesticideButton.getIcon().getIconHeight()+10,(ImageIcon)pesticideButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	pesticideButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/killBug.png")));
+            } 
+		});
 		
 		//HOME鍵返回
 		returnButton.setFont(new Font("Dialog", Font.BOLD, 20));	
 		buttonOFF(returnButton);
 		returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		returnButton.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		returnButton.setBounds(1065, 529, 140, 98);
+		returnButton.setBounds(1060, 529, 145, 110);
 		returnButton.addActionListener(this);
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				returnButton.setIcon(resizeImage(returnButton.getIcon().getIconWidth()+10,returnButton.getIcon().getIconHeight()+10,(ImageIcon)returnButton.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
@@ -460,7 +571,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		this.add(returnButton);
 		
-		cornButton.setBounds(957, 369, 84, 75);
+		cornButton.setBounds(955, 357, 86, 87);
 		cornButton.setVisible(false);
 		this.add(cornButton);
 		buttonOFF(cornButton);
@@ -472,7 +583,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.add(cornSeedNum);
 		cornSeedNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
-		wheatButton.setBounds(822, 357, 84, 75);
+		wheatButton.setBounds(822, 357, 86, 87);
 		wheatButton.setVisible(false);
 		this.add(wheatButton);
 		buttonOFF(wheatButton);
@@ -484,7 +595,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.add(wheatSeedNum);
 		wheatSeedNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		
-		cabbageButton.setBounds(678, 369, 84, 75);
+		cabbageButton.setBounds(676, 357, 86, 87);
 		cabbageButton.setVisible(false);
 		this.add(cabbageButton);
 		buttonOFF(cabbageButton);
@@ -503,7 +614,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		seedBackGround.setIcon(seedBackground);
 		
 		//成長值背景
-		cropRate.setBounds(59, 27, 167, 43);
+		cropRate.setBounds(47, 25, 167, 43);
 		cropRate.setVisible(false);
 		this.add(cropRate);
 		cropRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 25));
@@ -516,6 +627,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//button_0.setAction(action);
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 0;
 				LandButton(farm, wareHouse);
 			}
@@ -527,6 +639,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land3
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 3;
 				LandButton(farm, wareHouse);
 			}
@@ -538,6 +651,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land6
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 6;
 				LandButton(farm, wareHouse);
 			}
@@ -549,6 +663,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land9
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 9;
 				LandButton(farm, wareHouse);
 			}
@@ -560,6 +675,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land1
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 1;
 				LandButton(farm, wareHouse);
 			}
@@ -571,6 +687,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land4
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 4;
 				LandButton(farm, wareHouse);
 			}
@@ -582,6 +699,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land7
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 7;
 				LandButton(farm, wareHouse);
 			}
@@ -593,6 +711,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land10
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 10;
 				LandButton(farm, wareHouse);
 			}
@@ -604,6 +723,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land2
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 2;
 				LandButton(farm, wareHouse);
 			}
@@ -615,6 +735,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land5
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 5;
 				LandButton(farm, wareHouse);
 			}
@@ -626,6 +747,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land8
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 8;
 				LandButton(farm, wareHouse);
 			}
@@ -637,6 +759,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land11
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				reload();
 				landNum = 11;
 				LandButton(farm, wareHouse);
 			}
