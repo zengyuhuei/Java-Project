@@ -58,6 +58,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	private int time;
 	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
 	private JLabel bgLabel;
+	private int imgC = 0;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -106,8 +107,20 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		bgLabel = new JLabel();
 		bgLabel.setSize(1000, 800);
-		bgLabel.setIcon(iconList.get(0));
 		this.add(bgLabel);
+		Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				imgC++;
+				bgLabel.setIcon(iconList.get(imgC));
+				System.out.print(imgC);
+				
+				if (imgC == 97) {
+					imgC = 0;
+				}
+			}
+		}, 0, 30);
 	}
 	
 	private void timerStart() {
