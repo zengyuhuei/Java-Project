@@ -3,7 +3,14 @@ package java2018.finalProject;
 import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,6 +23,8 @@ public class Main extends JFrame {
 	private JPanel farmScreen;
 	private JPanel mainScreen;
 	private WareHouse warehouse;
+	private Thread bgMusicThread;
+	private Thread gameMusicThread;
 	
 	public Main(WareHouse warehouse) {
 		this.warehouse = warehouse;
@@ -28,6 +37,13 @@ public class Main extends JFrame {
 		this.farmScreen = new FarmScreen(this, this.warehouse);
 		this.mainScreen = new MainScreen(this);
 		
+		/*bgMusicThread = new Thread() {
+			@Override
+			public void run() {
+				backgroundSound();
+			}
+		};
+		bgMusicThread.start();*/
 		this.changeToMainScreen();
 	}
 	
@@ -69,7 +85,27 @@ public class Main extends JFrame {
 		this.setTitle("農場");
 		this.setContentPane(farmScreen);
 	}
-	
+
+    
+    private void backgroundSound()
+    {
+    	while(true) {
+    		try {
+				File soundFile = new File("..\\sound\\background.wav");
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioIn);
+				clip.start();
+	            
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+    	}
+    }
 	
 	public static void main(String[] args) {
 		WareHouse wareHouse = new WareHouse();
