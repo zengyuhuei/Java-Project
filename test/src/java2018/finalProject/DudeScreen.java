@@ -18,9 +18,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -218,7 +226,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				home.setIcon(resizeImage(home.getIcon().getIconWidth()+10,home.getIcon().getIconHeight()+10,(ImageIcon)home.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	home.setIcon(new ImageIcon("..\\picture\\HOME.png"));
@@ -342,15 +351,15 @@ public class DudeScreen extends JPanel implements ActionListener {
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
-		if(dude.getNum()==9) {
 			startFeed.addMouseListener(new MouseAdapter() {  //提醒牧場數量上限
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
-					int input = JOptionPane.showOptionDialog(null, "牧場動物數量已達上限!", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+					//int input = JOptionPane.showOptionDialog(null, "牧場動物數量已達上限!", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				}
+
 			});		
-		}
+		
 		feedChicken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(dude.getNum()==9) {
@@ -369,12 +378,13 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				feedChicken.setIcon(resizeImage(feedChicken.getIcon().getIconWidth()+10,feedChicken.getIcon().getIconHeight()+10,(ImageIcon)feedChicken.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	feedChicken.setIcon(resizeImage (50,50,new ImageIcon("../picture/chicken.png")));
             } 
-			
+            
 		});
 		feedPig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -393,7 +403,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				feedPig.setIcon(resizeImage(feedPig.getIcon().getIconWidth()+10,feedPig.getIcon().getIconHeight()+10,(ImageIcon)feedPig.getIcon()));
-            } 
+				buttonSound();  
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	feedPig.setIcon(resizeImage (50,50,new ImageIcon("../picture/pig2.png")));
@@ -417,7 +428,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				feedCow.setIcon(resizeImage(feedCow.getIcon().getIconWidth()+10,feedCow.getIcon().getIconHeight()+10,(ImageIcon)feedCow.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	feedCow.setIcon(resizeImage (50,50,new ImageIcon("../picture/cow.png")));
@@ -447,7 +459,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				lowFeed.setIcon(resizeImage(lowFeed.getIcon().getIconWidth()+10,lowFeed.getIcon().getIconHeight()+10,(ImageIcon)lowFeed.getIcon()));
-            } 
+				buttonSound();  
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	lowFeed.setIcon(resizeImage (80,65,new ImageIcon("../picture/lowfeed.png")));
@@ -466,7 +479,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				midFeed.setIcon(resizeImage(midFeed.getIcon().getIconWidth()+10,midFeed.getIcon().getIconHeight()+10,(ImageIcon)midFeed.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	midFeed.setIcon(resizeImage (80,65,new ImageIcon("../picture/midfeed.png")));
@@ -485,7 +499,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				highFeed.setIcon(resizeImage(highFeed.getIcon().getIconWidth()+10,highFeed.getIcon().getIconHeight()+10,(ImageIcon)highFeed.getIcon()));
-            } 
+				buttonSound();
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	highFeed.setIcon(resizeImage (80,65,new ImageIcon("../picture/highfeed.png")));
@@ -500,24 +515,28 @@ public class DudeScreen extends JPanel implements ActionListener {
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 				closeButton(dude);
-				catchAnimal.setEnabled(false);
+				//catchAnimal.setEnabled(false);
 			}
 		});
 		
 		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int random = (int)(Math.random()*1);
-
+				int random = (int)(Math.random()*3);
+				System.out.println(catchAnimal.isEnabled());
+				if(catchAnimal.isEnabled()==false) {
+				}
+				else {
 					if(random==0) {
 						int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 						if(input == 0) //ok
 						{
 							//跳轉至牧場遊戲畫面
 							mainFrame.changeToDudeGameScreen();
-						}	
-						
+						}
+					}			
 				}
+				catchAnimal.setEnabled(false);
 			}
 		});
 		animal1.addActionListener(new ActionListener() {
@@ -592,8 +611,25 @@ public class DudeScreen extends JPanel implements ActionListener {
 		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
-		this.add(lblNewLabel);
+			this.add(lblNewLabel);
 		
+	}
+	public void buttonSound()
+	{
+    	 try {           
+	            File soundFile = new File("..\\sound\\button.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	    
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
 	}
 	public void animalAction(Dude dude, WareHouse warehouse) { //養殖動物統一動作
 		catchAnimal.setEnabled(false);
