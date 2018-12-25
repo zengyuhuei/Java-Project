@@ -52,6 +52,9 @@ public class PondScreen extends JPanel implements ActionListener {
 	private Main mainFrame;
 	private JButton returnBtn;
 	private JButton startBtn;
+	private Timer timer;
+	private JLabel timeLabel;
+	private int time;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -61,18 +64,23 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		
+		timeLabel = new JLabel("", JLabel.CENTER);
+		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
+		timeLabel.setBounds(900, 70, 250, 45);
+		this.add(timeLabel);
+		
 		startBtn = new JButton("遊戲開始");
-		startBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 28));
-		startBtn.setBounds(500, 300, 200, 50);
+		startBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
+		startBtn.setBounds(475, 300, 250, 70);
+		startBtn.addActionListener(this);
 		this.add(startBtn);
 		
 		returnBtn = new JButton();
 		returnBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		returnBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		returnBtn.setBounds(20, 20, 176, 114);
+		returnBtn.setBounds(50, 20, 176, 114);
 		returnBtn.setContentAreaFilled(false);
 		returnBtn.setBorder(null);
-		returnBtn.setEnabled(false);
 		returnBtn.addActionListener(this);
 		returnBtn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -89,6 +97,24 @@ public class PondScreen extends JPanel implements ActionListener {
 			
 		});
 		this.add(returnBtn);
+	}
+	
+	private void timerStart() {
+		time = 5;
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				timeLabel.setText("倒數" + Integer.toString(time) + "秒");
+				if (time == 0) {
+					timer.cancel();
+					returnBtn.setEnabled(true);
+					startBtn.setText("再玩一次");
+					startBtn.setVisible(true);
+				}
+				time--;
+			}
+		}, 0, 1000);
 	}
 	
 	private ImageIcon imageResize(int width, int height, ImageIcon imgIcon)
@@ -122,6 +148,11 @@ public class PondScreen extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == returnBtn) {
 			this.mainFrame.changeToMainScreen();
+		}
+		else if (e.getSource() == startBtn) {
+			startBtn.setVisible(false);
+			returnBtn.setEnabled(false);
+			timerStart();
 		}
 	}
 }
