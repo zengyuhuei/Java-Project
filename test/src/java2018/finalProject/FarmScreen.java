@@ -45,18 +45,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 	JButton cornButton = new JButton();
 	JButton wheatButton = new JButton();
 	JButton cabbageButton = new JButton();
-	JButton button_0 = new JButton("Land0");
-	JButton button_3 = new JButton("Land3");
-	JButton button_6 = new JButton("Land6");
-	JButton button_9 = new JButton("Land9");
-	JButton button_1 = new JButton("Land1");
-	JButton button_4 = new JButton("Land4");
-	JButton button_7 = new JButton("Land7");
-	JButton button_10 = new JButton("Land10");
-	JButton button_2 = new JButton("Land2");
-	JButton button_5 = new JButton("Land5");
-	JButton button_8 = new JButton("Land8");
-	JButton button_11 = new JButton("Land11");
+	JButton button_0 = new JButton("");
+	JButton button_3 = new JButton("");
+	JButton button_6 = new JButton("");
+	JButton button_9 = new JButton("");
+	JButton button_1 = new JButton("");
+	JButton button_4 = new JButton("");
+	JButton button_7 = new JButton("");
+	JButton button_10 = new JButton("");
+	JButton button_2 = new JButton("");
+	JButton button_5 = new JButton("");
+	JButton button_8 = new JButton("");
+	JButton button_11 = new JButton("");
 	ImageIcon cornSeed = resizeImage (90,80,new ImageIcon("../picture/corn.png"));
 	ImageIcon cabbageSeed = resizeImage (90,80,new ImageIcon("../picture/cabbage.png"));
 	ImageIcon wheatSeed = resizeImage (90,80,new ImageIcon("../picture/wheat.png"));
@@ -73,7 +73,16 @@ public class FarmScreen extends JPanel implements ActionListener {
 	JLabel wheatSeedNum = new JLabel();
 	JLabel cabbageSeedNum = new JLabel();
 	JLabel cropRate = new JLabel();
-	
+	ImageIcon littleCorn = resizeImage (50,40,new ImageIcon("../picture/littleCorn.PNG"));
+	ImageIcon littleWheat = resizeImage (50,40,new ImageIcon("../picture/littleWheat.PNG"));
+	ImageIcon littleCabbage = resizeImage (50,40,new ImageIcon("../picture/littleCabbage.PNG"));
+	ImageIcon midCorn = resizeImage (90,80,new ImageIcon("../picture/midCorn.PNG"));
+	ImageIcon midWheat = resizeImage (90,80,new ImageIcon("../picture/midWheat.PNG"));
+	ImageIcon midCabbage = resizeImage (90,80,new ImageIcon("../picture/midCabbage.PNG"));
+	ImageIcon bigCorn = resizeImage (105,90,new ImageIcon("../picture/bigCorn.PNG"));
+	ImageIcon bigWheat = resizeImage (105,90,new ImageIcon("../picture/bigWheat.PNG"));
+	ImageIcon bigCabbage = resizeImage (105,90,new ImageIcon("../picture/bigCabbage.PNG"));
+	ImageIcon nothingLand = resizeImage (1,1,new ImageIcon("../picture/bigCabbage.PNG"));
 	
 	public void reload()
 	{
@@ -90,6 +99,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		cabbageSeedNum.setVisible(false);
 		rateBackGround.setVisible(false);
 		seedBackGround.setVisible(false);
+		cropRate.setVisible(false);
 		
 	}
 	
@@ -106,6 +116,42 @@ public class FarmScreen extends JPanel implements ActionListener {
 		return  new ImageIcon(new_img);
 		
 	}
+    public void checkCropImage(Farm farm, int growingRate)
+    {
+    	if(growingRate >= 100)
+    	{
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
+				checkButton().setIcon(bigCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
+				checkButton().setIcon(bigWheat);
+			else 
+				checkButton().setIcon(bigCabbage);
+    	}
+    	else if(growingRate > 50)
+    	{
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
+				checkButton().setIcon(midCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
+				checkButton().setIcon(midWheat);
+			else 
+				checkButton().setIcon(midCabbage);
+    	}
+    }
+    public JButton checkButton()
+    {
+    	if(landNum == 0) return button_0;
+    	else if(landNum == 1) return button_1;
+    	else if(landNum == 2) return button_2;
+    	else if(landNum == 3) return button_3;
+    	else if(landNum == 4) return button_4;
+    	else if(landNum == 5) return button_5;
+    	else if(landNum == 6) return button_6;
+    	else if(landNum == 7) return button_7;
+    	else if(landNum == 8) return button_8;
+    	else if(landNum == 9) return button_9;
+    	else if(landNum == 10) return button_10;
+    	else return button_11;
+    }
     
 	public void LandButton(Farm farm, WareHouse wareHouse)
 	{
@@ -114,6 +160,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		sowingButton.setVisible(true);
 		waterButton.setVisible(true);
 		pesticideButton.setVisible(true);
+		
 		if(farm.getStoreCropNum(landNum) == -1)
 		{
 			System.out.println("一無所有的土地ouq");
@@ -146,7 +193,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 			seedBackGround.setVisible(false);
 			rateBackGround.setVisible(true);
 			cropRate.setVisible(true);
-			cropRate.setText("成長值: 100");
+			cropRate.setText("成長值:100");
+			checkCropImage(farm, 100);
 		}
 		else
 		{
@@ -173,6 +221,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			rateBackGround.setVisible(true);
 			cropRate.setVisible(true);
 			cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+			checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 		}
 	}
 	
@@ -204,6 +253,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					sowingButton.setEnabled(true);
 					waterButton.setEnabled(false);	
 					pesticideButton.setEnabled(false);
+					checkButton().setIcon(nothingLand);
 					reload();
 				}
 			}
@@ -221,6 +271,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 				farm.getOneHOurToNowDate();
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).water();
 				System.out.println("澆水後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
 				{
 					fertilizeButton.setEnabled(false);
@@ -248,6 +299,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).fertilize();
 				System.out.println("施肥後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 				wareHouse.editFertilizer(-1);
 				
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
@@ -315,6 +367,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 								fertilizeButton.setEnabled(false);
 							else
 								fertilizeButton.setEnabled(true);
+							checkButton().setIcon(littleCorn);
 							reload();
 			        	}
 			        }
@@ -339,6 +392,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 								fertilizeButton.setEnabled(false);
 							else
 								fertilizeButton.setEnabled(true);
+							checkButton().setIcon(littleWheat);
 							reload();
 			        	}
 			        	
@@ -364,6 +418,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 								fertilizeButton.setEnabled(false);
 							else
 								fertilizeButton.setEnabled(true);
+							checkButton().setIcon(littleCabbage);
 							reload();
 			        	}
 			        	
@@ -390,7 +445,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		buttonOFF(returnButton);
 		returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		returnButton.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		returnButton.setBounds(1065, 529, 130, 98);
+		returnButton.setBounds(1065, 529, 140, 98);
 		returnButton.addActionListener(this);
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -451,8 +506,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 		cropRate.setBounds(59, 27, 167, 43);
 		cropRate.setVisible(false);
 		this.add(cropRate);
-		cropRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-		rateBackGround.setBounds(-127, 15, 417, 69);
+		cropRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 25));
+		rateBackGround.setBounds(-97, 15, 417, 69);
 		rateBackGround.setVisible(false);
 		this.add(rateBackGround);
 		rateBackGround.setIcon(rateBackground);
