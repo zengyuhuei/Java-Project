@@ -351,14 +351,19 @@ public class DudeScreen extends JPanel implements ActionListener {
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 			}
 		});
-			startFeed.addMouseListener(new MouseAdapter() {  //提醒牧場數量上限
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					
-					//int input = JOptionPane.showOptionDialog(null, "牧場動物數量已達上限!", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				}
 
-			});		
+		startFeed.addMouseListener(new MouseAdapter() {  //提醒牧場數量上限
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				startFeed.setIcon(resizeImage(startFeed.getIcon().getIconWidth()+10,startFeed.getIcon().getIconHeight()+10,(ImageIcon)startFeed.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	startFeed.setIcon(resizeImage (90,65,new ImageIcon("../picture/addAnimal.png")));
+            } 
+
+		});		
 		
 		feedChicken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -447,6 +452,19 @@ public class DudeScreen extends JPanel implements ActionListener {
 				feedbackGround2.setVisible(true);
 			}
 		});
+		feedAnimal.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				feedAnimal.setIcon(resizeImage(feedAnimal.getIcon().getIconWidth()+10,feedAnimal.getIcon().getIconHeight()+10,(ImageIcon)feedAnimal.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	feedAnimal.setIcon(resizeImage (80,65,new ImageIcon("../picture/feed.png")));
+            } 
+			
+		});
+		
 		buttonOFF(lowFeed);
 		lowFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -518,7 +536,18 @@ public class DudeScreen extends JPanel implements ActionListener {
 				//catchAnimal.setEnabled(false);
 			}
 		});
-		
+		catchAnimal.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				catchAnimal.setIcon(resizeImage(catchAnimal.getIcon().getIconWidth()+10,catchAnimal.getIcon().getIconHeight()+10,(ImageIcon)catchAnimal.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	catchAnimal.setIcon(resizeImage (80,65,new ImageIcon("../picture/catch.png")));
+            } 
+			
+		});
 		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
