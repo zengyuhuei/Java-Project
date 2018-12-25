@@ -50,7 +50,7 @@ public class MainScreen extends JPanel {
 	private Polygon pondPoly;
 	private boolean pondPolyIn = false;
 	
-	private ImageIcon enterWareHouse = imageResize(100, 30, new ImageIcon("../picture/enterWareHouse.png"));
+	private ImageIcon enterWareHouse = imageResize(80, 40, new ImageIcon("../picture/enterWareHouse.png"));
 
 	/**
 	 * Launch the application.
