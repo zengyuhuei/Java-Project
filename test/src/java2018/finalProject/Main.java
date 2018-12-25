@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -37,13 +38,13 @@ public class Main extends JFrame {
 		this.farmScreen = new FarmScreen(this, this.warehouse);
 		this.mainScreen = new MainScreen(this);
 		
-		/*bgMusicThread = new Thread() {
+		bgMusicThread = new Thread() {
 			@Override
 			public void run() {
 				backgroundSound();
 			}
 		};
-		bgMusicThread.start();*/
+		bgMusicThread.start();
 		this.changeToMainScreen();
 	}
 	
@@ -89,22 +90,20 @@ public class Main extends JFrame {
     
     private void backgroundSound()
     {
-    	while(true) {
-    		try {
-				File soundFile = new File("..\\sound\\background.wav");
-				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioIn);
-				clip.start();
-	            
-	        } catch (UnsupportedAudioFileException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } catch (LineUnavailableException e) {
-	            e.printStackTrace();
-	        }
-    	}
+
+   	 	try {
+			File soundFile = new File("..\\sound\\bg.wav");
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioIn);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);;  
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 	
 	public static void main(String[] args) {
