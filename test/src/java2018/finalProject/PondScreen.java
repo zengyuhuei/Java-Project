@@ -51,6 +51,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	
 	private Main mainFrame;
 	private JButton returnBtn;
+	private JButton startBtn;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -60,19 +61,26 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		
+		startBtn = new JButton("遊戲開始");
+		startBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 28));
+		startBtn.setBounds(500, 300, 200, 50);
+		this.add(startBtn);
+		
 		returnBtn = new JButton();
 		returnBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
 		returnBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		returnBtn.setBounds(20, 20, 176, 114);
 		returnBtn.setContentAreaFilled(false);
 		returnBtn.setBorder(null);
+		returnBtn.setEnabled(false);
 		returnBtn.addActionListener(this);
 		returnBtn.addMouseListener(new MouseAdapter() {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				returnBtn.setIcon(imageResize(returnBtn.getIcon().getIconWidth()+10,returnBtn.getIcon().getIconHeight()+10,(ImageIcon)returnBtn.getIcon()));
-				buttonSound();
-	          
+				if (returnBtn.isEnabled()) {
+					buttonSound();
+				}
 			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
@@ -83,7 +91,6 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(returnBtn);
 	}
 	
-
 	private ImageIcon imageResize(int width, int height, ImageIcon imgIcon)
 	{
 		Image img = imgIcon.getImage();
