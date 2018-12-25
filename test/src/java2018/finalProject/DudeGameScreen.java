@@ -48,7 +48,6 @@ public class DudeGameScreen extends JPanel {
 	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
 	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
-	JButton home = new JButton("回牧場");
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
 	JButton animal3 = new JButton();
@@ -149,10 +148,6 @@ public class DudeGameScreen extends JPanel {
 		dudeNumBack.setBounds(135, 22, 701, 99);
 		this.add(dudeNumBack);
 		dudeNumBack.setVisible(true);
-		
-		home.setFont(new Font("Dialog", Font.BOLD, 20));
-		home.setBounds(1008, 526, 117, 65);
-		this.add(home);
 		
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
 		animal1.setBounds(456, 231, 100, 100);
@@ -388,11 +383,6 @@ public class DudeGameScreen extends JPanel {
 				}
 			}
 		});
-		home.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainFrame.changeToDudeScreen();
-			}
-		});
 
 	}
 	public void animalAction() {
@@ -411,11 +401,17 @@ public class DudeGameScreen extends JPanel {
 				this.warehouse.editHoldMoney(100);
 				System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
 				gt.stopoTimer();
-				JOptionPane.showMessageDialog(this, "遊戲結束!!任務達成，恭喜你獲得金幣!");
+				int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務達成，恭喜你獲得金幣!", null, JOptionPane.DEFAULT_OPTION);
+				if(input==JOptionPane.YES_OPTION) {
+					mainFrame.changeToDudeScreen();
+				}
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "遊戲結束!!任務失敗，下次請加油!!");
+			int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務失敗，下次請加油!!", null, JOptionPane.DEFAULT_OPTION);
+			if(input==JOptionPane.YES_OPTION) {
+				mainFrame.changeToDudeScreen();
+			}
 		}
 	}
 class RunningButton extends TimerTask {

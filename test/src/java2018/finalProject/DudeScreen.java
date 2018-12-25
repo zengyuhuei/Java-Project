@@ -219,7 +219,9 @@ public class DudeScreen extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				closeFeed();
 				closeStart();
+				feedAnimal.setEnabled(false);
 				catchAnimal.setEnabled(false);
+				closeAnimalRate(dude);
 			}
 		});
 		home.addMouseListener(new MouseAdapter() {
@@ -522,7 +524,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int random = (int)(Math.random()*3);
+				int random = (int)(Math.random()*1);
 				System.out.println(catchAnimal.isEnabled());
 				if(catchAnimal.isEnabled()==false) {
 				}
