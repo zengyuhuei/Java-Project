@@ -115,7 +115,7 @@ public class Main extends JFrame {
     private void gameSound()
     {
    	 	try {
-			File soundFile = new File("..\\sound\\game2.wav");
+			File soundFile = new File("..\\sound\\game.wav");
 			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 			gameClip = AudioSystem.getClip();
 			gameClip.open(audioIn);
