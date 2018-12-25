@@ -1,12 +1,21 @@
 package java2018.finalProject;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JSlider;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSliderUI;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -15,132 +24,98 @@ import java.awt.Insets;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JLabel;
 
-public class PondScreen extends JPanel implements KeyListener {
+public class PondScreen extends JPanel implements ActionListener {
 	private JSlider slider;
 	private int sliderValue = 0;
 	private int sliderAdd = 1;
 	private Timer t;
 	private TimerTask tk;
 	private boolean stop = false;
+	
 	private Main mainFrame;
+	private JButton returnBtn;
+	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
 		this.setSize(1200, 675);
 		this.setVisible(true);
-        this.setFocusable(true);
-        this.setFocusTraversalKeysEnabled(false);
-		this.addKeyListener(this);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{1.0, 0};
-		this.setLayout(gridBagLayout);
+
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 0;
-		this.add(panel_1, gbc_panel_1);
-		
-		slider = new JSlider();
-		GridBagConstraints gbc_slider = new GridBagConstraints();
-		gbc_slider.gridwidth = 3;
-		gbc_slider.insets = new Insets(0, 0, 5, 5);
-		gbc_slider.gridx = 1;
-		gbc_slider.gridy = 0;
-		this.add(slider, gbc_slider);
-		slider.setMaximum(100);
-		slider.setMinimum(0);
-		slider.setValue(sliderValue);
-		slider.setMinorTickSpacing(1);
-		slider.setUI(new GameSlider(slider));
-		MouseListener[] mls = slider.getMouseListeners();
-		for (int i = 0; i < mls.length; ++i) {
-			slider.removeMouseListener(mls[i]);;
-		}
-		slider.setVisible(false);
-		slider.setVisible(true);
-		
-		
-		
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridwidth = 5;
-		gbc_panel.gridheight = 2;
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		this.add(panel, gbc_panel);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBackground(Color.BLACK);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel.gridwidth = 5;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 1;
-		this.add(lblNewLabel, gbc_lblNewLabel);
-		
-		t = new Timer();
-		tk = new TimerTask() {
-			public void run() {
-				if(sliderValue + sliderAdd < 100 && sliderValue + sliderAdd >= 0) {
-					sliderValue += sliderAdd;
-					slider.setValue(sliderValue);
-				}
-				else {
-					System.out.println(121321);
-					sliderAdd *= -1;
-					sliderValue += sliderAdd;
-					slider.setValue(sliderValue);
-				}
-			}
-		};
-		t.schedule(tk , 10, 10);
+		returnBtn = new JButton();
+		returnBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+		returnBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		returnBtn.setBounds(20, 20, 176, 114);
+		returnBtn.setContentAreaFilled(false);
+		returnBtn.setBorder(null);
+		returnBtn.addActionListener(this);
+		returnBtn.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				returnBtn.setIcon(imageResize(returnBtn.getIcon().getIconWidth()+10,returnBtn.getIcon().getIconHeight()+10,(ImageIcon)returnBtn.getIcon()));
+				buttonSound();
+	          
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	returnBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+            } 
+			
+		});
+		this.add(returnBtn);
 	}
 	
-	public void stop() {
-		t.cancel();
+
+	private ImageIcon imageResize(int width, int height, ImageIcon imgIcon)
+	{
+		Image img = imgIcon.getImage();
+		Image imgR = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(imgR);
 	}
-	
-	public static void main(String[] args) {
-		new PondScreen();
-	}
+    
+    private void buttonSound()
+    {
+		 try {
+				File soundFile = new File("..\\sound\\button.wav");
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioIn);
+				clip.start();
+	            
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+    }
+
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		//System.out.println(123112);
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			t.cancel();
-			System.out.println(123112);
+		if (e.getSource() == returnBtn) {
+			this.mainFrame.changeToMainScreen();
 		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

@@ -221,7 +221,7 @@ public class MainScreen extends JPanel {
     
     private void buttonSound()
     {
-    	 try {
+		 try {
 				File soundFile = new File("..\\sound\\button.wav");
 				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 				Clip clip = AudioSystem.getClip();

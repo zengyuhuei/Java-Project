@@ -24,8 +24,8 @@ public class Main extends JFrame {
 	private JPanel farmScreen;
 	private JPanel mainScreen;
 	private WareHouse warehouse;
-	private Thread bgMusicThread;
-	private Thread gameMusicThread;
+	private Clip bgClip;
+	private Clip gameClip;
 	
 	public Main(WareHouse warehouse) {
 		this.warehouse = warehouse;
@@ -38,65 +38,87 @@ public class Main extends JFrame {
 		this.farmScreen = new FarmScreen(this, this.warehouse);
 		this.mainScreen = new MainScreen(this);
 		
-		bgMusicThread = new Thread() {
-			@Override
-			public void run() {
-				backgroundSound();
-			}
-		};
-		bgMusicThread.start();
+		backgroundSound();
+		gameSound();
 		this.changeToMainScreen();
 	}
 	
 	public void changeToMainScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
 		this.setTitle("主畫面");
 		this.setContentPane(mainScreen);
 	}
 	
 	public void changeToShopScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
 		JPanel shopScreen = new ShopScreen(this, this.warehouse);
 		this.setTitle("商店");
 		this.setContentPane(shopScreen);
 	}
 	
 	public void changeToDudeScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
 		this.setTitle("牧場");
 		this.setContentPane(dudeScreen);
 	}
 	
 	public void changeToDudeGameScreen() {
+		bgClip.stop();
+		gameClip.loop(Clip.LOOP_CONTINUOUSLY);
 		JPanel dudeGameScreen = new DudeGameScreen(this, this.warehouse);
 		this.setTitle("牧場遊戲");
 		this.setContentPane(dudeGameScreen);
 	}
 	
 	public void changeToWareHouseScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
 		JPanel wareHouseScreen = new WareHouseScreen(this, this.warehouse);
 		this.setTitle("倉庫");
 		this.setContentPane(wareHouseScreen);
 	}
 	
 	public void changeToPondScreen() {
+		bgClip.stop();
+		gameClip.loop(Clip.LOOP_CONTINUOUSLY);
 		JPanel pondScreen = new PondScreen(this);
 		this.setTitle("魚池");
 		this.setContentPane(pondScreen);
 	}
 	
 	public void changeToFarmScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
 		this.setTitle("農場");
 		this.setContentPane(farmScreen);
 	}
 
-    
     private void backgroundSound()
     {
-
    	 	try {
 			File soundFile = new File("..\\sound\\bg.wav");
 			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioIn);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);;  
+			bgClip = AudioSystem.getClip();
+			bgClip.open(audioIn);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void gameSound()
+    {
+   	 	try {
+			File soundFile = new File("..\\sound\\game.wav");
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			gameClip = AudioSystem.getClip();
+			gameClip.open(audioIn);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -160,12 +182,6 @@ public class Main extends JFrame {
 		wareHouse.removeSeed("玉米");
 		//  chicken*2 pig *1  cow*2  wheat*1 corn *2  cabbage *1 
 		//simple *3 general*1  advanced*1
-		
-		
-
-		
-		
-		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
