@@ -49,8 +49,12 @@ public class MainScreen extends JPanel {
 	private boolean farmPolyIn = false;
 	private Polygon pondPoly;
 	private boolean pondPolyIn = false;
-	
-	private ImageIcon enterWareHouse = imageResize(100, 30, new ImageIcon("../picture/enterWareHouse.png"));
+
+	private ImageIcon enterDude = imageResize(80, 40, new ImageIcon("../picture/enterdude.png"));
+	private ImageIcon enterFarm = imageResize(80, 40, new ImageIcon("../picture/enterfarm.png"));
+	private ImageIcon enterPond = imageResize(80, 40, new ImageIcon("../picture/enterpond.png"));
+	private ImageIcon enterShop = imageResize(80, 40, new ImageIcon("../picture/entershop.png"));
+	private ImageIcon enterWareHouse = imageResize(80, 40, new ImageIcon("../picture/enterwarehouse.png"));
 
 	/**
 	 * Launch the application.
@@ -65,7 +69,7 @@ public class MainScreen extends JPanel {
 		this.setSize(1200, 675);
 
 		toolTipText = new JLabel("", JLabel.CENTER);
-		toolTipText.setSize(100, 20);
+		toolTipText.setSize(80, 40);
 		toolTipText.setVisible(true);
 		this.add(toolTipText);
 		
@@ -151,7 +155,7 @@ public class MainScreen extends JPanel {
 						buttonSound();
 					}
 					hover = true;
-					toolTipText.setText("進入牧場");
+					toolTipText.setIcon(enterDude);
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {
@@ -165,7 +169,6 @@ public class MainScreen extends JPanel {
 					}
 					hover = true;
 					toolTipText.setIcon(enterWareHouse);
-					toolTipText.setLocation(e.getPoint());
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {
@@ -178,8 +181,7 @@ public class MainScreen extends JPanel {
 						buttonSound();
 					}
 					hover = true;
-					toolTipText.setText("進入商店");
-					toolTipText.setLocation(e.getPoint());
+					toolTipText.setIcon(enterShop);
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {
@@ -192,8 +194,7 @@ public class MainScreen extends JPanel {
 						buttonSound();
 					}
 					hover = true;
-					toolTipText.setText("進入農場");
-					toolTipText.setLocation(e.getPoint());
+					toolTipText.setIcon(enterFarm);
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {
@@ -206,8 +207,7 @@ public class MainScreen extends JPanel {
 						buttonSound();
 					}
 					hover = true;
-					toolTipText.setText("進入魚池");
-					toolTipText.setLocation(e.getPoint());
+					toolTipText.setIcon(enterPond);
 					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {

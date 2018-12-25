@@ -61,7 +61,8 @@ public class PondScreen extends JPanel implements ActionListener {
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
-		this.setSize(1200, 675);
+		this.mainFrame.setSize(800, 800);
+		this.setSize(800, 800);
 		this.setVisible(true);
 
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -154,7 +155,7 @@ public class PondScreen extends JPanel implements ActionListener {
     
     private void loadBackgroundIcon() {
     	for (int i = 1; i <= 98; ++i) {
-        	iconList.add(imageResize(1200, 675, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
+        	iconList.add(imageResize(800, 800, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
 
