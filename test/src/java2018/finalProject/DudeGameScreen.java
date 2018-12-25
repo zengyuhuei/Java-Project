@@ -63,6 +63,7 @@ public class DudeGameScreen extends JPanel {
 	ArrayList<JButton> button = new ArrayList<JButton>(12);
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
+	JLabel lblSec = new JLabel("SEC");
 	
 	int cowNum = (int)(Math.random()*6+6);
 	int pigNum = (int)(Math.random()*5+5);
@@ -74,8 +75,9 @@ public class DudeGameScreen extends JPanel {
 		this.mainFrame = mainFrame;
 		this.warehouse = warehouse;
 		Dude dude = new Dude(this.warehouse);
-		this.setSize(1200, 675);
+		GuessTimer gt = new GuessTimer();
 		
+		this.setSize(1200, 675);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 
@@ -91,6 +93,13 @@ public class DudeGameScreen extends JPanel {
 		button.add(animal10);
 		button.add(animal11);
 		button.add(animal12);
+		lblSec.setForeground(Color.RED);
+		
+		lblSec.setBounds(1006, 36, 151, 65);
+		this.add(lblSec);
+		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		lblSec.setText("倒數 "+(int)gt.getSec()+" 秒");
+		lblSec.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
 		this.add(dudeAnimalNum);
@@ -509,5 +518,4 @@ class RunningButton extends TimerTask {
 			  button.get(i).setBorder(null);
 		  }
 	  }
-
 }
