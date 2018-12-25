@@ -56,7 +56,8 @@ public class PondScreen extends JPanel implements ActionListener {
 	private Timer timer;
 	private JLabel timeLabel;
 	private int time;
-	private ArrayList<ImageIcon> iconList;
+	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
+	private JLabel bgLabel;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -101,6 +102,11 @@ public class PondScreen extends JPanel implements ActionListener {
 			
 		});
 		this.add(returnBtn);
+		
+		bgLabel = new JLabel();
+		bgLabel.setSize(1200, 675);
+		bgLabel.setIcon(iconList.get(0));
+		this.add(bgLabel);
 	}
 	
 	private void timerStart() {
@@ -125,7 +131,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	{
 		Image img = imgIcon.getImage();
 		Image imgR = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-		return  new ImageIcon(imgR);
+		return new ImageIcon(imgR);
 	}
     
     private void buttonSound()
@@ -148,7 +154,7 @@ public class PondScreen extends JPanel implements ActionListener {
     
     private void loadBackgroundIcon() {
     	for (int i = 1; i <= 98; ++i) {
-        	new ImageIcon("../picture/fishing-" + Integer.toString(i) + ".png");
+        	iconList.add(imageResize(1200, 675, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
 
