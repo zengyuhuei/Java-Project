@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -38,9 +39,9 @@ public class DudeGameScreen extends JPanel {
 	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
 	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
 	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
-	ImageIcon cowhead = new ImageIcon("../picture/cowhead.PNG");
-	ImageIcon pighead = new ImageIcon("../picture/pighead.png");
-	ImageIcon chickenhead = new ImageIcon("../picture/chickenhead.png");
+	ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
+	ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
 	JLabel dudeAnimalNum = new JLabel("需捕捉數量:");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
 	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
@@ -64,22 +65,38 @@ public class DudeGameScreen extends JPanel {
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
 	JLabel lblSec = new JLabel("SEC");
-	
+	JLabel word = new JLabel("倒數      秒");
 	int cowNum = (int)(Math.random()*6+6);
 	int pigNum = (int)(Math.random()*5+5);
 	int chickenNum = (int)(Math.random()*4+4);
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
+	GuessTimer gt = new GuessTimer();
 	
 	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
 		this.warehouse = warehouse;
-		Dude dude = new Dude(this.warehouse);
-		GuessTimer gt = new GuessTimer();
-		
 		this.setSize(1200, 675);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setLayout(null);
+		this.setLayout(null);	
+		gt.setJLabel(lblSec);
+
+		 //傾聽計時器timeout事件(可選的事件，不實作也可以使用timer
+		 gt.addListener(new GuessTimer.Listener() {
+		 @Override
+		 public void timeOut() {
+		 //處理TimeOut事件
+		 }
+		 @Override
+		 public void onChange(long sec) {
+
+			 System.out.println("sec=>" + sec);
+			 
+		 }
+
+		 });
+		 gt.startTimer(41);
+
 
 		button.add(animal1);
 		button.add(animal2);
@@ -98,8 +115,13 @@ public class DudeGameScreen extends JPanel {
 		lblSec.setBounds(1006, 36, 151, 65);
 		this.add(lblSec);
 		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-		lblSec.setText("倒數 "+(int)gt.getSec()+" 秒");
 		lblSec.setVisible(true);
+		word.setForeground(Color.RED);
+		
+		word.setBounds(937, 36, 211, 65);
+		this.add(word);
+		word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		word.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
 		this.add(dudeAnimalNum);
@@ -371,21 +393,29 @@ public class DudeGameScreen extends JPanel {
 				mainFrame.changeToDudeScreen();
 			}
 		});
+
 	}
 	public void animalAction() {
 		dudeCowNum.setText(" X "+(int)cowNum);
 		dudePigNum.setText(" X "+(int)pigNum);
 		dudeChickenNum.setText(" X "+(int)chickenNum);
 		sum--;
-		if(sum>0) {
-			System.out.println(sum);
-			for(int i=0;i<12;i++) {
-				run.get(i).setVXVY();
+		if(gt.getSec()>=0) {
+			if(sum>0) {
+				System.out.println(sum);
+				for(int i=0;i<12;i++) {
+					run.get(i).setVXVY();
+				}
+			}
+			if(sum==0) {
+				this.warehouse.editHoldMoney(100);
+				System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
+				gt.stopoTimer();
+				JOptionPane.showMessageDialog(this, "遊戲結束!!任務達成，恭喜你獲得金幣!");
 			}
 		}
-		if(sum==0) {
-			this.warehouse.editHoldMoney(100);
-			System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
+		else {
+			JOptionPane.showMessageDialog(this, "遊戲結束!!任務失敗，下次請加油!!");
 		}
 	}
 class RunningButton extends TimerTask {
@@ -518,4 +548,11 @@ class RunningButton extends TimerTask {
 			  button.get(i).setBorder(null);
 		  }
 	  }
+	  public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	  {
+		  Image i = img.getImage();
+		  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		  return  new ImageIcon(new_img);
+	  }
+
 }

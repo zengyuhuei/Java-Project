@@ -84,7 +84,7 @@ public class GuessTimer{
 		 timer = null;
 	 }
  }
- public static void main(String [] args){
+ /*public static void main(String [] args){
 
  //範例
  JLabel lab = new JLabel();
@@ -107,7 +107,7 @@ public class GuessTimer{
  });
  timer.startTimer(41);
  }
-
+*/
 public int getSec() {
 	// TODO Auto-generated method stub
 	return (int) sec;
