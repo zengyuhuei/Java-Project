@@ -13,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -22,6 +27,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends JPanel {
@@ -30,13 +37,18 @@ public class MainScreen extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private WareHouse warehouse;
 	private Main mainFrame;
+	private JLabel toolTipText;
 	private Polygon dudePoly;
+	private boolean dudePolyIn = false;
 	private Polygon wareHousePoly;
+	private boolean wareHousePolyIn = false;
 	private Polygon shopPoly;
+	private boolean shopPolyIn = false;
 	private Polygon farmPoly;
+	private boolean farmPolyIn = false;
 	private Polygon pondPoly;
+	private boolean pondPolyIn = false;
 
 	/**
 	 * Launch the application.
@@ -47,14 +59,17 @@ public class MainScreen extends JPanel {
 	 * Create the frame.
 	 */
 	public MainScreen(Main mainFrame) {
-		this.warehouse = warehouse;
 		this.mainFrame = mainFrame;
 		this.setSize(1200, 675);
-		
+
+		toolTipText = new JLabel("", JLabel.CENTER);
+		toolTipText.setSize(60, 20);
+		toolTipText.setVisible(true);
+		this.add(toolTipText);
 		
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
-
+		
 		ImageIcon img = new ImageIcon("../picture/main.jpg");
 		Image i = img.getImage();
 		i = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
@@ -62,12 +77,6 @@ public class MainScreen extends JPanel {
 		background.setIcon(new ImageIcon(i));
 		background.setSize(1200, 675);
 		this.add(background);
-		
-		MyButton testBtn = new MyButton("test");
-		testBtn.setLocation(150, 150);
-		testBtn.setOpaque(false);
-		testBtn.repaint();
-		this.add(testBtn);
 		
 		dudePoly = new Polygon();
 		dudePoly.addPoint(0, 0);
@@ -107,6 +116,7 @@ public class MainScreen extends JPanel {
 		pondPoly.addPoint(1200, 675);
 		pondPoly.addPoint(509, 675);
 		
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -131,44 +141,99 @@ public class MainScreen extends JPanel {
 		this.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
+				boolean hover = false;
 				if (dudePoly.contains(e.getPoint())) {
 					setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else if (wareHousePoly.contains(e.getPoint())) {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else if (shopPoly.contains(e.getPoint())) {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else if (farmPoly.contains(e.getPoint())) {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
-				}
-				else if (pondPoly.contains(e.getPoint())) {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					if (dudePolyIn == false) {
+						dudePolyIn = true;
+						buttonSound();
+					}
+					hover = true;
+					toolTipText.setText("進入牧場");
+					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 				}
 				else {
+					dudePolyIn = false;
+				}
+				if (wareHousePoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					if (wareHousePolyIn == false) {
+						wareHousePolyIn = true;
+						buttonSound();
+					}
+					hover = true;
+					toolTipText.setText("進入倉庫");
+					toolTipText.setLocation(e.getPoint());
+					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
+				}
+				else {
+					wareHousePolyIn = false;
+				}
+				if (shopPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					if (shopPolyIn == false) {
+						shopPolyIn = true;
+						buttonSound();
+					}
+					hover = true;
+					toolTipText.setText("進入商店");
+					toolTipText.setLocation(e.getPoint());
+					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
+				}
+				else {
+					shopPolyIn = false;
+				}
+				if (farmPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					if (farmPolyIn == false) {
+						farmPolyIn = true;
+						buttonSound();
+					}
+					hover = true;
+					toolTipText.setText("進入農場");
+					toolTipText.setLocation(e.getPoint());
+					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
+				}
+				else {
+					farmPolyIn = false;
+				}
+				if (pondPoly.contains(e.getPoint())) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					if (pondPolyIn == false) {
+						pondPolyIn = true;
+						buttonSound();
+					}
+					hover = true;
+					toolTipText.setText("進入魚池");
+					toolTipText.setLocation(e.getPoint());
+					toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
+				}
+				else {
+					pondPolyIn = false;
+				}
+				if (hover == false) {
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					toolTipText.setText("");
 				}
 			}
 		});
 	}
-
-	private class MyButton extends JButton {
-		public MyButton(String title) {
-			super(title);
-			this.setBorderPainted(false);
-		}
-		
-		@Override
-		public void paintBorder(Graphics g) {
-			Polygon p = new Polygon();
-		    for (int i = 0; i < 5; i++) {
-			    p.addPoint((int) 
-			    (100 + 50 * Math.cos(i * 2 * Math.PI / 5)),
-			    (int) (100 + 50 * Math.sin(i * 2 * Math.PI / 5)));
-		    }
-		    g.setColor(Color.BLACK);
-		    g.drawPolygon(p);
-		}
-	}
+    
+    private void buttonSound()
+    {
+		 try {
+				File soundFile = new File("..\\sound\\button.wav");
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioIn);
+				clip.start();
+	            
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+    }
 }

@@ -89,7 +89,6 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		Image i = img.getImage();
 		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return  new ImageIcon(new_img);
-		
 	}
 	
 	
