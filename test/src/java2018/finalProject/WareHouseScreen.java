@@ -4,14 +4,22 @@ package java2018.finalProject;
 
 import javax.swing.JFrame;
 
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
@@ -23,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 
 import java.awt.Image;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
@@ -49,7 +58,24 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 	private boolean holding = false;
 	private Main mainFrame;
 	
-    
+    public void buttonSound()
+    {
+    	 try {
+	            
+	            File soundFile = new File("..\\sound\\button.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	            
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+    }
 	public void cleanButtom(JButton button)
     {
     	button.setOpaque(false);
@@ -141,8 +167,8 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		btnisMaturedItem.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnIsMatured.png")));
 		
 		btnisMaturedItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		btnisMaturedItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnisMaturedItem.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				if(isMatured == false)
 				{
 					updateMaturedItem();
@@ -152,10 +178,17 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 					isMatured = true;
 					unMatured = false;
 					holding = false;
+					
+					
 				}
 				
 				
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				buttonSound();
+	          
+			} 
 		});
 		btnisMaturedItem.setBounds(123, 46, 176, 68);
 		this.add(btnisMaturedItem);
@@ -164,8 +197,8 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		btnReadyToFeed.setIcon(resizeImage(200,70,new ImageIcon("..\\picture\\btnUnMatured.png")));
 	
 		btnReadyToFeed.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
-		btnReadyToFeed.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnReadyToFeed.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				if(unMatured == false)
 				{
 					updateunMaturedItem();
@@ -177,6 +210,11 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 					holding = false;
 				}
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				buttonSound();
+	          
+			} 
 		});
 		btnReadyToFeed.setBounds(123, 127, 176, 58);
 		this.add(btnReadyToFeed);
@@ -203,6 +241,11 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 				}
 				
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				buttonSound();
+	          
+			} 
 		});
 		
 		btnHoldItem.setBounds(123, 198, 176, 58);
@@ -218,7 +261,9 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				btnReturn.setIcon(resizeImage(btnReturn.getIcon().getIconWidth()+10,btnReturn.getIcon().getIconHeight()+10,(ImageIcon)btnReturn.getIcon()));
-            } 
+				buttonSound();
+	          
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
             	btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
