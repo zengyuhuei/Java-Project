@@ -56,11 +56,14 @@ public class PondScreen extends JPanel implements ActionListener {
 	private Timer timer;
 	private JLabel timeLabel;
 	private int time;
-	private ArrayList<ImageIcon> iconList;
+	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
+	private JLabel bgLabel;
+	private int imgC = 0;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
-		this.setSize(1200, 675);
+		this.mainFrame.setSize(1000, 800);
+		this.setSize(1000, 800);
 		this.setVisible(true);
 
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,12 +73,12 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		timeLabel.setBounds(900, 70, 250, 45);
+		timeLabel.setBounds(700, 70, 250, 45);
 		this.add(timeLabel);
 		
 		startBtn = new JButton("遊戲開始");
 		startBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		startBtn.setBounds(475, 300, 250, 70);
+		startBtn.setBounds(375, 300, 250, 70);
 		startBtn.addActionListener(this);
 		this.add(startBtn);
 		
@@ -101,6 +104,23 @@ public class PondScreen extends JPanel implements ActionListener {
 			
 		});
 		this.add(returnBtn);
+		
+		bgLabel = new JLabel();
+		bgLabel.setSize(1000, 800);
+		this.add(bgLabel);
+		Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				imgC++;
+				bgLabel.setIcon(iconList.get(imgC));
+				System.out.print(imgC);
+				
+				if (imgC == 97) {
+					imgC = 0;
+				}
+			}
+		}, 0, 30);
 	}
 	
 	private void timerStart() {
@@ -125,30 +145,29 @@ public class PondScreen extends JPanel implements ActionListener {
 	{
 		Image img = imgIcon.getImage();
 		Image imgR = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-		return  new ImageIcon(imgR);
+		return new ImageIcon(imgR);
 	}
     
     private void buttonSound()
     {
-		 try {
-				File soundFile = new File("..\\sound\\button.wav");
-				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioIn);
-				clip.start();
-	            
-	        } catch (UnsupportedAudioFileException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } catch (LineUnavailableException e) {
-	            e.printStackTrace();
-	        }
-    }
+		try {
+			File soundFile = new File("..\\sound\\button.wav");
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioIn);
+			clip.start();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+}
     
     private void loadBackgroundIcon() {
     	for (int i = 1; i <= 98; ++i) {
-        	new ImageIcon("../picture/fishing-" + Integer.toString(i) + ".png");
+        	iconList.add(imageResize(1000, 800, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
 
@@ -156,6 +175,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == returnBtn) {
+			this.mainFrame.setSize(1200, 675);
 			this.mainFrame.changeToMainScreen();
 		}
 		else if (e.getSource() == startBtn) {
