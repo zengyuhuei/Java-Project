@@ -4,13 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ import java.util.TimerTask;
 
 public class FarmScreen extends JPanel implements ActionListener {
 
-	private final Action action = new SwingAction();
+	//private final Action action = new SwingAction();
 	private Main mainFrame;
 	private JButton returnButton = new JButton("return");
 	//private ArrayList<Crop> crop = new ArrayList<Crop>(12);
@@ -33,15 +37,14 @@ public class FarmScreen extends JPanel implements ActionListener {
 	private int landNum = -1;
 	
 	JButton btn = new JButton();   //測試用button 不會出現
-	JButton waterButton = new JButton("澆水");
-	JButton fertilizeButton = new JButton("施肥");
-	JButton sowingButton = new JButton("播種");
-	JButton harvestButton = new JButton("收割");
-	JButton pesticideButton = new JButton("除蟲除草");
-	JButton cornButton = new JButton("玉米");
-	//ImageIcon iconCorn = new ImageIcon("C:\\Users\\user\\Desktop\\Java-Project\\picture\\cornImage.jpg");
-	JButton wheatButton = new JButton("小麥");
-	JButton cabbageButton = new JButton("高麗菜");
+	JButton waterButton = new JButton();
+	JButton fertilizeButton = new JButton();
+	JButton sowingButton = new JButton();
+	JButton harvestButton = new JButton();
+	JButton pesticideButton = new JButton();
+	JButton cornButton = new JButton();
+	JButton wheatButton = new JButton();
+	JButton cabbageButton = new JButton();
 	JButton button_0 = new JButton("Land0");
 	JButton button_3 = new JButton("Land3");
 	JButton button_6 = new JButton("Land6");
@@ -54,6 +57,14 @@ public class FarmScreen extends JPanel implements ActionListener {
 	JButton button_5 = new JButton("Land5");
 	JButton button_8 = new JButton("Land8");
 	JButton button_11 = new JButton("Land11");
+	ImageIcon cornSeed = resizeImage (90,80,new ImageIcon("../picture/corn.png"));
+	ImageIcon cabbageSeed = resizeImage (90,80,new ImageIcon("../picture/cabbage.png"));
+	ImageIcon wheatSeed = resizeImage (90,80,new ImageIcon("../picture/wheat.png"));
+	ImageIcon water = resizeImage (90,80,new ImageIcon("../picture/water.png"));
+	ImageIcon harvest = resizeImage (100,80,new ImageIcon("../picture/harvest.png"));
+	ImageIcon fertilize = resizeImage (90,80,new ImageIcon("../picture/fertilizer.png"));
+	ImageIcon sowing = resizeImage (90,80,new ImageIcon("../picture/addCrop.png"));
+	ImageIcon killBug = resizeImage (80,85,new ImageIcon("../picture/killBug.png"));
 	
 	
 	public void reload()
@@ -65,6 +76,20 @@ public class FarmScreen extends JPanel implements ActionListener {
 		pesticideButton.setVisible(false);
 	}
 	
+	public void buttonOFF(JButton btn) {
+    	btn.setOpaque(false);
+		btn.setContentAreaFilled(false);
+		btn.setFocusPainted(false);
+		btn.setBorder(null);
+    }
+    public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	{
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(new_img);
+		
+	}
+    
 	public void LandButton(Farm farm, WareHouse wareHouse)
 	{
 		fertilizeButton.setVisible(true);
@@ -124,28 +149,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 	
 	public FarmScreen(Main mainFrame, WareHouse wareHouse) {
 		
-		/*Crop corn1 = new Corn();
-		Crop corn2 = new Corn();
-		Crop corn3 = new Corn();
-		Crop corn4 = new Corn();
-		Crop corn5 = new Corn();
-		Crop wheat1 = new Wheat();
-		Crop wheat2 = new Wheat();
-		Crop cabbage1 = new Cabbage();
-		Crop cabbage2 = new Cabbage();
-		Crop cabbage3 = new Cabbage();
-		wareHouse.addSeed(corn1);
-		wareHouse.addSeed(corn2);
-		wareHouse.addSeed(corn3);
-		wareHouse.addSeed(corn4);
-		wareHouse.addSeed(corn5);
-		wareHouse.addSeed(wheat1);
-		wareHouse.addSeed(wheat2);
-		wareHouse.addSeed(cabbage1);
-		wareHouse.addSeed(cabbage2);
-		wareHouse.addSeed(cabbage3);
-		*/
-		//wareHouse.editFertilizer(10);
 		this.mainFrame = mainFrame;
 		Farm farm = new Farm(wareHouse);
 		farm.setStoreCropNum();
@@ -156,9 +159,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.setSize(1200, 675);
 		
 		//收割button
-		harvestButton.setBounds(589, 18, 111, 31);
+		harvestButton.setBounds(1065, 66, 130, 98);
 		harvestButton.setVisible(false);
+		buttonOFF(harvestButton);
 		this.add(harvestButton);
+		harvestButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		harvestButton.setIcon(harvest);
 		harvestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
@@ -176,11 +182,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//澆水button
-		waterButton.setBounds(589, 69, 111, 31);
+		waterButton.setBounds(1065, 159, 130, 98);
 		waterButton.setVisible(false);
-		//waterButton.setIcon(iconCorn);
 		this.add(waterButton);
-		//waterButton.setSize(200,200);
+		buttonOFF(waterButton);
+		waterButton.setFont(new java.awt.Font("Dialog", 1, 20));
+		waterButton.setIcon(water);
 		waterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				farm.getOneHOurToNowDate();
@@ -199,9 +206,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 
 		//施肥button
-		fertilizeButton.setBounds(589, 120, 111, 31);
+		fertilizeButton.setBounds(1065, 251, 129, 98);
 		fertilizeButton.setVisible(false);
+		buttonOFF(fertilizeButton);
 		this.add(fertilizeButton);
+		fertilizeButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		fertilizeButton.setIcon(fertilize);
 		if(wareHouse.getFertilizer() == 0)
 			fertilizeButton.setEnabled(false);
 		else
@@ -226,9 +236,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 		
 
 		//播種button
-		sowingButton.setBounds(589, 171, 111, 31);
+		sowingButton.setBounds(1065, 345, 130, 98);
 		sowingButton.setVisible(false);
+		buttonOFF(sowingButton);
 		this.add(sowingButton);
+		sowingButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		sowingButton.setIcon(sowing);
 		sowingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("玉米種子數量 = "+wareHouse.getCornSeedNumber());
@@ -309,43 +322,79 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//除蟲除草button
-		pesticideButton.setBounds(589, 220, 111, 31);
+		pesticideButton.setBounds(1065, 439, 130, 92);
 		pesticideButton.setVisible(false);
 		this.add(pesticideButton);
+		buttonOFF(pesticideButton);
+		pesticideButton.setIcon(killBug);
 		harvestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//farm.xxx;
 			}
 		});
 		
-		returnButton.setBounds(589, 269, 111, 31);
-		this.add(returnButton);
+		//HOME鍵返回
+		returnButton.setFont(new Font("Dialog", Font.BOLD, 20));	
+		buttonOFF(returnButton);
+		returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+		returnButton.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		returnButton.setBounds(1065, 529, 130, 98);
 		returnButton.addActionListener(this);
+		returnButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				returnButton.setIcon(resizeImage(returnButton.getIcon().getIconWidth()+10,returnButton.getIcon().getIconHeight()+10,(ImageIcon)returnButton.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+            } 
+			
+		});
+		this.add(returnButton);
+		cornButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
-		cornButton.setBounds(529, 171, 70, 31);
+		cornButton.setBounds(966, 363, 84, 69);
 		cornButton.setVisible(false);
 		this.add(cornButton);
+		buttonOFF(cornButton);
+		cornButton.setFont(new java.awt.Font("Dialog", 1, 20));
+		cornButton.setIcon(cornSeed);
 		
 		
-		wheatButton.setBounds(469, 171, 70, 31);
+		wheatButton.setBounds(867, 363, 84, 69);
 		wheatButton.setVisible(false);
 		this.add(wheatButton);
+		buttonOFF(wheatButton);
+		wheatButton.setFont(new java.awt.Font("Dialog", 1, 20));
+		wheatButton.setIcon(wheatSeed);
+		cabbageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		
-		cabbageButton.setBounds(409, 171, 70, 31);
+		cabbageButton.setBounds(768, 363, 84, 69);
 		cabbageButton.setVisible(false);
 		this.add(cabbageButton);
+		buttonOFF(cabbageButton);
+		cabbageButton.setFont(new java.awt.Font("Dialog", 1, 20));
+		cabbageButton.setIcon(cabbageSeed);
 		
 		//Land0
-		button_0.setAction(action);
+		//button_0.setAction(action);
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				landNum = 0;
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_0.setBounds(15, 15, 111, 36);
+		button_0.setBounds(59, 172, 193, 102);
 		this.add(button_0);
+		buttonOFF(button_0);
 		
 		//Land3
 		button_3.addActionListener(new ActionListener() {
@@ -354,9 +403,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_3.setAction(action);
-		button_3.setBounds(15, 66, 111, 36);
+		button_3.setBounds(203, 305, 193, 98);
 		this.add(button_3);
+		buttonOFF(button_3);
 		
 		//Land6
 		button_6.addActionListener(new ActionListener() {
@@ -365,9 +414,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_6.setAction(action);
-		button_6.setBounds(15, 117, 111, 36);
+		button_6.setBounds(350, 428, 193, 87);
 		this.add(button_6);
+		buttonOFF(button_6);
 		
 		//Land9
 		button_9.addActionListener(new ActionListener() {
@@ -376,9 +425,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_9.setAction(action);
-		button_9.setBounds(15, 168, 111, 36);
+		button_9.setBounds(480, 537, 185, 92);
 		this.add(button_9);
+		buttonOFF(button_9);
 		
 		//Land1
 		button_1.addActionListener(new ActionListener() {
@@ -387,9 +436,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_1.setAction(action);
-		button_1.setBounds(141, 18, 111, 36);
+		button_1.setBounds(293, 94, 185, 98);
 		this.add(button_1);
+		buttonOFF(button_1);
 		
 		//Land4
 		button_4.addActionListener(new ActionListener() {
@@ -398,9 +447,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_4.setAction(action);
-		button_4.setBounds(141, 69, 111, 36);
+		button_4.setBounds(447, 223, 176, 98);
 		this.add(button_4);
+		buttonOFF(button_4);
 		
 		//Land7
 		button_7.addActionListener(new ActionListener() {
@@ -409,9 +458,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_7.setAction(action);
-		button_7.setBounds(141, 120, 111, 36);
+		button_7.setBounds(577, 346, 167, 86);
 		this.add(button_7);
+		buttonOFF(button_7);
 		
 		//Land10
 		button_10.addActionListener(new ActionListener() {
@@ -420,9 +469,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_10.setAction(action);
-		button_10.setBounds(141, 171, 111, 36);
+		button_10.setBounds(711, 447, 176, 102);
 		this.add(button_10);
+		buttonOFF(button_10);
 		
 		//Land2
 		button_2.addActionListener(new ActionListener() {
@@ -431,9 +480,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_2.setAction(action);
-		button_2.setBounds(267, 18, 111, 36);
+		button_2.setBounds(535, 37, 176, 87);
 		this.add(button_2);
+		buttonOFF(button_2);
 		
 		//Land5
 		button_5.addActionListener(new ActionListener() {
@@ -442,9 +491,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_5.setAction(action);
-		button_5.setBounds(267, 69, 111, 36);
+		button_5.setBounds(669, 159, 167, 87);
 		this.add(button_5);
+		buttonOFF(button_5);
 		
 		//Land8
 		button_8.addActionListener(new ActionListener() {
@@ -453,9 +502,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_8.setAction(action);
-		button_8.setBounds(267, 120, 111, 36);
+		button_8.setBounds(801, 272, 167, 92);
 		this.add(button_8);
+		buttonOFF(button_8);
 		
 		//Land11
 		button_11.addActionListener(new ActionListener() {
@@ -464,20 +513,22 @@ public class FarmScreen extends JPanel implements ActionListener {
 				LandButton(farm, wareHouse);
 			}
 		});
-		button_11.setAction(action);
-		button_11.setBounds(267, 171, 111, 36);
+		button_11.setBounds(923, 391, 176, 87);
 		this.add(button_11);
+		buttonOFF(button_11);
+		
+		//背景圖片設定
+		JLabel lblNewLabel = new JLabel("backGround");
+		lblNewLabel.setLocation(0, 0);
+		ImageIcon img = new ImageIcon("../picture/farm.png");
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(1200, 675, Image.SCALE_SMOOTH);
+		lblNewLabel.setIcon(new ImageIcon(new_img));
+		lblNewLabel.setSize(1200, 675);
+		this.add(lblNewLabel);
 		
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "Land");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
