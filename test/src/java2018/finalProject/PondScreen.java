@@ -184,7 +184,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	}
 	
 	private void timerStart() {
-		time = 5;
+		time = 30;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
