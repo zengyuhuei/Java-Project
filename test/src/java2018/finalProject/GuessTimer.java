@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 
 public class GuessTimer{
-
+ 
  public interface Listener{
 
  //通知時間到
@@ -54,6 +54,7 @@ public class GuessTimer{
 			
 			if(sec <= 0){
 				stopoTimer();
+				
 				if(lis != null){
 					lis.timeOut();
 				}
@@ -77,6 +78,12 @@ public class GuessTimer{
   * @param s
 
   */
+ public boolean timeStop() {
+	 if(timer == null)
+		 return true;
+	 else
+		 return false;
+ }
 
  public void stopoTimer(){
 	 if(timer != null){

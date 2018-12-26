@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java2018.finalProject.DudeScreen.RunningButton;
+import java2018.finalProject.GuessTimer.Listener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -425,7 +427,7 @@ public class DudeGameScreen extends JPanel {
 		dudePigNum.setText(" X "+(int)pigNum);
 		dudeChickenNum.setText(" X "+(int)chickenNum);
 		sum--;
-		if(gt.getSec()>=0) {
+		if(gt.getSec()>0) {
 			if(sum>0) {
 				System.out.println(sum);
 				for(int i=0;i<12;i++) {
@@ -444,23 +446,27 @@ public class DudeGameScreen extends JPanel {
 				for(int i=0; i<button.size(); i++)
 				{
 					button.get(i).setVisible(false);
+					run.get(i).cancel();
 				}
 				backToDudeBtn.setVisible(true);
 			}
 		}
-		else {
-			/*int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務失敗，下次請加油!!", null, JOptionPane.DEFAULT_OPTION);
-			if(input==JOptionPane.YES_OPTION) {
-				mainFrame.changeToDudeScreen();
-			}*/
+		if(gt.timeStop()) {
+			fault();
+		}
+	}
+	public void fault() { // bug: 不點button不會動   result: 弄個大button隱藏後面，mouse havor事件 timer==null跳框框
+		if(sum>0) {
 			faultlbl.setVisible(true);
 			for(int i=0; i<button.size(); i++)
 			{
 				button.get(i).setVisible(false);
+				run.get(i).cancel();
 			}
 			backToDudeBtn.setVisible(true);
 		}
 	}
+
 class RunningButton extends TimerTask {
 	    	private JButton btn;
 	    	private double coordinateX, coordinateY;

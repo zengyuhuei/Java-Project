@@ -66,6 +66,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 	JButton highFeed = new JButton();
 	JButton catchAnimal = new JButton();
 	JButton home = new JButton();
+	JButton dudeGameStart = new JButton();
+	JLabel dudeRule = new JLabel();
 	JButton animal1 = new JButton();
 	JButton animal2 = new JButton();
 	JButton animal3 = new JButton();
@@ -209,6 +211,31 @@ public class DudeScreen extends JPanel implements ActionListener {
 		dudeNumBack.setBounds(194, 10, 780, 99);
 		this.add(dudeNumBack);
 		
+		dudeRule.setBounds(274, 159, 600, 400);
+		ImageIcon duderule = resizeImage(dudeRule.getWidth(), dudeRule.getHeight(), new ImageIcon("../picture/dudeRule.PNG"));
+		
+		dudeGameStart.setBounds(518, 369, 118, 43);
+		ImageIcon dudeGamestart = resizeImage(dudeGameStart.getWidth(), dudeGameStart.getHeight(), new ImageIcon("../picture/dudeRuleButton.PNG"));
+		dudeGameStart.setIcon(dudeGamestart);	
+		add(dudeGameStart);
+		dudeGameStart.setVisible(false);
+		dudeGameStart.setOpaque(false);
+		dudeGameStart.setContentAreaFilled(false);
+		dudeGameStart.setFocusPainted(false);
+		dudeGameStart.setBorder(null);
+		
+		dudeGameStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToDudeGameScreen();
+				dudeGameStart.setVisible(false);
+				dudeRule.setVisible(false);
+			}
+		});
+		dudeRule.setIcon(duderule);	
+		add(dudeRule);
+		dudeRule.setVisible(false);
+		
 		home.setFont(new Font("Dialog", Font.BOLD, 20));	
 		buttonOFF(home);
 		home.setIcon(new ImageIcon("..\\picture\\HOME.png"));
@@ -222,6 +249,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 				feedAnimal.setEnabled(false);
 				catchAnimal.setEnabled(false);
 				closeAnimalRate(dude);
+				dudeGameStart.setVisible(false);
+				dudeRule.setVisible(false);
 			}
 		});
 		home.addMouseListener(new MouseAdapter() {
@@ -559,12 +588,14 @@ public class DudeScreen extends JPanel implements ActionListener {
 				}
 				else {
 					if(random==0) {
-						int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+						/*int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 						if(input == 0) //ok
 						{
 							//跳轉至牧場遊戲畫面
 							mainFrame.changeToDudeGameScreen();
-						}
+						}*/
+						dudeGameStart.setVisible(true);
+						dudeRule.setVisible(true);
 					}			
 				}
 				catchAnimal.setEnabled(false);
