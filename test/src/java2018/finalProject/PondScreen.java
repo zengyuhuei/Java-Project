@@ -26,6 +26,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -43,6 +44,7 @@ import java.awt.Image;
 import javax.swing.JLabel;
 
 public class PondScreen extends JPanel implements ActionListener {
+	private enum ImageCondition {FISHING, GOT, WRONG};
 	private JSlider slider;
 	private int sliderValue = 0;
 	private int sliderAdd = 1;
@@ -56,9 +58,13 @@ public class PondScreen extends JPanel implements ActionListener {
 	private Timer timer;
 	private JLabel timeLabel;
 	private int time;
+	private Timer imageTimer;
+	private Timer replay;
+	private int imageCount = 0;
+	private ImageCondition imageCondition;
+	
 	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
 	private JLabel bgLabel;
-	private int imgC = 0;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -73,7 +79,7 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		timeLabel.setBounds(700, 70, 250, 45);
+		timeLabel.setBounds(700, 60, 250, 45);
 		this.add(timeLabel);
 		
 		startBtn = new JButton("遊戲開始");
@@ -88,6 +94,7 @@ public class PondScreen extends JPanel implements ActionListener {
 		returnBtn.setBounds(50, 20, 176, 114);
 		returnBtn.setContentAreaFilled(false);
 		returnBtn.setBorder(null);
+		returnBtn.setFocusPainted(false);
 		returnBtn.addActionListener(this);
 		returnBtn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -107,24 +114,28 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		bgLabel = new JLabel();
 		bgLabel.setSize(1000, 800);
+		bgLabel.setIcon(iconList.get(0));
 		this.add(bgLabel);
-		Timer t = new Timer();
-		t.schedule(new TimerTask() {
+		
+		this.setFocusable(true);
+		this.addKeyListener(new KeyAdapter() {
 			@Override
-			public void run() {
-				imgC++;
-				bgLabel.setIcon(iconList.get(imgC));
-				System.out.print(imgC);
-				
-				if (imgC == 97) {
-					imgC = 0;
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyChar() == 'a') {
+					imageCondition = ImageCondition.FISHING;
+				}
+				else if (e.getKeyChar() == 's') {
+					imageCondition = ImageCondition.GOT;
+				}
+				else if (e.getKeyChar() == 'd') {
+					imageCondition = ImageCondition.WRONG;
 				}
 			}
-		}, 0, 30);
+		});
 	}
 	
 	private void timerStart() {
-		time = 5;
+		time = 10;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -135,10 +146,58 @@ public class PondScreen extends JPanel implements ActionListener {
 					returnBtn.setEnabled(true);
 					startBtn.setText("再玩一次");
 					startBtn.setVisible(true);
+					imageTimer.cancel();
+					replay.cancel();
 				}
 				time--;
 			}
 		}, 0, 1000);
+		imageStart();
+	}
+	
+	private void imageStart() {
+		imageCondition = ImageCondition.FISHING;
+		imageCount = 0;
+		imageTimer = new Timer();
+		imageTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				bgLabel.setIcon(iconList.get(imageCount));
+				imageCount++;
+				
+				if (imageCondition == ImageCondition.FISHING) {
+					if (imageCount == 20) {
+						imageCount = 0;
+					}
+				}
+				else if (imageCondition == ImageCondition.GOT) {
+					if (imageCount == 54) {
+						imageCount = 0;
+						imageTimer.cancel();
+						replay = new Timer();
+						replay.schedule(new TimerTask() {
+							@Override
+							public void run() {
+								imageStart();
+							}
+						}, 500);
+					}
+				}
+				else if (imageCondition == ImageCondition.WRONG) {
+					if (imageCount == 71) {
+						imageCount = 0;
+						imageTimer.cancel();
+						Timer replay = new Timer();
+						replay.schedule(new TimerTask() {
+							@Override
+							public void run() {
+								imageStart();
+							}
+						}, 500);
+					}
+				}
+			}
+		}, 0, 30);
 	}
 	
 	private ImageIcon imageResize(int width, int height, ImageIcon imgIcon)
@@ -166,11 +225,11 @@ public class PondScreen extends JPanel implements ActionListener {
 }
     
     private void loadBackgroundIcon() {
-    	for (int i = 1; i <= 98; ++i) {
+    	for (int i = 1; i <= 71; ++i) {
         	iconList.add(imageResize(1000, 800, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
-
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
