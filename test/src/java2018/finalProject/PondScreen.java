@@ -35,6 +35,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,13 +45,12 @@ import java.awt.Image;
 import javax.swing.JLabel;
 
 public class PondScreen extends JPanel implements ActionListener {
-	private enum ImageCondition {FISHING, GOT, WRONG};
-	private JSlider slider;
-	private int sliderValue = 0;
-	private int sliderAdd = 1;
-	private Timer t;
-	private TimerTask tk;
-	private boolean stop = false;
+	private static enum ImageCondition {FISHING, GOT, WRONG};
+	private static enum fishCategories {BIG, MID, SMALL, NO};
+	private fishCategories fishCate = fishCategories.NO;
+	private SecureRandom rand = new SecureRandom();
+	private int fishStart;
+	private int fishEnd;
 	
 	private Main mainFrame;
 	private JButton returnBtn;
@@ -59,13 +59,16 @@ public class PondScreen extends JPanel implements ActionListener {
 	private JLabel timeLabel;
 	private int time;
 	private Timer imageTimer;
-	private Timer replay;
+	private Timer replay = null;
+	private Timer sliderTimer;
 	private int imageCount = 0;
 	private ImageCondition imageCondition;
 	
 	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
 	private JLabel bgLabel;
 	private JSlider gameBar;
+	private int sliderValue;
+	private int runTo;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -133,21 +136,21 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyChar() == 'a') {
-					imageCondition = ImageCondition.FISHING;
-				}
-				else if (e.getKeyChar() == 's') {
-					imageCondition = ImageCondition.GOT;
-				}
-				else if (e.getKeyChar() == 'd') {
-					imageCondition = ImageCondition.WRONG;
+				if (e.getKeyChar() == ' ') {
+					sliderTimer.cancel();
+					if (gameBar.getValue() >= fishStart && gameBar.getValue() <= fishEnd) {
+						imageCondition = ImageCondition.GOT;
+					}
+					else {
+						imageCondition = ImageCondition.WRONG;
+					}
 				}
 			}
 		});
 	}
 	
 	private void timerStart() {
-		time = 10;
+		time = 40;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -159,7 +162,10 @@ public class PondScreen extends JPanel implements ActionListener {
 					startBtn.setText("再玩一次");
 					startBtn.setVisible(true);
 					imageTimer.cancel();
-					replay.cancel();
+					if (replay != null) {
+						replay.cancel();
+					}
+					sliderTimer.cancel();
 				}
 				time--;
 			}
@@ -167,9 +173,42 @@ public class PondScreen extends JPanel implements ActionListener {
 		imageStart();
 	}
 	
+	private void gameBarStart() {
+		fishCate = fishCategories.values()[rand.nextInt(3)];
+		switch(fishCate) {
+		case BIG:
+			fishStart = rand.nextInt(270 - 40) + 10;
+			break;
+		case MID:
+			fishStart = rand.nextInt(270 - 50) + 10;
+			break;
+		case SMALL:
+			fishStart = rand.nextInt(270 - 65) + 10;
+			break;
+		}
+		sliderValue = 135;
+		runTo = 1;
+		gameBar.setValue(sliderValue);
+		sliderTimer = new Timer();
+		sliderTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (sliderValue >= 0 && sliderValue <= 269) {
+					sliderValue = sliderValue + runTo;
+				}
+				else {
+					runTo *= -1;
+					sliderValue = sliderValue + runTo;
+				}
+				gameBar.setValue(sliderValue);
+			}
+		}, 0, 2);
+	}
+	
 	private void imageStart() {
 		imageCondition = ImageCondition.FISHING;
 		imageCount = 0;
+		gameBarStart();
 		imageTimer = new Timer();
 		imageTimer.schedule(new TimerTask() {
 			@Override
@@ -258,9 +297,11 @@ public class PondScreen extends JPanel implements ActionListener {
 	
 	private class GameSlider extends BasicSliderUI {
 		private int shift = 5;
+		
 		public GameSlider (JSlider slider) {
 			super(slider);
 		}
+		
 		@Override
 		public void paintTrack(Graphics g) {
 			super.paintTrack(g);
@@ -269,7 +310,28 @@ public class PondScreen extends JPanel implements ActionListener {
 
 			g.setColor(Color.BLACK);
 			g.drawRoundRect(this.trackRect.x, this.trackRect.y, this.trackRect.width, this.trackRect.height, 15, 15);
+			
+			switch (fishCate) {
+			case NO:
+				break;
+			case BIG:
+				g.setColor(Color.RED);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 20, this.trackRect.height - 1);
+				fishEnd = fishStart + 15;
+				break;
+			case MID:
+				g.setColor(Color.ORANGE);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 30, this.trackRect.height - 1);
+				fishEnd = fishStart + 25;
+				break;
+			case SMALL:
+				g.setColor(Color.YELLOW);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 45, this.trackRect.height - 1);
+				fishEnd = fishStart + 45;
+				break;
+			}
 		}
+		
 		@Override
 		public void paintThumb(Graphics g) {
 			g.setColor(Color.BLACK);
