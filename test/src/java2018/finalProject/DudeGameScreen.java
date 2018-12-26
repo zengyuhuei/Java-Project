@@ -71,7 +71,8 @@ public class DudeGameScreen extends JPanel {
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
 	JLabel lblSec = new JLabel("SEC");
-	JLabel word = new JLabel("倒數      秒");
+	JLabel word = new JLabel(": 00");
+	JLabel lblSecback = new JLabel("secback");
 	int cowNum = (int)(Math.random()*6+6);
 	int pigNum = (int)(Math.random()*5+5);
 	int chickenNum = (int)(Math.random()*4+4);
@@ -118,16 +119,23 @@ public class DudeGameScreen extends JPanel {
 		button.add(animal12);
 		lblSec.setForeground(Color.RED);
 		
-		lblSec.setBounds(1006, 36, 151, 65);
+		lblSec.setBounds(963, 34, 58, 65);
 		this.add(lblSec);
 		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		lblSec.setVisible(true);
 		word.setForeground(Color.RED);
 		
-		word.setBounds(937, 36, 211, 65);
+		word.setBounds(1005, 34, 69, 65);
 		this.add(word);
 		word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		word.setVisible(true);
+		
+		
+		lblSecback.setBounds(947, 41, 131, 58);
+		ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon("../picture/secBack.PNG"));
+		lblSecback.setIcon(secback);	
+		add(lblSecback);
+		lblSecback.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
 		this.add(dudeAnimalNum);
