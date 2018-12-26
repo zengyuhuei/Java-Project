@@ -65,6 +65,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	
 	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
 	private JLabel bgLabel;
+	private JSlider gameBar;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -79,7 +80,8 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		timeLabel.setBounds(700, 60, 250, 45);
+		timeLabel.setForeground(Color.RED);
+		timeLabel.setBounds(700, 65, 250, 45);
 		this.add(timeLabel);
 		
 		startBtn = new JButton("遊戲開始");
@@ -118,6 +120,16 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(bgLabel);
 		
 		this.setFocusable(true);
+		
+		gameBar = new JSlider();
+		gameBar.setBounds(360, 65, 280, 50);
+		gameBar.setUI(new GameSlider(gameBar));
+		gameBar.setMaximum(270);
+		gameBar.setMinimum(0);
+		gameBar.setValue(135);
+		System.out.println(gameBar.getValue());
+		this.add(gameBar);
+		
 		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -225,7 +237,7 @@ public class PondScreen extends JPanel implements ActionListener {
 }
     
     private void loadBackgroundIcon() {
-    	for (int i = 1; i <= 71; ++i) {
+    	for (int i = 1; i <= 85; ++i) {
         	iconList.add(imageResize(1000, 800, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
@@ -243,35 +255,25 @@ public class PondScreen extends JPanel implements ActionListener {
 			timerStart();
 		}
 	}
-}
+	
+	private class GameSlider extends BasicSliderUI {
+		private int shift = 5;
+		public GameSlider (JSlider slider) {
+			super(slider);
+		}
+		@Override
+		public void paintTrack(Graphics g) {
+			super.paintTrack(g);
+			g.setColor(Color.WHITE);
+			g.fillRoundRect(this.trackRect.x, this.trackRect.y, this.trackRect.width, this.trackRect.height, 15, 15);
 
-class GameSlider extends BasicSliderUI {    
-	private static float[] fracs = {0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f};
-	private LinearGradientPaint p;
-	public GameSlider(JSlider slider) {
-		super(slider);
-	}
-	@Override
-	public void paintTrack(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;    
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setStroke(new BasicStroke(1.5f));
-        g2d.setColor(Color.BLACK);
-        g2d.fillRoundRect(0, 6, 200, 8, 10, 10);
-        
-        g2d.setColor(Color.YELLOW);
-        g2d.fillRect(30, 6, 20, 8);
-        
-        g2d.setColor(Color.WHITE);
-        g2d.drawRoundRect(0, 6, 200, 8, 10, 10);
-        //System.out.println(trackRect.width);
-        /*Rectangle t = trackRect;
-        Point2D start = new Point2D.Float(t.x + 10, t.y - 10);
-        Point2D end = new Point2D.Float(t.width, t.height);
-        Color[] colors = {Color.magenta, Color.blue, Color.cyan,
-            Color.green, Color.yellow, Color.red};
-        p = new LinearGradientPaint(start, end, fracs, colors);
-        g2d.setPaint(p);
-        g2d.fillRect(t.x, t.y, t.width, t.height);*/
+			g.setColor(Color.BLACK);
+			g.drawRoundRect(this.trackRect.x, this.trackRect.y, this.trackRect.width, this.trackRect.height, 15, 15);
+		}
+		@Override
+		public void paintThumb(Graphics g) {
+			g.setColor(Color.BLACK);
+			g.fillRect(this.thumbRect.x + shift, this.thumbRect.y, 1, this.thumbRect.height);
+		}
 	}
 }
