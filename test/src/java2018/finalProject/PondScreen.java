@@ -81,6 +81,39 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		loadBackgroundIcon();
 		
+		JLabel bigFishLabel = new JLabel("", JLabel.CENTER);
+		bigFishLabel.setIcon(imageResize(170, 120, new ImageIcon("..\\picture\\bigFish.png")));
+		bigFishLabel.setBounds(30, 640, 170, 120);
+		this.add(bigFishLabel);
+		
+		JLabel x1Label = new JLabel("x", JLabel.CENTER);
+		x1Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x1Label.setForeground(Color.BLACK);
+		x1Label.setBounds(190, 675, 60, 60);
+		this.add(x1Label);
+		
+		JLabel midFishLabel = new JLabel("", JLabel.CENTER);
+		midFishLabel.setIcon(imageResize(140, 90, new ImageIcon("..\\picture\\midFish.png")));
+		midFishLabel.setBounds(385, 655, 140, 90);
+		this.add(midFishLabel);
+		
+		JLabel x2Label = new JLabel("x", JLabel.CENTER);
+		x2Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x2Label.setForeground(Color.BLACK);
+		x2Label.setBounds(510, 675, 60, 60);
+		this.add(x2Label);
+		
+		JLabel littleFishLabel = new JLabel("", JLabel.CENTER);
+		littleFishLabel.setIcon(imageResize(110, 60, new ImageIcon("..\\picture\\littleFish.png")));
+		littleFishLabel.setBounds(700, 680, 110, 60);
+		this.add(littleFishLabel);
+		
+		JLabel x3Label = new JLabel("x", JLabel.CENTER);
+		x3Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x3Label.setForeground(Color.BLACK);
+		x3Label.setBounds(790, 675, 60, 60);
+		this.add(x3Label);
+		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
 		timeLabel.setForeground(Color.RED);
@@ -130,6 +163,7 @@ public class PondScreen extends JPanel implements ActionListener {
 		gameBar.setMaximum(270);
 		gameBar.setMinimum(0);
 		gameBar.setValue(135);
+		gameBar.setVisible(false);
 		System.out.println(gameBar.getValue());
 		this.add(gameBar);
 		
@@ -150,7 +184,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	}
 	
 	private void timerStart() {
-		time = 40;
+		time = 5;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -166,10 +200,12 @@ public class PondScreen extends JPanel implements ActionListener {
 						replay.cancel();
 					}
 					sliderTimer.cancel();
+					gameBar.setVisible(true);
 				}
 				time--;
 			}
 		}, 0, 1000);
+		gameBar.setVisible(true);
 		imageStart();
 	}
 	
@@ -320,12 +356,12 @@ public class PondScreen extends JPanel implements ActionListener {
 				fishEnd = fishStart + 15;
 				break;
 			case MID:
-				g.setColor(Color.ORANGE);
+				g.setColor(Color.YELLOW);
 				g.fillRect(fishStart + shift, this.trackRect.y + 1, 30, this.trackRect.height - 1);
 				fishEnd = fishStart + 25;
 				break;
 			case SMALL:
-				g.setColor(Color.YELLOW);
+				g.setColor(Color.CYAN);
 				g.fillRect(fishStart + shift, this.trackRect.y + 1, 45, this.trackRect.height - 1);
 				fishEnd = fishStart + 45;
 				break;
