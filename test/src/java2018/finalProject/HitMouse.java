@@ -48,13 +48,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       //設置滑鼠游標為錘子圖片
       tk = Toolkit.getDefaultToolkit();
       image = tk.createImage(dir + "killbug(X).png");  
-      image = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
       myCursor = tk.createCustomCursor(image, new Point(30,30), "xxx");  
       this.setCursor(myCursor);  
       
       setMessage();//設置一些提示訊息
       //在背景圖片的基礎上設置地鼠圖片    
-      ImageIcon imageMouse = resizeImage(100, 100, new ImageIcon(dir+"diebug.png"));
+      ImageIcon imageMouse = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
       jlbMouse = new JLabel(imageMouse);  
       jlbMouse.setSize(100,100);  
       this.getContentPane().add(jlbMouse);  
@@ -108,7 +107,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
      
   private void setbackground() {  
       ((JPanel)(this.getContentPane())).setOpaque(false);//如果為 true，則該組件繪製其邊界內的所有像素。否則該組件可能不繪製部分或所有像素，從而允許其底層像素透視出来。   
-      ImageIcon bgImage = new ImageIcon(dir+"killBugBackground.png");  
+      //ImageIcon bgImage = new ImageIcon(dir+"killBugBackground.png");  
+      ImageIcon bgImage = resizeImage(1200, 675, new ImageIcon(dir+"killBugBackground.png"));
       JLabel bgLabel = new JLabel(bgImage);  
       bgLabel.setBounds(0, 25, bgImage.getIconWidth(), bgImage.getIconHeight());  
       this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
@@ -152,20 +152,20 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
           menuItemFun(e);  
       }  
          
-      int ran=random.nextInt(6);//隨機生成一個0~9(不包括9)的隨機數
+      int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
       //ImageIcon imageMouse = new ImageIcon(dir+"dishu.png");//保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
-      ImageIcon imageMouse = resizeImage(140, 140, new ImageIcon(dir+"bug.png"));
+      ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
       jlbMouse.setIcon(imageMouse);  
       switch(ran){  
-      case 0:jlbMouse.setLocation(195, 100);break;  
-      case 1:jlbMouse.setLocation(550, 100);break;  
-      case 2:jlbMouse.setLocation(870, 100);break;  
-      case 3:jlbMouse.setLocation(195, 400);break;  
-      case 4:jlbMouse.setLocation(550, 400);break;  
-      case 5:jlbMouse.setLocation(890, 400);break;  
-      //case 6:jlbMouse.setLocation(50, 155);break;  
-      //case 7:jlbMouse.setLocation(190, 160);break;  
-      //case 8:jlbMouse.setLocation(320, 160);break;  
+      case 0:jlbMouse.setLocation(220, 80);break;  
+      case 1:jlbMouse.setLocation(580, 80);break;  
+      case 2:jlbMouse.setLocation(920, 80);break;  
+      case 3:jlbMouse.setLocation(220, 275);break;  
+      case 4:jlbMouse.setLocation(580, 273);break;  
+      case 5:jlbMouse.setLocation(950, 277);break;  
+      case 6:jlbMouse.setLocation(220, 468);break;  
+      case 7:jlbMouse.setLocation(585, 469);break;  
+      case 8:jlbMouse.setLocation(980, 468);break;  
       }  
          
       jlbMouse.setVisible(true);  
@@ -285,12 +285,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
           return ;  
       }  
       image = tk.createImage(dir+"killbug(O).png");  
-      image = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);//滑鼠游標按下時，游標顯示打下去的圖片，模擬打的動作 
       //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
       if(e.getSource()==jlbMouse){  
-          ImageIcon imageIconHit = new  ImageIcon(dir+"diebug.png");  
+          //ImageIcon imageIconHit = new ImageIcon(dir+"diebug.png");  
+          ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
           jlbMouse.setIcon(imageIconHit);  
           jlbMouse.setVisible(true);  
       }  
@@ -306,7 +306,6 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       }  
       //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
       image = tk.createImage(dir+"killBug(X).png");  
-      image = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);  
   }  
