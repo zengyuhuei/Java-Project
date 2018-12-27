@@ -27,20 +27,30 @@ public class Main extends JFrame {
 	private Clip bgClip;
 	private Clip gameClip;
 	
-	public Main(WareHouse warehouse) {
-		this.warehouse = warehouse;
+	public Main() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200, 703);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		
-		this.dudeScreen = new DudeScreen(this, this.warehouse);
-		this.farmScreen = new FarmScreen(this, this.warehouse);
+
 		this.mainScreen = new MainScreen(this);
 		
 		backgroundSound();
 		gameSound();
-		this.changeToMainScreen();
+		this.changeToEnterGameScreen();
+	}
+	
+	public void changeToEnterGameScreen() {
+		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
+		gameClip.stop();
+		this.setTitle("登入畫面");
+		this.setContentPane(new EnterGameScreen(this));
+	}
+	
+	public void setWarehouse(WareHouse warehouse) {
+		this.warehouse = warehouse;
+		this.dudeScreen = new DudeScreen(this, this.warehouse);
+		this.farmScreen = new FarmScreen(this, this.warehouse);
 	}
 	
 	public void changeToMainScreen() {
@@ -129,64 +139,14 @@ public class Main extends JFrame {
     }
 	
 	public static void main(String[] args) {
-		WareHouse wareHouse = new WareHouse();
-		Animal a = new Cow();
-		Animal b = new Chicken();
-		Animal c = new Cow();
-		Animal e = new Chicken();
-		Animal pig = new Pig();
 		
-		
-		Feed f = new SimpleFeed();
-		Feed j = new GeneralFeed();
-		Feed g = new SimpleFeed();
-		Feed h = new AdvancedFeed();
-		Feed i = new SimpleFeed();
-		
-		Crop k = new Corn();
-		Crop m = new Corn();
-		Crop n = new Wheat();
-		Crop o = new Cabbage();
-		Crop corn = new Corn();
-		
-		a.setGrowingRate100();
-		c.setGrowingRate100();
-		b.setGrowingRate100();
-		e.setGrowingRate100();
-		pig.setGrowingRate100();
-		
-		
-		wareHouse.addAnimal(a);
-		wareHouse.addAnimal(c);
-		wareHouse.addAnimal(b);
-		wareHouse.addAnimal(e);
-		wareHouse.addAnimal(pig);
-		
-		wareHouse.addFeed(f);
-		wareHouse.addFeed(g);
-		wareHouse.addFeed(h);
-		wareHouse.addFeed(i);
-		wareHouse.addFeed(j);
-		
-		
-		n.setGrowingRate100();
-		o.setGrowingRate100();
-		k.setGrowingRate100();		
-		m.setGrowingRate100();
-		
-		wareHouse.addCrop(k); //corn
-		wareHouse.addCrop(m); //corn
-		wareHouse.addCrop(n); //wheat
-		wareHouse.addCrop(o); //cabbage
-		wareHouse.addSeed(corn);
-		wareHouse.removeSeed("玉米");
 		//  chicken*2 pig *1  cow*2  wheat*1 corn *2  cabbage *1 
 		//simple *3 general*1  advanced*1
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main mainFrame = new Main(wareHouse);
+					Main mainFrame = new Main();
 					mainFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

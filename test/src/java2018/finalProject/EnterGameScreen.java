@@ -1,20 +1,174 @@
 package java2018.finalProject;
 
+import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
-public class EnterGameScreen {
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EnterGame frame = new EnterGame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+public class EnterGameScreen extends JPanel {
+	
+	Main mainFrame;
+	
+	public void buttonSound()
+    {
+    	 try {
+	            
+	            File soundFile = new File("..\\sound\\button.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	            
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+    }
+	 public void cleanButtom(JButton button)
+	    {
+	    	button.setOpaque(false);
+			button.setContentAreaFilled(false);
+			button.setFocusPainted(false);
+			button.setBorder(null);
+	    }
+	public ImageIcon resizeImage(int width, int height, ImageIcon img)
+	{
+		Image i = img.getImage();
+		Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return  new ImageIcon(new_img);
+		
 	}
-
+ 
+	public EnterGameScreen(Main mainFrame) {
+		this.mainFrame = mainFrame;
+		this.setSize(1200, 703);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
+		
+		JButton btnEnter = new JButton();
+		cleanButtom(btnEnter);
+		btnEnter.setBounds(90, 31, 374, 174);
+		btnEnter.setIcon(new ImageIcon("../picture/new_game.png"));
+		btnEnter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.setWarehouse(createWareHouse());
+				mainFrame.changeToMainScreen();
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				 buttonSound();
+				 setCursor(new Cursor(Cursor.HAND_CURSOR));
+				 btnEnter.setIcon(resizeImage(btnEnter.getIcon().getIconWidth()+10,btnEnter.getIcon().getIconHeight()+10,(ImageIcon)btnEnter.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnEnter.setIcon(new ImageIcon("../picture/new_game.png"));
+            } 
+		});
+		this.add(btnEnter);
+		
+		JButton btnLoad = new JButton();
+		cleanButtom(btnLoad);
+		btnLoad.setBounds(100, 218, 364, 157);
+		btnLoad.setIcon(new ImageIcon("../picture/load_game.png"));
+		btnLoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				 buttonSound();
+				 setCursor(new Cursor(Cursor.HAND_CURSOR));
+				 btnLoad.setIcon(resizeImage(btnLoad.getIcon().getIconWidth()+10,btnLoad.getIcon().getIconHeight()+10,(ImageIcon)btnLoad.getIcon()));
+            } 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	btnLoad.setIcon(new ImageIcon("../picture/load_game.png"));
+            } 
+		});
+		this.add(btnLoad);
+		
+		JLabel background = new JLabel();
+		background.setSize(1200,703);
+		
+		background.setIcon(resizeImage(1200,703,new ImageIcon("../picture/enter.jpg")));
+		
+		this.add(background);
+	}
+	
+	private WareHouse createWareHouse() {
+		WareHouse wareHouse = new WareHouse();
+		Animal a = new Cow();
+		Animal b = new Chicken();
+		Animal c = new Cow();
+		Animal e = new Chicken();
+		Animal pig = new Pig();
+		
+		
+		Feed f = new SimpleFeed();
+		Feed j = new GeneralFeed();
+		Feed g = new SimpleFeed();
+		Feed h = new AdvancedFeed();
+		Feed i = new SimpleFeed();
+		
+		Crop k = new Corn();
+		Crop m = new Corn();
+		Crop n = new Wheat();
+		Crop o = new Cabbage();
+		Crop corn = new Corn();
+		
+		a.setGrowingRate100();
+		c.setGrowingRate100();
+		b.setGrowingRate100();
+		e.setGrowingRate100();
+		pig.setGrowingRate100();
+		
+		
+		wareHouse.addAnimal(a);
+		wareHouse.addAnimal(c);
+		wareHouse.addAnimal(b);
+		wareHouse.addAnimal(e);
+		wareHouse.addAnimal(pig);
+		
+		wareHouse.addFeed(f);
+		wareHouse.addFeed(g);
+		wareHouse.addFeed(h);
+		wareHouse.addFeed(i);
+		wareHouse.addFeed(j);
+		
+		
+		n.setGrowingRate100();
+		o.setGrowingRate100();
+		k.setGrowingRate100();		
+		m.setGrowingRate100();
+		
+		wareHouse.addCrop(k); //corn
+		wareHouse.addCrop(m); //corn
+		wareHouse.addCrop(n); //wheat
+		wareHouse.addCrop(o); //cabbage
+		wareHouse.addSeed(corn);
+		wareHouse.removeSeed("玉米");
+		return wareHouse;
+	}
 }

@@ -33,6 +33,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.border.CompoundBorder;
@@ -57,6 +58,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 	private boolean unMatured = false;
 	private boolean holding = false;
 	private Main mainFrame;
+	private boolean firstEnter = true;
 	
     public void buttonSound()
     {
@@ -168,24 +170,31 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		btnisMaturedItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnisMaturedItem.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(isMatured == false)
+				if(firstEnter == false)
 				{
-					updateMaturedItem();
-					unMaturedScrollPane.setVisible(false);
-					holdingScrollPane.setVisible(false);
-					isMaturedScrollPane.setVisible(true);
-					isMatured = true;
-					unMatured = false;
-					holding = false;
-					
-					
+					if(isMatured == false)
+					{
+						updateMaturedItem();
+						unMaturedScrollPane.setVisible(false);
+						holdingScrollPane.setVisible(false);
+						isMaturedScrollPane.setVisible(true);
+						isMatured = true;
+						unMatured = false;
+						holding = false;
+						
+						
+					}
 				}
+				else
+					firstEnter = false; 
+				
 				
 				
 			}
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 	          
 			} 
 		});
@@ -212,6 +221,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 	          
 			} 
 		});
@@ -243,7 +253,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
-	          
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			} 
 		});
 		
@@ -261,6 +271,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
             public void mouseEntered(MouseEvent arg0) {
 				btnReturn.setIcon(resizeImage(btnReturn.getIcon().getIconWidth()+10,btnReturn.getIcon().getIconHeight()+10,(ImageIcon)btnReturn.getIcon()));
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 	          
 			} 
             @Override
