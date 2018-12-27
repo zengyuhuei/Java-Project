@@ -214,8 +214,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 		dudeRule.setBounds(274, 159, 600, 400);
 		ImageIcon duderule = resizeImage(dudeRule.getWidth(), dudeRule.getHeight(), new ImageIcon("../picture/dudeRule.PNG"));
 		
-		dudeGameStart.setBounds(518, 369, 118, 43);
-		ImageIcon dudeGamestart = resizeImage(dudeGameStart.getWidth(), dudeGameStart.getHeight(), new ImageIcon("../picture/dudeRuleButton.PNG"));
+		dudeGameStart.setBounds(505, 369, 137, 55);
+		ImageIcon dudeGamestart = resizeImage(118, 37, new ImageIcon("../picture/dudeRuleButton.PNG"));
 		dudeGameStart.setIcon(dudeGamestart);	
 		add(dudeGameStart);
 		dudeGameStart.setVisible(false);
@@ -231,6 +231,15 @@ public class DudeScreen extends JPanel implements ActionListener {
 				dudeGameStart.setVisible(false);
 				dudeRule.setVisible(false);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				dudeGameStart.setIcon(resizeImage(dudeGameStart.getIcon().getIconWidth()+10,dudeGameStart.getIcon().getIconHeight()+10,(ImageIcon)dudeGameStart.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	dudeGameStart.setIcon(resizeImage (118, 37,new ImageIcon("../picture/dudeRuleButton.png")));
+            }   
 		});
 		dudeRule.setIcon(duderule);	
 		add(dudeRule);
