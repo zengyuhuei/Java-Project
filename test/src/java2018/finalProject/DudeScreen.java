@@ -78,7 +78,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 	JButton animal10 = new JButton();
 	ArrayList<JButton> button = new ArrayList<JButton>(10);
 	ArrayList<RunningButton> runbutton = new ArrayList<RunningButton>(10);
-	private int num, buttonNum;
+	private int num=-1;
+	private int buttonNum;
 	ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
 	ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
 	ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
@@ -840,17 +841,21 @@ public class DudeScreen extends JPanel implements ActionListener {
         	buttonGIF();
         	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
         	{
-        		if(dude.getPondLand().get(i).getName()=="雞")
+        		if(dude.getPondLand().get(i).getName()=="雞"&&i!=num)
     			{
     				btn.setIcon(chickenleft);
     			}
-    			if(dude.getPondLand().get(i).getName()=="豬")
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i!=num)
     			{
     				btn.setIcon(pigleft);
     			}
-    			if(dude.getPondLand().get(i).getName()=="牛")
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i!=num)
     			{
     				btn.setIcon(cowleft);
+    			}
+    			if(i==num)
+    			{
+    				btn.setIcon(resizeImage(btn.getIcon().getIconWidth()+10,btn.getIcon().getIconHeight()+10,(ImageIcon)btn.getIcon()));;
     			}
     			btn.setVisible(true);
         	}
