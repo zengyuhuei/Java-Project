@@ -345,6 +345,7 @@ public class DudeGameScreen extends JPanel {
 				if(gt.timeStop()) {
 					fault();
 				}
+
 			}
             public void mouseEntered(MouseEvent arg0) {
         		if(gt.timeStop()) {
@@ -665,6 +666,7 @@ public class DudeGameScreen extends JPanel {
 					run.get(i).cancel();
 				}
 				backToDudeBtn.setVisible(true);
+
 			}
 		}
 		if(gt.timeStop()) {
@@ -837,6 +839,23 @@ class RunningButton extends TimerTask {
 		{
 	    	 try {           
 		            File soundFile = new File("..\\sound\\button.wav");
+		            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		            Clip clip = AudioSystem.getClip();
+		            clip.open(audioIn);
+		            clip.start();
+		    
+		        } catch (UnsupportedAudioFileException e) {
+		            e.printStackTrace();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        } catch (LineUnavailableException e) {
+		            e.printStackTrace();
+		        }
+		}
+		public void Sound(String name)
+		{
+	    	 try {           
+		            File soundFile = new File("..\\sound\\"+name+"Sound.wav");
 		            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 		            Clip clip = AudioSystem.getClip();
 		            clip.open(audioIn);

@@ -51,7 +51,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       this.getContentPane().setLayout(null);//設置框架佈局模式為空（只有這樣，才能知道圖片的真正位置  
       //設置滑鼠游標為錘子圖片
       tk = Toolkit.getDefaultToolkit();
-      image = tk.createImage(dir + "killbug(X).png");  
+      //image = tk.createImage(dir + "killbug(X).png"); 
+      image = tk.createImage(dir + "chui1.png"); 
       myCursor = tk.createCustomCursor(image, new Point(30,30), "xxx");  
       this.setCursor(myCursor);  
       
@@ -379,7 +380,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       if(isOver){  
           return ;  
       }  
-      image = tk.createImage(dir+"killbug(O).png");  
+      image = tk.createImage(dir+"chui2.png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);//滑鼠游標按下時，游標顯示打下去的圖片，模擬打的動作 
       //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
@@ -410,7 +411,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
           return ;  
       }  
       //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
-      image = tk.createImage(dir+"killBug(X).png");  
+      image = tk.createImage(dir+"chui1.png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);  
   }  

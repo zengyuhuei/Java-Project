@@ -223,7 +223,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 		dudeNumBack.setBounds(194, 10, 780, 99);
 		this.add(dudeNumBack);
 		
-		dudeRule.setBounds(274, 159, 600, 400);
+		dudeRule.setBounds(274, 91, 600, 468);
 		ImageIcon duderule = resizeImage(dudeRule.getWidth(), dudeRule.getHeight(), new ImageIcon("../picture/dudeRule.PNG"));
 		
 		dudeGameStart.setBounds(505, 369, 137, 55);
@@ -585,6 +585,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				dude.capturing(num);
 				printdudeAnimalNum(dude, dudeChickenNum, dudePigNum, dudeCowNum);
 				closeButton(dude);
+				closeAnimalRate(dude);
 				//catchAnimal.setEnabled(false);
 			}
 		});
@@ -696,7 +697,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 		lblNewLabel.setSize(1200, 675);
 			this.add(lblNewLabel);
 			JButton btnNewButton = new JButton("New button");
-			btnNewButton.setBounds(0, 0, 880, 675);
+			btnNewButton.setBounds(0, 0, 900, 675);
 			add(btnNewButton);
 			buttonOFF(btnNewButton);
 			btnNewButton.addMouseListener(new MouseAdapter() {
@@ -710,6 +711,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				}
             public void mouseEntered(MouseEvent arg0) {
             	closeStart();
+            	closeFeed();
 				}
 			});
 		
@@ -731,6 +733,24 @@ public class DudeScreen extends JPanel implements ActionListener {
 	            e.printStackTrace();
 	        }
 	}
+	public void animalSound(String name)
+	{
+    	 try {           
+	            File soundFile = new File("..\\sound\\"+name+"Sound.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	    
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+	}
+
 	public void animalAction(Dude dude, WareHouse warehouse) { //養殖動物統一動作
 		catchAnimal.setEnabled(false);
 		showButton(dude);
@@ -749,12 +769,25 @@ public class DudeScreen extends JPanel implements ActionListener {
 		}
 	}
 	public void buttonAction(Dude dude, int num) { //場上動物統一動作
+		String name;
 		closeFeed();
 		closeStart();
 		if(dude.getPondLand().get(num).getGrowingRate()>=100)catchAnimal.setEnabled(true);
 		else catchAnimal.setEnabled(false);
 		printAnimalRate(dude, num);
 		returnAnimalEat(dude, num);
+		if(dude.getPondLand().get(num).getName()=="牛") {
+			name="cow";
+			animalSound(name);
+		}
+		if(dude.getPondLand().get(num).getName()=="豬") {
+			name="pig";
+			animalSound(name);
+		}
+		if(dude.getPondLand().get(num).getName()=="雞") {
+			name="chicken";
+			animalSound(name);
+		}
 	}
 	public void closeFeed() { //隱身三飼料按鈕
 		feedbackGround2.setVisible(false);
