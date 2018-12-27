@@ -647,7 +647,7 @@ public class DudeGameScreen extends JPanel {
 			if(sum>0) {
 				System.out.println(sum);
 				for(int i=0;i<12;i++) {
-					//run.get(i).setVXVY();
+					run.get(i).setVXVY();
 				}
 			}
 			if(sum==0) {
