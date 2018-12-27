@@ -405,6 +405,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					cabbageButton.setEnabled(false);
 				else cabbageButton.setEnabled(true);
 				
+				
 				cornButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
 			        	if(farm.getStoreCropNum(landNum)== -1)
@@ -428,17 +429,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	}
 			        }
 			    });
-				cornButton.addMouseListener(new MouseAdapter() {
-					@Override
-		            public void mouseEntered(MouseEvent arg0) {
-						cornButton.setIcon(resizeImage(cornButton.getIcon().getIconWidth()+10,cornButton.getIcon().getIconHeight()+10,(ImageIcon)cornButton.getIcon()));
-						buttonSound();
-					} 
-		            @Override
-		            public void mouseExited(MouseEvent arg0) {
-		            	cornButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/corn.png")));
-		            } 
-				});
 			
 			
 				wheatButton.addActionListener(new ActionListener() {
@@ -465,17 +455,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	
 			        }
 			    });
-				wheatButton.addMouseListener(new MouseAdapter() {
-					@Override
-		            public void mouseEntered(MouseEvent arg0) {
-						wheatButton.setIcon(resizeImage(wheatButton.getIcon().getIconWidth()+10,wheatButton.getIcon().getIconHeight()+10,(ImageIcon)wheatButton.getIcon()));
-						buttonSound();
-					} 
-		            @Override
-		            public void mouseExited(MouseEvent arg0) {
-		            	wheatButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/wheat.png")));
-		            } 
-				});
 			
 				cabbageButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
@@ -501,17 +480,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 			        	
 			        }
 			    });
-				cabbageButton.addMouseListener(new MouseAdapter() {
-					@Override
-		            public void mouseEntered(MouseEvent arg0) {
-						cabbageButton.setIcon(resizeImage(cabbageButton.getIcon().getIconWidth()+10,cabbageButton.getIcon().getIconHeight()+10,(ImageIcon)cabbageButton.getIcon()));
-						buttonSound();
-					} 
-		            @Override
-		            public void mouseExited(MouseEvent arg0) {
-		            	cabbageButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/cabbage.png")));
-		            } 
-				});
 			
 			}
 		});
@@ -524,6 +492,39 @@ public class FarmScreen extends JPanel implements ActionListener {
             @Override
             public void mouseExited(MouseEvent arg0) {
             	sowingButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/addCrop.png")));
+            } 
+		});
+		cornButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				cornButton.setIcon(resizeImage(cornButton.getIcon().getIconWidth()+10,cornButton.getIcon().getIconHeight()+10,(ImageIcon)cornButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	cornButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/corn.png")));
+            } 
+		});
+		wheatButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				wheatButton.setIcon(resizeImage(wheatButton.getIcon().getIconWidth()+10,wheatButton.getIcon().getIconHeight()+10,(ImageIcon)wheatButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	wheatButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/wheat.png")));
+            } 
+		});
+		cabbageButton.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				cabbageButton.setIcon(resizeImage(cabbageButton.getIcon().getIconWidth()+10,cabbageButton.getIcon().getIconHeight()+10,(ImageIcon)cabbageButton.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	cabbageButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/cabbage.png")));
             } 
 		});
 		
@@ -624,7 +625,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 		rateBackGround.setIcon(rateBackground);
 		
 		//Land0
-		//button_0.setAction(action);
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reload();
