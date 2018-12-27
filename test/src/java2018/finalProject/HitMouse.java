@@ -1,5 +1,6 @@
 package java2018.finalProject;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;  
@@ -25,7 +26,7 @@ import javax.swing.Timer;
  
 public class HitMouse extends JFrame implements ActionListener,MouseListener
 {  
-  
+    
   private static final long serialVersionUID = 1L;
   boolean isOver = false;  //設置標記，遊戲是否結束
   private String dir = "../picture/"; //圖片目錄  
@@ -36,9 +37,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   Toolkit tk;  
   Image image;  
   Cursor myCursor;  
-  JLabel showNum,currentGrade,hitNum;  
-  int showNumber=0,hitNumber=0,currentGrades=1;
-     
+  JLabel showNum,currentGrade,hitNum, restNum;  
+  int showNumber=0,hitNumber=0, restNumber=0, currentGrades=1;
+  GuessTimer gt = new GuessTimer();
+  
   public HitMouse()
   {  
       super("除蟲遊戲");  
@@ -61,6 +63,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       this.getContentPane().add(jlbMouse);  
       jlbMouse.setVisible(false);  
       jlbMouse.addMouseListener(this);//添加滑鼠游標監聽  
+      
       //定時器 
       timer = new Timer(delay,this);  
       random = new Random();  
@@ -70,10 +73,76 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
          
       this.setResizable(false);//設置視窗大小不能改變
       this.setVisible(true);  
+      //------------------------------------------------------------
+      JLabel lblSec = new JLabel("SEC");
+  	  JLabel word = new JLabel(": 00");
+  	  JLabel lblSecback = new JLabel("secback");
+  	  //JLabel successlbl = new JLabel();
+  	  //JLabel faultlbl = new JLabel();
+  	  
+  	  gt.setJLabel(lblSec);
+  	  
+  	  //傾聽計時器timeout事件(可選的事件，不實作也可以使用timer
+	  gt.addListener(new GuessTimer.Listener() {
+		  @Override
+		  public void timeOut() {
+		      //處理TimeOut事件
+			  timer.stop();
+			  isOver = true;
+			  timeMessageAppear();
+		  }
+		  @Override
+		  public void onChange(long sec) {
+			 System.out.println("sec=>" + sec);
+		  }
+	   });
+	  gt.startTimer(30);
+	  
+	  lblSec.setForeground(Color.RED);
+	  lblSec.setBounds(963, 15, 58, 65);
+	  this.add(lblSec);
+	  lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  lblSec.setVisible(true);
+	  
+	  word.setForeground(Color.RED);
+	  word.setBounds(1005, 15, 69, 65);
+      this.add(word);
+	  word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+      word.setVisible(true);
       
+      lblSecback.setBounds(947, 15, 131, 58);
+      ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon(dir+"secBack.png"));
+      lblSecback.setIcon(secback);	
+	  add(lblSecback);
+	  lblSecback.setVisible(true);
+	  /*
+	  successlbl.setBounds(274, 159, 600, 400);
+	  ImageIcon success = resizeImage(successlbl.getWidth(), successlbl.getHeight(), new ImageIcon(dir+"success.png"));
+	  
+	  faultlbl.setBounds(274, 159, 600, 400);
+	  ImageIcon fault = resizeImage(faultlbl.getWidth(), faultlbl.getHeight(), new ImageIcon("../picture/fault.PNG"));
+      
+	  successlbl.setIcon(success);	
+	  add(successlbl);
+	  successlbl.setVisible(false);
+		
+	  faultlbl.setIcon(fault);	
+	  add(faultlbl);
+	  faultlbl.setVisible(false);
+	  */
+	  
+	  // Math.random 會產生 0 ~ 接近 1 的數字 
+      restNumber = (int)(Math.random() * 6);  // 0 ~ 5
+      restNumber += 25;  // 25 ~ 30
+      System.out.print(restNumber + "  ");  
       
   }  
-     
+  
+  private void timeMessageAppear()
+  {
+	  JOptionPane.showMessageDialog(this, "Times Up!");
+  }
+  
   private void addMenu() 
   {  
       JMenuBar menubar = new JMenuBar();  
@@ -121,42 +190,48 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   private void setMessage() 
   {  
 	  JLabel showNumText = new JLabel("出現數量:");
-	  showNumText.setBounds(207, 25, 181, 43);
+	  showNumText.setBounds(130, 25, 181, 43);
 	  this.add(showNumText);
 	  showNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	  showNumText.setVisible(true);
-	  
 	  showNum = new JLabel("0");  
-      showNum.setBounds(350, -10, 250, 115);  
+      showNum.setBounds(270, -10, 250, 115);  
       this.getContentPane().add(showNum);
       showNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
       
       JLabel hitNumText = new JLabel("擊中數量:");
-      hitNumText.setBounds(430, 25, 181, 43);
+      hitNumText.setBounds(320, 25, 181, 43);
 	  this.add(hitNumText);
 	  hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	  hitNumText.setVisible(true);
-	  
-      hitNum = new JLabel("0");
-      hitNum.setBounds(580, -10, 250, 115);
+	  hitNum = new JLabel("0");
+      hitNum.setBounds(460, -10, 250, 115);
       this.getContentPane().add(hitNum); 
       hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  
+	  JLabel restNumberText = new JLabel("還差數量:");
+	  restNumberText.setBounds(500, 25, 181, 43);
+	  this.add(restNumberText);
+	  restNumberText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  restNumberText.setVisible(true);
+	  restNum = new JLabel("?");
+	  restNum.setBounds(640, -10, 250, 115);
+      this.getContentPane().add(restNum); 
+      restNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
       
       JLabel currentGradeText = new JLabel("當前等級:");
       currentGradeText.setBounds(700, 25, 181, 43);
 	  this.add(currentGradeText);
 	  currentGradeText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	  currentGradeText.setVisible(true);
-	  
       currentGrade = new JLabel("1");
       currentGrade.setBounds(850, -10, 250, 115);
       this.getContentPane().add(currentGrade); 
       currentGrade.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
       
-      //ImageIcon hitNumbBoard = new ImageIcon(dir+"billBoard.png");  
       ImageIcon hitNumbBoard = resizeImage(800, 70, new ImageIcon(dir+"billBoard.png"));
       JLabel hitLabel = new JLabel(hitNumbBoard, JLabel.CENTER);  
-      hitLabel.setBounds(100, 3, 850, 70);  
+      hitLabel.setBounds(30, 3, 950, 70);  
       this.getContentPane().add(hitLabel);
   }  
  
@@ -172,7 +247,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       }  
          
       int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
-      //ImageIcon imageMouse = new ImageIcon(dir+"dishu.png");//保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
+      //保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
       ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
       jlbMouse.setIcon(imageMouse);  
       switch(ran){  
@@ -192,7 +267,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       showNumber++;  
       showNum.setText(""+showNumber);  
          
-      if( !gamePlan() ){//判断游戏是否结束，并显示游戏进程  
+      if( !gamePlan() ){//判斷遊戲是否結束，並判斷遊戲進程
           timer.stop();  
       }  
          
@@ -273,11 +348,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   private boolean gamePlan() 
   {  
       if(showNumber-hitNumber > 8){  
+    	  gt.stopoTimer();
           JOptionPane.showMessageDialog(this, "Game Over !");  
           isOver=true;  
           return false;  
       }  
-      if(hitNumber > 5){  
+      if(hitNumber > 2){  
           hitNumber=0;  
           showNumber=0;  
           currentGrades++;  
@@ -308,14 +384,24 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       this.setCursor(myCursor);//滑鼠游標按下時，游標顯示打下去的圖片，模擬打的動作 
       //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
       if(e.getSource()==jlbMouse){  
-          //ImageIcon imageIconHit = new ImageIcon(dir+"diebug.png");  
           ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
           jlbMouse.setIcon(imageIconHit);  
           jlbMouse.setVisible(true);  
       }  
          
       hitNumber++;  
-      hitNum.setText(""+hitNumber);  
+      hitNum.setText(""+hitNumber); 
+      
+      if(restNumber > 0)
+      {
+    	  restNumber--;
+          restNum.setText(""+restNumber);
+      }
+      
+      else {
+    	  JOptionPane.showMessageDialog(this, "你成功了!!獲得金幣囉~~");
+      }
+      
   }  
  
   public void mouseReleased(MouseEvent e) 
