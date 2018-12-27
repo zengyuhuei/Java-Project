@@ -217,8 +217,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 		dudeRule.setBounds(274, 159, 600, 400);
 		ImageIcon duderule = resizeImage(dudeRule.getWidth(), dudeRule.getHeight(), new ImageIcon("../picture/dudeRule.PNG"));
 		
-		dudeGameStart.setBounds(518, 369, 118, 43);
-		ImageIcon dudeGamestart = resizeImage(dudeGameStart.getWidth(), dudeGameStart.getHeight(), new ImageIcon("../picture/dudeRuleButton.PNG"));
+		dudeGameStart.setBounds(505, 369, 137, 55);
+		ImageIcon dudeGamestart = resizeImage(118, 37, new ImageIcon("../picture/dudeRuleButton.PNG"));
 		dudeGameStart.setIcon(dudeGamestart);	
 		add(dudeGameStart);
 		dudeGameStart.setVisible(false);
@@ -234,6 +234,15 @@ public class DudeScreen extends JPanel implements ActionListener {
 				dudeGameStart.setVisible(false);
 				dudeRule.setVisible(false);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				dudeGameStart.setIcon(resizeImage(dudeGameStart.getIcon().getIconWidth()+10,dudeGameStart.getIcon().getIconHeight()+10,(ImageIcon)dudeGameStart.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	dudeGameStart.setIcon(resizeImage (118, 37,new ImageIcon("../picture/dudeRuleButton.png")));
+            }   
 		});
 		dudeRule.setIcon(duderule);	
 		add(dudeRule);
@@ -827,6 +836,7 @@ public class DudeScreen extends JPanel implements ActionListener {
     	private int random = (int)(Math.random()*4);
     	private Dude dude;
     	private int i;
+    	private int coor;
     	public RunningButton(JButton btn, double coordinateX, double coordinateY, Dude dude, int i) {
         	this.btn = btn;
         	this.coordinateX = coordinateX;
@@ -851,6 +861,18 @@ public class DudeScreen extends JPanel implements ActionListener {
         	}
     	}
         public void run() {
+        	coor = (int)(Math.random()*20);
+        	if(coor==0) {
+        		if(vx<0) {
+        			vx = -vx;
+                    showButtonRight(dude, i);
+        		}
+        		else {
+        			vx = -vx;
+                    showButtonLeft(dude, i);
+        		}
+        		
+        	}
             if (coordinateX + vx < 50) {
                 vx = -vx;
                 showButtonRight(dude, i);

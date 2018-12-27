@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +28,8 @@ import java2018.finalProject.GuessTimer.Listener;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
 
@@ -170,8 +177,8 @@ public class DudeGameScreen extends JPanel {
 		faultlbl.setBounds(274, 159, 600, 400);
 		ImageIcon fault = resizeImage(faultlbl.getWidth(), faultlbl.getHeight(), new ImageIcon("../picture/fault.PNG"));
 		
-		backToDudeBtn.setBounds(518, 369, 118, 43);
-		ImageIcon backTodude = resizeImage(backToDudeBtn.getWidth(), backToDudeBtn.getHeight(), new ImageIcon("../picture/backToDude.PNG"));
+		backToDudeBtn.setBounds(505, 369, 137, 55);
+		ImageIcon backTodude = resizeImage(118, 37, new ImageIcon("../picture/backToDude.PNG"));
 		backToDudeBtn.setIcon(backTodude);	
 		add(backToDudeBtn);
 		backToDudeBtn.setVisible(false);
@@ -185,7 +192,16 @@ public class DudeGameScreen extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				mainFrame.changeToDudeScreen();
 			}
+            public void mouseEntered(MouseEvent arg0) {
+            	backToDudeBtn.setIcon(resizeImage(backToDudeBtn.getIcon().getIconWidth()+10,backToDudeBtn.getIcon().getIconHeight()+10,(ImageIcon)backToDudeBtn.getIcon()));
+				buttonSound();
+			}
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	backToDudeBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/backToDude.png")));
+            } 
 		});
+
 		successlbl.setIcon(success);	
 		add(successlbl);
 		successlbl.setVisible(false);
@@ -312,6 +328,27 @@ public class DudeGameScreen extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
 		this.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(0, 0, 1200, 675);
+		add(btnNewButton);
+		btnNewButton.setOpaque(false);
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setFocusPainted(false);
+		btnNewButton.setBorder(null);
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(gt.timeStop()) {
+					fault();
+				}
+			}
+            public void mouseEntered(MouseEvent arg0) {
+        		if(gt.timeStop()) {
+        			fault();
+        		}
+			}
+		});
 		
 		showAnimal();
 		
@@ -480,6 +517,7 @@ class RunningButton extends TimerTask {
 	    	private double coordinateX, coordinateY;
 	    	private double vx, vy;
 	    	private int random = (int)(Math.random()*4);
+	    	private int coor;
 	    	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
 	        	this.btn = btn;
 	        	this.coordinateX = coordinateX;
@@ -502,6 +540,17 @@ class RunningButton extends TimerTask {
 	        	}
 	    	}
 	        public void run() {
+	        	coor = (int)(Math.random()*20);
+	        	if(coor==0) {
+	        		if(vx<0) {
+	        			vx = -vx;
+	                    showButtonRight();
+	        		}
+	        		else {
+	        			vx = -vx;
+	                    showButtonLeft();
+	        		}
+	        	}
 	            if (coordinateX + vx < 50) {
 	                vx = -vx;
 	                showButtonRight();
@@ -611,4 +660,21 @@ class RunningButton extends TimerTask {
 		  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		  return  new ImageIcon(new_img);
 	  }
+	  public void buttonSound()
+		{
+	    	 try {           
+		            File soundFile = new File("..\\sound\\button.wav");
+		            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		            Clip clip = AudioSystem.getClip();
+		            clip.open(audioIn);
+		            clip.start();
+		    
+		        } catch (UnsupportedAudioFileException e) {
+		            e.printStackTrace();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        } catch (LineUnavailableException e) {
+		            e.printStackTrace();
+		        }
+		}
 }
