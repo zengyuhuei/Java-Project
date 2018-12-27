@@ -288,7 +288,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		noToSell.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cleanTable(table);
+				//cleanTable(table);
 				askSell.setVisible(false);
 			}
 		});
@@ -333,7 +333,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		noToBuy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cleanTable(table);
+				//cleanTable(table);
 				askBuy.setVisible(false);
 			}
 		});
@@ -351,13 +351,14 @@ public class ShopScreen extends JPanel implements ActionListener {
 				{
 					addItem();
 					lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
+					cleanTable(buyTable);
 				}
 				else
 				{
 					String message = String.format("現有金錢為:%d元，金額不足",shop.getHoldMoney() );
 					noMoney.setVisible(true);
 				}
-				cleanTable(buyTable);
+				
 				askBuy.setVisible(false);
 			}
 		});
