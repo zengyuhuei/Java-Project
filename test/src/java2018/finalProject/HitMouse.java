@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;  
 import java.awt.event.MouseEvent;  
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Random;  
  
 import javax.swing.ImageIcon;  
@@ -40,6 +39,9 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   JLabel showNum,currentGrade,hitNum, restNum;  
   int showNumber=0,hitNumber=0, restNumber=0, currentGrades=1;
   GuessTimer gt = new GuessTimer();
+  JLabel successLabel = new JLabel();
+  JLabel failLabel = new JLabel();
+  
   
   public HitMouse()
   {  
@@ -51,8 +53,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       this.getContentPane().setLayout(null);//設置框架佈局模式為空（只有這樣，才能知道圖片的真正位置  
       //設置滑鼠游標為錘子圖片
       tk = Toolkit.getDefaultToolkit();
-      //image = tk.createImage(dir + "killbug(X).png"); 
-      image = tk.createImage(dir + "chui1.png"); 
+      image = tk.createImage(dir + "killbug(X).png"); 
+      //image = tk.createImage(dir + "chui1.png"); 
       myCursor = tk.createCustomCursor(image, new Point(30,30), "xxx");  
       this.setCursor(myCursor);  
       
@@ -75,11 +77,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       this.setResizable(false);//設置視窗大小不能改變
       this.setVisible(true);  
       //------------------------------------------------------------
+      JLabel word = new JLabel("00 : ");
       JLabel lblSec = new JLabel("SEC");
-  	  JLabel word = new JLabel(": 00");
   	  JLabel lblSecback = new JLabel("secback");
-  	  //JLabel successlbl = new JLabel();
-  	  //JLabel faultlbl = new JLabel();
+  	  
   	  
   	  gt.setJLabel(lblSec);
   	  
@@ -97,51 +98,62 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 			 System.out.println("sec=>" + sec);
 		  }
 	   });
-	  gt.startTimer(30);
-	  
-	  lblSec.setForeground(Color.RED);
-	  lblSec.setBounds(963, 15, 58, 65);
-	  this.add(lblSec);
-	  lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-	  lblSec.setVisible(true);
+	  gt.startTimer(15);
 	  
 	  word.setForeground(Color.RED);
-	  word.setBounds(1005, 15, 69, 65);
+	  word.setBounds(965, 12, 70, 65);
       this.add(word);
 	  word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
       word.setVisible(true);
+      
+	  lblSec.setForeground(Color.RED);
+	  lblSec.setBounds(1020, 12, 69, 65);
+	  this.add(lblSec);
+	  lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  lblSec.setVisible(true);
       
       lblSecback.setBounds(947, 15, 131, 58);
       ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon(dir+"secBack.png"));
       lblSecback.setIcon(secback);	
 	  add(lblSecback);
 	  lblSecback.setVisible(true);
-	  /*
-	  successlbl.setBounds(274, 159, 600, 400);
-	  ImageIcon success = resizeImage(successlbl.getWidth(), successlbl.getHeight(), new ImageIcon(dir+"success.png"));
-	  
-	  faultlbl.setBounds(274, 159, 600, 400);
-	  ImageIcon fault = resizeImage(faultlbl.getWidth(), faultlbl.getHeight(), new ImageIcon("../picture/fault.PNG"));
-      
-	  successlbl.setIcon(success);	
-	  add(successlbl);
-	  successlbl.setVisible(false);
-		
-	  faultlbl.setIcon(fault);	
-	  add(faultlbl);
-	  faultlbl.setVisible(false);
-	  */
 	  
 	  // Math.random 會產生 0 ~ 接近 1 的數字 
-      restNumber = (int)(Math.random() * 6);  // 0 ~ 5
-      restNumber += 25;  // 25 ~ 30
+      //restNumber = (int)(Math.random() * 6);  // 0 ~ 5
+      //restNumber += 25;  // 25 ~ 30
+	  restNumber = 3;
       System.out.print(restNumber + "  ");  
       
+      //-------------------------------------------
+      successLabel.setBounds(274, 159, 600, 400);
+	  ImageIcon success = resizeImage(successLabel.getWidth(), successLabel.getHeight(), new ImageIcon(dir+"success.png"));
+	  successLabel.setIcon(success);	
+	  add(successLabel);
+	  successLabel.setVisible(false);
+	  
+      
+	  failLabel.setBounds(274, 159, 600, 400);
+	  ImageIcon fault = resizeImage(failLabel.getWidth(), failLabel.getHeight(), new ImageIcon(dir+"fault.png"));
+	  failLabel.setIcon(fault);	
+	  add(failLabel);
+	  failLabel.setVisible(false);
   }  
   
   private void timeMessageAppear()
   {
 	  JOptionPane.showMessageDialog(this, "Times Up!");
+	  if(restNumber == 0)
+	  {
+		  jlbMouse.setVisible(false);
+		  JOptionPane.showMessageDialog(this, "Times Up! 完成任務owo");
+		  successLabel.setVisible(true);
+	  }
+	  else
+	  {
+		  jlbMouse.setVisible(false);
+		  JOptionPane.showMessageDialog(this, "Times Up! 任務失敗ouq");
+		  failLabel.setVisible(true);
+	  }
   }
   
   private void addMenu() 
@@ -269,7 +281,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       showNum.setText(""+showNumber);  
          
       if( !gamePlan() ){//判斷遊戲是否結束，並判斷遊戲進程
-          timer.stop();  
+    	  timer.stop();  
+          JOptionPane.showMessageDialog(this, "Game Over ! 再掛機阿=w=");
+          jlbMouse.setVisible(false);
+          failLabel.setVisible(true);
       }  
          
   }  
@@ -348,12 +363,13 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
  
   private boolean gamePlan() 
   {  
+	  
       if(showNumber-hitNumber > 8){  
-    	  gt.stopoTimer();
-          JOptionPane.showMessageDialog(this, "Game Over !");  
+    	  gt.stopoTimer();  
           isOver=true;  
           return false;  
-      }  
+      } 
+      
       if(hitNumber > 2){  
           hitNumber=0;  
           showNumber=0;  
@@ -380,7 +396,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       if(isOver){  
           return ;  
       }  
-      image = tk.createImage(dir+"chui2.png");  
+      image = tk.createImage(dir+"killBug(O).png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);//滑鼠游標按下時，游標顯示打下去的圖片，模擬打的動作 
       //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
@@ -395,12 +411,16 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       
       if(restNumber > 0)
       {
-    	  restNumber--;
+		  restNumber -= 1;
           restNum.setText(""+restNumber);
-      }
-      
-      else {
-    	  JOptionPane.showMessageDialog(this, "你成功了!!獲得金幣囉~~");
+          if(restNumber == 0){
+        	  jlbMouse.setVisible(false);
+        	  timer.stop();
+        	  gt.stopoTimer();
+        	  //isOver=true; 
+        	  JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+    		  successLabel.setVisible(true);
+          }
       }
       
   }  
@@ -411,7 +431,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
           return ;  
       }  
       //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
-      image = tk.createImage(dir+"chui1.png");  
+      image = tk.createImage(dir+"killBug(X).png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);  
   }  
