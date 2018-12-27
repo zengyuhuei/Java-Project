@@ -99,19 +99,18 @@ public class DudeScreen extends JPanel implements ActionListener {
 	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
 	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
 	JLabel rateBackGround = new JLabel(rateBackground);
-	ImageIcon feedBackground = new ImageIcon("../picture/feedBackground.PNG");
 	ImageIcon addAnimal =resizeImage (90,65,new ImageIcon("../picture/addAnimal.png"));
 	ImageIcon feed =resizeImage (80,65,new ImageIcon("../picture/feed.png"));
 	ImageIcon lowfeed =resizeImage (80,65,new ImageIcon("../picture/lowfeed.png"));
 	ImageIcon highfeed =resizeImage (80,65,new ImageIcon("../picture/highfeed.png"));
 	ImageIcon midfeed =resizeImage (80,65,new ImageIcon("../picture/midfeed.png"));
-	ImageIcon catchanimal =resizeImage (80,65,new ImageIcon("../picture/catch.png"));
-	JLabel feedbackGround = new JLabel(feedBackground);
-	JLabel feedbackGround2 = new JLabel(feedBackground);
+	ImageIcon catchanimal =resizeImage (80,65,new ImageIcon("../picture/catch.png"));	
 	JLabel dudeAnimalNum = new JLabel("牧場動物(上限10隻):");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
 	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
 	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
+	JLabel feedbackGround = new JLabel();
+	JLabel feedbackGround2 = new JLabel();
 	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
 	ImageIcon toolback = new ImageIcon("../picture/toolBack.PNG");
@@ -161,7 +160,10 @@ public class DudeScreen extends JPanel implements ActionListener {
 		this.add(feedCow);
 		feedCow.setVisible(false);
 		
-		feedbackGround.setBounds(641, 172, 400, 65);	
+		feedbackGround.setBounds(641, 172, 394, 65);	
+		ImageIcon feedBackground = resizeImage(feedbackGround.getWidth(), feedbackGround.getHeight(),new ImageIcon("../picture/feedBackground.PNG"));
+		feedbackGround.setIcon(feedBackground);	
+		
 		this.add(feedbackGround);
 		feedbackGround.setVisible(false);
 		
@@ -187,6 +189,9 @@ public class DudeScreen extends JPanel implements ActionListener {
 		highFeed.setVisible(false);
 		
 		feedbackGround2.setBounds(609, 291, 426, 65);	
+		ImageIcon feedBackground2 = resizeImage(feedbackGround2.getWidth(), feedbackGround2.getHeight(),new ImageIcon("../picture/feedBackground.PNG"));
+		feedbackGround2.setIcon(feedBackground2);	
+		
 		this.add(feedbackGround2);
 		feedbackGround2.setVisible(false);
 		
@@ -699,6 +704,9 @@ public class DudeScreen extends JPanel implements ActionListener {
 				public void mouseClicked(MouseEvent e) {
 					closeStart();
 					closeFeed();
+					feedAnimal.setEnabled(false);
+					closeAnimalRate(dude);
+					
 				}
             public void mouseEntered(MouseEvent arg0) {
             	closeStart();
