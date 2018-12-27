@@ -693,7 +693,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 			btnNewButton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					closeStart();	
+					closeStart();
+					closeFeed();
 				}
             public void mouseEntered(MouseEvent arg0) {
             	closeStart();
