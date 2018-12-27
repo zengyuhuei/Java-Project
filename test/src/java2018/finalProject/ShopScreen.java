@@ -395,7 +395,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddchicken.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddchicken.setBounds(481, 34, 38, 40);
+		btnAddchicken.setBounds(480, 35, 40, 40);
 		
 		btnAddpig = new JButton();
 		cleanButtom(btnAddpig);
@@ -421,7 +421,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddpig.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddpig.setBounds(481, 130, 38, 35);
+		btnAddpig.setBounds(480, 120, 40, 40);
 		
 		btnAddcow = new JButton();
 		cleanButtom(btnAddcow);
@@ -443,7 +443,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddcow.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddcow.setBounds(481, 201, 38, 40);
+		btnAddcow.setBounds(480, 205, 40, 40);
 		
 		
 		btnAddwheat = new JButton();
@@ -468,7 +468,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddwheat.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddwheat.setBounds(481, 290, 38, 40);
+		btnAddwheat.setBounds(480, 290, 40, 40);
 		
 		
 		btnAddcorn = new JButton();
@@ -491,7 +491,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddcorn.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddcorn.setBounds(481, 375, 38, 40);
+		btnAddcorn.setBounds(480, 375, 40, 40);
 		
 		
 		
@@ -515,7 +515,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddcabbage.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddcabbage.setBounds(481, 468, 44, 46);
+		btnAddcabbage.setBounds(480, 460, 40, 40);
 		
 		btnOk = new JButton();
 		btnOk.setIcon(new ImageIcon("..\\picture\\oksell.png"));
@@ -606,7 +606,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 					
 				}
 			});
-			btnDelchicken.setBounds(533, 34, 38, 40);
+			btnDelchicken.setBounds(530, 35, 40, 40);
 			panel.add(btnDelchicken);
 			
 			JButton btnDelpig = new JButton();
@@ -629,7 +629,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 	            	btnDelpig.setIcon(new ImageIcon("..\\picture\\del.png"));
 	            } 
 			});
-			btnDelpig.setBounds(533, 125, 38, 40);
+			btnDelpig.setBounds(530, 120, 40, 40);
 			panel.add(btnDelpig);
 			
 			JButton btnDelcow = new JButton();
@@ -652,7 +652,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 	            	btnDelcow.setIcon(new ImageIcon("..\\picture\\del.png"));
 	            } 
 			});
-			btnDelcow.setBounds(533, 201, 44, 40);
+			btnDelcow.setBounds(530, 205, 40, 40);
 			panel.add(btnDelcow);
 			
 			JButton btnDelwheat = new JButton();
@@ -675,7 +675,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 	            	btnDelwheat.setIcon(new ImageIcon("..\\picture\\del.png"));
 	            } 
 			});
-			btnDelwheat.setBounds(533, 295, 38, 35);
+			btnDelwheat.setBounds(530, 290, 40, 40);
 			panel.add(btnDelwheat);
 			
 			JButton btnDelcorn = new JButton();
@@ -698,7 +698,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 	            	btnDelcorn.setIcon(new ImageIcon("..\\picture\\del.png"));
 	            } 
 			});
-			btnDelcorn.setBounds(533, 376, 40, 39);
+			btnDelcorn.setBounds(530, 375, 40, 40);
 			panel.add(btnDelcorn);
 			
 			JButton btnDelcabbage = new JButton();
@@ -721,7 +721,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 	            	btnDelcabbage.setIcon(new ImageIcon("..\\picture\\del.png"));
 	            } 
 			});
-			btnDelcabbage.setBounds(533, 468, 38, 40);
+			btnDelcabbage.setBounds(530, 460, 40, 40);
 			panel.add(btnDelcabbage);
 		
 		JPanel buyPanel = new JPanel();
@@ -752,7 +752,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddSimple.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddSimple.setBounds(634, 13, 35, 31);
+		btnAddSimple.setBounds(634, 13, 35, 30);
 		buyPanel.add(btnAddSimple);
 		
 		JButton btnAddGeneral = new JButton();
@@ -775,7 +775,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddGeneral.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddGeneral.setBounds(634, 72, 35, 31);
+		btnAddGeneral.setBounds(634, 69, 35, 30);
 		buyPanel.add(btnAddGeneral);
 		
 		JButton btnAddAdvanced = new JButton("");
@@ -798,7 +798,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddAdvanced.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddAdvanced.setBounds(634, 122, 35, 31);
+		btnAddAdvanced.setBounds(634, 125, 35, 30);
 		buyPanel.add(btnAddAdvanced);
 		
 		JButton btnAddYoungChicken = new JButton();
@@ -821,7 +821,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddYoungChicken.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddYoungChicken.setBounds(634, 184, 40, 32);
+		btnAddYoungChicken.setBounds(634, 181, 35, 30);
 		buyPanel.add(btnAddYoungChicken);
 		
 		JButton btnAddYoungPig = new JButton();
@@ -844,7 +844,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddYoungPig.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddYoungPig.setBounds(634, 240, 40, 31);
+		btnAddYoungPig.setBounds(634, 237, 35, 30);
 		buyPanel.add(btnAddYoungPig);
 		
 		JButton btnAddYoungCow = new JButton();
@@ -867,7 +867,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddYoungCow.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddYoungCow.setBounds(634, 297, 35, 31);
+		btnAddYoungCow.setBounds(634, 293, 35, 30);
 		buyPanel.add(btnAddYoungCow);
 		
 		JButton btnAddwheatseed = new JButton();
@@ -890,7 +890,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddwheatseed.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddwheatseed.setBounds(634, 356, 35, 31);
+		btnAddwheatseed.setBounds(634, 349, 35, 30);
 		buyPanel.add(btnAddwheatseed);
 		
 		JButton btnAddCornSeed = new JButton();
@@ -913,7 +913,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddCornSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddCornSeed.setBounds(634, 409, 40, 31);
+		btnAddCornSeed.setBounds(634, 405, 35, 30);
 		buyPanel.add(btnAddCornSeed);
 		
 		JButton btnAddCabbageSeed = new JButton();
@@ -936,7 +936,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddCabbageSeed.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddCabbageSeed.setBounds(634, 463, 40, 31);
+		btnAddCabbageSeed.setBounds(634, 461, 35, 30);
 		buyPanel.add(btnAddCabbageSeed);
 		
 		JButton btnAddFertilizer = new JButton();
@@ -959,7 +959,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnAddFertilizer.setIcon(new ImageIcon("..\\picture\\add.png"));
             } 
 		});
-		btnAddFertilizer.setBounds(634, 516, 35, 31);
+		btnAddFertilizer.setBounds(634, 517, 35, 30);
 		buyPanel.add(btnAddFertilizer);
 		
 		JButton btnDelSimple = new JButton();
@@ -982,7 +982,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelSimple.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelSimple.setBounds(681, 13, 35, 31);
+		btnDelSimple.setBounds(680, 13, 35, 30);
 		buyPanel.add(btnDelSimple);
 		
 		JButton btnDelgeneral = new JButton();
@@ -1005,7 +1005,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelgeneral.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelgeneral.setBounds(683, 72, 40, 28);
+		btnDelgeneral.setBounds(680, 69, 35, 30);
 		buyPanel.add(btnDelgeneral);
 		
 		JButton btnDeladvanced = new JButton();
@@ -1028,7 +1028,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDeladvanced.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDeladvanced.setBounds(683, 121, 40, 32);
+		btnDeladvanced.setBounds(680, 125, 35, 30);
 		buyPanel.add(btnDeladvanced);
 		
 		JButton btnDelYoungChicken = new JButton();
@@ -1051,7 +1051,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelYoungChicken.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelYoungChicken.setBounds(688, 185, 35, 31);
+		btnDelYoungChicken.setBounds(680, 181, 35, 30);
 		buyPanel.add(btnDelYoungChicken);
 		
 		JButton btnDelYoungPig = new JButton();
@@ -1074,7 +1074,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelYoungPig.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelYoungPig.setBounds(688, 239, 35, 32);
+		btnDelYoungPig.setBounds(680, 236, 35, 30);
 		buyPanel.add(btnDelYoungPig);
 		
 		JButton btnDelYoungCow = new JButton();
@@ -1097,7 +1097,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelYoungCow.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelYoungCow.setBounds(683, 297, 35, 35);
+		btnDelYoungCow.setBounds(680, 292, 35, 30);
 		buyPanel.add(btnDelYoungCow);
 		
 		JButton btnDelwheatseed = new JButton();
@@ -1120,7 +1120,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelwheatseed.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelwheatseed.setBounds(683, 356, 29, 31);
+		btnDelwheatseed.setBounds(680, 348, 35, 30);
 		buyPanel.add(btnDelwheatseed);
 		
 		JButton btnDelcornseed = new JButton();
@@ -1143,7 +1143,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelcornseed.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelcornseed.setBounds(688, 409, 35, 32);
+		btnDelcornseed.setBounds(680, 404, 35, 30);
 		buyPanel.add(btnDelcornseed);
 		
 		JButton btnDelcabbageseed = new JButton();
@@ -1166,7 +1166,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             	btnDelcabbageseed.setIcon(new ImageIcon("..\\picture\\del.png"));
             } 
 		});
-		btnDelcabbageseed.setBounds(688, 465, 35, 29);
+		btnDelcabbageseed.setBounds(680, 460, 35, 30);
 		buyPanel.add(btnDelcabbageseed);
 		
 		JButton btnDelfertilizer = new JButton();
@@ -1250,7 +1250,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			
 			buyTable.setVisible(true);
 			setTableColumnWidth(buyTable);
-			btnDelfertilizer.setBounds(688, 516, 35, 31);
+			btnDelfertilizer.setBounds(680, 516, 35, 30);
 			buyPanel.add(btnDelfertilizer);
 		
 		btnReturn = new JButton();

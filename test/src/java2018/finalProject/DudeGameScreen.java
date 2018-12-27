@@ -14,6 +14,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 public class DudeGameScreen extends JPanel {
@@ -53,6 +55,7 @@ public class DudeGameScreen extends JPanel {
 	ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
 	ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
 	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
+	ImageIcon boom = new ImageIcon("../picture/boom.gif");
 	JLabel dudeAnimalNum = new JLabel("需捕捉數量:");
 	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
 	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
@@ -359,6 +362,20 @@ public class DudeGameScreen extends JPanel {
 					chickenNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp1 = button.get(0).getIcon();
+					button.get(0).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(0).setIcon(temp1);
+							button.get(0).setVisible(false);
+							//button.get(0).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal2.addActionListener(new ActionListener() {
@@ -367,6 +384,20 @@ public class DudeGameScreen extends JPanel {
 					animal2.setVisible(false);
 					chickenNum--;
 					animalAction();
+				}
+				else
+				{
+					Icon temp2 = button.get(1).getIcon();
+					button.get(1).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(1).setIcon(temp2);
+							button.get(1).setVisible(false);
+							//button.get(1).setEnabled(false);
+						}
+					}, 500);
 				}
 			}
 		});
@@ -377,6 +408,20 @@ public class DudeGameScreen extends JPanel {
 					chickenNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp3 = button.get(2).getIcon();
+					button.get(2).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(2).setIcon(temp3);
+							button.get(2).setVisible(false);
+							//button.get(2).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal4.addActionListener(new ActionListener() {
@@ -386,6 +431,20 @@ public class DudeGameScreen extends JPanel {
 					pigNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp4 = button.get(3).getIcon();
+					button.get(3).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(3).setIcon(temp4);
+							button.get(3).setVisible(false);
+							//button.get(3).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal5.addActionListener(new ActionListener() {
@@ -394,6 +453,20 @@ public class DudeGameScreen extends JPanel {
 					animal5.setVisible(false);
 					pigNum--;
 					animalAction();
+				}
+				else
+				{
+					Icon temp5 = button.get(4).getIcon();
+					button.get(4).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(4).setIcon(temp5);
+							button.get(4).setVisible(false);
+							//button.get(4).setEnabled(false);
+						}
+					}, 500);
 				}
 
 			}
@@ -405,6 +478,20 @@ public class DudeGameScreen extends JPanel {
 					pigNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp6 = button.get(5).getIcon();
+					button.get(5).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(5).setIcon(temp6);
+							button.get(5).setVisible(false);
+							//button.get(5).setEnabled(false);
+						}
+					}, 500);
+				}
 
 			}
 		});
@@ -414,6 +501,20 @@ public class DudeGameScreen extends JPanel {
 					animal7.setVisible(false);
 					pigNum--;
 					animalAction();
+				}
+				else
+				{
+					Icon temp7 = button.get(6).getIcon();
+					button.get(6).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(6).setIcon(temp7);
+							button.get(6).setVisible(false);
+							//button.get(6).setEnabled(false);
+						}
+					}, 500);
 				}
 
 			}
@@ -425,6 +526,20 @@ public class DudeGameScreen extends JPanel {
 					cowNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp8 = button.get(7).getIcon();
+					button.get(7).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(7).setIcon(temp8);
+							button.get(7).setVisible(false);
+							//button.get(7).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal9.addActionListener(new ActionListener() {
@@ -433,6 +548,20 @@ public class DudeGameScreen extends JPanel {
 					animal9.setVisible(false);
 					cowNum--;
 					animalAction();
+				}
+				else
+				{
+					Icon temp9 = button.get(8).getIcon();
+					button.get(8).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(8).setIcon(temp9);
+							button.get(8).setVisible(false);
+							//button.get(8).setEnabled(false);
+						}
+					}, 500);
 				}
 
 			}
@@ -445,6 +574,20 @@ public class DudeGameScreen extends JPanel {
 					cowNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp10 = button.get(9).getIcon();
+					button.get(9).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(9).setIcon(temp10);
+							button.get(9).setVisible(false);
+							//button.get(9).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal11.addActionListener(new ActionListener() {
@@ -454,6 +597,20 @@ public class DudeGameScreen extends JPanel {
 					cowNum--;
 					animalAction();
 				}
+				else
+				{
+					Icon temp11 = button.get(10).getIcon();
+					button.get(10).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(10).setIcon(temp11);
+							button.get(10).setVisible(false);
+							//button.get(10).setEnabled(false);
+						}
+					}, 500);
+				}
 			}
 		});
 		animal12.addActionListener(new ActionListener() {
@@ -462,6 +619,20 @@ public class DudeGameScreen extends JPanel {
 					animal12.setVisible(false);
 					cowNum--;
 					animalAction();
+				}
+				else
+				{
+					Icon temp12 = button.get(11).getIcon();
+					button.get(11).setIcon(boom);
+					Timer t = new Timer();
+					t.schedule( new TimerTask() {
+						@Override
+						public void run() {
+							button.get(11).setIcon(temp12);
+							button.get(11).setVisible(false);
+							//button.get(11).setEnabled(false);
+						}
+					}, 500);
 				}
 			}
 		});
@@ -584,7 +755,9 @@ class RunningButton extends TimerTask {
     			{
     				btn.setIcon(cowleft);
     			}
-    			btn.setVisible(true);
+    			if(btn.getIcon() != boom) {
+        			btn.setVisible(true);
+    			}
 			
 	        }
 	        public void showButtonRight() {
@@ -601,9 +774,9 @@ class RunningButton extends TimerTask {
 				{
 					btn.setIcon(cowright);
 				}
-				btn.setVisible(true);
-	        	
-
+    			if(btn.getIcon() != boom) {
+        			btn.setVisible(true);
+    			}
 	        }
 	        public void buttonGIF()
 	        {
