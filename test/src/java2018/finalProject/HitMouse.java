@@ -39,21 +39,21 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
      
   public HitMouse()
   {  
-      super("打地鼠");  
+      super("除蟲遊戲");  
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.setSize(500, 300);  
+      this.setSize(1200, 675);  
       this.setLocationRelativeTo(null);//設置窗口在畫面中心  
       setbackground();//設置背景  
       this.getContentPane().setLayout(null);//設置框架佈局模式為空（只有這樣，才能知道圖片的真正位置  
       //設置滑鼠游標為錘子圖片
       tk = Toolkit.getDefaultToolkit();
-      image = tk.createImage(dir + "chui1.png");  
+      image = tk.createImage(dir + "killbug(X).png");  
       myCursor = tk.createCustomCursor(image, new Point(30,30), "xxx");  
       this.setCursor(myCursor);  
       
       setMessage();//設置一些提示訊息
-      //在背景圖片的基礎上設置地鼠圖片  
-      ImageIcon imageMouse = new ImageIcon(dir+"datou.png");  
+      //在背景圖片的基礎上設置地鼠圖片    
+      ImageIcon imageMouse = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
       jlbMouse = new JLabel(imageMouse);  
       jlbMouse.setSize(100,100);  
       this.getContentPane().add(jlbMouse);  
@@ -74,12 +74,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   {  
       JMenuBar menubar = new JMenuBar();  
       this.setJMenuBar(menubar);  
-      JMenu game = new JMenu("打地鼠遊戲");
+      JMenu game = new JMenu("除蟲遊戲");
       
-      JMenuItem jitemNew = new JMenuItem("新游戏");  
+      JMenuItem jitemNew = new JMenuItem("新遊戲");  
       jitemNew.setActionCommand("new");  
       jitemNew.addActionListener(this);  
-      JMenuItem jitemPause = new JMenuItem("暂停");  
+      JMenuItem jitemPause = new JMenuItem("暫停");  
       jitemPause.setActionCommand("pause");  
       jitemPause.addActionListener(this);  
       JMenuItem jitemExit = new JMenuItem("退出");  
@@ -107,7 +107,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
      
   private void setbackground() {  
       ((JPanel)(this.getContentPane())).setOpaque(false);//如果為 true，則該組件繪製其邊界內的所有像素。否則該組件可能不繪製部分或所有像素，從而允許其底層像素透視出来。   
-      ImageIcon bgImage = new ImageIcon(dir+"beijing.jpg");  
+      //ImageIcon bgImage = new ImageIcon(dir+"killBugBackground.png");  
+      ImageIcon bgImage = resizeImage(1200, 675, new ImageIcon(dir+"killBugBackground.png"));
       JLabel bgLabel = new JLabel(bgImage);  
       bgLabel.setBounds(0, 25, bgImage.getIconWidth(), bgImage.getIconHeight());  
       this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
@@ -152,18 +153,19 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       }  
          
       int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
-      ImageIcon imageMouse = new ImageIcon(dir+"dishu.png");//保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
+      //ImageIcon imageMouse = new ImageIcon(dir+"dishu.png");//保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
+      ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
       jlbMouse.setIcon(imageMouse);  
       switch(ran){  
-      case 0:jlbMouse.setLocation(70, 40);break;  
-      case 1:jlbMouse.setLocation(185, 35);break;  
-      case 2:jlbMouse.setLocation(315,40);break;  
-      case 3:jlbMouse.setLocation(55,95);break;  
-      case 4:jlbMouse.setLocation(190,95);break;  
-      case 5:jlbMouse.setLocation(315,90);break;  
-      case 6:jlbMouse.setLocation(50, 155);break;  
-      case 7:jlbMouse.setLocation(190, 160);break;  
-      case 8:jlbMouse.setLocation(320, 160);break;  
+      case 0:jlbMouse.setLocation(220, 80);break;  
+      case 1:jlbMouse.setLocation(580, 80);break;  
+      case 2:jlbMouse.setLocation(920, 80);break;  
+      case 3:jlbMouse.setLocation(220, 275);break;  
+      case 4:jlbMouse.setLocation(580, 273);break;  
+      case 5:jlbMouse.setLocation(950, 277);break;  
+      case 6:jlbMouse.setLocation(220, 468);break;  
+      case 7:jlbMouse.setLocation(585, 469);break;  
+      case 8:jlbMouse.setLocation(980, 468);break;  
       }  
          
       jlbMouse.setVisible(true);  
@@ -282,12 +284,13 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       if(isOver){  
           return ;  
       }  
-      image = tk.createImage(dir+"chui2.png");  
+      image = tk.createImage(dir+"killbug(O).png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);//滑鼠游標按下時，游標顯示打下去的圖片，模擬打的動作 
       //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
       if(e.getSource()==jlbMouse){  
-          ImageIcon imageIconHit = new  ImageIcon(dir+"datou.png");  
+          //ImageIcon imageIconHit = new ImageIcon(dir+"diebug.png");  
+          ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
           jlbMouse.setIcon(imageIconHit);  
           jlbMouse.setVisible(true);  
       }  
@@ -302,7 +305,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
           return ;  
       }  
       //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
-      image = tk.createImage(dir+"chui1.png");  
+      image = tk.createImage(dir+"killBug(X).png");  
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);  
   }  
@@ -314,6 +317,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   public void mouseExited(MouseEvent e) {  
          
   }  
- 
+  
+  public ImageIcon resizeImage(int width, int height, ImageIcon img)
+  {
+	  Image i = img.getImage();
+	  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	  return  new ImageIcon(new_img);
+  }
  
 }

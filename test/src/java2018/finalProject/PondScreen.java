@@ -35,6 +35,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,13 +45,12 @@ import java.awt.Image;
 import javax.swing.JLabel;
 
 public class PondScreen extends JPanel implements ActionListener {
-	private enum ImageCondition {FISHING, GOT, WRONG};
-	private JSlider slider;
-	private int sliderValue = 0;
-	private int sliderAdd = 1;
-	private Timer t;
-	private TimerTask tk;
-	private boolean stop = false;
+	private static enum ImageCondition {FISHING, GOT, WRONG};
+	private static enum fishCategories {BIG, MID, SMALL, NO};
+	private fishCategories fishCate = fishCategories.NO;
+	private SecureRandom rand = new SecureRandom();
+	private int fishStart;
+	private int fishEnd;
 	
 	private Main mainFrame;
 	private JButton returnBtn;
@@ -59,12 +59,16 @@ public class PondScreen extends JPanel implements ActionListener {
 	private JLabel timeLabel;
 	private int time;
 	private Timer imageTimer;
-	private Timer replay;
+	private Timer replay = null;
+	private Timer sliderTimer;
 	private int imageCount = 0;
 	private ImageCondition imageCondition;
 	
 	private ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>();
 	private JLabel bgLabel;
+	private JSlider gameBar;
+	private int sliderValue;
+	private int runTo;
 	
 	public PondScreen(Main mainFrame) {
 		this.mainFrame = mainFrame;
@@ -77,9 +81,43 @@ public class PondScreen extends JPanel implements ActionListener {
 		
 		loadBackgroundIcon();
 		
+		JLabel bigFishLabel = new JLabel("", JLabel.CENTER);
+		bigFishLabel.setIcon(imageResize(170, 120, new ImageIcon("..\\picture\\bigFish.png")));
+		bigFishLabel.setBounds(30, 640, 170, 120);
+		this.add(bigFishLabel);
+		
+		JLabel x1Label = new JLabel("x", JLabel.CENTER);
+		x1Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x1Label.setForeground(Color.BLACK);
+		x1Label.setBounds(190, 675, 60, 60);
+		this.add(x1Label);
+		
+		JLabel midFishLabel = new JLabel("", JLabel.CENTER);
+		midFishLabel.setIcon(imageResize(140, 90, new ImageIcon("..\\picture\\midFish.png")));
+		midFishLabel.setBounds(385, 655, 140, 90);
+		this.add(midFishLabel);
+		
+		JLabel x2Label = new JLabel("x", JLabel.CENTER);
+		x2Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x2Label.setForeground(Color.BLACK);
+		x2Label.setBounds(510, 675, 60, 60);
+		this.add(x2Label);
+		
+		JLabel littleFishLabel = new JLabel("", JLabel.CENTER);
+		littleFishLabel.setIcon(imageResize(110, 60, new ImageIcon("..\\picture\\littleFish.png")));
+		littleFishLabel.setBounds(700, 680, 110, 60);
+		this.add(littleFishLabel);
+		
+		JLabel x3Label = new JLabel("x", JLabel.CENTER);
+		x3Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x3Label.setForeground(Color.BLACK);
+		x3Label.setBounds(790, 675, 60, 60);
+		this.add(x3Label);
+		
 		timeLabel = new JLabel("", JLabel.CENTER);
 		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		timeLabel.setBounds(700, 60, 250, 45);
+		timeLabel.setForeground(Color.RED);
+		timeLabel.setBounds(700, 65, 250, 45);
 		this.add(timeLabel);
 		
 		startBtn = new JButton("遊戲開始");
@@ -118,24 +156,35 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(bgLabel);
 		
 		this.setFocusable(true);
+		
+		gameBar = new JSlider();
+		gameBar.setBounds(360, 65, 280, 50);
+		gameBar.setUI(new GameSlider(gameBar));
+		gameBar.setMaximum(270);
+		gameBar.setMinimum(0);
+		gameBar.setValue(135);
+		gameBar.setVisible(false);
+		System.out.println(gameBar.getValue());
+		this.add(gameBar);
+		
 		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyChar() == 'a') {
-					imageCondition = ImageCondition.FISHING;
-				}
-				else if (e.getKeyChar() == 's') {
-					imageCondition = ImageCondition.GOT;
-				}
-				else if (e.getKeyChar() == 'd') {
-					imageCondition = ImageCondition.WRONG;
+				if (e.getKeyChar() == ' ') {
+					sliderTimer.cancel();
+					if (gameBar.getValue() >= fishStart && gameBar.getValue() <= fishEnd) {
+						imageCondition = ImageCondition.GOT;
+					}
+					else {
+						imageCondition = ImageCondition.WRONG;
+					}
 				}
 			}
 		});
 	}
 	
 	private void timerStart() {
-		time = 10;
+		time = 30;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -147,17 +196,55 @@ public class PondScreen extends JPanel implements ActionListener {
 					startBtn.setText("再玩一次");
 					startBtn.setVisible(true);
 					imageTimer.cancel();
-					replay.cancel();
+					if (replay != null) {
+						replay.cancel();
+					}
+					sliderTimer.cancel();
+					gameBar.setVisible(true);
 				}
 				time--;
 			}
 		}, 0, 1000);
+		gameBar.setVisible(true);
 		imageStart();
+	}
+	
+	private void gameBarStart() {
+		fishCate = fishCategories.values()[rand.nextInt(3)];
+		switch(fishCate) {
+		case BIG:
+			fishStart = rand.nextInt(270 - 40) + 10;
+			break;
+		case MID:
+			fishStart = rand.nextInt(270 - 50) + 10;
+			break;
+		case SMALL:
+			fishStart = rand.nextInt(270 - 65) + 10;
+			break;
+		}
+		sliderValue = 135;
+		runTo = 1;
+		gameBar.setValue(sliderValue);
+		sliderTimer = new Timer();
+		sliderTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (sliderValue >= 0 && sliderValue <= 269) {
+					sliderValue = sliderValue + runTo;
+				}
+				else {
+					runTo *= -1;
+					sliderValue = sliderValue + runTo;
+				}
+				gameBar.setValue(sliderValue);
+			}
+		}, 0, 2);
 	}
 	
 	private void imageStart() {
 		imageCondition = ImageCondition.FISHING;
 		imageCount = 0;
+		gameBarStart();
 		imageTimer = new Timer();
 		imageTimer.schedule(new TimerTask() {
 			@Override
@@ -225,7 +312,7 @@ public class PondScreen extends JPanel implements ActionListener {
 }
     
     private void loadBackgroundIcon() {
-    	for (int i = 1; i <= 71; ++i) {
+    	for (int i = 1; i <= 85; ++i) {
         	iconList.add(imageResize(1000, 800, new ImageIcon("../picture/fishing/fishing-" + Integer.toString(i) + ".png")));
     	}
     }
@@ -243,35 +330,48 @@ public class PondScreen extends JPanel implements ActionListener {
 			timerStart();
 		}
 	}
-}
+	
+	private class GameSlider extends BasicSliderUI {
+		private int shift = 5;
+		
+		public GameSlider (JSlider slider) {
+			super(slider);
+		}
+		
+		@Override
+		public void paintTrack(Graphics g) {
+			super.paintTrack(g);
+			g.setColor(Color.WHITE);
+			g.fillRoundRect(this.trackRect.x, this.trackRect.y, this.trackRect.width, this.trackRect.height, 15, 15);
 
-class GameSlider extends BasicSliderUI {    
-	private static float[] fracs = {0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f};
-	private LinearGradientPaint p;
-	public GameSlider(JSlider slider) {
-		super(slider);
-	}
-	@Override
-	public void paintTrack(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;    
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setStroke(new BasicStroke(1.5f));
-        g2d.setColor(Color.BLACK);
-        g2d.fillRoundRect(0, 6, 200, 8, 10, 10);
-        
-        g2d.setColor(Color.YELLOW);
-        g2d.fillRect(30, 6, 20, 8);
-        
-        g2d.setColor(Color.WHITE);
-        g2d.drawRoundRect(0, 6, 200, 8, 10, 10);
-        //System.out.println(trackRect.width);
-        /*Rectangle t = trackRect;
-        Point2D start = new Point2D.Float(t.x + 10, t.y - 10);
-        Point2D end = new Point2D.Float(t.width, t.height);
-        Color[] colors = {Color.magenta, Color.blue, Color.cyan,
-            Color.green, Color.yellow, Color.red};
-        p = new LinearGradientPaint(start, end, fracs, colors);
-        g2d.setPaint(p);
-        g2d.fillRect(t.x, t.y, t.width, t.height);*/
+			g.setColor(Color.BLACK);
+			g.drawRoundRect(this.trackRect.x, this.trackRect.y, this.trackRect.width, this.trackRect.height, 15, 15);
+			
+			switch (fishCate) {
+			case NO:
+				break;
+			case BIG:
+				g.setColor(Color.RED);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 20, this.trackRect.height - 1);
+				fishEnd = fishStart + 15;
+				break;
+			case MID:
+				g.setColor(Color.YELLOW);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 30, this.trackRect.height - 1);
+				fishEnd = fishStart + 25;
+				break;
+			case SMALL:
+				g.setColor(Color.CYAN);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, 45, this.trackRect.height - 1);
+				fishEnd = fishStart + 45;
+				break;
+			}
+		}
+		
+		@Override
+		public void paintThumb(Graphics g) {
+			g.setColor(Color.BLACK);
+			g.fillRect(this.thumbRect.x + shift, this.thumbRect.y, 1, this.thumbRect.height);
+		}
 	}
 }

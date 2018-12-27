@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java2018.finalProject.DudeScreen.RunningButton;
+import java2018.finalProject.GuessTimer.Listener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -69,7 +71,8 @@ public class DudeGameScreen extends JPanel {
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
 	JLabel lblSec = new JLabel("SEC");
-	JLabel word = new JLabel("倒數      秒");
+	JLabel word = new JLabel(": 00");
+	JLabel lblSecback = new JLabel("secback");
 	int cowNum = (int)(Math.random()*6+6);
 	int pigNum = (int)(Math.random()*5+5);
 	int chickenNum = (int)(Math.random()*4+4);
@@ -116,16 +119,23 @@ public class DudeGameScreen extends JPanel {
 		button.add(animal12);
 		lblSec.setForeground(Color.RED);
 		
-		lblSec.setBounds(1006, 36, 151, 65);
+		lblSec.setBounds(963, 34, 58, 65);
 		this.add(lblSec);
 		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		lblSec.setVisible(true);
 		word.setForeground(Color.RED);
 		
-		word.setBounds(937, 36, 211, 65);
+		word.setBounds(1005, 34, 69, 65);
 		this.add(word);
 		word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		word.setVisible(true);
+		
+		
+		lblSecback.setBounds(947, 41, 131, 58);
+		ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon("../picture/secBack.PNG"));
+		lblSecback.setIcon(secback);	
+		add(lblSecback);
+		lblSecback.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
 		this.add(dudeAnimalNum);
@@ -425,7 +435,7 @@ public class DudeGameScreen extends JPanel {
 		dudePigNum.setText(" X "+(int)pigNum);
 		dudeChickenNum.setText(" X "+(int)chickenNum);
 		sum--;
-		if(gt.getSec()>=0) {
+		if(gt.getSec()>0) {
 			if(sum>0) {
 				System.out.println(sum);
 				for(int i=0;i<12;i++) {
@@ -444,23 +454,27 @@ public class DudeGameScreen extends JPanel {
 				for(int i=0; i<button.size(); i++)
 				{
 					button.get(i).setVisible(false);
+					run.get(i).cancel();
 				}
 				backToDudeBtn.setVisible(true);
 			}
 		}
-		else {
-			/*int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務失敗，下次請加油!!", null, JOptionPane.DEFAULT_OPTION);
-			if(input==JOptionPane.YES_OPTION) {
-				mainFrame.changeToDudeScreen();
-			}*/
+		if(gt.timeStop()) {
+			fault();
+		}
+	}
+	public void fault() { // bug: 不點button不會動   result: 弄個大button隱藏後面，mouse havor事件 timer==null跳框框
+		if(sum>0) {
 			faultlbl.setVisible(true);
 			for(int i=0; i<button.size(); i++)
 			{
 				button.get(i).setVisible(false);
+				run.get(i).cancel();
 			}
 			backToDudeBtn.setVisible(true);
 		}
 	}
+
 class RunningButton extends TimerTask {
 	    	private JButton btn;
 	    	private double coordinateX, coordinateY;
