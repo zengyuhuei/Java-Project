@@ -2,7 +2,7 @@ package java2018.finalProject;
 
 
 import java.awt.Color;
-
+import java.awt.Cursor;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -406,6 +406,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             @Override
             public void mouseEntered(MouseEvent arg0) {
             	buttonSound();
+            	setCursor(new Cursor(Cursor.HAND_CURSOR));
             	btnOk.setIcon(resizeImage(btnOk.getIcon().getIconWidth()+10,btnOk.getIcon().getIconHeight()+10,(ImageIcon)btnOk.getIcon()));
             } 
             @Override
@@ -1094,6 +1095,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 				btnBuyOk.setIcon(resizeImage(btnBuyOk.getIcon().getIconWidth()+10,btnBuyOk.getIcon().getIconHeight()+10,(ImageIcon)btnBuyOk.getIcon()));
             } 
             @Override
@@ -1151,6 +1153,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 				btnReturn.setIcon(resizeImage(btnReturn.getIcon().getIconWidth()+10,btnReturn.getIcon().getIconHeight()+10,(ImageIcon)btnReturn.getIcon()));
             } 
             @Override
@@ -1193,11 +1196,12 @@ public class ShopScreen extends JPanel implements ActionListener {
 				System.out.println(shop.getHoldMoney());
 				isClicked =0;
 				btnSell.setIcon(new ImageIcon("..\\picture\\unsellScreen.png"));
-
+				btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
 			}
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 				btnBuy.setIcon(resizeImage(btnBuy.getIcon().getIconWidth()+10,btnBuy.getIcon().getIconHeight()+10,(ImageIcon)btnBuy.getIcon()));
 				
 			} 
@@ -1213,6 +1217,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 				isClicked =1;
 				panel.setVisible(true);
 				btnBuy.setIcon(new ImageIcon("..\\picture\\unbuyScreen.png"));
+				btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
 				buyPanel.setVisible(false);
 				cleanTable(buyTable);
 				System.out.printf("Item %s num %d\n","雞",shop.getChickenNumber());
@@ -1225,6 +1230,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 				btnSell.setIcon(resizeImage(btnSell.getIcon().getIconWidth()+10,btnSell.getIcon().getIconHeight()+10,(ImageIcon)btnSell.getIcon()));
             } 
             @Override
