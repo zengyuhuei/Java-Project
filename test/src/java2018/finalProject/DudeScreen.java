@@ -84,7 +84,9 @@ public class DudeScreen extends JPanel implements ActionListener {
 	private int buttonNum;
 	ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
 	ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
+	ImageIcon big_pigleft = new ImageIcon("../picture/big_pigleft.gif");
 	ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
+	ImageIcon big_pigright =  new ImageIcon("../picture/big_pigright.gif");
 	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
 	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
 	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
@@ -863,10 +865,43 @@ public class DudeScreen extends JPanel implements ActionListener {
             if (coordinateY + vy + 25 > 450) {
                 vy = -vy;
             }
+            showButtonchange(dude, i, vx);
             coordinateX += vx;
             coordinateY += vy;
             btn.setBounds((int) coordinateX, (int) coordinateY, 150, 150);
     		
+        }
+        public void showButtonchange(Dude dude, int i, double vx) {
+        	buttonGIF();
+        	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
+        	{
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i==num&&vx<0)
+    			{
+    				btn.setIcon(big_pigleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i==num&&vx>0)
+    			{
+    				btn.setIcon(big_pigright);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i!=num)
+    			{
+    				btn.setIcon(chickenleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i!=num&&vx<0)
+    			{
+    				btn.setIcon(pigleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i!=num&&vx>0)
+    			{
+    				btn.setIcon(pigright);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i!=num)
+    			{
+    				btn.setIcon(cowleft);
+    			}
+    			btn.setVisible(true);
+        	}
+		
         }
         public void showButtonLeft(Dude dude, int i) {
         	buttonGIF();
@@ -884,9 +919,22 @@ public class DudeScreen extends JPanel implements ActionListener {
     			{
     				btn.setIcon(cowleft);
     			}
-    			if(i==num)
+    			if(dude.getPondLand().get(i).getName()=="豬"&&i==num)
     			{
-    				btn.setIcon(resizeImage(btn.getIcon().getIconWidth()+10,btn.getIcon().getIconHeight()+10,(ImageIcon)btn.getIcon()));;
+    				
+    				System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+    				btn.setIcon(big_pigleft);
+    				
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i==num)
+    			{
+    				btn.setIcon(cowleft);
+    				btn.setIcon(resizeImage(btn.getIcon().getIconWidth()-10,btn.getIcon().getIconHeight()-10,(ImageIcon)btn.getIcon()));
+    			}
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i==num)
+    			{
+    				btn.setIcon(chickenleft);
+    				btn.setIcon(resizeImage(btn.getIcon().getIconWidth()-10,btn.getIcon().getIconHeight()-10,(ImageIcon)btn.getIcon()));
     			}
     			btn.setVisible(true);
         	}
