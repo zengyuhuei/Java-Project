@@ -833,6 +833,7 @@ public class DudeScreen extends JPanel implements ActionListener {
     	private int random = (int)(Math.random()*4);
     	private Dude dude;
     	private int i;
+    	private int coor;
     	public RunningButton(JButton btn, double coordinateX, double coordinateY, Dude dude, int i) {
         	this.btn = btn;
         	this.coordinateX = coordinateX;
@@ -857,6 +858,18 @@ public class DudeScreen extends JPanel implements ActionListener {
         	}
     	}
         public void run() {
+        	coor = (int)(Math.random()*20);
+        	if(coor==0) {
+        		if(vx<0) {
+        			vx = -vx;
+                    showButtonRight(dude, i);
+        		}
+        		else {
+        			vx = -vx;
+                    showButtonLeft(dude, i);
+        		}
+        		
+        	}
             if (coordinateX + vx < 50) {
                 vx = -vx;
                 showButtonRight(dude, i);

@@ -517,6 +517,7 @@ class RunningButton extends TimerTask {
 	    	private double coordinateX, coordinateY;
 	    	private double vx, vy;
 	    	private int random = (int)(Math.random()*4);
+	    	private int coor;
 	    	public RunningButton(JButton btn, double coordinateX, double coordinateY) {
 	        	this.btn = btn;
 	        	this.coordinateX = coordinateX;
@@ -539,6 +540,17 @@ class RunningButton extends TimerTask {
 	        	}
 	    	}
 	        public void run() {
+	        	coor = (int)(Math.random()*20);
+	        	if(coor==0) {
+	        		if(vx<0) {
+	        			vx = -vx;
+	                    showButtonRight();
+	        		}
+	        		else {
+	        			vx = -vx;
+	                    showButtonLeft();
+	        		}
+	        	}
 	            if (coordinateX + vx < 50) {
 	                vx = -vx;
 	                showButtonRight();
