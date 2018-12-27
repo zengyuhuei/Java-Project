@@ -82,14 +82,18 @@ public class DudeScreen extends JPanel implements ActionListener {
 	ArrayList<RunningButton> runbutton = new ArrayList<RunningButton>(10);
 	private int num=-1;
 	private int buttonNum;
+	ImageIcon big_chickenleft = new ImageIcon("../picture/big_chickenleft.gif");
 	ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
+	ImageIcon big_chickenright = new ImageIcon("../picture/big_chickenright.gif");
 	ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
 	ImageIcon big_pigleft = new ImageIcon("../picture/big_pigleft.gif");
 	ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
 	ImageIcon big_pigright =  new ImageIcon("../picture/big_pigright.gif");
 	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
 	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
+	ImageIcon big_cowleft = new ImageIcon("../picture/big_cowleft.gif");
 	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
+	ImageIcon big_cowright = new ImageIcon("../picture/big_cowright.gif");
 	ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
 	ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
 	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
@@ -879,21 +883,21 @@ public class DudeScreen extends JPanel implements ActionListener {
         	if(coor==0) {
         		if(vx<0) {
         			vx = -vx;
-                    showButtonRight(dude, i);
+                    //showButtonRight(dude, i);
         		}
         		else {
         			vx = -vx;
-                    showButtonLeft(dude, i);
+                   // showButtonLeft(dude, i);
         		}
         		
         	}
             if (coordinateX + vx < 50) {
                 vx = -vx;
-                showButtonRight(dude, i);
+                //showButtonRight(dude, i);
             }
             if (coordinateX + vx + 60 > 880) {
                 vx = -vx;
-                showButtonLeft(dude, i);
+                //showButtonLeft(dude, i);
             }
             if (coordinateY + vy < 100) {
                 vy = -vy;
@@ -901,7 +905,7 @@ public class DudeScreen extends JPanel implements ActionListener {
             if (coordinateY + vy + 25 > 450) {
                 vy = -vy;
             }
-            //showButtonchange(dude, i, vx);
+            showButtonchange(dude, i, vx);
             coordinateX += vx;
             coordinateY += vy;
             btn.setBounds((int) coordinateX, (int) coordinateY, 150, 150);
@@ -919,10 +923,23 @@ public class DudeScreen extends JPanel implements ActionListener {
     			{
     				btn.setIcon(big_pigright);
     			}
-    			if(dude.getPondLand().get(i).getName()=="雞"&&i!=num)
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i==num&&vx<0)
     			{
-    				btn.setIcon(chickenleft);
+    				btn.setIcon(big_chickenleft);
     			}
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i==num&&vx>0)
+    			{
+    				btn.setIcon(big_chickenright);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i==num&&vx<0)
+    			{
+    				btn.setIcon(big_cowleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i==num&&vx>0)
+    			{
+    				btn.setIcon(big_cowright);
+    			}
+    			
     			if(dude.getPondLand().get(i).getName()=="豬"&&i!=num&&vx<0)
     			{
     				btn.setIcon(pigleft);
@@ -931,15 +948,27 @@ public class DudeScreen extends JPanel implements ActionListener {
     			{
     				btn.setIcon(pigright);
     			}
-    			if(dude.getPondLand().get(i).getName()=="牛"&&i!=num)
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i!=num&&vx<0)
+    			{
+    				btn.setIcon(chickenleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="雞"&&i!=num&&vx>0)
+    			{
+    				btn.setIcon(chickenright);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i!=num&&vx<0)
     			{
     				btn.setIcon(cowleft);
+    			}
+    			if(dude.getPondLand().get(i).getName()=="牛"&&i!=num&&vx>0)
+    			{
+    				btn.setIcon(cowright);
     			}
     			btn.setVisible(true);
         	}
 		
         }
-        public void showButtonLeft(Dude dude, int i) {
+        /*public void showButtonLeft(Dude dude, int i) {
         	buttonGIF();
         	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
         	{
@@ -977,7 +1006,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				btn.setVisible(true);
         	}
 
-        }
+        }*/
         public void buttonGIF()
         {
     		btn.setOpaque(false);

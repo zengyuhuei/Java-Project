@@ -1,13 +1,15 @@
 package java2018.finalProject;
 
-import java.awt.Cursor;  
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Image;  
 import java.awt.Point;  
 import java.awt.Toolkit;  
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;  
 import java.awt.event.MouseEvent;  
-import java.awt.event.MouseListener;  
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Random;  
  
 import javax.swing.ImageIcon;  
@@ -35,7 +37,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   Image image;  
   Cursor myCursor;  
   JLabel showNum,currentGrade,hitNum;  
-  int showNumber=0,hitNumber=0,currentGrades=1;  
+  int showNumber=0,hitNumber=0,currentGrades=1;
      
   public HitMouse()
   {  
@@ -68,6 +70,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
          
       this.setResizable(false);//設置視窗大小不能改變
       this.setVisible(true);  
+      
+      
   }  
      
   private void addMenu() 
@@ -116,29 +120,44 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
      
   private void setMessage() 
   {  
-      ImageIcon showNumb = new ImageIcon(dir+"chuxiancishu.png");  
-      JLabel showLabel = new JLabel(showNumb);  
-      showLabel.setBounds(8, 8, 92, 80);  
-      this.getContentPane().add(showLabel);  
-      showNum = new JLabel("0");  
-      showNum.setBounds(8, 8, 92, 80);  
-      this.getContentPane().add(showNum);  
-         
-      ImageIcon hitNumb = new ImageIcon(dir+"chuxiancishu.png");  
-      JLabel hitLabel = new JLabel(hitNumb);  
-      hitLabel.setBounds(148, 8, 92, 80);  
-      this.getContentPane().add(hitLabel);  
-      hitNum = new JLabel("0");  
-      hitNum.setBounds(148, 8, 92, 80);  
-      this.getContentPane().add(hitNum);  
-         
-      ImageIcon grade = new ImageIcon(dir+"dangqiandengji.png");  
-      JLabel gradeLabel = new JLabel(grade);  
-      gradeLabel.setBounds(288, 8, 92, 80);  
-      this.getContentPane().add(gradeLabel);  
-      currentGrade = new JLabel("1");  
-      currentGrade.setBounds(288, 8, 92, 80);  
-      this.getContentPane().add(currentGrade);  
+	  JLabel showNumText = new JLabel("出現數量:");
+	  showNumText.setBounds(207, 25, 181, 43);
+	  this.add(showNumText);
+	  showNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  showNumText.setVisible(true);
+	  
+	  showNum = new JLabel("0");  
+      showNum.setBounds(350, -10, 250, 115);  
+      this.getContentPane().add(showNum);
+      showNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+      
+      JLabel hitNumText = new JLabel("擊中數量:");
+      hitNumText.setBounds(430, 25, 181, 43);
+	  this.add(hitNumText);
+	  hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  hitNumText.setVisible(true);
+	  
+      hitNum = new JLabel("0");
+      hitNum.setBounds(580, -10, 250, 115);
+      this.getContentPane().add(hitNum); 
+      hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+      
+      JLabel currentGradeText = new JLabel("當前等級:");
+      currentGradeText.setBounds(700, 25, 181, 43);
+	  this.add(currentGradeText);
+	  currentGradeText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+	  currentGradeText.setVisible(true);
+	  
+      currentGrade = new JLabel("1");
+      currentGrade.setBounds(850, -10, 250, 115);
+      this.getContentPane().add(currentGrade); 
+      currentGrade.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+      
+      //ImageIcon hitNumbBoard = new ImageIcon(dir+"billBoard.png");  
+      ImageIcon hitNumbBoard = resizeImage(800, 70, new ImageIcon(dir+"billBoard.png"));
+      JLabel hitLabel = new JLabel(hitNumbBoard, JLabel.CENTER);  
+      hitLabel.setBounds(100, 3, 850, 70);  
+      this.getContentPane().add(hitLabel);
   }  
  
  
