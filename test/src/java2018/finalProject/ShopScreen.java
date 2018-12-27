@@ -61,6 +61,7 @@ public class ShopScreen extends JPanel implements ActionListener {
     private JLabel lblHoldmoney;
     private JLabel background;
     private Main mainFrame;
+    private int isClicked = 0;
     
     public void buttonSound()
     {
@@ -209,9 +210,10 @@ public class ShopScreen extends JPanel implements ActionListener {
 		ImageIcon general =resizeImage (50,50,new ImageIcon("../picture/midfeed.png"));
 		ImageIcon advanced =resizeImage (50,50,new ImageIcon("../picture/highfeed.png"));
 		ImageIcon total =resizeImage (50,50,new ImageIcon("../picture/total.png"));
-				
+		ImageIcon unSellScreen = new ImageIcon("../picture/unsellScreen.png");
+		ImageIcon unBuyScreen = new ImageIcon("../picture/unbuyScreen.png");
 		JButton btnSell = new JButton();
-		btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
+		btnSell.setIcon(new ImageIcon("..\\picture\\unsellScreen.png"));
 		cleanButtom(btnSell);
 		btnSell.setFont(new Font("微軟正黑體 Light", Font.PLAIN, 21));
 		btnSell.setBounds(78, 158, 132, 74);
@@ -598,7 +600,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		buyPanel.setOpaque(false);
 		this.add(buyPanel);
 		buyPanel.setLayout(null);
-		buyPanel.setVisible(false);
+		buyPanel.setVisible(true);
 		
 		JButton btnAddSimple = new JButton();
 		cleanButtom(btnAddSimple);
@@ -1189,22 +1191,28 @@ public class ShopScreen extends JPanel implements ActionListener {
 				buyPanel.setVisible(true);
 				cleanTable(table);
 				System.out.println(shop.getHoldMoney());
+				isClicked =0;
+				btnSell.setIcon(new ImageIcon("..\\picture\\unsellScreen.png"));
 
 			}
 			@Override
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
 				btnBuy.setIcon(resizeImage(btnBuy.getIcon().getIconWidth()+10,btnBuy.getIcon().getIconHeight()+10,(ImageIcon)btnBuy.getIcon()));
-            } 
+				
+			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
-            	btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
+            	if(isClicked==0)btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
+            	else btnBuy.setIcon(resizeImage(unBuyScreen.getIconWidth()+10,unBuyScreen.getIconHeight()+10,unBuyScreen));
             } 
 		});
 		
 		btnSell.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				isClicked =1;
 				panel.setVisible(true);
+				btnBuy.setIcon(new ImageIcon("..\\picture\\unbuyScreen.png"));
 				buyPanel.setVisible(false);
 				cleanTable(buyTable);
 				System.out.printf("Item %s num %d\n","雞",shop.getChickenNumber());
@@ -1221,7 +1229,8 @@ public class ShopScreen extends JPanel implements ActionListener {
             } 
             @Override
             public void mouseExited(MouseEvent arg0) {
-            	btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
+            	if(isClicked ==1)btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
+            	else btnSell.setIcon(resizeImage(unSellScreen.getIconWidth()+10,unSellScreen.getIconHeight()+10,unSellScreen));
             } 
 			
 		});

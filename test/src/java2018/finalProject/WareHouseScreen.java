@@ -372,7 +372,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		isMaturedScrollPane.setViewportView(isMaturedItemTable);
 		
 		unMaturedScrollPane.setVisible(false);
-		isMaturedScrollPane.setVisible(false);
+		isMaturedScrollPane.setVisible(true);
 		holdingScrollPane.setVisible(false);
 		
 		JLabel lblNewLabel = new JLabel("New label");
