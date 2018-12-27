@@ -677,19 +677,6 @@ public class DudeScreen extends JPanel implements ActionListener {
 		buttonOFF(startFeed);
 		buttonOFF(feedAnimal);
 		buttonOFF(catchAnimal);
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(0, 0, 880, 675);
-		add(btnNewButton);
-		buttonOFF(btnNewButton);
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				closeStart();	
-			}
-            public void mouseEntered(MouseEvent arg0) {
-            	closeStart();
-			}
-		});
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setLocation(0, 0);
@@ -699,6 +686,19 @@ public class DudeScreen extends JPanel implements ActionListener {
 		lblNewLabel.setIcon(new ImageIcon(new_img));
 		lblNewLabel.setSize(1200, 675);
 			this.add(lblNewLabel);
+			JButton btnNewButton = new JButton("New button");
+			btnNewButton.setBounds(0, 0, 880, 675);
+			add(btnNewButton);
+			buttonOFF(btnNewButton);
+			btnNewButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					closeStart();	
+				}
+            public void mouseEntered(MouseEvent arg0) {
+            	closeStart();
+				}
+			});
 		
 	}
 	public void buttonSound()
