@@ -236,6 +236,146 @@ public class ShopScreen extends JPanel implements ActionListener {
 			};
 		String[] label = {"物品", "價格", "數量","備註"};
 		
+		JPanel askSell = new JPanel();
+		askSell.setOpaque(false);
+		askSell.setVisible(false);
+		askSell.setBounds(350, 200, 466, 243);
+		add(askSell);
+		askSell.setBackground(Color.YELLOW);
+		askSell.setLayout(null);
+		
+		JPanel noMoney = new JPanel();
+		noMoney.setOpaque(false);
+		noMoney.setVisible(false);
+		noMoney.setBounds(350, 200, 466, 243);
+		add(noMoney);
+		noMoney.setLayout(null);
+		
+		
+		
+		JButton no = new JButton();
+		no.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				noMoney.setVisible(false);
+			}
+		});
+		no.setIcon(new ImageIcon("..\\picture\\nobtn.png"));
+		no.setBounds(319, 167, 68, 44);
+		no.setVisible(true);
+		
+		JButton ok= new JButton();
+		ok.setVisible(true);
+		ok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				noMoney.setVisible(false);
+			}
+		});
+		ok.setIcon(new ImageIcon("..\\picture\\yesbtn.png"));
+		ok.setBounds(220, 167, 68, 44);
+		noMoney.add(ok);
+		noMoney.add(no);
+		
+		
+		JLabel noMoneyLabel = new JLabel();
+		noMoneyLabel.setBounds(0,0, 466, 243);
+		noMoneyLabel.setIcon(resizeImage(noMoneyLabel.getWidth(),noMoneyLabel.getHeight(),new ImageIcon("..\\picture\\noMoney.png")));
+		noMoney.add(noMoneyLabel);
+		
+		JButton noToSell = new JButton();
+		noToSell.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cleanTable(table);
+				askSell.setVisible(false);
+			}
+		});
+		noToSell.setIcon(new ImageIcon("..\\picture\\nobtn.png"));
+		noToSell.setBounds(319, 167, 68, 44);
+		noToSell.setVisible(true);
+		
+		JButton okToSell = new JButton();
+		okToSell.setVisible(true);
+		okToSell.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				delItem();
+				lblHoldmoney.setText(": "+String.valueOf(shop.getHoldMoney()));
+				cleanTable(table);
+				askSell.setVisible(false);
+			}
+		});
+		okToSell.setIcon(new ImageIcon("..\\picture\\yesbtn.png"));
+		okToSell.setBounds(220, 167, 68, 44);
+		askSell.add(okToSell);
+		askSell.add(noToSell);
+		
+		
+		JLabel askSellLabel = new JLabel();
+		askSellLabel.setBounds(0,0, 466, 243);
+		askSellLabel.setIcon(resizeImage(askSellLabel.getWidth(),askSellLabel.getHeight(),new ImageIcon("..\\picture\\askSell.png")));
+		askSell.add(askSellLabel);
+		
+		
+		JPanel askBuy = new JPanel();
+		askBuy.setOpaque(false);
+		askBuy.setVisible(false);
+		askBuy.setBounds(350, 200, 466, 243);
+		add(askBuy);
+		askBuy.setLayout(null);
+		
+		
+		
+		JButton noToBuy = new JButton();
+		noToBuy.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cleanTable(table);
+				askBuy.setVisible(false);
+			}
+		});
+		noToBuy.setIcon(new ImageIcon("..\\picture\\nobtn.png"));
+		noToBuy.setBounds(319, 167, 68, 44);
+		noToBuy.setVisible(true);
+		
+		JButton okToBuy= new JButton();
+		okToBuy.setVisible(true);
+		okToBuy.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(isLegal(buyTable))//金錢足夠
+				{
+					addItem();
+					lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
+				}
+				else
+				{
+					String message = String.format("現有金錢為:%d元，金額不足",shop.getHoldMoney() );
+					noMoney.setVisible(true);
+				}
+				cleanTable(buyTable);
+				askBuy.setVisible(false);
+			}
+		});
+		okToBuy.setIcon(new ImageIcon("..\\picture\\yesbtn.png"));
+		okToBuy.setBounds(220, 167, 68, 44);
+		askBuy.add(okToBuy);
+		askBuy.add(noToBuy);
+		
+		
+		JLabel askBuyLabel = new JLabel();
+		askBuyLabel.setBounds(0,0, 466, 243);
+		askBuyLabel.setIcon(resizeImage(askBuyLabel.getWidth(),askBuyLabel.getHeight(),new ImageIcon("..\\picture\\askBuy.png")));
+		askBuy.add(askBuyLabel);
+		
+		
+		
+		
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(268, 13, 882, 615);
 		this.add(panel);
@@ -394,13 +534,9 @@ public class ShopScreen extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				int input = JOptionPane.showOptionDialog(null, "你確定要賣出?", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if(input == 0) //ok
-				{
-					delItem();
-					lblHoldmoney.setText(": "+String.valueOf(shop.getHoldMoney()));
-				}
-				cleanTable(table);
+				askSell.setVisible(true);
+				
+				
 				
 			}     
             @Override
@@ -1072,24 +1208,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(isLegal(buyTable))//金錢足夠
-				{
-					int input = JOptionPane.showOptionDialog(null, "你確定要購買?", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-					if(input == 0) //ok
-					{
-						addItem();
-						lblHoldmoney.setText(" : "+String.valueOf(shop.getHoldMoney()));
-						
-					}
-					
-				}
-				else
-				{
-					
-					String message = String.format("現有金錢為:%d元，金額不足",shop.getHoldMoney() );
-					JOptionPane.showMessageDialog(null,message);
-				}
-				cleanTable(buyTable);
+				askBuy.setVisible(true);
 				
 			}
 			@Override
@@ -1181,7 +1300,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		
 		
 		background = new JLabel("background");
-		background.setBounds(0, 0, 1200, 675);
+		background.setBounds(0, -13, 1200, 675);
 		background.setBackground(new Color(204 ,135 ,125,50));
 		this.add(background);
 		background.setIcon(new ImageIcon(new_img));
@@ -1252,5 +1371,4 @@ public class ShopScreen extends JPanel implements ActionListener {
 			this.mainFrame.changeToMainScreen();
 		}
 	}
-	
 }
