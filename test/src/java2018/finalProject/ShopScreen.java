@@ -253,17 +253,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		
 		
 		
-		JButton no = new JButton();
-		no.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				noMoney.setVisible(false);
-			}
-		});
-		no.setIcon(new ImageIcon("..\\picture\\nobtn.png"));
-		no.setBounds(319, 167, 68, 44);
-		no.setVisible(true);
+		
 		
 		JButton ok= new JButton();
 		ok.setVisible(true);
@@ -276,7 +266,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 		ok.setIcon(new ImageIcon("..\\picture\\yesbtn.png"));
 		ok.setBounds(220, 167, 68, 44);
 		noMoney.add(ok);
-		noMoney.add(no);
+		
 		
 		
 		JLabel noMoneyLabel = new JLabel();
@@ -548,6 +538,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             } 
             @Override
             public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             	btnOk.setIcon(new ImageIcon("..\\picture\\oksell.png"));
             }  
 		});
@@ -1221,6 +1212,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             @Override
             public void mouseExited(MouseEvent arg0) {
             	btnBuyOk.setIcon(new ImageIcon("..\\picture\\okbuy.png"));
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             } 
 		});
 		
@@ -1278,6 +1270,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             } 
             @Override
             public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             	btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
             } 
 		});
@@ -1327,6 +1320,7 @@ public class ShopScreen extends JPanel implements ActionListener {
 			} 
             @Override
             public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             	if(isClicked==0)btnBuy.setIcon(new ImageIcon("..\\picture\\buyScreen.png"));
             	else btnBuy.setIcon(resizeImage(unBuyScreen.getIconWidth()+10,unBuyScreen.getIconHeight()+10,unBuyScreen));
             } 
@@ -1355,6 +1349,7 @@ public class ShopScreen extends JPanel implements ActionListener {
             } 
             @Override
             public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             	if(isClicked ==1)btnSell.setIcon(new ImageIcon("..\\picture\\sellScreen.png"));
             	else btnSell.setIcon(resizeImage(unSellScreen.getIconWidth()+10,unSellScreen.getIconHeight()+10,unSellScreen));
             } 

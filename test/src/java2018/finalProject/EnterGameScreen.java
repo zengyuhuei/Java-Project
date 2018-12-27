@@ -83,6 +83,7 @@ public class EnterGameScreen extends JPanel {
             @Override
             public void mouseExited(MouseEvent arg0) {
             	btnEnter.setIcon(new ImageIcon("../picture/new_game.png"));
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             } 
 		});
 		this.add(btnEnter);
@@ -104,6 +105,7 @@ public class EnterGameScreen extends JPanel {
             } 
             @Override
             public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             	btnLoad.setIcon(new ImageIcon("../picture/load_game.png"));
             } 
 		});

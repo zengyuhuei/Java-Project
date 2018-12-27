@@ -197,6 +197,10 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 	          
 			} 
+			@Override
+            public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            } 
 		});
 		btnisMaturedItem.setBounds(123, 46, 176, 68);
 		this.add(btnisMaturedItem);
@@ -222,8 +226,11 @@ public class WareHouseScreen extends JPanel implements ActionListener {
             public void mouseEntered(MouseEvent arg0) {
 				buttonSound();
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
-	          
 			} 
+			@Override
+            public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            } 
 		});
 		btnReadyToFeed.setBounds(123, 127, 176, 58);
 		this.add(btnReadyToFeed);
@@ -255,6 +262,10 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 				buttonSound();
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			} 
+			@Override
+            public void mouseExited(MouseEvent arg0) {
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            } 
 		});
 		
 		btnHoldItem.setBounds(123, 198, 176, 58);
@@ -277,6 +288,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
             @Override
             public void mouseExited(MouseEvent arg0) {
             	btnReturn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             } 
 			
 		});
@@ -311,6 +323,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		this.add(holdingScrollPane);
 		
 		holdingItemTable = new JTable();
+		holdingItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 20));
 		holdingItemTable.setEnabled(false);
 		holdingItemTable.getTableHeader().setEnabled(false);
 		holdingItemTable.setBackground(new Color(204, 135, 125,50));
@@ -338,6 +351,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		this.add(unMaturedScrollPane);
 		
 		unMaturedItemTable = new JTable();
+		unMaturedItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 20));
 		unMaturedItemTable.setEnabled(false);
 		unMaturedItemTable.getTableHeader().setEnabled(false);
 		unMaturedItemTable.setBackground(new Color(189, 216 ,97,50));
@@ -364,6 +378,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		isMaturedScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		this.add(isMaturedScrollPane);
 		isMaturedItemTable = new JTable();
+		isMaturedItemTable.setFont(new Font("微軟正黑體 Light", Font.BOLD, 20));
 		isMaturedItemTable.setEnabled(false);
 		isMaturedItemTable.getTableHeader().setEnabled(false);
 		isMaturedItemTable.setBackground(new Color(181, 169, 154,50));
@@ -381,9 +396,11 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		});
 		setTableColumnWidth(isMaturedItemTable,isMaturedScrollPane);
 		isMaturedScrollPane.setViewportView(isMaturedItemTable);
-		
+		updateunMaturedItem();
 		unMaturedScrollPane.setVisible(false);
+		updateMaturedItem();
 		isMaturedScrollPane.setVisible(true);
+		updateHoldItem();
 		holdingScrollPane.setVisible(false);
 		
 		JLabel lblNewLabel = new JLabel("New label");
