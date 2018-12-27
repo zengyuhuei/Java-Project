@@ -74,7 +74,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 	ImageIcon sowing = resizeImage (90,80,new ImageIcon("../picture/addCrop.png"));
 	ImageIcon killBug = resizeImage (80,85,new ImageIcon("../picture/killBug.png"));
 	ImageIcon seedBackground = new ImageIcon("../picture/feedBackground.PNG");
-	ImageIcon rateBackground = new ImageIcon("../picture/rateBackground.PNG");
+	ImageIcon rateBackground = resizeImage (220,180,new ImageIcon("../picture/board.PNG"));
 	JLabel rateBackGround = new JLabel(rateBackground);
 	JLabel seedBackGround = new JLabel(seedBackground);
 	JLabel cornSeedNum = new JLabel();
@@ -615,11 +615,11 @@ public class FarmScreen extends JPanel implements ActionListener {
 		seedBackGround.setIcon(seedBackground);
 		
 		//成長值背景
-		cropRate.setBounds(47, 25, 167, 43);
+		cropRate.setBounds(59, 525, 167, 43);
 		cropRate.setVisible(false);
 		this.add(cropRate);
 		cropRate.setFont(new Font("微軟正黑體 Light", Font.BOLD, 25));
-		rateBackGround.setBounds(-97, 15, 417, 69);
+		rateBackGround.setBounds(15, 475, 224, 220);
 		rateBackGround.setVisible(false);
 		this.add(rateBackGround);
 		rateBackGround.setIcon(rateBackground);
