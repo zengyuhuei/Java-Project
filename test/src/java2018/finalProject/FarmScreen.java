@@ -278,8 +278,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 					waterButton.setEnabled(false);	
 					pesticideButton.setEnabled(false);
 					checkButton().setIcon(nothingLand);
-					reload();
+					//reload();
 				}
+				cropRate.setVisible(false);
+				rateBackGround.setVisible(false);
 			}
 		});
 		harvestButton.addMouseListener(new MouseAdapter() {
@@ -315,7 +317,11 @@ public class FarmScreen extends JPanel implements ActionListener {
 					waterButton.setEnabled(false);
 					pesticideButton.setEnabled(false);
 				}
-				reload();
+				waterButton.setEnabled(false);
+				rateBackGround.setVisible(true);
+				cropRate.setVisible(true);
+				cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				//reload();
 			}
 		});
 		waterButton.addMouseListener(new MouseAdapter() {
@@ -356,7 +362,13 @@ public class FarmScreen extends JPanel implements ActionListener {
 					waterButton.setEnabled(false);
 					pesticideButton.setEnabled(false);
 				}
-				reload();
+
+				if(wareHouse.getFertilizer() > 0) fertilizeButton.setEnabled(true);
+				else fertilizeButton.setEnabled(false);
+				rateBackGround.setVisible(true);
+				cropRate.setVisible(true);
+				cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				//reload();
 			}
 		});
 		fertilizeButton.addMouseListener(new MouseAdapter() {
@@ -425,11 +437,13 @@ public class FarmScreen extends JPanel implements ActionListener {
 							else
 								fertilizeButton.setEnabled(true);
 							checkButton().setIcon(littleCorn);
-							reload();
+							//reload();
+							rateBackGround.setVisible(true);
+							cropRate.setVisible(true);
+							cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 			        	}
 			        }
 			    });
-			
 			
 				wheatButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
@@ -450,7 +464,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 							else
 								fertilizeButton.setEnabled(true);
 							checkButton().setIcon(littleWheat);
-							reload();
+							//reload();
+							rateBackGround.setVisible(true);
+							cropRate.setVisible(true);
+							cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 			        	}
 			        	
 			        }
@@ -475,7 +492,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 							else
 								fertilizeButton.setEnabled(true);
 							checkButton().setIcon(littleCabbage);
-							reload();
+							//reload();
+							rateBackGround.setVisible(true);
+							cropRate.setVisible(true);
+							cropRate.setText("成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 			        	}
 			        	
 			        }
