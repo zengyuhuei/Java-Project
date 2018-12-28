@@ -141,14 +141,14 @@ public class Farm
 		long diff = mainDate.getTime() - crop.getLastWaterDate().getTime();
 		diff = diff / 1000;
 		System.out.println("diff = "+diff);
-		if(diff >= 20)   //20秒重新亮起澆水
+		if(diff >= 5)   //20秒重新亮起澆水
 		{
-			/*if(crop.randomCheck())
+			if(crop.randomCheck())
 				return true;
 			else
-				crop.setLastWaterDate(mainDate)*/
+				crop.setLastWaterDate(mainDate);
 				
-			return true;
+			//return true;
 		}
 		return false;
 			
