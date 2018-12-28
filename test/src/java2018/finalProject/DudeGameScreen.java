@@ -29,6 +29,7 @@ import java2018.finalProject.GuessTimer.Listener;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
@@ -114,7 +115,7 @@ public class DudeGameScreen extends JPanel {
 		 });
 		 gt.startTimer(31);
 
-
+		
 		button.add(animal1);
 		button.add(animal2);
 		button.add(animal3);
@@ -647,7 +648,7 @@ public class DudeGameScreen extends JPanel {
 			if(sum>0) {
 				System.out.println(sum);
 				for(int i=0;i<12;i++) {
-					//run.get(i).setVXVY();
+					run.get(i).setVXVY();
 				}
 			}
 			if(sum==0) {
