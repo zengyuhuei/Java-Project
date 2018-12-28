@@ -123,21 +123,20 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 	   });
 	  gt.startTimer(15);
 	  
-	  JLabel word = new JLabel("秒數 : ");
+	  JLabel word = new JLabel("00 : ");
       JLabel lblSec = new JLabel(Integer.toString(gt.getSec()));
   	  JLabel lblSecback = new JLabel("secback");
   	  gt.setJLabel(lblSec);
-  	 
 	  word.setForeground(Color.RED);
 	  word.setBounds(965, 12, 70, 65);
-      add(word);
-	  word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+      getContentPane().add(word);
+	  word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
       word.setVisible(true);
       
 	  lblSec.setForeground(Color.RED);
 	  lblSec.setBounds(1020, 12, 69, 65);
-	  add(lblSec);
-	  lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+	  getContentPane().add(lblSec);
+	  lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	  lblSec.setVisible(true);
       
       lblSecback.setBounds(947, 15, 131, 58);

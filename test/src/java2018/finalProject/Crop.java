@@ -17,6 +17,7 @@ public abstract class Crop
 	private Date lastFertilizeDate; //上次施肥時間
 	private Date lastWaterDate; //上次澆水時間
 	private String name; //作物名稱
+	private Boolean waterButtonClick = true;   //判斷澆水按鈕是否應該持續亮著
 	
 	
 	//建構元
@@ -26,6 +27,11 @@ public abstract class Crop
 		this.growingRate = -1;
 	}
 	
+	//判斷澆水按鈕亮起後有沒有被使用者按過
+	public void waterCheck(Boolean check)
+	{
+		waterButtonClick = check; //true是被按過
+	}
 	 //判斷物件名稱是否相同(刪除)
 	public boolean equals(Object obj) { 
 	    if (obj == null) return false;
@@ -56,8 +62,8 @@ public abstract class Crop
 	{
 		if(growingRate < 100)
 		{
-			growingRate += 3;
-			
+			if((growingRate + 3) < 100) growingRate += 3;
+			else growingRate = 100;
 			//更新lastWaterDate
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			Date date = new Date();
@@ -76,8 +82,9 @@ public abstract class Crop
 	{
 		if(growingRate < 100)
 		{
-			growingRate += 10;
-			//更新lastWaterDate
+			if((growingRate + 10) < 100) growingRate += 10;
+			else growingRate = 100;
+			
 			return true;
 		}
 		else
@@ -94,12 +101,16 @@ public abstract class Crop
 	public boolean randomCheck()
 	{
 		Random random = new Random();
-		int randomProbablilty = random.nextInt(2);
+		int randomProbablilty = random.nextInt(3);
 		System.out.println("random = "+randomProbablilty);
-		if(randomProbablilty == 0)
-			return false;
-		else
-			return true;
+		if(!waterButtonClick)
+		{
+			System.out.println("waterButtonClick is false!");
+			if(randomProbablilty == 0)
+				return false;
+		}
+		waterButtonClick = true;
+		return true;
 	}
 	// 針對該作物目前的狀態，判斷工具列的按鈕的亮暗
 	public boolean isButtonAvailable()
