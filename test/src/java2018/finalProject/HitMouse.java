@@ -123,7 +123,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 		    }
 		    @Override
 		    public void onChange(long sec) {
-			   System.out.println("sec=>" + sec);
+			   //System.out.println("sec=>" + sec);
 		    }
 	    });
 	    gt.startTimer(30);
@@ -236,10 +236,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         hitNumText.setBounds(320, 25, 181, 43);
 	    getContentPane().add(hitNumText);
 	    hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-	    hitNumText.setVisible(true);
+	    hitNumText.setVisible(false);
 	    hitNum = new JLabel("0");
         hitNum.setBounds(460, -10, 250, 115);
-        hitNum.setVisible(true);
+        hitNum.setVisible(false);
         this.getContentPane().add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
@@ -290,7 +290,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
             menuItemFun(e);  
         }  
          
-        int ran=random.nextInt(2);//隨機生成一個0~9(不包括9)的隨機數
+        int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
         //保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
         ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
         jlbMouse.setIcon(imageMouse);  
@@ -399,7 +399,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
  
     private boolean gamePlan() 
     {  
-	    /*
+	    
         if(showNumber-hitNumber > 8){  
     	    gt.stopoTimer();  
             isOver=true;  
@@ -420,10 +420,11 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
             //showNum.setText(""+showNumber);  
             currentGrade.setText(""+currentGrades);  
         }  
-        */
+        
         return true;  
     }  
-    /*original
+    
+    //original
     public void mousePressed(MouseEvent e) 
     {  
         if(isOver){  
@@ -458,8 +459,9 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
             }   
         }  
     }  
-    */
-    /*edit
+    
+    /*
+    //edit
     public void mousePressed(MouseEvent e) 
     {  
     	ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
@@ -514,13 +516,14 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 	    return  new ImageIcon(new_img);
     }
     
-    
+    /*
 	public void mouseClicked(MouseEvent e) 
 	{
         if(isOver){  
             return ;  
         }  
         toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
+        
         Object object=e.getSource();
 		if(object instanceof JLabel)
 		{
@@ -551,6 +554,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 			label.setIcon(null);
 		}
 	}
+	*/
 	
 	
 	@Override
@@ -564,10 +568,18 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 		// TODO 自動產生的方法 Stub
 		
 	}
-	
+	/*
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	*/
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
