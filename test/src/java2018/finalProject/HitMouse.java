@@ -27,8 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;  
  
  
-public class HitMouse extends JFrame implements ActionListener,MouseListener
+public class HitMouse extends JPanel implements ActionListener,MouseListener
 {  
+	private Main mainFrame;
+	private WareHouse warehouse;
 	
 	private int delay = 1000; //延遲時間  
     private int showNumber=0,hitNumber=0, restNumber=0, currentGrades=1;
@@ -49,14 +51,12 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
     private JLabel restNumberText;
     private JLabel toolTipText;
 	
-    public HitMouse()
+    public HitMouse(Main mainFrame, WareHouse warehouse)
     {  
-        super("除蟲遊戲");  
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1200, 675);  
-        this.setLocationRelativeTo(null);//設置窗口在畫面中心  
-        setbackground();//設置背景  
-        this.getContentPane().setLayout(null);//設置框架佈局模式為空（只有這樣，才能知道圖片的真正位置  
+    	this.mainFrame = mainFrame;
+    	this.warehouse = warehouse;
+        this.setSize(1200, 675);    
+        this.setLayout(null);//設置框架佈局模式為空（只有這樣，才能知道圖片的真正位置  
       
         // Math.random 會產生 0 ~ 接近 1 的數字 
         restNumber = (int)(25+Math.random() * 6);  // 25 ~ 30
@@ -96,7 +96,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         ImageIcon imageMouse = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
         jlbMouse = new JLabel(imageMouse);  
         jlbMouse.setSize(100,100);  
-        this.getContentPane().add(jlbMouse);  
+        this.add(jlbMouse);  
         jlbMouse.setVisible(false);  
         jlbMouse.addMouseListener(this);//添加滑鼠游標監聽  
       
@@ -107,7 +107,6 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
          
         addMenu();//添加下拉選單 
          
-        this.setResizable(false);//設置視窗大小不能改變
         this.setVisible(true);  
       
         //----------------------倒數計時器-----------------------
@@ -134,36 +133,37 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
   	    gt.setJLabel(lblSec);
 	    word.setForeground(Color.RED);
 	    word.setBounds(965, 12, 70, 65);
-        getContentPane().add(word);
+        this.add(word);
 	    word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
         word.setVisible(true);
       
 	    lblSec.setForeground(Color.RED);
 	    lblSec.setBounds(1020, 12, 69, 65);
-	    getContentPane().add(lblSec);
+	    this.add(lblSec);
 	    lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    lblSec.setVisible(true);
       
         lblSecback.setBounds(947, 15, 131, 58);
         ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon(dir+"secBack.png"));
         lblSecback.setIcon(secback);	
-	    getContentPane().add(lblSecback);
+	    this.add(lblSecback);
 	    lblSecback.setVisible(true);
 
         //-------------完成任務與任務失敗----------------------------------
         successLabel.setBounds(274, 159, 600, 400);
 	    ImageIcon success = resizeImage(successLabel.getWidth(), successLabel.getHeight(), new ImageIcon(dir+"success.png"));
 	    successLabel.setIcon(success);	
-	    getContentPane().add(successLabel);
+	    this.add(successLabel);
 	    successLabel.setVisible(false);
 	  
       
 	    failLabel.setBounds(274, 159, 600, 400);
 	    ImageIcon fault = resizeImage(failLabel.getWidth(), failLabel.getHeight(), new ImageIcon(dir+"fault.png"));
 	    failLabel.setIcon(fault);	
-	    getContentPane().add(failLabel);
+	    this.add(failLabel);
 	    failLabel.setVisible(false);
-	    
+
+        setbackground();//設置背景 
     }  
   
     private void timeMessageAppear()
@@ -186,7 +186,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
     private void addMenu() 
     {  
         JMenuBar menubar = new JMenuBar();  
-        this.setJMenuBar(menubar);  
+        this.add(menubar);  
         JMenu game = new JMenu("除蟲遊戲");
       
         JMenuItem jitemNew = new JMenuItem("新遊戲");  
@@ -210,19 +210,19 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
      
     private void setbackground() 
     {  
-        ((JPanel)(this.getContentPane())).setOpaque(false);//如果為 true，則該組件繪製其邊界內的所有像素。否則該組件可能不繪製部分或所有像素，從而允許其底層像素透視出来。   
+        this.setOpaque(false);//如果為 true，則該組件繪製其邊界內的所有像素。否則該組件可能不繪製部分或所有像素，從而允許其底層像素透視出来。   
     
         ImageIcon bgImage = resizeImage(1200, 675, new ImageIcon(dir+"killBugBackground.png"));
         JLabel bgLabel = new JLabel(bgImage);  
-        bgLabel.setBounds(0, 25, bgImage.getIconWidth(), bgImage.getIconHeight());  
-        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
+        bgLabel.setBounds(0, 25, bgImage.getIconWidth(), bgImage.getIconHeight()); 
+        this.add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
     }  
      
     private void setMessage() 
     {  
 	    JLabel showNumText = new JLabel("出現數量:");
 	    showNumText.setBounds(130, 25, 181, 43);
-	    getContentPane().add(showNumText);
+	    this.add(showNumText);
 	    showNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    showNumText.setVisible(false);
 	    showNum = new JLabel("0");  
@@ -234,13 +234,13 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         
         JLabel hitNumText = new JLabel("擊中數量:");
         hitNumText.setBounds(320, 25, 181, 43);
-	    getContentPane().add(hitNumText);
+	    this.add(hitNumText);
 	    hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    hitNumText.setVisible(false);
 	    hitNum = new JLabel("0");
         hitNum.setBounds(460, -10, 250, 115);
         hitNum.setVisible(false);
-        this.getContentPane().add(hitNum); 
+        this.add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
         
@@ -273,13 +273,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         ImageIcon hitNumbBoard = resizeImage(800, 70, new ImageIcon(dir+"billBoard.png"));
         JLabel hitLabel = new JLabel(hitNumbBoard, JLabel.CENTER);  
         hitLabel.setBounds(30, 3, 950, 70);  
-        this.getContentPane().add(hitLabel);
-    }  
- 
- 
-    public static void main(String[] args) 
-    {  
-        new HitMouse();  
+        this.add(hitLabel);
     }  
      
     public void actionPerformed(ActionEvent e) 
@@ -342,7 +336,6 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         
         if (e.getActionCommand().equalsIgnoreCase("exit")) {//退出  
             isOver=true;
-            System.exit(EXIT_ON_CLOSE);  
         }  
          
         if (e.getActionCommand().equalsIgnoreCase("pause")) {//暂停  

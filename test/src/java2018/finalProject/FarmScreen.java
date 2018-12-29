@@ -578,7 +578,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//除蟲除草button
 		//toGame
 		pesticideButton.setBounds(1075, 442, 130, 92);
-		pesticideButton.setVisible(false);
+		pesticideButton.setVisible(true);
+		pesticideButton.addActionListener(this);
 		this.add(pesticideButton);
 		buttonOFF(pesticideButton);
 		pesticideButton.setIcon(killBug);
@@ -840,6 +841,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 		if (e.getSource() == returnButton) {
 			reload();
 			this.mainFrame.changeToMainScreen();
+		}
+		else if (e.getSource() == pesticideButton) {
+			this.mainFrame.changeToFarmGameScreen();
 		}
 	}
 }
