@@ -43,6 +43,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 	//private int[] storeCropArray = new int[12];
 	private int count = 0;
 	private int landNum = -1;
+	private Boolean [] clickCheck = new Boolean [12];
 	
 	JButton btn = new JButton();   //測試用button 不會出現
 	JButton waterButton = new JButton();
@@ -109,6 +110,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 		rateBackGround.setVisible(false);
 		seedBackGround.setVisible(false);
 		cropRate.setVisible(false);
+		for(int i = 0; i < 12; i++)
+			clickCheck[i] = false;
 		
 	}
 	public void buttonSound()
@@ -279,6 +282,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		this.setSize(1200, 675);
+		
+		for(int i = 0; i < 12; i++)
+			clickCheck[i] = false;
 		
 		//收割button
 		harvestButton.setBounds(1075, 66, 130, 98);
@@ -682,9 +688,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land0
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 0;
-				LandButton(farm, wareHouse);
+				if(clickCheck[0])
+				{
+					reload();
+					clickCheck[0] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 0;
+					LandButton(farm, wareHouse);
+					clickCheck[0] = true;
+				}
 			}
 		});
 		button_0.setBounds(59, 172, 193, 102);
@@ -694,9 +709,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land3
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 3;
-				LandButton(farm, wareHouse);
+				if(clickCheck[3])
+				{
+					reload();
+					clickCheck[3] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 3;
+					LandButton(farm, wareHouse);
+					clickCheck[3] = true;
+				}
 			}
 		});
 		button_3.setBounds(203, 305, 193, 98);
@@ -706,9 +730,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land6
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 6;
-				LandButton(farm, wareHouse);
+				if(clickCheck[6])
+				{
+					reload();
+					clickCheck[6] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 6;
+					LandButton(farm, wareHouse);
+					clickCheck[6] = true;
+				}
 			}
 		});
 		button_6.setBounds(350, 428, 193, 87);
@@ -718,9 +751,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land9
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 9;
-				LandButton(farm, wareHouse);
+				if(clickCheck[9])
+				{
+					reload();
+					clickCheck[9] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 9;
+					LandButton(farm, wareHouse);
+					clickCheck[9] = true;
+				}
 			}
 		});
 		button_9.setBounds(480, 537, 185, 92);
@@ -730,9 +772,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land1
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 1;
-				LandButton(farm, wareHouse);
+				if(clickCheck[1])
+				{
+					reload();
+					clickCheck[1] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 1;
+					LandButton(farm, wareHouse);
+					clickCheck[1] = true;
+				}
 			}
 		});
 		button_1.setBounds(293, 94, 185, 98);
@@ -742,9 +793,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land4
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 4;
-				LandButton(farm, wareHouse);
+				if(clickCheck[4])
+				{
+					reload();
+					clickCheck[4] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 4;
+					LandButton(farm, wareHouse);
+					clickCheck[4] = true;
+				}
 			}
 		});
 		button_4.setBounds(447, 223, 176, 98);
@@ -754,9 +814,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land7
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 7;
-				LandButton(farm, wareHouse);
+				if(clickCheck[7])
+				{
+					reload();
+					clickCheck[7] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 7;
+					LandButton(farm, wareHouse);
+					clickCheck[7] = true;
+				}
 			}
 		});
 		button_7.setBounds(577, 346, 167, 86);
@@ -766,9 +835,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land10
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 10;
-				LandButton(farm, wareHouse);
+				if(clickCheck[10])
+				{
+					reload();
+					clickCheck[10] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 10;
+					LandButton(farm, wareHouse);
+					clickCheck[10] = true;
+				}
 			}
 		});
 		button_10.setBounds(711, 447, 176, 102);
@@ -778,9 +856,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land2
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 2;
-				LandButton(farm, wareHouse);
+				if(clickCheck[2])
+				{
+					reload();
+					clickCheck[2] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 2;
+					LandButton(farm, wareHouse);
+					clickCheck[2] = true;
+				}
 			}
 		});
 		button_2.setBounds(535, 37, 176, 87);
@@ -790,9 +877,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land5
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 5;
-				LandButton(farm, wareHouse);
+				if(clickCheck[5])
+				{
+					reload();
+					clickCheck[5] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 5;
+					LandButton(farm, wareHouse);
+					clickCheck[5] = true;
+				}
 			}
 		});
 		button_5.setBounds(669, 159, 167, 87);
@@ -802,9 +898,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land8
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 8;
-				LandButton(farm, wareHouse);
+				if(clickCheck[8])
+				{
+					reload();
+					clickCheck[8] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 8;
+					LandButton(farm, wareHouse);
+					clickCheck[8] = true;
+				}
 			}
 		});
 		button_8.setBounds(801, 272, 167, 92);
@@ -814,9 +919,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land11
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 11;
-				LandButton(farm, wareHouse);
+				if(clickCheck[11])
+				{
+					reload();
+					clickCheck[11] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 11;
+					LandButton(farm, wareHouse);
+					clickCheck[11] = true;
+				}
 			}
 		});
 		button_11.setBounds(923, 391, 176, 87);
