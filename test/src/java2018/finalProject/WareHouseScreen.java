@@ -170,7 +170,7 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 		btnisMaturedItem.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
 		btnisMaturedItem.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(firstEnter == false)
+				if(isMaturedScrollPane.isVisible() == false)
 				{
 					if(isMatured == false)
 					{
@@ -181,12 +181,11 @@ public class WareHouseScreen extends JPanel implements ActionListener {
 						isMatured = true;
 						unMatured = false;
 						holding = false;
-						
+						firstEnter = true; 
 						
 					}
 				}
-				else
-					firstEnter = false; 
+				
 				
 				
 				
