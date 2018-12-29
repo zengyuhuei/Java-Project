@@ -12,8 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
-import java.util.Random;  
- 
+import java.util.Random;
+
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;  
@@ -39,7 +40,8 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
     private GuessTimer gt = new GuessTimer();
     private Random random;  //隨機生成地鼠位置  
     
-    private JLabel jlbMouse;//地鼠  
+    private JLabel jlbMouse;//地鼠 
+    private JLabel jlbDieMouse;//
     //private JLabel jlbGrass;//草
     private JLabel showNum,currentGrade,hitNum;
     private JLabel successLabel = new JLabel();
@@ -234,10 +236,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
         hitNumText.setBounds(320, 25, 181, 43);
 	    getContentPane().add(hitNumText);
 	    hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-	    hitNumText.setVisible(false);
+	    hitNumText.setVisible(true);
 	    hitNum = new JLabel("0");
         hitNum.setBounds(460, -10, 250, 115);
-        hitNum.setVisible(false);
+        hitNum.setVisible(true);
         this.getContentPane().add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
@@ -288,7 +290,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
             menuItemFun(e);  
         }  
          
-        int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
+        int ran=random.nextInt(2);//隨機生成一個0~9(不包括9)的隨機數
         //保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
         ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
         jlbMouse.setIcon(imageMouse);  
@@ -397,7 +399,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
  
     private boolean gamePlan() 
     {  
-	  
+	    /*
         if(showNumber-hitNumber > 8){  
     	    gt.stopoTimer();  
             isOver=true;  
@@ -418,9 +420,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
             //showNum.setText(""+showNumber);  
             currentGrade.setText(""+currentGrades);  
         }  
+        */
         return true;  
     }  
- 
+    /*original
     public void mousePressed(MouseEvent e) 
     {  
         if(isOver){  
@@ -454,26 +457,47 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
                 }
             }   
         }  
-        /*
-        hitNumber++;  
-        hitNum.setText(Integer.toString(hitNumber)); 
-        
-            if(restNumber > 0)
-            {
-    		    restNumber -= 1;
-    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
-                if(restNumber == 0){
-            	    jlbMouse.setVisible(false);
-            	    timer.stop();
-            	    gt.stopoTimer();
-            	    //isOver=true; 
-            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
-        		    successLabel.setVisible(true);
-                }
-            }   
-        */
     }  
- 
+    */
+    /*edit
+    public void mousePressed(MouseEvent e) 
+    {  
+    	ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
+    	
+        if(isOver){  
+            return ;  
+        }  
+        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
+        Object object=e.getSource();
+		if(object instanceof JLabel)
+		{
+			JLabel label=(JLabel)object;
+			if(label.getIcon()!=null) //如果打中地鼠
+			{
+				label.setIcon(imageIconHit);  
+				label.setVisible(true);  
+	            hitNumber++;  
+	            hitNum.setText(Integer.toString(hitNumber)); 
+	            if(restNumber > 0)
+	            {
+	    		    restNumber -= 1;
+	    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
+	                if(restNumber == 0)
+	                {
+	            	    jlbMouse.setVisible(false);
+	            	    timer.stop();
+	            	    gt.stopoTimer();
+	            	    //isOver=true; 
+	            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+	        		    successLabel.setVisible(true);
+	                }
+	            }   
+			}
+			label.setIcon(imageIconHit);
+		}
+    }  
+    */
+    
     public void mouseReleased(MouseEvent e) 
     {  
         if(isOver){  
@@ -489,12 +513,45 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 	    Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	    return  new ImageIcon(new_img);
     }
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO 自動產生的方法 Stub
-		
+    
+    
+	public void mouseClicked(MouseEvent e) 
+	{
+        if(isOver){  
+            return ;  
+        }  
+        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
+        Object object=e.getSource();
+		if(object instanceof JLabel)
+		{
+			ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
+			JLabel label=(JLabel)object;
+			if(label.getIcon()!=null) //如果打中地鼠
+			{
+				
+				label.setIcon(imageIconHit);  
+				label.setVisible(true);  
+	            hitNumber++;  
+	            hitNum.setText(Integer.toString(hitNumber)); 
+	            if(restNumber > 0)
+	            {
+	    		    restNumber -= 1;
+	    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
+	                if(restNumber == 0)
+	                {
+	            	    jlbMouse.setVisible(false);
+	            	    timer.stop();
+	            	    gt.stopoTimer();
+	            	    //isOver=true; 
+	            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+	        		    successLabel.setVisible(true);
+	                }
+	            }   
+			}
+			label.setIcon(null);
+		}
 	}
+	
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -507,5 +564,10 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
 		// TODO 自動產生的方法 Stub
 		
 	}
- 
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
