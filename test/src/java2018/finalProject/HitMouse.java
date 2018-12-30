@@ -411,6 +411,7 @@ public class HitMouse extends JFrame implements ActionListener,MouseListener
       }  
       //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
       image = tk.createImage(dir+"killBug(X).png");  
+      //System.out.println(i);
       myCursor = tk.createCustomCursor(image, new Point(10,10), "xxx");  
       this.setCursor(myCursor);  
   }  

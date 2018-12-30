@@ -2,9 +2,12 @@ package java2018.finalProject;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -80,8 +83,8 @@ public class DudeGameScreen extends JPanel {
 	ArrayList<JButton> button = new ArrayList<JButton>(12);
 	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
 	ArrayList<Timer> time = new ArrayList<Timer>(12);
-	JLabel lblSec = new JLabel("SEC");
-	JLabel word = new JLabel(": 00");
+	JLabel lblSec = new JLabel();
+	JLabel word = new JLabel("倒數    秒");
 	JLabel lblSecback = new JLabel("secback");
 	int cowNum = (int)(Math.random()*6+6);
 	int pigNum = (int)(Math.random()*5+5);
@@ -89,6 +92,9 @@ public class DudeGameScreen extends JPanel {
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	GuessTimer gt = new GuessTimer();
+    Toolkit tk;  
+    Image image; 
+	Cursor myCursor;
 	
 	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
@@ -97,7 +103,7 @@ public class DudeGameScreen extends JPanel {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);	
 		gt.setJLabel(lblSec);
-
+		
 		 //傾聽計時器timeout事件(可選的事件，不實作也可以使用timer
 		 gt.addListener(new GuessTimer.Listener() {
 		 @Override
@@ -114,7 +120,11 @@ public class DudeGameScreen extends JPanel {
 		 });
 		 gt.startTimer(31);
 
-
+		 tk = Toolkit.getDefaultToolkit();
+	     image = tk.createImage("../picture/catchgame.png");  
+	     myCursor = tk.createCustomCursor(image, new Point(10,10), "catch");
+	     this.setCursor(myCursor); 
+	     
 		button.add(animal1);
 		button.add(animal2);
 		button.add(animal3);
@@ -127,24 +137,24 @@ public class DudeGameScreen extends JPanel {
 		button.add(animal10);
 		button.add(animal11);
 		button.add(animal12);
-		lblSec.setForeground(Color.RED);
 		
-		lblSec.setBounds(963, 34, 58, 65);
+		lblSec.setForeground(Color.RED);		
+		lblSec.setBounds(1012, 34, 58, 65);
 		this.add(lblSec);
 		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		lblSec.setVisible(true);
-		word.setForeground(Color.RED);
 		
-		word.setBounds(1005, 34, 69, 65);
+		word.setForeground(Color.RED);		
+		word.setBounds(947, 34, 156, 65);
 		this.add(word);
 		word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		word.setVisible(true);
 		
 		
-		lblSecback.setBounds(947, 41, 131, 58);
+		lblSecback.setBounds(937, 41, 166, 58);
 		ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon("../picture/secBack.PNG"));
 		lblSecback.setIcon(secback);	
-		add(lblSecback);
+		this.add(lblSecback);
 		lblSecback.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
@@ -183,7 +193,7 @@ public class DudeGameScreen extends JPanel {
 		backToDudeBtn.setBounds(505, 369, 137, 55);
 		ImageIcon backTodude = resizeImage(118, 37, new ImageIcon("../picture/backToDude.PNG"));
 		backToDudeBtn.setIcon(backTodude);	
-		add(backToDudeBtn);
+		this.add(backToDudeBtn);
 		backToDudeBtn.setVisible(false);
 		backToDudeBtn.setOpaque(false);
 		backToDudeBtn.setContentAreaFilled(false);
@@ -206,11 +216,11 @@ public class DudeGameScreen extends JPanel {
 		});
 
 		successlbl.setIcon(success);	
-		add(successlbl);
+		this.add(successlbl);
 		successlbl.setVisible(false);
 		
 		faultlbl.setIcon(fault);	
-		add(faultlbl);
+		this.add(faultlbl);
 		faultlbl.setVisible(false);
 		
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
@@ -334,25 +344,11 @@ public class DudeGameScreen extends JPanel {
 		
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.setBounds(0, 0, 1200, 675);
-		add(btnNewButton);
+		this.add(btnNewButton);
 		btnNewButton.setOpaque(false);
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorder(null);
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(gt.timeStop()) {
-					fault();
-				}
-
-			}
-            public void mouseEntered(MouseEvent arg0) {
-        		if(gt.timeStop()) {
-        			fault();
-        		}
-			}
-		});
 		
 		showAnimal();
 		
@@ -648,7 +644,7 @@ public class DudeGameScreen extends JPanel {
 			if(sum>0) {
 				System.out.println(sum);
 				for(int i=0;i<12;i++) {
-					//run.get(i).setVXVY();
+					run.get(i).setVXVY();
 				}
 			}
 			if(sum==0) {
@@ -741,6 +737,9 @@ class RunningButton extends TimerTask {
 	            coordinateX += vx;
 	            coordinateY += vy;
 	            btn.setBounds((int) coordinateX, (int) coordinateY, 150, 150);
+	            if(gt.getSec()==0) {
+	            	fault();
+	            }
 	    		
 	        }
 	        public void showButtonLeft() {

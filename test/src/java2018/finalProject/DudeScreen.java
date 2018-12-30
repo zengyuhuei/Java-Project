@@ -254,7 +254,7 @@ public class DudeScreen extends JPanel implements ActionListener {
             }   
 		});
 		dudeRule.setIcon(duderule);	
-		add(dudeRule);
+		this.add(dudeRule);
 		dudeRule.setVisible(false);
 		
 		home.setFont(new Font("Dialog", Font.BOLD, 20));	
@@ -272,6 +272,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				closeAnimalRate(dude);
 				dudeGameStart.setVisible(false);
 				dudeRule.setVisible(false);
+				num = 10;
 			}
 		});
 		home.addMouseListener(new MouseAdapter() {
@@ -698,7 +699,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 			this.add(lblNewLabel);
 			JButton btnNewButton = new JButton("New button");
 			btnNewButton.setBounds(0, 0, 900, 675);
-			add(btnNewButton);
+			this.add(btnNewButton);
 			buttonOFF(btnNewButton);
 			btnNewButton.addMouseListener(new MouseAdapter() {
 				@Override
@@ -707,6 +708,8 @@ public class DudeScreen extends JPanel implements ActionListener {
 					closeFeed();
 					feedAnimal.setEnabled(false);
 					closeAnimalRate(dude);
+					num = 10;
+					catchAnimal.setEnabled(false);
 					
 				}
             public void mouseEntered(MouseEvent arg0) {
@@ -1009,45 +1012,6 @@ public class DudeScreen extends JPanel implements ActionListener {
         	}
 		
         }
-        /*public void showButtonLeft(Dude dude, int i) {
-        	buttonGIF();
-        	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
-        	{
-        		if(dude.getPondLand().get(i).getName()=="雞")
-				{
-					btn.setIcon(chickenleft);
-				}
-				if(dude.getPondLand().get(i).getName()=="豬")
-				{
-					btn.setIcon(pigleft);
-				}
-				if(dude.getPondLand().get(i).getName()=="牛")
-				{
-					btn.setIcon(cowleft);
-				}
-				btn.setVisible(true);
-        	}
-        }
-        public void showButtonRight(Dude dude, int i) {
-        	buttonGIF();
-        	if(i<dude.getPondLand().size()&&dude.getPondLand().get(i)!=null)
-        	{
-				if(dude.getPondLand().get(i).getName()=="雞")
-				{
-					btn.setIcon(chickenright);
-				}
-				if(dude.getPondLand().get(i).getName()=="豬")
-				{
-					btn.setIcon(pigright);
-				}
-				if(dude.getPondLand().get(i).getName()=="牛")
-				{
-					btn.setIcon(cowright);
-				}
-				btn.setVisible(true);
-        	}
-
-        }*/
         public void buttonGIF()
         {
     		btn.setOpaque(false);
@@ -1103,6 +1067,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 		
 		System.out.println(runbutton.get(buttonNum).getVX());
     }
+    
     public void buttonGIF()
     {
     	for(int i=0; i<button.size(); i++)
