@@ -360,7 +360,7 @@ public class PondScreen extends JPanel implements ActionListener {
 				break;
 			case BIG:
 				int width = 20;
-				g.setColor(Color.YELLOW);
+				g.setColor(Color.RED);
 				g.fillRect(fishStart + shift, this.trackRect.y + 1, width, this.trackRect.height - 1);
 				g.setColor(Color.BLACK);
 				g.drawRect(fishStart + shift, this.trackRect.y, width, this.trackRect.height);
