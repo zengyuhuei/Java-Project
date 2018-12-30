@@ -32,6 +32,7 @@ import java2018.finalProject.GuessTimer.Listener;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
@@ -92,9 +93,6 @@ public class DudeGameScreen extends JPanel {
 	int period = 50;
 	int sum = cowNum + pigNum + chickenNum;
 	GuessTimer gt = new GuessTimer();
-    Toolkit tk;  
-    Image image; 
-	Cursor myCursor;
 	
 	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
@@ -120,11 +118,6 @@ public class DudeGameScreen extends JPanel {
 		 });
 		 gt.startTimer(31);
 
-		 tk = Toolkit.getDefaultToolkit();
-	     image = tk.createImage("../picture/catchgame.png");  
-	     myCursor = tk.createCustomCursor(image, new Point(10,10), "catch");
-	     this.setCursor(myCursor); 
-	     
 		button.add(animal1);
 		button.add(animal2);
 		button.add(animal3);
@@ -646,6 +639,8 @@ public class DudeGameScreen extends JPanel {
 				for(int i=0;i<12;i++) {
 					run.get(i).setVXVY();
 				}
+				String name="correct";
+				Sound(name);
 			}
 			if(sum==0) {
 				this.warehouse.editHoldMoney(100);
