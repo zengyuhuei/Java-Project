@@ -43,8 +43,6 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
     private Random random;  //隨機生成地鼠位置  
     
     private JLabel jlbMouse;//地鼠 
-    private JLabel jlbDieMouse;//
-    //private JLabel jlbGrass;//草
     private JLabel showNum,currentGrade,hitNum;
     private JLabel successLabel = new JLabel();
     private JLabel failLabel = new JLabel();
@@ -60,7 +58,6 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
       
         // Math.random 會產生 0 ~ 接近 1 的數字 
         restNumber = (int)(25+Math.random() * 6);  // 25 ~ 30
-        System.out.println(restNumber);
       
         //-------------------------滑鼠游標透明---------------------
       
@@ -231,7 +228,6 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         add(showNum);
         showNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
         
-        
         JLabel hitNumText = new JLabel("擊中數量:");
         hitNumText.setBounds(320, 25, 181, 43);
 	    this.add(hitNumText);
@@ -243,7 +239,6 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         this.add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
-        
 	    restNumberText = new JLabel("剩餘數量:"+Integer.toString(restNumber));
 	    restNumberText.setBounds(500, 25, 181, 43);
 	    add(restNumberText);
@@ -288,8 +283,6 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         //保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
         ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
         jlbMouse.setIcon(imageMouse);  
-        //ImageIcon imageGrass = resizeImage(130, 175, new ImageIcon(dir+"dishu.png"));
-        //jlbGrass.setIcon(imageGrass);  
         switch(ran)
         {  
 	        case 0:jlbMouse.setLocation(220, 80);break;  
@@ -423,7 +416,7 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         if(isOver){  
             return ;  
         }  
-        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
+        toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
       
         //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
         if(e.getSource()==jlbMouse)
@@ -431,11 +424,9 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
             ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
             jlbMouse.setIcon(imageIconHit);  
             jlbMouse.setVisible(true);  
-            //ImageIcon imageIconHitGress = resizeImage(130, 130, new ImageIcon(dir+"datou.png"));
-            //jlbMouse.setIcon(imageIconHitGress);  
-            //jlbMouse.setVisible(true);  
             hitNumber++;  
-            hitNum.setText(Integer.toString(hitNumber)); 
+            //System.out.printf("hitNumber=%d", hitNumber);
+            //hitNum.setText(Integer.toString(hitNumber)); 
             if(restNumber > 0)
             {
     		    restNumber -= 1;
@@ -453,104 +444,16 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         }  
     }  
     
-    /*
-    //edit
-    public void mousePressed(MouseEvent e) 
-    {  
-    	ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-    	
-        if(isOver){  
-            return ;  
-        }  
-        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
-        Object object=e.getSource();
-		if(object instanceof JLabel)
-		{
-			JLabel label=(JLabel)object;
-			if(label.getIcon()!=null) //如果打中地鼠
-			{
-				label.setIcon(imageIconHit);  
-				label.setVisible(true);  
-	            hitNumber++;  
-	            hitNum.setText(Integer.toString(hitNumber)); 
-	            if(restNumber > 0)
-	            {
-	    		    restNumber -= 1;
-	    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
-	                if(restNumber == 0)
-	                {
-	            	    jlbMouse.setVisible(false);
-	            	    timer.stop();
-	            	    gt.stopoTimer();
-	            	    //isOver=true; 
-	            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
-	        		    successLabel.setVisible(true);
-	                }
-	            }   
-			}
-			label.setIcon(imageIconHit);
-		}
-    }  
-    */
-    
     public void mouseReleased(MouseEvent e) 
     {  
         if(isOver){  
             return ;  
         }  
         //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
-        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(X).png"));
+        toolTipText.setIcon(new ImageIcon(dir+"killBug(X).png"));
     }  
- 
-    public ImageIcon resizeImage(int width, int height, ImageIcon img)
-    {
-	    Image i = img.getImage();
-	    Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-	    return  new ImageIcon(new_img);
-    }
     
-    /*
-	public void mouseClicked(MouseEvent e) 
-	{
-        if(isOver){  
-            return ;  
-        }  
-        toolTipText.setIcon(new ImageIcon("..\\picture\\killBug(O).png"));
-        
-        Object object=e.getSource();
-		if(object instanceof JLabel)
-		{
-			ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-			JLabel label=(JLabel)object;
-			if(label.getIcon()!=null) //如果打中地鼠
-			{
-				
-				label.setIcon(imageIconHit);  
-				label.setVisible(true);  
-	            hitNumber++;  
-	            hitNum.setText(Integer.toString(hitNumber)); 
-	            if(restNumber > 0)
-	            {
-	    		    restNumber -= 1;
-	    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
-	                if(restNumber == 0)
-	                {
-	            	    jlbMouse.setVisible(false);
-	            	    timer.stop();
-	            	    gt.stopoTimer();
-	            	    //isOver=true; 
-	            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
-	        		    successLabel.setVisible(true);
-	                }
-	            }   
-			}
-			label.setIcon(null);
-		}
-	}
-	*/
-	
-	
-	@Override
+    @Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO 自動產生的方法 Stub
 		
@@ -561,18 +464,20 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
 		// TODO 自動產生的方法 Stub
 		
 	}
-	/*
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	*/
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+    public ImageIcon resizeImage(int width, int height, ImageIcon img)
+    {
+	    Image i = img.getImage();
+	    Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	    return  new ImageIcon(new_img);
+    }
+    
+	
 	
 }
