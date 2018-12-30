@@ -68,6 +68,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	private JLabel bgLabel;
 	private JSlider gameBar;
 	private int sliderValue;
+	private int thumbValue;
 	private int runTo;
 	
 	public PondScreen(Main mainFrame) {
@@ -113,11 +114,16 @@ public class PondScreen extends JPanel implements ActionListener {
 		x3Label.setForeground(Color.BLACK);
 		x3Label.setBounds(790, 675, 60, 60);
 		this.add(x3Label);
+
+		JLabel timeImgLabel = new JLabel("", JLabel.CENTER);
+		timeImgLabel.setIcon(imageResize(90, 90, new ImageIcon("..\\picture\\time.png")));
+		timeImgLabel.setBounds(700, 40, 90, 90);
+		this.add(timeImgLabel);
 		
-		timeLabel = new JLabel("", JLabel.CENTER);
-		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
+		timeLabel = new JLabel("40", JLabel.CENTER);
+		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
 		timeLabel.setForeground(Color.RED);
-		timeLabel.setBounds(700, 65, 250, 45);
+		timeLabel.setBounds(720, 60, 250, 55);
 		this.add(timeLabel);
 		
 		startBtn = new JButton("遊戲開始");
@@ -178,6 +184,8 @@ public class PondScreen extends JPanel implements ActionListener {
 					else {
 						imageCondition = ImageCondition.WRONG;
 					}
+					System.out.println(sliderValue);
+					System.out.println(thumbValue);
 				}
 			}
 		});
@@ -189,7 +197,7 @@ public class PondScreen extends JPanel implements ActionListener {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				timeLabel.setText("倒數" + Integer.toString(time) + "秒");
+				timeLabel.setText(Integer.toString(time));
 				if (time == 0) {
 					timer.cancel();
 					returnBtn.setEnabled(true);
@@ -238,7 +246,7 @@ public class PondScreen extends JPanel implements ActionListener {
 				}
 				gameBar.setValue(sliderValue);
 			}
-		}, 0, 2);
+		}, 0, 20);
 	}
 	
 	private void imageStart() {
@@ -351,18 +359,27 @@ public class PondScreen extends JPanel implements ActionListener {
 			case NO:
 				break;
 			case BIG:
+				int width = 20;
 				g.setColor(Color.RED);
-				g.fillRect(fishStart + shift, this.trackRect.y + 1, 20, this.trackRect.height - 1);
-				fishEnd = fishStart + 15;
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, width, this.trackRect.height - 1);
+				g.setColor(Color.BLACK);
+				g.drawRect(fishStart + shift, this.trackRect.y, width, this.trackRect.height);
+				fishEnd = fishStart + 20;
 				break;
 			case MID:
+				int width1 = 30;
 				g.setColor(Color.YELLOW);
-				g.fillRect(fishStart + shift, this.trackRect.y + 1, 30, this.trackRect.height - 1);
-				fishEnd = fishStart + 25;
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, width1, this.trackRect.height - 1);
+				g.setColor(Color.BLACK);
+				g.drawRect(fishStart + shift, this.trackRect.y, width1, this.trackRect.height);
+				fishEnd = fishStart + 30;
 				break;
 			case SMALL:
+				int width2 = 45;
 				g.setColor(Color.CYAN);
-				g.fillRect(fishStart + shift, this.trackRect.y + 1, 45, this.trackRect.height - 1);
+				g.fillRect(fishStart + shift, this.trackRect.y + 1, width2, this.trackRect.height - 1);
+				g.setColor(Color.BLACK);
+				g.drawRect(fishStart + shift, this.trackRect.y, width2, this.trackRect.height);
 				fishEnd = fishStart + 45;
 				break;
 			}
@@ -371,6 +388,7 @@ public class PondScreen extends JPanel implements ActionListener {
 		@Override
 		public void paintThumb(Graphics g) {
 			g.setColor(Color.BLACK);
+			//g.fillRect(this.thumbRect.x + shift, this.thumbRect.y, 1, this.thumbRect.height);
 			g.fillRect(this.thumbRect.x + shift, this.thumbRect.y, 1, this.thumbRect.height);
 		}
 	}

@@ -2,9 +2,12 @@ package java2018.finalProject;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,7 +32,9 @@ import java2018.finalProject.GuessTimer.Listener;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
@@ -47,49 +52,50 @@ public class DudeGameScreen extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
-	ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
-	ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
-	ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
-	ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
-	ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
-	ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
-	ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
-	ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
-	ImageIcon boom = new ImageIcon("../picture/boom.gif");
-	JLabel dudeAnimalNum = new JLabel("需捕捉數量:");
-	JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
-	JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
-	JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
-	ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
-	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
-	JButton backToDudeBtn = new JButton();
-	JLabel successlbl = new JLabel();
-	JLabel faultlbl = new JLabel();
-	JButton animal1 = new JButton();
-	JButton animal2 = new JButton();
-	JButton animal3 = new JButton();
-	JButton animal4 = new JButton();
-	JButton animal5 = new JButton();
-	JButton animal6 = new JButton();
-	JButton animal7 = new JButton();
-	JButton animal8 = new JButton();
-	JButton animal9 = new JButton();
-	JButton animal10 = new JButton();
-	JButton animal11 = new JButton();
-	JButton animal12 = new JButton();
-	ArrayList<JButton> button = new ArrayList<JButton>(12);
-	ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
-	ArrayList<Timer> time = new ArrayList<Timer>(12);
-	JLabel lblSec = new JLabel("SEC");
-	JLabel word = new JLabel(": 00");
-	JLabel lblSecback = new JLabel("secback");
-	int cowNum = (int)(Math.random()*6+6);
-	int pigNum = (int)(Math.random()*5+5);
-	int chickenNum = (int)(Math.random()*4+4);
-	int period = 50;
-	int sum = cowNum + pigNum + chickenNum;
-	GuessTimer gt = new GuessTimer();
+	private ImageIcon chickenleft = new ImageIcon("../picture/chickenleft.gif");
+	private ImageIcon chickenright = new ImageIcon("../picture/chickenright.gif");
+	private ImageIcon pigleft = new ImageIcon("../picture/pigleft.gif");
+	private ImageIcon pigright = new ImageIcon("../picture/pigright.gif");
+	private ImageIcon cowleft = new ImageIcon("../picture/cowleft.gif");
+	private ImageIcon cowright = new ImageIcon("../picture/cowright.gif");
+	private ImageIcon cowhead = resizeImage (50,50,new ImageIcon("../picture/cow.png"));
+	private ImageIcon pighead = resizeImage (50,50,new ImageIcon("../picture/pig2.png"));
+	private ImageIcon chickenhead = resizeImage (50,50,new ImageIcon("../picture/chicken.png"));
+	private ImageIcon boom = new ImageIcon("../picture/boom.gif");
+	private JLabel dudeAnimalNum = new JLabel("需捕捉數量:");
+	private JLabel dudeCowNum = new JLabel(cowhead, JLabel.LEFT);
+	private JLabel dudePigNum = new JLabel(pighead, JLabel.LEFT);
+	private JLabel dudeChickenNum = new JLabel(chickenhead, JLabel.LEFT);
+	private ImageIcon dudeNumback = new ImageIcon("../picture/dudeNumBack.PNG");
+	private JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
+	private JButton backToDudeBtn = new JButton();
+	private JLabel successlbl = new JLabel();
+	private JLabel faultlbl = new JLabel();
+	private JButton animal1 = new JButton();
+	private JButton animal2 = new JButton();
+	private JButton animal3 = new JButton();
+	private JButton animal4 = new JButton();
+	private JButton animal5 = new JButton();
+	private JButton animal6 = new JButton();
+	private JButton animal7 = new JButton();
+	private JButton animal8 = new JButton();
+	private JButton animal9 = new JButton();
+	private JButton animal10 = new JButton();
+	private JButton animal11 = new JButton();
+	private JButton animal12 = new JButton();
+	private ArrayList<JButton> button = new ArrayList<JButton>(12);
+	private ArrayList<RunningButton> run = new ArrayList<RunningButton>(12);
+	private ArrayList<Timer> time = new ArrayList<Timer>(12);
+	private JLabel lblSec = new JLabel();
+	private JLabel word = new JLabel("倒數    秒");
+	private JLabel lblSecback = new JLabel("secback");
+	private int cowNum = (int)(Math.random()*6+6);
+	private int pigNum = (int)(Math.random()*5+5);
+	private int chickenNum = (int)(Math.random()*4+4);
+	private int period = 50;
+	private int sum = cowNum + pigNum + chickenNum;
+	private GuessTimer gt = new GuessTimer();
+	private JLabel toolTipText;
 	
 	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
@@ -97,8 +103,37 @@ public class DudeGameScreen extends JPanel {
 		this.setSize(1200, 675);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);	
-		gt.setJLabel(lblSec);
+		
+		 //-------------------------滑鼠游標透明---------------------
+	   /*   
+        // Transparent 16 x 16 pixel cursor image.
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
+	    // Create a new blank cursor.
+	    Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+		    cursorImg, new Point(0, 0), "blank cursor");
+
+	    // Set the blank cursor to the JFrame.
+	    this.setCursor(blankCursor);
+	
+	    //-----------------------圖片跟著透明游標走--------------------
+	  
+        toolTipText = new JLabel();
+        toolTipText.setLocation(0, 0);
+        toolTipText.setIcon(new ImageIcon("..\\picture\\catchGame.png"));
+        toolTipText.setSize(323, 491);
+        this.add(toolTipText);
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+		    @Override
+			public void mouseMoved(MouseEvent e) {
+					toolTipText.setLocation((int)e.getPoint().getX()-30, (int)e.getPoint().getY()-250);
+			}
+			
+		});*/
+        
+        //----------------------倒數計時器-----------------------------
+        
+		 gt.setJLabel(lblSec);	
 		 //傾聽計時器timeout事件(可選的事件，不實作也可以使用timer
 		 gt.addListener(new GuessTimer.Listener() {
 		 @Override
@@ -107,15 +142,13 @@ public class DudeGameScreen extends JPanel {
 		 }
 		 @Override
 		 public void onChange(long sec) {
-
-			 System.out.println("sec=>" + sec);
-			 
+			 System.out.println("sec=>" + sec);		 
 		 }
 
 		 });
 		 gt.startTimer(31);
 
-		
+		//---------------------------------------------------------------
 		button.add(animal1);
 		button.add(animal2);
 		button.add(animal3);
@@ -128,24 +161,24 @@ public class DudeGameScreen extends JPanel {
 		button.add(animal10);
 		button.add(animal11);
 		button.add(animal12);
-		lblSec.setForeground(Color.RED);
 		
-		lblSec.setBounds(963, 34, 58, 65);
+		lblSec.setForeground(Color.RED);		
+		lblSec.setBounds(1012, 34, 58, 65);
 		this.add(lblSec);
 		lblSec.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		lblSec.setVisible(true);
-		word.setForeground(Color.RED);
 		
-		word.setBounds(1005, 34, 69, 65);
+		word.setForeground(Color.RED);		
+		word.setBounds(947, 34, 156, 65);
 		this.add(word);
 		word.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 		word.setVisible(true);
 		
 		
-		lblSecback.setBounds(947, 41, 131, 58);
+		lblSecback.setBounds(937, 41, 166, 58);
 		ImageIcon secback = resizeImage(lblSecback.getWidth(), lblSecback.getHeight(), new ImageIcon("../picture/secBack.PNG"));
 		lblSecback.setIcon(secback);	
-		add(lblSecback);
+		this.add(lblSecback);
 		lblSecback.setVisible(true);
 		
 		dudeAnimalNum.setBounds(207, 47, 181, 43);
@@ -181,10 +214,12 @@ public class DudeGameScreen extends JPanel {
 		faultlbl.setBounds(274, 159, 600, 400);
 		ImageIcon fault = resizeImage(faultlbl.getWidth(), faultlbl.getHeight(), new ImageIcon("../picture/fault.PNG"));
 		
+		//------------------------------------回牧場-----------------------------------
+		
 		backToDudeBtn.setBounds(505, 369, 137, 55);
 		ImageIcon backTodude = resizeImage(118, 37, new ImageIcon("../picture/backToDude.PNG"));
 		backToDudeBtn.setIcon(backTodude);	
-		add(backToDudeBtn);
+		this.add(backToDudeBtn);
 		backToDudeBtn.setVisible(false);
 		backToDudeBtn.setOpaque(false);
 		backToDudeBtn.setContentAreaFilled(false);
@@ -205,13 +240,14 @@ public class DudeGameScreen extends JPanel {
             	backToDudeBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/backToDude.png")));
             } 
 		});
-
+		
+		//----------------------------------------------------------------------------
 		successlbl.setIcon(success);	
-		add(successlbl);
+		this.add(successlbl);
 		successlbl.setVisible(false);
 		
 		faultlbl.setIcon(fault);	
-		add(faultlbl);
+		this.add(faultlbl);
 		faultlbl.setVisible(false);
 		
 		animal1.setFont(new java.awt.Font("Dialog", 1, 20));
@@ -324,6 +360,8 @@ public class DudeGameScreen extends JPanel {
 		time.add(timer11);
 		time.add(timer12);
 		
+		//---------------------------------背景-------------------------------------
+		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setLocation(0, 0);
 		ImageIcon img = new ImageIcon("../picture/dude.jpg");
@@ -333,28 +371,7 @@ public class DudeGameScreen extends JPanel {
 		lblNewLabel.setSize(1200, 675);
 		this.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(0, 0, 1200, 675);
-		add(btnNewButton);
-		btnNewButton.setOpaque(false);
-		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorder(null);
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(gt.timeStop()) {
-					fault();
-				}
-
-			}
-            public void mouseEntered(MouseEvent arg0) {
-        		if(gt.timeStop()) {
-        			fault();
-        		}
-			}
-		});
-		
+		//--------------------------------------------------------------------------
 		showAnimal();
 		
 		animal1.addActionListener(new ActionListener() {
@@ -368,6 +385,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp1 = button.get(0).getIcon();
 					button.get(0).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -391,6 +410,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp2 = button.get(1).getIcon();
 					button.get(1).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -414,6 +435,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp3 = button.get(2).getIcon();
 					button.get(2).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -437,6 +460,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp4 = button.get(3).getIcon();
 					button.get(3).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -460,6 +485,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp5 = button.get(4).getIcon();
 					button.get(4).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -484,6 +511,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp6 = button.get(5).getIcon();
 					button.get(5).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -508,6 +537,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp7 = button.get(6).getIcon();
 					button.get(6).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -532,6 +563,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp8 = button.get(7).getIcon();
 					button.get(7).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -555,6 +588,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp9 = button.get(8).getIcon();
 					button.get(8).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -580,6 +615,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp10 = button.get(9).getIcon();
 					button.get(9).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -603,6 +640,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp11 = button.get(10).getIcon();
 					button.get(10).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -626,6 +665,8 @@ public class DudeGameScreen extends JPanel {
 				{
 					Icon temp12 = button.get(11).getIcon();
 					button.get(11).setIcon(boom);
+					String name = "boom";
+					Sound(name);
 					Timer t = new Timer();
 					t.schedule( new TimerTask() {
 						@Override
@@ -640,6 +681,9 @@ public class DudeGameScreen extends JPanel {
 		});
 
 	}
+	
+	//----------------------動物統一動作----------------------------
+	
 	public void animalAction() {
 		dudeCowNum.setText(" X "+(int)cowNum);
 		dudePigNum.setText(" X "+(int)pigNum);
@@ -651,15 +695,13 @@ public class DudeGameScreen extends JPanel {
 				for(int i=0;i<12;i++) {
 					run.get(i).setVXVY();
 				}
+				String name="correct";
+				Sound(name);
 			}
 			if(sum==0) {
 				this.warehouse.editHoldMoney(100);
 				System.out.println("遊戲結束!!任務達成，恭喜你獲得金幣!!");
 				gt.stopoTimer();
-				/*int input = JOptionPane.showConfirmDialog(null, "遊戲結束!!任務達成，恭喜你獲得金幣!", null, JOptionPane.DEFAULT_OPTION);
-				if(input==JOptionPane.YES_OPTION) {
-					mainFrame.changeToDudeScreen();
-				}*/
 				successlbl.setVisible(true);
 				for(int i=0; i<button.size(); i++)
 				{
@@ -674,7 +716,7 @@ public class DudeGameScreen extends JPanel {
 			fault();
 		}
 	}
-	public void fault() { // bug: 不點button不會動   result: 弄個大button隱藏後面，mouse havor事件 timer==null跳框框
+	public void fault() {
 		if(sum>0) {
 			faultlbl.setVisible(true);
 			for(int i=0; i<button.size(); i++)
@@ -686,7 +728,9 @@ public class DudeGameScreen extends JPanel {
 		}
 	}
 
-class RunningButton extends TimerTask {
+	//--------------------移動--------------------------------
+	
+	class RunningButton extends TimerTask {
 	    	private JButton btn;
 	    	private double coordinateX, coordinateY;
 	    	private double vx, vy;
@@ -742,6 +786,9 @@ class RunningButton extends TimerTask {
 	            coordinateX += vx;
 	            coordinateY += vy;
 	            btn.setBounds((int) coordinateX, (int) coordinateY, 150, 150);
+	            if(gt.getSec()==0) {
+	            	fault();
+	            }
 	    		
 	        }
 	        public void showButtonLeft() {
@@ -820,6 +867,9 @@ class RunningButton extends TimerTask {
 			  }
 		  }
 	  }
+	  
+	  //-----------------------隱藏按鈕背景-----------------------
+	  
 	  public void buttonGIF()
 	  {
 		  for(int i=0; i<button.size(); i++)
@@ -830,12 +880,18 @@ class RunningButton extends TimerTask {
 			  button.get(i).setBorder(null);
 		  }
 	  }
+	  
+	  //-----------------------圖片調整---------------------------------
+	  
 	  public ImageIcon resizeImage(int width, int height, ImageIcon img)
 	  {
 		  Image i = img.getImage();
 		  Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		  return  new ImageIcon(new_img);
 	  }
+	  
+	  //------------------------音效-------------------------------------
+	  
 	  public void buttonSound()
 		{
 	    	 try {           

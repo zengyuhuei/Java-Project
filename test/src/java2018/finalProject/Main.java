@@ -105,6 +105,14 @@ public class Main extends JFrame {
 		this.setTitle("農場");
 		this.setContentPane(farmScreen);
 	}
+	
+	public void changeToFarmGameScreen() {
+		bgClip.stop();
+		gameClip.loop(Clip.LOOP_CONTINUOUSLY);
+		this.setTitle("除蟲遊戲");
+		JPanel hitMouse = new HitMouse(this, this.warehouse);
+		this.setContentPane(hitMouse);
+	}
 
     private void backgroundSound()
     {

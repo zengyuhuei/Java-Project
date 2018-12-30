@@ -43,6 +43,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 	//private int[] storeCropArray = new int[12];
 	private int count = 0;
 	private int landNum = -1;
+	private Boolean [] clickCheck = new Boolean [12];
+	private Boolean clickAddCrop = false;
 	
 	JButton btn = new JButton();   //測試用button 不會出現
 	JButton waterButton = new JButton();
@@ -75,8 +77,10 @@ public class FarmScreen extends JPanel implements ActionListener {
 	ImageIcon killBug = resizeImage (80,85,new ImageIcon("../picture/killBug.png"));
 	ImageIcon seedBackground = new ImageIcon("../picture/feedBackground.PNG");
 	ImageIcon rateBackground = resizeImage (250,200,new ImageIcon("../picture/board.PNG"));
+	ImageIcon toolBackground = resizeImage (130,500,new ImageIcon("../picture/toolBarBG.PNG"));
 	JLabel rateBackGround = new JLabel(rateBackground);
 	JLabel seedBackGround = new JLabel(seedBackground);
+	JLabel toolBackGround = new JLabel(toolBackground);
 	JLabel cornSeedNum = new JLabel();
 	JLabel wheatSeedNum = new JLabel();
 	JLabel cabbageSeedNum = new JLabel();
@@ -108,7 +112,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 		cabbageSeedNum.setVisible(false);
 		rateBackGround.setVisible(false);
 		seedBackGround.setVisible(false);
+		toolBackGround.setVisible(false);
+		fertilizerNum.setVisible(false);
 		cropRate.setVisible(false);
+		for(int i = 0; i < 12; i++)
+			clickCheck[i] = false;
+		clickAddCrop = false;
 		
 	}
 	public void buttonSound()
@@ -182,10 +191,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 	{
 		fertilizeButton.setVisible(true);
 		fertilizerNum.setText("X"+wareHouse.getFertilizer());
+		fertilizerNum.setVisible(true);
 		harvestButton.setVisible(true);
 		sowingButton.setVisible(true);
 		waterButton.setVisible(true);
 		pesticideButton.setVisible(true);
+		toolBackGround.setVisible(true);
 		
 		if(farm.getStoreCropNum(landNum) == -1)
 		{
@@ -230,6 +241,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			{
 				fertilizeButton.setEnabled(true);
 				fertilizerNum.setText("X"+wareHouse.getFertilizer());
+				fertilizerNum.setVisible(true);
 			}
 
 			if(farm.decideCallRandomCheck(farm.getFarmLand().get(farm.getStoreCropNum(landNum))))
@@ -279,6 +291,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 		this.setSize(1200, 675);
+		
+		for(int i = 0; i < 12; i++)
+			clickCheck[i] = false;
 		
 		//收割button
 		harvestButton.setBounds(1075, 66, 130, 98);
@@ -357,6 +372,12 @@ public class FarmScreen extends JPanel implements ActionListener {
             } 
 		});
 
+		//肥料數量
+		fertilizerNum.setBounds(1156, 317, 103, 43);
+		fertilizerNum.setVisible(false);
+		this.add(fertilizerNum);
+		fertilizerNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		
 		//施肥button
 		fertilizeButton.setBounds(1075, 252, 129, 98);
 		fertilizeButton.setVisible(false);
@@ -370,6 +391,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		{
 			fertilizeButton.setEnabled(true);
 			fertilizerNum.setText("X"+wareHouse.getFertilizer());
+			fertilizerNum.setVisible(true);
 		}
 		fertilizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -391,6 +413,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 				{
 					fertilizeButton.setEnabled(true);
 					fertilizerNum.setText("X"+wareHouse.getFertilizer());
+					fertilizerNum.setVisible(true);
 				}
 				else fertilizeButton.setEnabled(false);
 				growingRate(farm);
@@ -417,117 +440,131 @@ public class FarmScreen extends JPanel implements ActionListener {
 		sowingButton.setIcon(sowing);
 		sowingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("玉米種子數量 = "+wareHouse.getCornSeedNumber());
-				System.out.println("小麥種子數量 = "+wareHouse.getWheatSeedNumber());
-				System.out.println("高麗菜種子數量 = "+wareHouse.getCabbageSeedNumber());
-
-				cornSeedNum.setText(" X "+ wareHouse.getCornSeedNumber());
-				wheatSeedNum.setText(" X "+ wareHouse.getWheatSeedNumber());
-				cabbageSeedNum.setText(" X "+ wareHouse.getCabbageSeedNumber());
-				
-				cornButton.setVisible(true);
-				wheatButton.setVisible(true);
-				cabbageButton.setVisible(true);
-				seedBackGround.setVisible(true);
-				cornSeedNum.setVisible(true);
-				wheatSeedNum.setVisible(true);
-				cabbageSeedNum.setVisible(true);
-				if(wareHouse.getCornSeedNumber() == 0)
-					cornButton.setEnabled(false);
-				else cornButton.setEnabled(true);
-				if(wareHouse.getWheatSeedNumber() == 0)
-					wheatButton.setEnabled(false);
-				else wheatButton.setEnabled(true);
-				if(wareHouse.getCabbageSeedNumber() == 0)
-					cabbageButton.setEnabled(false);
-				else cabbageButton.setEnabled(true);
-				
-				
-				cornButton.addActionListener(new ActionListener() {
-			        public void actionPerformed(ActionEvent e) {
-			        	if(farm.getStoreCropNum(landNum)== -1)
-			        	{
-				        	farm.sowingCorn(landNum);
-			    			cornButton.setVisible(false);
-							wheatButton.setVisible(false);
-							cabbageButton.setVisible(false);
-							sowingButton.setEnabled(false);
-							waterButton.setEnabled(true);
-							seedBackGround.setVisible(false);
-							cornSeedNum.setVisible(false);
-							wheatSeedNum.setVisible(false);
-							cabbageSeedNum.setVisible(false);
-							if(wareHouse.getFertilizer() == 0)
-								fertilizeButton.setEnabled(false);
-							else
-							{
-								fertilizeButton.setEnabled(true);
-								fertilizerNum.setText("X"+wareHouse.getFertilizer());
+				if(clickAddCrop)
+				{
+					cornButton.setVisible(false);
+					wheatButton.setVisible(false);
+					cabbageButton.setVisible(false);
+					seedBackGround.setVisible(false);
+					cornSeedNum.setVisible(false);
+					wheatSeedNum.setVisible(false);
+					cabbageSeedNum.setVisible(false);
+					clickAddCrop = false;
+				}
+				else
+				{
+					clickAddCrop = true;
+					cornSeedNum.setText(" X "+ wareHouse.getCornSeedNumber());
+					wheatSeedNum.setText(" X "+ wareHouse.getWheatSeedNumber());
+					cabbageSeedNum.setText(" X "+ wareHouse.getCabbageSeedNumber());
+					
+					cornButton.setVisible(true);
+					wheatButton.setVisible(true);
+					cabbageButton.setVisible(true);
+					seedBackGround.setVisible(true);
+					cornSeedNum.setVisible(true);
+					wheatSeedNum.setVisible(true);
+					cabbageSeedNum.setVisible(true);
+					if(wareHouse.getCornSeedNumber() == 0)
+						cornButton.setEnabled(false);
+					else cornButton.setEnabled(true);
+					if(wareHouse.getWheatSeedNumber() == 0)
+						wheatButton.setEnabled(false);
+					else wheatButton.setEnabled(true);
+					if(wareHouse.getCabbageSeedNumber() == 0)
+						cabbageButton.setEnabled(false);
+					else cabbageButton.setEnabled(true);
+					
+					
+					cornButton.addActionListener(new ActionListener() {
+				        public void actionPerformed(ActionEvent e) {
+				        	if(farm.getStoreCropNum(landNum)== -1)
+				        	{
+					        	farm.sowingCorn(landNum);
+				    			cornButton.setVisible(false);
+								wheatButton.setVisible(false);
+								cabbageButton.setVisible(false);
+								sowingButton.setEnabled(false);
+								waterButton.setEnabled(true);
+								seedBackGround.setVisible(false);
+								cornSeedNum.setVisible(false);
+								wheatSeedNum.setVisible(false);
+								cabbageSeedNum.setVisible(false);
+								if(wareHouse.getFertilizer() == 0)
+									fertilizeButton.setEnabled(false);
+								else
+								{
+									fertilizeButton.setEnabled(true);
+									fertilizerNum.setText("X"+wareHouse.getFertilizer());
+									fertilizerNum.setVisible(true);
+								}
+								checkButton().setIcon(littleCorn);
+	
+								growingRate(farm);
 							}
-							checkButton().setIcon(littleCorn);
-
-							growingRate(farm);
-						}
-			        }
-			    });
-			
-				wheatButton.addActionListener(new ActionListener() {
-			        public void actionPerformed(ActionEvent e) {
-			        	if(farm.getStoreCropNum(landNum) == -1)
-			        	{
-			        		farm.sowingWheat(landNum);
-			    			cornButton.setVisible(false);
-							wheatButton.setVisible(false);
-							cabbageButton.setVisible(false);
-							sowingButton.setEnabled(false);
-							waterButton.setEnabled(true);
-							seedBackGround.setVisible(false);
-							cornSeedNum.setVisible(false);
-							wheatSeedNum.setVisible(false);
-							cabbageSeedNum.setVisible(false);
-							if(wareHouse.getFertilizer() == 0)
-								fertilizeButton.setEnabled(false);
-							else 
-							{
-								fertilizeButton.setEnabled(true);
-								fertilizerNum.setText("X"+wareHouse.getFertilizer());
-							}
-								
-							checkButton().setIcon(littleWheat);
-							growingRate(farm);
-			        	}
-			        	
-			        }
-			    });
-			
-				cabbageButton.addActionListener(new ActionListener() {
-			        public void actionPerformed(ActionEvent e) {
-			        	if(farm.getStoreCropNum(landNum) == -1)
-			        	{
-				        	farm.sowingCabbage(landNum);
-			    			cornButton.setVisible(false);
-							wheatButton.setVisible(false);
-							cabbageButton.setVisible(false);
-							sowingButton.setEnabled(false);
-							waterButton.setEnabled(true);
-							seedBackGround.setVisible(false);
-							cornSeedNum.setVisible(false);
-							wheatSeedNum.setVisible(false);
-							cabbageSeedNum.setVisible(false);
-							if(wareHouse.getFertilizer() == 0)
-								fertilizeButton.setEnabled(false);
-							else
-							{
-								fertilizeButton.setEnabled(true);
-								fertilizerNum.setText("X"+wareHouse.getFertilizer());
-							}
-							checkButton().setIcon(littleCabbage);
-							growingRate(farm);
-			        	}
-			        	
-			        }
-			    });
-			
+				        }
+				    });
+				
+					wheatButton.addActionListener(new ActionListener() {
+				        public void actionPerformed(ActionEvent e) {
+				        	if(farm.getStoreCropNum(landNum) == -1)
+				        	{
+				        		farm.sowingWheat(landNum);
+				    			cornButton.setVisible(false);
+								wheatButton.setVisible(false);
+								cabbageButton.setVisible(false);
+								sowingButton.setEnabled(false);
+								waterButton.setEnabled(true);
+								seedBackGround.setVisible(false);
+								cornSeedNum.setVisible(false);
+								wheatSeedNum.setVisible(false);
+								cabbageSeedNum.setVisible(false);
+								if(wareHouse.getFertilizer() == 0)
+									fertilizeButton.setEnabled(false);
+								else 
+								{
+									fertilizeButton.setEnabled(true);
+									fertilizerNum.setText("X"+wareHouse.getFertilizer());
+									fertilizerNum.setVisible(true);
+								}
+									
+								checkButton().setIcon(littleWheat);
+								growingRate(farm);
+				        	}
+				        	
+				        }
+				    });
+				
+					cabbageButton.addActionListener(new ActionListener() {
+				        public void actionPerformed(ActionEvent e) {
+				        	if(farm.getStoreCropNum(landNum) == -1)
+				        	{
+					        	farm.sowingCabbage(landNum);
+				    			cornButton.setVisible(false);
+								wheatButton.setVisible(false);
+								cabbageButton.setVisible(false);
+								sowingButton.setEnabled(false);
+								waterButton.setEnabled(true);
+								seedBackGround.setVisible(false);
+								cornSeedNum.setVisible(false);
+								wheatSeedNum.setVisible(false);
+								cabbageSeedNum.setVisible(false);
+								if(wareHouse.getFertilizer() == 0)
+									fertilizeButton.setEnabled(false);
+								else
+								{
+									fertilizeButton.setEnabled(true);
+									fertilizerNum.setText("X"+wareHouse.getFertilizer());
+									fertilizerNum.setVisible(true);
+								}
+								checkButton().setIcon(littleCabbage);
+								growingRate(farm);
+				        	}
+				        	
+				        }
+				    });
+				
+				}
 			}
 		});
 		sowingButton.addMouseListener(new MouseAdapter() {
@@ -578,7 +615,8 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//除蟲除草button
 		//toGame
 		pesticideButton.setBounds(1075, 442, 130, 92);
-		pesticideButton.setVisible(false);
+		pesticideButton.setVisible(true);
+		pesticideButton.addActionListener(this);
 		this.add(pesticideButton);
 		buttonOFF(pesticideButton);
 		pesticideButton.setIcon(killBug);
@@ -662,11 +700,11 @@ public class FarmScreen extends JPanel implements ActionListener {
 		this.add(seedBackGround);
 		seedBackGround.setIcon(seedBackground);
 		
-		//肥料數量
-		fertilizerNum.setBounds(938, 121, 103, 43);
-		fertilizerNum.setVisible(false);
-		this.add(fertilizerNum);
-		fertilizerNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		//工具列背景
+		toolBackGround.setBounds(1075, 72, 130, 477);
+		toolBackGround.setVisible(false);
+		this.add(toolBackGround);
+		toolBackGround.setIcon(toolBackground);
 		
 		//成長值背景
 		cropRate.setBounds(26, 520, 260, 43);
@@ -681,9 +719,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land0
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 0;
-				LandButton(farm, wareHouse);
+				if(clickCheck[0])
+				{
+					reload();
+					clickCheck[0] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 0;
+					LandButton(farm, wareHouse);
+					clickCheck[0] = true;
+				}
 			}
 		});
 		button_0.setBounds(59, 172, 193, 102);
@@ -693,9 +740,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land3
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 3;
-				LandButton(farm, wareHouse);
+				if(clickCheck[3])
+				{
+					reload();
+					clickCheck[3] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 3;
+					LandButton(farm, wareHouse);
+					clickCheck[3] = true;
+				}
 			}
 		});
 		button_3.setBounds(203, 305, 193, 98);
@@ -705,9 +761,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land6
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 6;
-				LandButton(farm, wareHouse);
+				if(clickCheck[6])
+				{
+					reload();
+					clickCheck[6] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 6;
+					LandButton(farm, wareHouse);
+					clickCheck[6] = true;
+				}
 			}
 		});
 		button_6.setBounds(350, 428, 193, 87);
@@ -717,9 +782,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land9
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 9;
-				LandButton(farm, wareHouse);
+				if(clickCheck[9])
+				{
+					reload();
+					clickCheck[9] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 9;
+					LandButton(farm, wareHouse);
+					clickCheck[9] = true;
+				}
 			}
 		});
 		button_9.setBounds(480, 537, 185, 92);
@@ -729,9 +803,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land1
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 1;
-				LandButton(farm, wareHouse);
+				if(clickCheck[1])
+				{
+					reload();
+					clickCheck[1] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 1;
+					LandButton(farm, wareHouse);
+					clickCheck[1] = true;
+				}
 			}
 		});
 		button_1.setBounds(293, 94, 185, 98);
@@ -741,9 +824,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land4
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 4;
-				LandButton(farm, wareHouse);
+				if(clickCheck[4])
+				{
+					reload();
+					clickCheck[4] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 4;
+					LandButton(farm, wareHouse);
+					clickCheck[4] = true;
+				}
 			}
 		});
 		button_4.setBounds(447, 223, 176, 98);
@@ -753,9 +845,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land7
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 7;
-				LandButton(farm, wareHouse);
+				if(clickCheck[7])
+				{
+					reload();
+					clickCheck[7] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 7;
+					LandButton(farm, wareHouse);
+					clickCheck[7] = true;
+				}
 			}
 		});
 		button_7.setBounds(577, 346, 167, 86);
@@ -765,9 +866,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land10
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 10;
-				LandButton(farm, wareHouse);
+				if(clickCheck[10])
+				{
+					reload();
+					clickCheck[10] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 10;
+					LandButton(farm, wareHouse);
+					clickCheck[10] = true;
+				}
 			}
 		});
 		button_10.setBounds(711, 447, 176, 102);
@@ -777,9 +887,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land2
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 2;
-				LandButton(farm, wareHouse);
+				if(clickCheck[2])
+				{
+					reload();
+					clickCheck[2] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 2;
+					LandButton(farm, wareHouse);
+					clickCheck[2] = true;
+				}
 			}
 		});
 		button_2.setBounds(535, 37, 176, 87);
@@ -789,9 +908,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land5
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 5;
-				LandButton(farm, wareHouse);
+				if(clickCheck[5])
+				{
+					reload();
+					clickCheck[5] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 5;
+					LandButton(farm, wareHouse);
+					clickCheck[5] = true;
+				}
 			}
 		});
 		button_5.setBounds(669, 159, 167, 87);
@@ -801,9 +929,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land8
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 8;
-				LandButton(farm, wareHouse);
+				if(clickCheck[8])
+				{
+					reload();
+					clickCheck[8] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 8;
+					LandButton(farm, wareHouse);
+					clickCheck[8] = true;
+				}
 			}
 		});
 		button_8.setBounds(801, 272, 167, 92);
@@ -813,9 +950,18 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//Land11
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				landNum = 11;
-				LandButton(farm, wareHouse);
+				if(clickCheck[11])
+				{
+					reload();
+					clickCheck[11] = false;
+				}
+				else
+				{
+					reload();
+					landNum = 11;
+					LandButton(farm, wareHouse);
+					clickCheck[11] = true;
+				}
 			}
 		});
 		button_11.setBounds(923, 391, 176, 87);
@@ -840,6 +986,9 @@ public class FarmScreen extends JPanel implements ActionListener {
 		if (e.getSource() == returnButton) {
 			reload();
 			this.mainFrame.changeToMainScreen();
+		}
+		else if (e.getSource() == pesticideButton) {
+			this.mainFrame.changeToFarmGameScreen();
 		}
 	}
 }
