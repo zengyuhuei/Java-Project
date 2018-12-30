@@ -94,7 +94,7 @@ public class Main extends JFrame {
 	public void changeToPondScreen() {
 		bgClip.stop();
 		gameClip.loop(Clip.LOOP_CONTINUOUSLY);
-		JPanel pondScreen = new PondScreen(this);
+		JPanel pondScreen = new PondScreen(this, this.warehouse);
 		this.setTitle("魚池");
 		this.setContentPane(pondScreen);
 	}

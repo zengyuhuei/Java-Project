@@ -43,6 +43,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class PondScreen extends JPanel implements ActionListener {
 	private static enum ImageCondition {FISHING, GOT, WRONG};
@@ -54,6 +55,7 @@ public class PondScreen extends JPanel implements ActionListener {
 	
 	private Main mainFrame;
 	private JButton returnBtn;
+	private JLabel startLabel;
 	private JButton startBtn;
 	private Timer timer;
 	private JLabel timeLabel;
@@ -70,8 +72,21 @@ public class PondScreen extends JPanel implements ActionListener {
 	private int sliderValue;
 	private int thumbValue;
 	private int runTo;
+	private String startBtnImg = "..\\picture\\pondGameStartBtn.png";
+
+	private int bigFishCount = 0;
+	private int littleFishCount = 0;
+	private int midFishCount = 0;
+	private JLabel bigFishCountLabel;
+	private JLabel littleFishCountLabel;
+	private JLabel midFishCountLabel;
 	
-	public PondScreen(Main mainFrame) {
+	private WareHouse warehouse;
+	
+	private boolean gameCancel = false;
+	
+	public PondScreen(Main mainFrame, WareHouse warehouse) {
+		this.warehouse = warehouse;
 		this.mainFrame = mainFrame;
 		this.mainFrame.setSize(1000, 800);
 		this.setSize(1000, 800);
@@ -88,10 +103,16 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(bigFishLabel);
 		
 		JLabel x1Label = new JLabel("x", JLabel.CENTER);
-		x1Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x1Label.setFont(new Font("華康小花體", Font.BOLD, 58));
 		x1Label.setForeground(Color.BLACK);
 		x1Label.setBounds(190, 675, 60, 60);
 		this.add(x1Label);
+		
+		bigFishCountLabel = new JLabel("0", JLabel.CENTER);
+		bigFishCountLabel.setFont(new Font("華康小花體", Font.BOLD, 58));
+		bigFishCountLabel.setForeground(Color.BLACK);
+		bigFishCountLabel.setBounds(240, 675, 60, 60);
+		this.add(bigFishCountLabel);
 		
 		JLabel midFishLabel = new JLabel("", JLabel.CENTER);
 		midFishLabel.setIcon(imageResize(140, 90, new ImageIcon("..\\picture\\midFish.png")));
@@ -99,10 +120,16 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(midFishLabel);
 		
 		JLabel x2Label = new JLabel("x", JLabel.CENTER);
-		x2Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x2Label.setFont(new Font("華康小花體", Font.BOLD, 58));
 		x2Label.setForeground(Color.BLACK);
 		x2Label.setBounds(510, 675, 60, 60);
 		this.add(x2Label);
+		
+		midFishCountLabel = new JLabel("0", JLabel.CENTER);
+		midFishCountLabel.setFont(new Font("華康小花體", Font.BOLD, 58));
+		midFishCountLabel.setForeground(Color.BLACK);
+		midFishCountLabel.setBounds(560, 675, 60, 60);
+		this.add(midFishCountLabel);
 		
 		JLabel littleFishLabel = new JLabel("", JLabel.CENTER);
 		littleFishLabel.setIcon(imageResize(110, 60, new ImageIcon("..\\picture\\littleFish.png")));
@@ -110,27 +137,56 @@ public class PondScreen extends JPanel implements ActionListener {
 		this.add(littleFishLabel);
 		
 		JLabel x3Label = new JLabel("x", JLabel.CENTER);
-		x3Label.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		x3Label.setFont(new Font("華康小花體", Font.BOLD, 58));
 		x3Label.setForeground(Color.BLACK);
 		x3Label.setBounds(790, 675, 60, 60);
 		this.add(x3Label);
+		
+		littleFishCountLabel = new JLabel("0", JLabel.CENTER);
+		littleFishCountLabel.setFont(new Font("華康小花體", Font.BOLD, 58));
+		littleFishCountLabel.setForeground(Color.BLACK);
+		littleFishCountLabel.setBounds(840, 675, 60, 60);
+		this.add(littleFishCountLabel);
 
 		JLabel timeImgLabel = new JLabel("", JLabel.CENTER);
 		timeImgLabel.setIcon(imageResize(90, 90, new ImageIcon("..\\picture\\time.png")));
 		timeImgLabel.setBounds(700, 40, 90, 90);
 		this.add(timeImgLabel);
 		
-		timeLabel = new JLabel("40", JLabel.CENTER);
-		timeLabel.setFont(new Font("微軟正黑體 Light", Font.BOLD, 58));
+		timeLabel = new JLabel("30", JLabel.CENTER);
+		timeLabel.setFont(new Font("華康小花體", Font.BOLD, 68));
 		timeLabel.setForeground(Color.RED);
-		timeLabel.setBounds(720, 60, 250, 55);
+		timeLabel.setBounds(720, 50, 250, 70);
 		this.add(timeLabel);
 		
-		startBtn = new JButton("遊戲開始");
-		startBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 48));
-		startBtn.setBounds(375, 300, 250, 70);
+		startBtn = new JButton("");
+		startBtn.setIcon(imageResize(80, 40, new ImageIcon(startBtnImg)));
+		startBtn.setOpaque(false);
+		startBtn.setContentAreaFilled(false);
+		startBtn.setBorder(null);
+		startBtn.setBounds(460, 415, 80, 40);
 		startBtn.addActionListener(this);
+		startBtn.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				startBtn.setBounds(456, 413, 88, 44);
+				startBtn.setIcon(imageResize(startBtn.getIcon().getIconWidth()+8,startBtn.getIcon().getIconHeight()+4,(ImageIcon)startBtn.getIcon()));
+				if (startBtn.isEnabled()) {
+					buttonSound();
+				}
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+        		startBtn.setBounds(460, 415, 80, 40);
+				startBtn.setIcon(imageResize(80, 40, new ImageIcon(startBtnImg)));
+            } 
+		});
 		this.add(startBtn);
+		
+		startLabel = new JLabel("", JLabel.CENTER);
+		startLabel.setIcon(imageResize(550, 450, new ImageIcon("..\\picture\\pondGameStart.png")));
+		startLabel.setBounds(225, 125, 550, 450);
+		this.add(startLabel);
 		
 		returnBtn = new JButton();
 		returnBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
@@ -170,7 +226,6 @@ public class PondScreen extends JPanel implements ActionListener {
 		gameBar.setMinimum(0);
 		gameBar.setValue(135);
 		gameBar.setVisible(false);
-		System.out.println(gameBar.getValue());
 		this.add(gameBar);
 		
 		this.addKeyListener(new KeyAdapter() {
@@ -184,14 +239,19 @@ public class PondScreen extends JPanel implements ActionListener {
 					else {
 						imageCondition = ImageCondition.WRONG;
 					}
-					System.out.println(sliderValue);
-					System.out.println(thumbValue);
 				}
 			}
 		});
 	}
 	
 	private void timerStart() {
+		gameCancel = false;
+		bigFishCount = 0;
+		bigFishCountLabel.setText(Integer.toString(bigFishCount));
+		midFishCount = 0;
+		midFishCountLabel.setText(Integer.toString(midFishCount));
+		littleFishCount = 0;
+		littleFishCountLabel.setText(Integer.toString(littleFishCount));
 		time = 30;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -200,15 +260,34 @@ public class PondScreen extends JPanel implements ActionListener {
 				timeLabel.setText(Integer.toString(time));
 				if (time == 0) {
 					timer.cancel();
+					gameCancel = true;
 					returnBtn.setEnabled(true);
-					startBtn.setText("再玩一次");
 					startBtn.setVisible(true);
+					startLabel.setVisible(true);
 					imageTimer.cancel();
 					if (replay != null) {
 						replay.cancel();
 					}
 					sliderTimer.cancel();
 					gameBar.setVisible(true);
+					String s1 = "恭喜釣到了 大魚x" + Integer.toString(bigFishCount) + " 中魚x" + Integer.toString(midFishCount) + " 小魚x" + Integer.toString(littleFishCount);
+					
+					int width = 35;
+					int padSize = width - s1.length();
+					int padStart = padSize / 2 + s1.length();
+					s1 = String.format("%" + padStart + "s", s1);
+					s1 = String.format("%-" + width + "s", s1);
+					
+					int getMoney = bigFishCount * 40 + midFishCount * 20 + littleFishCount * 10;
+					String s2 = "共獲得了" + Integer.toString(getMoney) + "金錢";
+					width = 35;
+					padSize = width - s2.length();
+					padStart = padSize / 2 + s2.length();
+					s2 = String.format("%" + padStart + "s", s2);
+					s2 = String.format("%-" + width + "s", s2);
+					JOptionPane.showMessageDialog(mainFrame, s1 + "\n" + s2, "遊戲結束", JOptionPane.INFORMATION_MESSAGE);
+					
+					warehouse.editHoldMoney(getMoney);
 				}
 				time--;
 			}
@@ -218,7 +297,18 @@ public class PondScreen extends JPanel implements ActionListener {
 	}
 	
 	private void gameBarStart() {
-		fishCate = fishCategories.values()[rand.nextInt(3)];
+		int randValue = rand.nextInt(12);
+		int fishValue;
+		if (randValue < 2) {
+			fishValue = 0;
+		}
+		else if (randValue < 6) {
+			fishValue = 1;
+		}
+		else {
+			fishValue = 2;
+		}
+		fishCate = fishCategories.values()[fishValue];
 		switch(fishCate) {
 		case BIG:
 			fishStart = rand.nextInt(270 - 40) + 10;
@@ -237,6 +327,9 @@ public class PondScreen extends JPanel implements ActionListener {
 		sliderTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
+				if (gameCancel) {
+					sliderTimer.cancel();
+				}
 				if (sliderValue >= 0 && sliderValue <= 269) {
 					sliderValue = sliderValue + runTo;
 				}
@@ -246,7 +339,7 @@ public class PondScreen extends JPanel implements ActionListener {
 				}
 				gameBar.setValue(sliderValue);
 			}
-		}, 0, 20);
+		}, 0, 2);
 	}
 	
 	private void imageStart() {
@@ -260,13 +353,30 @@ public class PondScreen extends JPanel implements ActionListener {
 				bgLabel.setIcon(iconList.get(imageCount));
 				imageCount++;
 				
+				if (gameCancel) {
+					imageTimer.cancel();
+					replay.cancel();
+				}
+				
 				if (imageCondition == ImageCondition.FISHING) {
 					if (imageCount == 20) {
 						imageCount = 0;
 					}
 				}
 				else if (imageCondition == ImageCondition.GOT) {
-					if (imageCount == 54) {
+					if (imageCount == 54 && gameCancel == false) {
+						if (fishCate ==  fishCategories.BIG) {
+							bigFishCount++;
+							bigFishCountLabel.setText(Integer.toString(bigFishCount));
+						}
+						else if (fishCate ==  fishCategories.MID) {
+							midFishCount++;
+							midFishCountLabel.setText(Integer.toString(midFishCount));
+						}
+						else if (fishCate ==  fishCategories.SMALL) {
+							littleFishCount++;
+							littleFishCountLabel.setText(Integer.toString(littleFishCount));
+						}
 						imageCount = 0;
 						imageTimer.cancel();
 						replay = new Timer();
@@ -334,6 +444,10 @@ public class PondScreen extends JPanel implements ActionListener {
 		}
 		else if (e.getSource() == startBtn) {
 			startBtn.setVisible(false);
+			startBtnImg = "..\\picture\\pondGameAgainBtn.png";
+    		startBtn.setBounds(460, 415, 80, 40);
+			startBtn.setIcon(imageResize(80, 40, new ImageIcon(startBtnImg)));
+			startLabel.setVisible(false);
 			returnBtn.setEnabled(false);
 			timerStart();
 		}
