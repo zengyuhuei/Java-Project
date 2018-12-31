@@ -110,8 +110,8 @@ public class Main extends JFrame {
 		bgClip.stop();
 		gameClip.loop(Clip.LOOP_CONTINUOUSLY);
 		this.setTitle("除蟲遊戲");
-		JPanel hitMouse = new HitMouse(this, this.warehouse);
-		this.setContentPane(hitMouse);
+		JPanel FarmGameScreen = new FarmGameScreen(this, this.warehouse);
+		this.setContentPane(FarmGameScreen);
 	}
 
     private void backgroundSound()

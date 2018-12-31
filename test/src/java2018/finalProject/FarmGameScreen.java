@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;  
  
  
-public class HitMouse extends JPanel implements ActionListener,MouseListener
+public class FarmGameScreen extends JPanel implements ActionListener,MouseListener
 {  
 	private Main mainFrame;
 	private WareHouse warehouse;
@@ -40,16 +40,16 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
     
     private Timer timer;    //時間定時器
     private GuessTimer gt = new GuessTimer();
-    private Random random;  //隨機生成地鼠位置  
+    private Random random;  //隨機生成蟲蟲位置  
     
-    private JLabel jlbMouse;//地鼠 
+    private JLabel jlbBug;//蟲蟲
     private JLabel showNum,currentGrade,hitNum;
     private JLabel successLabel = new JLabel();
     private JLabel failLabel = new JLabel();
     private JLabel restNumberText;
     private JLabel toolTipText;
 	
-    public HitMouse(Main mainFrame, WareHouse warehouse)
+    public FarmGameScreen(Main mainFrame, WareHouse warehouse)
     {  
     	this.mainFrame = mainFrame;
     	this.warehouse = warehouse;
@@ -62,14 +62,14 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         //-------------------------滑鼠游標透明---------------------
       
         // Transparent 16 x 16 pixel cursor image.
-        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        //BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
 	    // Create a new blank cursor.
-	    Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-		    cursorImg, new Point(0, 0), "blank cursor");
+	    //Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+		    //cursorImg, new Point(0, 0), "blank cursor");
 
 	    // Set the blank cursor to the JFrame.
-	    this.setCursor(blankCursor);
+	    //this.setCursor(blankCursor);
 	
 	    //-----------------------圖片跟著透明游標走--------------------
 	  
@@ -82,20 +82,21 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         this.addMouseMotionListener(new MouseMotionAdapter() {
 		    @Override
 			public void mouseMoved(MouseEvent e) {
-					toolTipText.setLocation((int)e.getPoint().getX()-30, (int)e.getPoint().getY()-250);
+				//toolTipText.setLocation((int)e.getPoint().getX()-30, (int)e.getPoint().getY()-250);
+		    	toolTipText.setLocation((int)e.getPoint().getX()-30, (int)e.getPoint().getY()-190);
 			}
 			
 		});
        //--------------------------------------------------------------------
       
         setMessage();//設置一些提示訊息
-        //在背景圖片的基礎上設置地鼠圖片    
+        //在背景圖片的基礎上設置蟲蟲圖片    
         ImageIcon imageMouse = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-        jlbMouse = new JLabel(imageMouse);  
-        jlbMouse.setSize(100,100);  
-        this.add(jlbMouse);  
-        jlbMouse.setVisible(false);  
-        jlbMouse.addMouseListener(this);//添加滑鼠游標監聽  
+        jlbBug = new JLabel(imageMouse);  
+        jlbBug.setSize(100,100);  
+        this.add(jlbBug);  
+        jlbBug.setVisible(false);  
+        jlbBug.addMouseListener(this);//添加滑鼠游標監聽  
       
         //定時器 
         timer = new Timer(delay,this);  
@@ -168,13 +169,13 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
 	    JOptionPane.showMessageDialog(this, "Times Up!");
 	    if(restNumber == 0)
 	    {
-		    jlbMouse.setVisible(false);
+		    jlbBug.setVisible(false);
 		    JOptionPane.showMessageDialog(this, "Times Up! 完成任務owo");
 		    successLabel.setVisible(true);
 	    }
 	    else
 	    {
-		    jlbMouse.setVisible(false);
+		    jlbBug.setVisible(false);
 		    JOptionPane.showMessageDialog(this, "Times Up! 任務失敗ouq");
 		    failLabel.setVisible(true);
 	    }
@@ -232,10 +233,10 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         hitNumText.setBounds(320, 25, 181, 43);
 	    this.add(hitNumText);
 	    hitNumText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
-	    hitNumText.setVisible(false);
+	    hitNumText.setVisible(true);
 	    hitNum = new JLabel("0");
         hitNum.setBounds(460, -10, 250, 115);
-        hitNum.setVisible(false);
+        hitNum.setVisible(true);
         this.add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
@@ -279,24 +280,25 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
             menuItemFun(e);  
         }  
          
-        int ran=random.nextInt(9);//隨機生成一個0~9(不包括9)的隨機數
-        //保證每次隨機生成的地鼠圖片都是為沒被打時的圖片  
+        int ran=random.nextInt(1);//隨機生成一個0~9(不包括9)的隨機數
+        //保證每次隨機生成的蟲蟲圖片都是為沒被打時的圖片  
         ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
-        jlbMouse.setIcon(imageMouse);  
+        jlbBug.setIcon(imageMouse);  
         switch(ran)
         {  
-	        case 0:jlbMouse.setLocation(220, 80);break;  
-	        case 1:jlbMouse.setLocation(580, 80);break;  
-	        case 2:jlbMouse.setLocation(920, 80);break;  
-	        case 3:jlbMouse.setLocation(220, 275);break;  
-	        case 4:jlbMouse.setLocation(580, 273);break;  
-	        case 5:jlbMouse.setLocation(950, 277);break;  
-	        case 6:jlbMouse.setLocation(220, 468);break;  
-	        case 7:jlbMouse.setLocation(585, 469);break;  
-	        case 8:jlbMouse.setLocation(980, 468);break;  
+	        case 0:jlbBug.setLocation(220, 80);break;  
+	        case 1:jlbBug.setLocation(580, 80);break;  
+	        case 2:jlbBug.setLocation(920, 80);break;  
+	        case 3:jlbBug.setLocation(220, 275);break;  
+	        
+	        case 4:jlbBug.setLocation(580, 273);break;  
+	        case 5:jlbBug.setLocation(950, 277);break;  
+	        case 6:jlbBug.setLocation(220, 468);break;  
+	        case 7:jlbBug.setLocation(585, 469);break;  
+	        case 8:jlbBug.setLocation(980, 468);break;  
 	        
         }   
-        jlbMouse.setVisible(true);  
+        jlbBug.setVisible(true);  
          
         showNumber++;  
         //showNum.setText(""+showNumber);  
@@ -304,7 +306,7 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         if( !gamePlan() ){//判斷遊戲是否結束，並判斷遊戲進程
     	    timer.stop();  
             JOptionPane.showMessageDialog(this, "Game Over ! 打不到8隻蟲蟲 再掛機阿=w=");
-            jlbMouse.setVisible(false);
+            jlbBug.setVisible(false);
             failLabel.setVisible(true);
         }  
          
@@ -405,7 +407,7 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
             //hitNum.setText(""+hitNumber);  
             //showNum.setText(""+showNumber);  
             currentGrade.setText(""+currentGrades);  
-        }  
+        } 
         
         return true;  
     }  
@@ -418,22 +420,22 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
         }  
         toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
       
-        //如果打中地鼠，則地鼠換成被打中的圖片，模擬地鼠被打  
-        if(e.getSource()==jlbMouse)
+        //如果打中蟲蟲，則蟲蟲換成被打中的圖片，模擬蟲蟲被打  
+        if(e.getSource()==jlbBug)
         {  
             ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-            jlbMouse.setIcon(imageIconHit);  
-            jlbMouse.setVisible(true);  
+            jlbBug.setIcon(imageIconHit);  
+            jlbBug.setVisible(true);  
             hitNumber++;  
-            //System.out.printf("hitNumber=%d", hitNumber);
-            //hitNum.setText(Integer.toString(hitNumber)); 
+            hitNum.setText(Integer.toString(hitNumber)); 
+            
             if(restNumber > 0)
             {
     		    restNumber -= 1;
     		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
                 if(restNumber == 0)
                 {
-            	    jlbMouse.setVisible(false);
+            	    jlbBug.setVisible(false);
             	    timer.stop();
             	    gt.stopoTimer();
             	    //isOver=true; 
@@ -477,7 +479,5 @@ public class HitMouse extends JPanel implements ActionListener,MouseListener
 	    Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	    return  new ImageIcon(new_img);
     }
-    
-	
-	
+
 }
