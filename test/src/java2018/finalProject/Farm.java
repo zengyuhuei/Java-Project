@@ -30,7 +30,16 @@ public class Farm
 	{
 		return farmLand;
 	}
-	
+	//回傳storeCropArray的資料(紀錄crop位置用)
+	public int[] getStoreCropArray()
+	{
+		return storeCropArray;
+	}
+	//回傳count(紀錄目前農場裡有多少土地有重東西)
+	public int getCount()
+	{
+		return count;
+	}
 	// 設定farmLand資料
 	public ArrayList<Crop> setFarmLand(int index, Crop crop)
 	{
