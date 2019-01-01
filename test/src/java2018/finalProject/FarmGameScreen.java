@@ -31,7 +31,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 {  
 	private Main mainFrame;
 	private WareHouse warehouse;
-	
+	private int a = -1;
 	private int delay = 1000; //延遲時間  
     private int showNumber=0,hitNumber=0, restNumber=0, currentGrades=1;
     private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
     private Timer timer;    //時間定時器
     private GuessTimer gt = new GuessTimer();
     private Random random;  //隨機生成蟲蟲位置  
-    
+    private int ran;//隨機生成一個0~9(不包括9)的隨機數
     private JLabel jlbBug;//蟲蟲
     private JLabel showNum,currentGrade,hitNum;
     private JLabel successLabel = new JLabel();
@@ -51,6 +51,8 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	
     public FarmGameScreen(Main mainFrame, WareHouse warehouse)
     {  
+    	this.random = new Random();  
+    	this.ran=random.nextInt(9);
     	this.mainFrame = mainFrame;
     	this.warehouse = warehouse;
         this.setSize(1200, 675);    
@@ -89,7 +91,8 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 		});
        //--------------------------------------------------------------------
       
-        setMessage();//設置一些提示訊息
+        setMessageOnBoard();//設置一些提示訊息
+        
         //在背景圖片的基礎上設置蟲蟲圖片    
         ImageIcon imageMouse = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
         jlbBug = new JLabel(imageMouse);  
@@ -100,7 +103,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
       
         //定時器 
         timer = new Timer(delay,this);  
-        random = new Random();  
+        
         timer.start();  
          
         addMenu();//添加下拉選單 
@@ -216,7 +219,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         this.add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
     }  
      
-    private void setMessage() 
+    private void setMessageOnBoard() 
     {  
 	    JLabel showNumText = new JLabel("出現數量:");
 	    showNumText.setBounds(130, 25, 181, 43);
@@ -280,17 +283,20 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             menuItemFun(e);  
         }  
          
-        int ran=random.nextInt(1);//隨機生成一個0~9(不包括9)的隨機數
+        while(ran == a)
+        {
+        	ran=random.nextInt(9);
+        }
         //保證每次隨機生成的蟲蟲圖片都是為沒被打時的圖片  
         ImageIcon imageMouse = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
         jlbBug.setIcon(imageMouse);  
+       
         switch(ran)
         {  
 	        case 0:jlbBug.setLocation(220, 80);break;  
 	        case 1:jlbBug.setLocation(580, 80);break;  
 	        case 2:jlbBug.setLocation(920, 80);break;  
 	        case 3:jlbBug.setLocation(220, 275);break;  
-	        
 	        case 4:jlbBug.setLocation(580, 273);break;  
 	        case 5:jlbBug.setLocation(950, 277);break;  
 	        case 6:jlbBug.setLocation(220, 468);break;  
@@ -411,8 +417,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         
         return true;  
     }  
-    
-    //original
+    /*
     public void mousePressed(MouseEvent e) 
     {  
         if(isOver){  
@@ -423,36 +428,52 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         //如果打中蟲蟲，則蟲蟲換成被打中的圖片，模擬蟲蟲被打  
         if(e.getSource()==jlbBug)
         {  
-            ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-            jlbBug.setIcon(imageIconHit);  
-            jlbBug.setVisible(true);  
-            hitNumber++;  
-            hitNum.setText(Integer.toString(hitNumber)); 
-            
-            if(restNumber > 0)
-            {
-    		    restNumber -= 1;
-    		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
-                if(restNumber == 0)
-                {
-            	    jlbBug.setVisible(false);
-            	    timer.stop();
-            	    gt.stopoTimer();
-            	    //isOver=true; 
-            	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
-        		    successLabel.setVisible(true);
-                }
-            }   
+        	if(a != ran)
+        	{
+        		 ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
+                 jlbBug.setIcon(imageIconHit);  
+                 jlbBug.setVisible(true);  
+                 hitNumber++;  
+                 hitNum.setText(Integer.toString(hitNumber)); 
+                 //jlbBug.setVisible(false);  
+                 if(restNumber > 0)
+                 {
+         		    restNumber -= 1;
+         		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
+                     if(restNumber == 0)
+                     {
+                 	    jlbBug.setVisible(false);
+                 	    timer.stop();
+                 	    gt.stopoTimer();
+                 	    //isOver=true; 
+                 	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+             		    successLabel.setVisible(true);
+                     }
+                 } 
+                 a=ran;
+        	}
+           
         }  
     }  
-    
+    */
     public void mouseReleased(MouseEvent e) 
     {  
+    	//當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
         if(isOver){  
             return ;  
         }  
-        //當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
-        toolTipText.setIcon(new ImageIcon(dir+"killBug(X).png"));
+        int i = e.getButton();
+        if(i == MouseEvent.BUTTON1){
+        	System.out.println("mousedReleased : 釋放滑鼠左鍵");
+        	toolTipText.setIcon(new ImageIcon(dir+"chui1.png"));
+        }
+        else if(i == MouseEvent.BUTTON2) {
+        	System.out.println("mousedReleased : 釋放滑鼠滾輪");
+        }
+        else if(i == MouseEvent.BUTTON3) {
+        	System.out.println("mousedReleased : 釋放滑鼠右鍵");
+        	toolTipText.setIcon(new ImageIcon(dir+"killBug(X).png"));
+        }
     }  
     
     @Override
@@ -468,9 +489,66 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) { //鼠標按下但還沒有釋放
 		
+		int i = e.getButton();
+        if(i == MouseEvent.BUTTON1) {
+        	System.out.println("mousePressed : 按下滑鼠左鍵");
+        	toolTipText.setIcon(resizeImage(100,100,new ImageIcon(dir+"chui2.png")));
+        }
+        else if(i == MouseEvent.BUTTON2) {
+        	System.out.println("mousePressed : 按下滑鼠滾輪");
+        }	
+        else if(i == MouseEvent.BUTTON3) {
+        	System.out.println("mousePressed : 按下滑鼠右鍵");
+        	toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
+        }
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) { // 鼠標按下並且釋放
+		
+		int i = e.getButton();
+        if(i == MouseEvent.BUTTON1) {
+        	System.out.println("mouseClicked : 單擊滑鼠左鍵");
+        	toolTipText.setIcon(resizeImage(100,100,new ImageIcon(dir+"chui1.png")));
+        }	
+        else if(i == MouseEvent.BUTTON2) {
+        	System.out.println("mouseClicked : 單擊滑鼠滾輪");
+        }
+        else if(i == MouseEvent.BUTTON3) {
+        	System.out.println("mouseClicked : 單擊滑鼠右鍵");
+			
+        	if(isOver){  
+	            return ;  
+	        }  
+	        if(e.getSource()==jlbBug)
+	        {  
+	        	if(a != ran)
+	        	{
+	        		 ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
+	                 jlbBug.setIcon(imageIconHit);  
+	                 jlbBug.setVisible(true);  
+	                 hitNumber++;  
+	                 hitNum.setText(Integer.toString(hitNumber)); 
+	                 if(restNumber > 0)
+	                 {
+	         		    restNumber -= 1;
+	         		    restNumberText.setText("剩餘數量:"+Integer.toString(restNumber));
+	                     if(restNumber == 0)
+	                     {
+	                 	    jlbBug.setVisible(false);
+	                 	    timer.stop();
+	                 	    gt.stopoTimer();
+	                 	    //isOver=true; 
+	                 	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+	             		    successLabel.setVisible(true);
+	                     }
+	                 } 
+	                 a=ran;
+	        	}
+	        }  
+        }
 	}
 	
     public ImageIcon resizeImage(int width, int height, ImageIcon img)
@@ -479,5 +557,4 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	    Image new_img = i.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	    return  new ImageIcon(new_img);
     }
-
 }
