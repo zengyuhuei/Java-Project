@@ -21,10 +21,50 @@ public class WareHouse {
 	public WareHouse()
 	{
 		this.holdMoney = 1000;
-		this.fertilizerNumber = 0;
-		
-		
+		this.fertilizerNumber = 0;	
 	}
+	
+	public WareHouse(int pigNum,int cowNum)
+	{
+		for(int i = 0; i < pigNum;i++ )
+		{
+			Animal pig = new Pig();
+			pig.setGrowingRate100();
+			AnimalList.add(pig);
+		}
+		
+		for(int i = 0; i < cowNum;i++ )
+		{
+			Animal cow = new Cow();
+			cow.setGrowingRate100();
+			AnimalList.add(cow);
+		}
+	}
+	public ArrayList<Crop> getCropList()
+	{
+		return cropList;
+	}
+	
+	public ArrayList<Crop> getCropSeedList()
+	{
+		return cropSeedList;
+	}
+	
+	public ArrayList<Animal> getAnimalList()
+	{
+		return AnimalList;
+	}
+	
+	public ArrayList<Animal> getyoungAnimalList()
+	{
+		return youngAnimalList;
+	}
+	
+	public ArrayList<Feed> getFeedList()
+	{
+		return feedList;
+	}
+	
 	//return the number of the wheat, corns or cabbages
 	public int getCropNum(ArrayList<Crop> list,String name)
 	{
