@@ -1190,8 +1190,8 @@ public class ShopScreen extends JPanel implements ActionListener {
             } 
 		});
 		
-		JButton btnBuyOk = new JButton("ok");
-		btnBuyOk.setBounds(688, 560, 204, 55);
+		JButton btnBuyOk = new JButton();
+		btnBuyOk.setBounds(644, 534, 248, 81);
 		buyPanel.add(btnBuyOk);
 		btnBuyOk.setIcon(new ImageIcon("..\\picture\\okbuy.png"));
 		cleanButtom(btnBuyOk);
