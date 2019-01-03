@@ -115,7 +115,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 	JLabel dudeNumBack = new JLabel(dudeNumback, JLabel.CENTER);
 	ImageIcon toolback = new ImageIcon("../picture/toolBack.PNG");
 	JLabel lblToolback = new JLabel(toolback);
-	
+	private Dude dude;
 	public DudeScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
 		button.add(animal1);
@@ -129,7 +129,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 		button.add(animal9);
 		button.add(animal10);
 		//ImageIcon chicken =resizeImage (75,75,new ImageIcon("../picture/chicken.gif"));
-		Dude dude = new Dude(warehouse);
+		dude = new Dude(warehouse);
 		this.setSize(1200, 675);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
@@ -1098,6 +1098,67 @@ public class DudeScreen extends JPanel implements ActionListener {
 			this.mainFrame.changeToMainScreen();
 		}
 	}
+	//-------------------------------------存檔--------------------------------------------
+	public String[][] getDudeScreen()
+    {
+		String [][] DudeScreen = new String[10][3];
+		for(int i=0; i<10; i++)
+		{
+			if(button.get(i).isVisible()==true)
+			{
+				DudeScreen[i][0]="true";
+				if(button.get(i).getIcon()==cowleft)
+				{
+					DudeScreen[i][1]="牛";
+				}
+				if(button.get(i).getIcon()==cowright)
+				{
+					DudeScreen[i][1]="牛";
+				}
+				if(button.get(i).getIcon()==chickenleft)
+				{
+					DudeScreen[i][1]="雞";
+				}
+				if(button.get(i).getIcon()==chickenleft)
+				{
+					DudeScreen[i][1]="雞";
+				}
+				if(button.get(i).getIcon()==pigleft)
+				{
+					DudeScreen[i][1]="豬";
+				}
+				if(button.get(i).getIcon()==pigleft)
+				{
+					DudeScreen[i][1]="豬";
+				}
+				DudeScreen[i][2]=Integer.toString(dude.getPondLand().get(i).getGrowingRate());
+			}
+			else
+			{
+				DudeScreen[i][0]="false";
+				DudeScreen[i][1]="null";
+				DudeScreen[i][2]="null";
+			}
+		}
+		
+		return DudeScreen;
+    }
+	public void setDudeScreen(String [][] DudeScreen)
+    {
+		for(int i=0; i<10; i++)
+		{
+			if(DudeScreen[i][0]=="true")
+			{
+				dude.getPondLand().get(i).setName(DudeScreen[i][1]);
+				dude.getPondLand().get(i).setGrowingRate(Integer.valueOf(DudeScreen[i][2]));
+			}
+			else
+			{
+				dude.getPondLand().set(i, null);
+			}
+		}
+		showButton(dude);
+    }
 }
 
 
