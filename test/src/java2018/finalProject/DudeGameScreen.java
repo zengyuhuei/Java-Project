@@ -71,6 +71,7 @@ public class DudeGameScreen extends JPanel {
 	private JButton backToDudeBtn = new JButton();
 	private JLabel successlbl = new JLabel();
 	private JLabel faultlbl = new JLabel();
+	private JButton home = new JButton();
 	private JButton animal1 = new JButton();
 	private JButton animal2 = new JButton();
 	private JButton animal3 = new JButton();
@@ -349,6 +350,29 @@ public class DudeGameScreen extends JPanel {
 		time.add(timer10);
 		time.add(timer11);
 		time.add(timer12);
+		
+		home.setFont(new Font("Dialog", Font.BOLD, 20));	
+		buttonOFF(home);
+		home.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+		home.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		home.setBounds(1008, 526, 176, 114);
+		home.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToMainScreen();
+			}
+			@Override
+	        public void mouseEntered(MouseEvent arg0) {
+				home.setIcon(resizeImage(home.getIcon().getIconWidth()+10,home.getIcon().getIconHeight()+10,(ImageIcon)home.getIcon()));
+				buttonSound();
+			} 
+	        @Override
+	        public void mouseExited(MouseEvent arg0) {
+	        	home.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+	        } 
+			
+		});
+		this.add(home);
 		
 		//---------------------------------背景-------------------------------------
 		
@@ -672,6 +696,7 @@ public class DudeGameScreen extends JPanel {
 
 	}
 	
+
 	//----------------------動物統一動作----------------------------
 	
 	public void animalAction() {
@@ -880,6 +905,15 @@ public class DudeGameScreen extends JPanel {
 		  return  new ImageIcon(new_img);
 	  }
 	  
+	  //-----------------------去除按鈕背景----------------------------
+	  
+	    public void buttonOFF(JButton btn) {
+	    	btn.setOpaque(false);
+			btn.setContentAreaFilled(false);
+			btn.setFocusPainted(false);
+			btn.setBorder(null);
+	    }
+	  
 	  //------------------------音效-------------------------------------
 	  
 	  public void buttonSound()
@@ -916,4 +950,5 @@ public class DudeGameScreen extends JPanel {
 		            e.printStackTrace();
 		        }
 		}
+		
 }

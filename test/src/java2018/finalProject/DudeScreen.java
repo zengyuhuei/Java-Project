@@ -614,8 +614,6 @@ public class DudeScreen extends JPanel implements ActionListener {
 					if(random==0) {
 						dudeGameStart.setVisible(true);
 						dudeRule.setVisible(true);
-						String name = "countdown";
-						animalSound(name);
 					}			
 				}
 				catchAnimal.setEnabled(false);
