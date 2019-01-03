@@ -95,7 +95,8 @@ public class DudeGameScreen extends JPanel {
 	private int period = 50;
 	private int sum = cowNum + pigNum + chickenNum;
 	private GuessTimer gt = new GuessTimer();
-	private JLabel toolTipText;
+	//private JLabel toolTipText;
+	//private ImageIcon catchGame = resizeImage(80, 80, new ImageIcon("../picture/catchGame.png"));
 	
 	public DudeGameScreen(Main mainFrame, WareHouse warehouse) {
 		this.mainFrame = mainFrame;
@@ -105,31 +106,20 @@ public class DudeGameScreen extends JPanel {
 		this.setLayout(null);	
 		
 		 //-------------------------滑鼠游標透明---------------------
-	   /*   
-        // Transparent 16 x 16 pixel cursor image.
-        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-
-	    // Create a new blank cursor.
-	    Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-		    cursorImg, new Point(0, 0), "blank cursor");
-
-	    // Set the blank cursor to the JFrame.
-	    this.setCursor(blankCursor);
-	
-	    //-----------------------圖片跟著透明游標走--------------------
-	  
-        toolTipText = new JLabel();
-        toolTipText.setLocation(0, 0);
-        toolTipText.setIcon(new ImageIcon("..\\picture\\catchGame.png"));
-        toolTipText.setSize(323, 491);
-        this.add(toolTipText);
-        this.addMouseMotionListener(new MouseMotionAdapter() {
-		    @Override
+		/*toolTipText = new JLabel("", JLabel.CENTER);
+		toolTipText.setSize(80, 40);
+		toolTipText.setVisible(true);
+		this.add(toolTipText);
+		*/
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
 			public void mouseMoved(MouseEvent e) {
-					toolTipText.setLocation((int)e.getPoint().getX()-30, (int)e.getPoint().getY()-250);
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
+				//toolTipText.setIcon(catchGame);
+				//toolTipText.setLocation((int)(e.getPoint().getX() + 15), (int)(e.getPoint().getY() + 15));
 			}
-			
-		});*/
+		});
+		
         
         //----------------------倒數計時器-----------------------------
         

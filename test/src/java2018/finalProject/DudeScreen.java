@@ -13,11 +13,15 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Cursor;
 public class DudeScreen extends JPanel implements ActionListener {
 
 	/**
@@ -133,6 +138,14 @@ public class DudeScreen extends JPanel implements ActionListener {
 		this.setSize(1200, 675);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
+		
+		//----------------手指游標-------------------------
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+		});
 		
 		dudeAnimalNum.setBounds(268, 38, 301, 43);
 		this.add(dudeAnimalNum);
@@ -590,18 +603,6 @@ public class DudeScreen extends JPanel implements ActionListener {
 				//catchAnimal.setEnabled(false);
 			}
 		});
-		catchAnimal.addMouseListener(new MouseAdapter() {
-			@Override
-            public void mouseEntered(MouseEvent arg0) {
-				catchAnimal.setIcon(resizeImage(catchAnimal.getIcon().getIconWidth()+10,catchAnimal.getIcon().getIconHeight()+10,(ImageIcon)catchAnimal.getIcon()));
-				buttonSound();
-			} 
-            @Override
-            public void mouseExited(MouseEvent arg0) {
-            	catchAnimal.setIcon(resizeImage (80,65,new ImageIcon("../picture/catch.png")));
-            } 
-			
-		});
 		catchAnimal.addMouseListener(new MouseAdapter() { //跳轉遊戲畫面
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -611,18 +612,23 @@ public class DudeScreen extends JPanel implements ActionListener {
 				}
 				else {
 					if(random==0) {
-						/*int input = JOptionPane.showOptionDialog(null, "捕捉隨機任務開啟，請問是否進入?(完成可獲得100金幣)", null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-						if(input == 0) //ok
-						{
-							//跳轉至牧場遊戲畫面
-							mainFrame.changeToDudeGameScreen();
-						}*/
 						dudeGameStart.setVisible(true);
 						dudeRule.setVisible(true);
+						String name = "countdown";
+						animalSound(name);
 					}			
 				}
 				catchAnimal.setEnabled(false);
 			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				catchAnimal.setIcon(resizeImage(catchAnimal.getIcon().getIconWidth()+10,catchAnimal.getIcon().getIconHeight()+10,(ImageIcon)catchAnimal.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	catchAnimal.setIcon(resizeImage (80,65,new ImageIcon("../picture/catch.png")));
+            } 
 		});
 		animal1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
