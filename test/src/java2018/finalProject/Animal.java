@@ -9,6 +9,10 @@ public abstract class Animal extends Object {
       this.name=name;
       growingRate=0;
     }
+    public void setName(String name)
+    {
+    	this.name = name;
+    }
     public String getName()
     {
       return name;
@@ -18,11 +22,11 @@ public abstract class Animal extends Object {
       return growingRate;
     }
 
-  	public void setGrowingRate()
+  	public void setGrowingRate(int growingRate)
   	{
-  		growingRate = 100;
+  		this.growingRate = growingRate;
   	}
-  	//借我之後再刪
+  	
   	public void setGrowingRate100()
   	{
   		growingRate = 100;
@@ -33,7 +37,7 @@ public abstract class Animal extends Object {
     	if(growingRate<100)
     	{
     		growingRate+=feed.getNutrition();
-    		if(growingRate>100)setGrowingRate();
+    		if(growingRate>100)setGrowingRate100();
     		return true;
     	}
     	
