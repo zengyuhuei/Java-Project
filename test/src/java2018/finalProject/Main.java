@@ -5,7 +5,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,6 +18,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Main extends JFrame {
@@ -26,6 +32,8 @@ public class Main extends JFrame {
 	private WareHouse warehouse;
 	private Clip bgClip;
 	private Clip gameClip;
+	private String enterName = new String("");
+	private boolean gameStart = false;
 	
 	public Main() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +63,7 @@ public class Main extends JFrame {
 	}
 	
 	public void changeToMainScreen() {
+		gameStart = true;
 		bgClip.loop(Clip.LOOP_CONTINUOUSLY);
 		gameClip.stop();
 		this.setTitle("主畫面");
@@ -114,6 +123,34 @@ public class Main extends JFrame {
 		JPanel FarmGameScreen = new FarmGameScreen(this, this.warehouse);
 		this.setContentPane(FarmGameScreen);
 	}
+	
+	public void saveFile() {
+		while (Objects.equals(enterName, new String("")))
+			enterName = JOptionPane.showInputDialog(this, "請輸入儲存的檔案名稱", "存檔", JOptionPane.YES_OPTION);
+		
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("file\\" + enterName + ".txt", "UTF-8");
+			Map<String, Integer> warehouseData = this.warehouse.getObject();
+			for (String key : warehouseData.keySet()) {
+				writer.println(key);
+				writer.println(warehouseData.get(key));
+			}
+			writer.println("牧場資料");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean getGameStart() {
+		return this.gameStart;
+	}
+	
+	public void setEnterName(String name) {
+		this.enterName = name;
+	}
 
     private void backgroundSound()
     {
@@ -155,9 +192,23 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
 					Main mainFrame = new Main();
 					mainFrame.setVisible(true);
+					
+					mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+					    @Override
+					    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+					    	if (mainFrame.getGameStart()) {
+						        if (JOptionPane.showConfirmDialog(mainFrame, 
+						            "是否要存檔並關閉視窗?", "關閉視窗", 
+						            JOptionPane.YES_NO_OPTION,
+						            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+						        	mainFrame.saveFile();
+						        }
+					    	}
+				            System.exit(0);
+					    }
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
