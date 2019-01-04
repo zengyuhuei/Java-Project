@@ -72,6 +72,7 @@ public class EnterGameScreen extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mainFrame.setWarehouse(createWareHouse());
+				
 				mainFrame.changeToMainScreen();
 			}
 			@Override

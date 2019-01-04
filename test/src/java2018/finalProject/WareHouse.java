@@ -1,6 +1,8 @@
 package java2018.finalProject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -8,14 +10,14 @@ public class WareHouse {
 	private ArrayList<Crop> cropSeedList = new ArrayList<Crop>(); 
 	private ArrayList<Animal> youngAnimalList = new ArrayList<Animal>();  
 	private ArrayList<Crop> cropList = new ArrayList<Crop>();
-	private ArrayList<Animal> AnimalList = new ArrayList<Animal>(); 
+	private ArrayList<Animal> animalList = new ArrayList<Animal>(); 
 	public static final int isMatured = 100; 
 	public static final int unMatured = -1; 
 
 	private ArrayList<Feed> feedList = new ArrayList<Feed>();
 	private int fertilizerNumber;
 	private int holdMoney; 
-	
+	private Map<String,Integer> map = new HashMap<String, Integer>();
 	
 	
 	public WareHouse()
@@ -24,21 +26,132 @@ public class WareHouse {
 		this.fertilizerNumber = 0;	
 	}
 	
-	public WareHouse(int pigNum,int cowNum)
+	
+	public WareHouse(Map<String,Integer> map)
 	{
-		for(int i = 0; i < pigNum;i++ )
+		//成熟雞豬牛
+		for(int i = 0; i < map.get("雞");i++ )
+		{
+			Animal chicken = new Chicken();
+			chicken.setGrowingRate100();
+			animalList.add(chicken);
+		}
+		
+		for(int i = 0; i < map.get("豬");i++ )
 		{
 			Animal pig = new Pig();
 			pig.setGrowingRate100();
-			AnimalList.add(pig);
+			animalList.add(pig);
 		}
 		
-		for(int i = 0; i < cowNum;i++ )
+		for(int i = 0; i < map.get("牛");i++ )
 		{
 			Animal cow = new Cow();
 			cow.setGrowingRate100();
-			AnimalList.add(cow);
+			animalList.add(cow);
 		}
+		//成熟農作物
+		for(int i = 0; i < map.get("小麥");i++ )
+		{
+			Crop wheat= new Wheat();
+			wheat.setGrowingRate100();
+			cropList.add(wheat);
+		}
+		
+		for(int i = 0; i < map.get("玉米");i++ )
+		{
+			Crop corn= new Corn();
+			corn.setGrowingRate100();
+			cropList.add(corn);
+		}
+		
+		for(int i = 0; i < map.get("高麗菜");i++ )
+		{
+			Crop cabbage= new Cabbage();
+			cabbage.setGrowingRate100();
+			cropList.add(cabbage);
+		}
+		//未養的牛豬雞
+		for(int i = 0; i < map.get("小雞");i++ )
+		{
+			Animal chicken = new Chicken();
+			youngAnimalList.add(chicken);
+		}
+		
+		for(int i = 0; i < map.get("小豬");i++ )
+		{
+			Animal pig = new Pig();
+			youngAnimalList.add(pig);
+		}
+		
+		for(int i = 0; i < map.get("小牛");i++ )
+		{
+			Animal cow = new Cow();
+			youngAnimalList.add(cow);
+		}
+		//農作物種子
+		for(int i = 0; i < map.get("小麥種子");i++ )
+		{
+			Crop wheat= new Wheat();
+			cropSeedList.add(wheat);
+		}
+		
+		for(int i = 0; i < map.get("玉米種子");i++ )
+		{
+			Crop corn= new Corn();
+			cropSeedList.add(corn);
+		}
+		
+		for(int i = 0; i < map.get("高麗菜種子");i++ )
+		{
+			Crop cabbage= new Cabbage();
+			cropSeedList.add(cabbage);
+		}
+		//飼料
+		for(int i = 0; i < map.get("低級飼料");i++ )
+		{
+			Feed simple= new SimpleFeed();
+			feedList.add(simple);
+		}
+		
+		for(int i = 0; i < map.get("中級飼料");i++ )
+		{
+			Feed general= new GeneralFeed();
+			feedList.add(general);
+		}
+		
+		for(int i = 0; i < map.get("高級飼料");i++ )
+		{
+			Feed advanced= new AdvancedFeed();
+			feedList.add(advanced);
+		}
+		//肥料
+		setFertilizer(map.get("肥料"));
+		//擁有金額
+		setHoldMoney(map.get("擁有金額"));
+	}
+	
+	public Map<String,Integer> getObject()
+	{
+		map.put("雞",getChickenNumber());
+		map.put("豬",getPigNumber());
+		map.put("牛",getCowNumber());
+		map.put("小麥",getWheatNumber());
+		map.put("玉米",getCornNumber());
+		map.put("高麗菜",getWheatNumber());
+		map.put("小雞",getYoungChickenNumber());
+		map.put("小豬",getYoungPigNumber());
+		map.put("小牛",getYoungCowNumber());
+		map.put("小麥種子",getWheatSeedNumber());
+		map.put("玉米種子",getCornSeedNumber());
+		map.put("高麗菜種子",getWheatSeedNumber());
+		map.put("低級飼料",getSimpleFeedNumber());
+		map.put("中級飼料",getGeneralFeedNumber());
+		map.put("高級飼料",getAdvencedFeedNumber());
+		map.put("肥料",getFertilizer());
+		map.put("擁有金額",getHoldMoney());
+		return map;
+		
 	}
 	public ArrayList<Crop> getCropList()
 	{
@@ -50,9 +163,9 @@ public class WareHouse {
 		return cropSeedList;
 	}
 	
-	public ArrayList<Animal> getAnimalList()
+	public ArrayList<Animal> getanimalList()
 	{
-		return AnimalList;
+		return animalList;
 	}
 	
 	public ArrayList<Animal> getyoungAnimalList()
@@ -113,6 +226,18 @@ public class WareHouse {
 	{
 		fertilizerNumber += num;
 		return true;
+	}
+	
+	//set the number of the fertilizer
+	public void setFertilizer(int num)
+	{
+		fertilizerNumber = num;
+	}
+	
+	//set the number of the fertilizer
+	public void setHoldMoney(int num)
+	{
+		holdMoney = num;
 	}
 	
 	//(call by farm) add the crop to list.If success, return true, or return false
@@ -307,7 +432,7 @@ public class WareHouse {
 	    {
 			if(animal.getGrowingRate() == isMatured)
 			{
-				AnimalList.add(animal);
+				animalList.add(animal);
 			}
 			return true;
 	    }catch(Exception e)
@@ -323,12 +448,12 @@ public class WareHouse {
 	{
 		
 			
-		for(Animal an :AnimalList)
+		for(Animal an :animalList)
 		{
 			
 			if(an.getName() == name)
 			{
-				AnimalList.remove(an);
+				animalList.remove(an);
 				return true;
 
 			}
@@ -356,17 +481,17 @@ public class WareHouse {
 	//get the number of cow
 	public int getCowNumber() 
 	{
-		return getAnimalNum(AnimalList,"牛");
+		return getAnimalNum(animalList,"牛");
 	}
 	//get the number of pig
 	public int getPigNumber() 
 	{
-		return getAnimalNum(AnimalList,"豬");
+		return getAnimalNum(animalList,"豬");
 	}
 	//get the number of chicken
 	public int getChickenNumber() 
 	{
-		return getAnimalNum(AnimalList,"雞");
+		return getAnimalNum(animalList,"雞");
 	}
 	
 	//get the holding money

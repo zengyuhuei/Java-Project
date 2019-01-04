@@ -524,6 +524,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	        }  
 	        if(e.getSource()==jlbBug)
 	        {  
+	        	System.out.println("打中");
 	        	if(a != ran)
 	        	{
 	        		 ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
