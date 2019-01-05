@@ -46,7 +46,10 @@ public abstract class Crop
 		return growingRate;
 	}
 	
-	
+	public void setGrowingRate(int growingRate)
+	{
+		this.growingRate = growingRate;
+	}
 	public void setGrowingRate()
 	{
 		growingRate = 0;

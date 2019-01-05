@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
@@ -24,28 +26,11 @@ public class Farm
 	public Farm(WareHouse house) {   
 		 this.house=house;
     }
-	
 	// 回傳farmLand資料
 	public ArrayList<Crop> getFarmLand()
 	{
 		return farmLand;
 	}
-	//回傳storeCropArray的資料(紀錄crop位置用)
-	public int[] getStoreCropArray()
-	{
-		return storeCropArray;
-	}
-	//回傳count(紀錄目前農場裡有多少土地有重東西)
-	public int getCount()
-	{
-		return count;
-	}
-	// 設定farmLand資料
-	public ArrayList<Crop> setFarmLand(int index, Crop crop)
-	{
-		return farmLand;
-	}
-	
 	// 收成作物，判斷作物是否成熟，若成熟便把他加入到Warehouse中並從農地中移除。成功回傳1，失敗回傳0
 	public Boolean harvest(int index)
 	{
@@ -166,7 +151,10 @@ public class Farm
 	 {
 		 return count;
 	 }
-	
+	public void setLandNum(int count)
+	{
+		this.count = count;
+	}
 	public void setStoreCropNum()
 	 {
 		for(int i = 0; i < 12; i++)

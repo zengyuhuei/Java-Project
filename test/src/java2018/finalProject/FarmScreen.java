@@ -19,7 +19,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 import javax.sound.sampled.AudioInputStream;
@@ -35,13 +40,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class FarmScreen extends JPanel implements ActionListener {
-
-	//private final Action action = new SwingAction();
+	
 	private Main mainFrame;
+	private Farm farm;
 	private JButton returnButton = new JButton("");
-	//private ArrayList<Crop> crop = new ArrayList<Crop>(12);
-	//private int[] storeCropArray = new int[12];
-	private int count = 0;
 	private int landNum = -1;
 	private Boolean [] clickCheck = new Boolean [12];
 	private Boolean clickAddCrop = false;
@@ -281,11 +283,65 @@ public class FarmScreen extends JPanel implements ActionListener {
 			cropRate.setText("高麗菜's 成長值: "+ farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 		}
 	}
-	
+	public String[][] getfarmObject() //存檔Farm中的所有資料 (存檔用)
+	{
+		int count = farm.getLandNum();
+		String [][] farmStore = new String [13][3];
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		if(count >= 1)
+			for(int i = 0; i < count; i++)
+			{
+				farmStore[i][0] = farm.getFarmLand().get(i).getName(); //作物名稱
+				farmStore[i][1] = Integer.toString(farm.getFarmLand().get(i).getGrowingRate()); //作物成長值
+				farmStore[i][2] = sdFormat.format(farm.getFarmLand().get(i).getLastWaterDate()); //作物上次澆水時間
+			}
+		farmStore[12][0] = Integer.toString(count);
+		/*for(int i = 0; i < count; i++)
+		{
+			System.out.println("crop:"+farmStore[i][0]);
+			System.out.println("growingRate:"+farmStore[i][1]);
+			System.out.println("lastWater:"+farmStore[i][2]);
+		}*/
+		return farmStore;
+	}
+	public void setfarmObject(String [][] farmStore) throws ParseException //讀取Farm中的所有資料 (讀檔用)
+	{
+		int cropNum = 0;
+		int count = Integer.parseInt(farmStore[12][0]);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		farm.setLandNum(Integer.parseInt(farmStore[12][0]));
+		while(cropNum < count)
+		{
+			for(int i = 0; i < count; i++)
+			{
+				if(farmStore[i][0] == "玉米")
+				{
+					farm.sowingCorn(cropNum);
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					cropNum++;
+				}
+				else if(farmStore[i][0] == "小麥")
+				{
+					farm.sowingWheat(cropNum);
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					cropNum++;
+				}
+				else if(farmStore[i][0] == "高麗菜")
+				{
+					farm.sowingCabbage(cropNum);
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					cropNum++;
+				}
+			}
+		}	
+	}
 	public FarmScreen(Main mainFrame, WareHouse wareHouse) {
 		
 		this.mainFrame = mainFrame;
-		Farm farm = new Farm(wareHouse);
+		farm = new Farm(wareHouse);
 		farm.setStoreCropNum();
 		
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -475,7 +531,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 						cabbageButton.setEnabled(false);
 					else cabbageButton.setEnabled(true);
 					
-					
 					cornButton.addActionListener(new ActionListener() {
 				        public void actionPerformed(ActionEvent e) {
 				        	if(farm.getStoreCropNum(landNum)== -1)
@@ -654,7 +709,6 @@ public class FarmScreen extends JPanel implements ActionListener {
             public void mouseExited(MouseEvent arg0) {
             	returnButton.setIcon(new ImageIcon("..\\picture\\HOME.png"));
             } 
-			
 		});
 		this.add(returnButton);
 		
@@ -752,6 +806,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					LandButton(farm, wareHouse);
 					clickCheck[3] = true;
 				}
+	            //String [][] farmStore = getfarmObject();
 			}
 		});
 		button_3.setBounds(203, 305, 193, 98);
