@@ -49,7 +49,6 @@ public class Main extends JFrame {
 	
 	public void setWarehouse(WareHouse warehouse) {
 		this.warehouse = warehouse;
-		//System.out.println(warehouse.getObject());
 		this.dudeScreen = new DudeScreen(this, this.warehouse);
 		this.farmScreen = new FarmScreen(this, this.warehouse);
 	}
@@ -155,7 +154,6 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
 					Main mainFrame = new Main();
 					mainFrame.setVisible(true);
 				} catch (Exception e) {
