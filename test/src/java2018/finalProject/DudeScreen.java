@@ -1147,17 +1147,45 @@ public class DudeScreen extends JPanel implements ActionListener {
     }
 	public void setDudeScreen(String [][] DudeScreen)
     {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 3; j++) {
+				System.out.println(DudeScreen[i][j]);
+			}
+		}
 		for(int i=0; i<10; i++)
 		{
 			if(Objects.equals(DudeScreen[i][0], "true"))
 			{
-				dude.getPondLand().get(i).setName(DudeScreen[i][1]);
+				if(Objects.equals(DudeScreen[i][1], "豬"))
+				{
+					dude.startPig(new Pig());
+				}
+				if(Objects.equals(DudeScreen[i][1], "雞"))
+				{
+					dude.startChicken(new Chicken());
+				}
+				if(Objects.equals(DudeScreen[i][1], "牛"))
+				{
+					dude.startCow(new Cow());
+				}
 				dude.getPondLand().get(i).setGrowingRate(Integer.valueOf(DudeScreen[i][2]));
 			}
 			else
 			{
-				dude.getPondLand().set(i, null);
+				dude.startNull(i);
 			}
+		}
+		for(int i=0; i<10; i++)
+		{
+			System.out.printf("i=%d", i);
+			if(dude.getPondLand().get(i)==null)
+			{
+				System.out.print("null");
+			}
+			System.out.printf(dude.getPondLand().get(i).getName());
+			System.out.print(dude.getPondLand().get(i).getGrowingRate());
+			System.out.println();
+			
 		}
 		showButton(dude);
     }

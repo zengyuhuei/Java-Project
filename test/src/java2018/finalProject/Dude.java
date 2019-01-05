@@ -27,6 +27,50 @@ public class Dude {
 		 else 
 			 return false;
 	 }
+	 public void startNull(int number)
+	 {
+		 pondLand.add(new Pig());
+		 pondLand.set(number, null);
+	 }
+	 public void startPig(Animal animal)
+	 {
+		 
+		 if(animal.getName()=="豬")
+		 {
+			pondLand.add(animal);
+			num++;
+		 }
+		 else
+		 {
+			 System.out.printf("他不是豬啦!!\n");
+		 }
+	 }
+	 public void startChicken(Animal animal)
+	 {
+		 
+		 if(animal.getName()=="雞")
+		 {
+			pondLand.add(animal);
+			num++;
+		 }
+		 else
+		 {
+			 System.out.printf("他不是雞啦!!\n");
+		 }
+	 }
+	 public void startCow(Animal animal)
+	 {
+		 
+		 if(animal.getName()=="牛")
+		 {
+			pondLand.add(animal);
+			num++;
+		 }
+		 else
+		 {
+			 System.out.printf("他不是牛啦!!\n");
+		 }
+	 }
 	 public boolean startFeedPig(Animal animal)
 	 {
 		 
