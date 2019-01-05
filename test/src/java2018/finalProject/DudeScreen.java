@@ -21,6 +21,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -1120,7 +1121,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				{
 					DudeScreen[i][1]="雞";
 				}
-				if(button.get(i).getIcon()==chickenleft)
+				if(button.get(i).getIcon()==chickenright)
 				{
 					DudeScreen[i][1]="雞";
 				}
@@ -1128,7 +1129,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 				{
 					DudeScreen[i][1]="豬";
 				}
-				if(button.get(i).getIcon()==pigleft)
+				if(button.get(i).getIcon()==pigright)
 				{
 					DudeScreen[i][1]="豬";
 				}
@@ -1148,7 +1149,7 @@ public class DudeScreen extends JPanel implements ActionListener {
     {
 		for(int i=0; i<10; i++)
 		{
-			if(DudeScreen[i][0]=="true")
+			if(Objects.equals(DudeScreen[i][0], "true"))
 			{
 				dude.getPondLand().get(i).setName(DudeScreen[i][1]);
 				dude.getPondLand().get(i).setGrowingRate(Integer.valueOf(DudeScreen[i][2]));
