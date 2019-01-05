@@ -309,7 +309,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		int cropNum = 0;
 		int count = Integer.parseInt(farmStore[12][0]);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		farm.setLandNum(Integer.parseInt(farmStore[12][0]));
+		//farm.setLandNum(Integer.parseInt(farmStore[12][0]));
 		while(cropNum < count)
 		{
 			for(int i = 0; i < count; i++)
