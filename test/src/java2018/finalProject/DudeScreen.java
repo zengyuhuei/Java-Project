@@ -1180,11 +1180,15 @@ public class DudeScreen extends JPanel implements ActionListener {
 			System.out.printf("i=%d", i);
 			if(dude.getPondLand().get(i)==null)
 			{
-				System.out.print("null");
+				System.out.print("null\n");
 			}
-			System.out.printf(dude.getPondLand().get(i).getName());
-			System.out.print(dude.getPondLand().get(i).getGrowingRate());
-			System.out.println();
+			else
+			{
+				System.out.printf(dude.getPondLand().get(i).getName());
+				System.out.print(dude.getPondLand().get(i).getGrowingRate());
+				System.out.println();
+			}
+			
 			
 		}
 		showButton(dude);
