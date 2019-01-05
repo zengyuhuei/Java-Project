@@ -301,13 +301,13 @@ public class FarmScreen extends JPanel implements ActionListener {
 						break;
 					}
 		farmStore[12][0] = Integer.toString(count);
-		for(int i = 0; i < count; i++)
+		/*for(int i = 0; i < count; i++)
 		{
 			System.out.println("crop:"+farmStore[i][0]);
 			System.out.println("growingRate:"+farmStore[i][1]);
 			System.out.println("lastWater:"+farmStore[i][2]);
 			System.out.println("station:"+farmStore[i][3]);
-		}
+		}*/
 		return farmStore;
 	}
 	public void setfarmObject(String [][] farmStore) throws ParseException //讀取Farm中的所有資料 (讀檔用)
@@ -322,7 +322,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 			for(int i = 0; i < count; i++)
 			{
 				int landNumber = Integer.parseInt(farmStore[i][3]);
-				System.out.println("time"+farmStore[i][2]);
 				if(farmStore[i][0].equals(new String("玉米")))
 				{
 					farm.sowingCorn(landNumber);
@@ -815,13 +814,13 @@ public class FarmScreen extends JPanel implements ActionListener {
 					LandButton(farm, wareHouse);
 					clickCheck[3] = true;
 				}
-	            String [][] farmStore = getfarmObject();
+	            /*String [][] farmStore = getfarmObject();
 				try {
 					setfarmObject(farmStore);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			}
 		});
 		button_3.setBounds(203, 305, 193, 98);
