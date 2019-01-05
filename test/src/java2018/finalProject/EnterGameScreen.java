@@ -145,16 +145,18 @@ public class EnterGameScreen extends JPanel {
 					mainFrame.setFarmScreen(farmScreenData);
 					System.out.println("農場完成");
 					mainFrame.setDudeScreen(dudeScreenData);
-					System.out.println(123);
+					System.out.println("牧場完成");
 					mainFrame.changeToMainScreen();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(mainFrame, "找不到此遊戲名稱", "檔案錯誤", JOptionPane.WARNING_MESSAGE);
+					e1.printStackTrace();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(mainFrame, "找不到此遊戲名稱", "檔案錯誤", JOptionPane.WARNING_MESSAGE);
+					e1.printStackTrace();
 				}
 			}
 			@Override
