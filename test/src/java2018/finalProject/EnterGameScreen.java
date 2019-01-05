@@ -78,6 +78,18 @@ public class EnterGameScreen extends JPanel {
 		btnEnter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
+				String name = JOptionPane.showInputDialog(mainFrame, "請輸入遊戲名稱", "開始遊戲", JOptionPane.QUESTION_MESSAGE);
+				if (name == null) {
+					return;
+				}
+				while (name.equals(new String(""))) {
+					name = JOptionPane.showInputDialog(mainFrame, "請輸入遊戲名稱", "開始遊戲", JOptionPane.QUESTION_MESSAGE);
+					if (name == null) {
+						return;
+					}
+				}
+				mainFrame.setEnterName(name);
 				mainFrame.setWarehouse(createWareHouse());
 				
 				mainFrame.changeToMainScreen();
@@ -103,7 +115,7 @@ public class EnterGameScreen extends JPanel {
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String name = JOptionPane.showInputDialog(mainFrame, "請輸入檔案名稱", "載入遊戲", JOptionPane.YES_OPTION);
+				String name = JOptionPane.showInputDialog(mainFrame, "請輸入遊戲名稱", "載入遊戲", JOptionPane.QUESTION_MESSAGE);
 				mainFrame.setEnterName(name);
 				FileReader fr;
 				try {
@@ -115,17 +127,23 @@ public class EnterGameScreen extends JPanel {
 						int temp1 = Integer.parseInt(br.readLine());
 						warehouseData.put(temp, temp1);
 					}
+					String [][] dudeScreenData = new String[10][3];
+					for (int i = 0; i < 10; i++) {
+						for(int j = 0; j < 3; j++) {
+							dudeScreenData[i][j] = br.readLine();
+						}
+					}
 					mainFrame.setWarehouse(new WareHouse(warehouseData));
+					mainFrame.setDudeScreen(dudeScreenData);
 					mainFrame.changeToMainScreen();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(mainFrame, "找不到此檔案", "檔案錯誤", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "找不到此遊戲名稱", "檔案錯誤", JOptionPane.WARNING_MESSAGE);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(mainFrame, "找不到此檔案", "檔案錯誤", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "找不到此遊戲名稱", "檔案錯誤", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			@Override

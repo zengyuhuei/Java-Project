@@ -26,8 +26,8 @@ public class Main extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel dudeScreen;
-	private JPanel farmScreen;
+	private DudeScreen dudeScreen;
+	private FarmScreen farmScreen;
 	private JPanel mainScreen;
 	private WareHouse warehouse;
 	private Clip bgClip;
@@ -57,8 +57,13 @@ public class Main extends JFrame {
 	
 	public void setWarehouse(WareHouse warehouse) {
 		this.warehouse = warehouse;
+		//System.out.println(warehouse.getObject());
 		this.dudeScreen = new DudeScreen(this, this.warehouse);
 		this.farmScreen = new FarmScreen(this, this.warehouse);
+	}
+	
+	public void setDudeScreen(String [][] data) {
+		this.dudeScreen.setDudeScreen(data);
 	}
 	
 	public void changeToMainScreen() {
@@ -124,9 +129,6 @@ public class Main extends JFrame {
 	}
 	
 	public void saveFile() {
-		while (Objects.equals(enterName, new String("")))
-			enterName = JOptionPane.showInputDialog(this, "請輸入儲存的檔案名稱", "存檔", JOptionPane.YES_OPTION);
-		
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter("file\\" + enterName + ".txt", "UTF-8");
@@ -136,6 +138,14 @@ public class Main extends JFrame {
 				writer.println(warehouseData.get(key));
 			}
 			writer.println("牧場資料");
+			String [][] dudeScreenData = ((DudeScreen)this.dudeScreen).getDudeScreen();
+			for(int i = 0; i < 10; i++) {
+				for (int j = 0; j < 3; j++) {
+					writer.println(dudeScreenData[i][j]);
+					System.out.println(dudeScreenData[i][j]);
+				}
+			}
+			writer.println("農場資料");
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
