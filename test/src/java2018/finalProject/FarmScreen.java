@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 
@@ -286,53 +287,61 @@ public class FarmScreen extends JPanel implements ActionListener {
 	public String[][] getfarmObject() //存檔Farm中的所有資料 (存檔用)
 	{
 		int count = farm.getLandNum();
-		String [][] farmStore = new String [13][3];
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		String [][] farmStore = new String [13][4];
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.ENGLISH);
 		if(count >= 1)
 			for(int i = 0; i < count; i++)
-			{
-				farmStore[i][0] = farm.getFarmLand().get(i).getName(); //作物名稱
-				farmStore[i][1] = Integer.toString(farm.getFarmLand().get(i).getGrowingRate()); //作物成長值
-				farmStore[i][2] = sdFormat.format(farm.getFarmLand().get(i).getLastWaterDate()); //作物上次澆水時間
-			}
+				for(int j = 0; j < 12; j++)
+					if(farm.getStoreCropNum(j) == i)
+					{
+						farmStore[i][0] = farm.getFarmLand().get(i).getName(); //作物名稱
+						farmStore[i][1] = Integer.toString(farm.getFarmLand().get(i).getGrowingRate()); //作物成長值
+						farmStore[i][2] = sdFormat.format(farm.getFarmLand().get(i).getLastWaterDate()); //作物上次澆水時間
+						farmStore[i][3] = Integer.toString(j);  //作物的位置
+						break;
+					}
 		farmStore[12][0] = Integer.toString(count);
-		/*for(int i = 0; i < count; i++)
+		for(int i = 0; i < count; i++)
 		{
 			System.out.println("crop:"+farmStore[i][0]);
 			System.out.println("growingRate:"+farmStore[i][1]);
 			System.out.println("lastWater:"+farmStore[i][2]);
-		}*/
+			System.out.println("station:"+farmStore[i][3]);
+		}
 		return farmStore;
 	}
 	public void setfarmObject(String [][] farmStore) throws ParseException //讀取Farm中的所有資料 (讀檔用)
 	{
 		int cropNum = 0;
 		int count = Integer.parseInt(farmStore[12][0]);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
+		sdf.setLenient(false);
 		//farm.setLandNum(Integer.parseInt(farmStore[12][0]));
 		while(cropNum < count)
 		{
 			for(int i = 0; i < count; i++)
 			{
+				int landNumber = Integer.parseInt(farmStore[i][3]);
+				System.out.println("time"+farmStore[i][2]);
 				if(farmStore[i][0].equals(new String("玉米")))
 				{
-					farm.sowingCorn(cropNum);
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					farm.sowingCorn(landNumber);
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
 					cropNum++;
 				}
 				else if(farmStore[i][0].equals(new String("小麥")))
 				{
-					farm.sowingWheat(cropNum);
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					farm.sowingWheat(landNumber);
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
 					cropNum++;
 				}
 				else if(farmStore[i][0].equals(new String("高麗菜")))
 				{
-					farm.sowingCabbage(cropNum);
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
-					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					farm.sowingCabbage(landNumber);
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
+					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
 					cropNum++;
 				}
 			}
@@ -806,7 +815,13 @@ public class FarmScreen extends JPanel implements ActionListener {
 					LandButton(farm, wareHouse);
 					clickCheck[3] = true;
 				}
-	            //String [][] farmStore = getfarmObject();
+	            String [][] farmStore = getfarmObject();
+				try {
+					setfarmObject(farmStore);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		button_3.setBounds(203, 305, 193, 98);
