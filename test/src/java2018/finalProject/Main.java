@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.Objects;
 
@@ -64,6 +65,15 @@ public class Main extends JFrame {
 	
 	public void setDudeScreen(String [][] data) {
 		this.dudeScreen.setDudeScreen(data);
+	}
+	
+	public void setFarmScreen(String [][] data) {
+		try {
+			this.farmScreen.setfarmObject(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void changeToMainScreen() {
@@ -138,14 +148,22 @@ public class Main extends JFrame {
 				writer.println(warehouseData.get(key));
 			}
 			writer.println("牧場資料");
-			String [][] dudeScreenData = ((DudeScreen)this.dudeScreen).getDudeScreen();
+			String [][] dudeScreenData = this.dudeScreen.getDudeScreen();
 			for(int i = 0; i < 10; i++) {
 				for (int j = 0; j < 3; j++) {
 					writer.println(dudeScreenData[i][j]);
-					System.out.println(dudeScreenData[i][j]);
 				}
 			}
 			writer.println("農場資料");
+			String [][] farmScreenData = this.farmScreen.getfarmObject();
+			int count = Integer.parseInt(farmScreenData[12][0]);
+			writer.println(count);
+			for (int i = 0 ; i < count; i++) {
+				for (int j = 0; j < 3; j++) {
+					writer.println(farmScreenData[i][j]);
+					System.out.println(farmScreenData[i][j]);
+				}
+			}
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block

@@ -314,21 +314,21 @@ public class FarmScreen extends JPanel implements ActionListener {
 		{
 			for(int i = 0; i < count; i++)
 			{
-				if(farmStore[i][0] == "玉米")
+				if(farmStore[i][0].equals(new String("玉米")))
 				{
 					farm.sowingCorn(cropNum);
 					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
 					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
 					cropNum++;
 				}
-				else if(farmStore[i][0] == "小麥")
+				else if(farmStore[i][0].equals(new String("小麥")))
 				{
 					farm.sowingWheat(cropNum);
 					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
 					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setLastWaterDate(sdf.parse(farmStore[i][2]));
 					cropNum++;
 				}
-				else if(farmStore[i][0] == "高麗菜")
+				else if(farmStore[i][0].equals(new String("高麗菜")))
 				{
 					farm.sowingCabbage(cropNum);
 					farm.getFarmLand().get(farm.getStoreCropNum(cropNum)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
@@ -336,7 +336,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					cropNum++;
 				}
 			}
-		}	
+		}
 	}
 	public FarmScreen(Main mainFrame, WareHouse wareHouse) {
 		

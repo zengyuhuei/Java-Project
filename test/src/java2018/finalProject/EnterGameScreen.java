@@ -133,8 +133,19 @@ public class EnterGameScreen extends JPanel {
 							dudeScreenData[i][j] = br.readLine();
 						}
 					}
+					String test = br.readLine();
+					String [][] farmScreenData = new String[13][3];
+					farmScreenData[12][0] = br.readLine();
+					for (int i = 0; i < Integer.parseInt(farmScreenData[12][0]); i++) {
+						for (int j = 0; j < 3; j++) {
+							farmScreenData[i][j] = br.readLine();
+						}
+					}
 					mainFrame.setWarehouse(new WareHouse(warehouseData));
+					mainFrame.setFarmScreen(farmScreenData);
+					System.out.println("農場完成");
 					mainFrame.setDudeScreen(dudeScreenData);
+					System.out.println(123);
 					mainFrame.changeToMainScreen();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
