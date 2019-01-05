@@ -443,13 +443,19 @@ public class PondScreen extends JPanel implements ActionListener {
 			this.mainFrame.changeToMainScreen();
 		}
 		else if (e.getSource() == startBtn) {
-			startBtn.setVisible(false);
-			startBtnImg = "..\\picture\\pondGameAgainBtn.png";
-    		startBtn.setBounds(460, 415, 80, 40);
-			startBtn.setIcon(imageResize(80, 40, new ImageIcon(startBtnImg)));
-			startLabel.setVisible(false);
-			returnBtn.setEnabled(false);
-			timerStart();
+			if (this.warehouse.getHoldMoney() >= 30) {
+				this.warehouse.editHoldMoney(-30);
+				startBtn.setVisible(false);
+				startBtnImg = "..\\picture\\pondGameAgainBtn.png";
+	    		startBtn.setBounds(460, 415, 80, 40);
+				startBtn.setIcon(imageResize(80, 40, new ImageIcon(startBtnImg)));
+				startLabel.setVisible(false);
+				returnBtn.setEnabled(false);
+				timerStart();
+			}
+			else {
+				JOptionPane.showMessageDialog(this.mainFrame, "沒有足夠的金錢!!!!", "金錢不足", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	

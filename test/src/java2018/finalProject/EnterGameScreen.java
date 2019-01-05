@@ -6,8 +6,14 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -17,6 +23,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -96,7 +103,30 @@ public class EnterGameScreen extends JPanel {
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				String name = JOptionPane.showInputDialog(mainFrame, "請輸入檔案名稱", "載入遊戲", JOptionPane.YES_OPTION);
+				mainFrame.setEnterName(name);
+				FileReader fr;
+				try {
+					fr = new FileReader("file\\" + name + ".txt");
+					BufferedReader br = new BufferedReader(fr);
+					Map<String, Integer> warehouseData = new HashMap<String, Integer>();
+					String temp;
+					while (!Objects.equals(temp = br.readLine(),"牧場資料")) {
+						int temp1 = Integer.parseInt(br.readLine());
+						warehouseData.put(temp, temp1);
+					}
+					mainFrame.setWarehouse(new WareHouse(warehouseData));
+					mainFrame.changeToMainScreen();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(mainFrame, "找不到此檔案", "檔案錯誤", JOptionPane.PLAIN_MESSAGE);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(mainFrame, "找不到此檔案", "檔案錯誤", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 			@Override
             public void mouseEntered(MouseEvent arg0) {
