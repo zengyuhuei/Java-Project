@@ -1191,7 +1191,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 			
 			
 		}
-		showButton(dude);
+		//showButton(dude);
     }
 }
 
