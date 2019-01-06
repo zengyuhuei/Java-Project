@@ -1109,30 +1109,7 @@ public class DudeScreen extends JPanel implements ActionListener {
 			if(button.get(i).isVisible()==true)
 			{
 				DudeScreen[i][0]="true";
-				if(button.get(i).getIcon()==cowleft)
-				{
-					DudeScreen[i][1]="牛";
-				}
-				if(button.get(i).getIcon()==cowright)
-				{
-					DudeScreen[i][1]="牛";
-				}
-				if(button.get(i).getIcon()==chickenleft)
-				{
-					DudeScreen[i][1]="雞";
-				}
-				if(button.get(i).getIcon()==chickenright)
-				{
-					DudeScreen[i][1]="雞";
-				}
-				if(button.get(i).getIcon()==pigleft)
-				{
-					DudeScreen[i][1]="豬";
-				}
-				if(button.get(i).getIcon()==pigright)
-				{
-					DudeScreen[i][1]="豬";
-				}
+				DudeScreen[i][1]=dude.getPondLand().get(i).getName();
 				DudeScreen[i][2]=Integer.toString(dude.getPondLand().get(i).getGrowingRate());
 			}
 			else
