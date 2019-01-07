@@ -153,7 +153,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		return  new ImageIcon(new_img);
 		
 	}
-    public void checkCropImage(Farm farm, int growingRate)
+    public void checkCropImage(int landNum, int growingRate)
     {
     	if(growingRate >= 100)
     	{
@@ -232,7 +232,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			
 			seedBackGround.setVisible(false);
 			growingRate(farm);
-			checkCropImage(farm, 100);
+			checkCropImage(landNum, 100);
 		}
 		else
 		{
@@ -260,7 +260,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			wheatButton.setVisible(false);
 			cabbageButton.setVisible(false);
 			growingRate(farm);
-			checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+			checkCropImage(landNum, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 		}
 	}
 	public void growingRate(Farm farm)
@@ -327,6 +327,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					farm.sowingCorn(landNumber);
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					checkCropImage(landNumber,Integer.parseInt(farmStore[i][1]));
 					cropNum++;
 				}
 				else if(farmStore[i][0].equals(new String("小麥")))
@@ -334,6 +335,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					farm.sowingWheat(landNumber);
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					checkCropImage(landNumber,Integer.parseInt(farmStore[i][1]));
 					cropNum++;
 				}
 				else if(farmStore[i][0].equals(new String("高麗菜")))
@@ -341,6 +343,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					farm.sowingCabbage(landNumber);
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setGrowingRate(Integer.parseInt(farmStore[i][1]));
 					farm.getFarmLand().get(farm.getStoreCropNum(landNumber)).setLastWaterDate(sdf.parse(farmStore[i][2]));
+					checkCropImage(landNumber,Integer.parseInt(farmStore[i][1]));
 					cropNum++;
 				}
 			}
@@ -410,7 +413,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).waterCheck(true); //澆水按鈕已經被使用
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).water();
 				System.out.println("澆水後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
-				checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				checkCropImage(landNum, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
 				{
 					fertilizeButton.setEnabled(false);
@@ -461,7 +464,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				farm.getFarmLand().get(farm.getStoreCropNum(landNum)).fertilize();
 				System.out.println("施肥後GrowingRate = "+farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
-				checkCropImage(farm, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+				checkCropImage(landNum, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 				wareHouse.editFertilizer(-1);
 				
 				if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate() >= 100)
