@@ -157,24 +157,33 @@ public class FarmScreen extends JPanel implements ActionListener {
     {
     	if(growingRate >= 100)
     	{
-    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
-				checkButton().setIcon(bigCorn);
-			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
-				checkButton().setIcon(bigWheat);
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(bigCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(bigWheat);
 			else 
-				checkButton().setIcon(bigCabbage);
+				checkButton(landNum).setIcon(bigCabbage);
     	}
     	else if(growingRate > 50)
     	{
-    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
-				checkButton().setIcon(midCorn);
-			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
-				checkButton().setIcon(midWheat);
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(midCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(midWheat);
 			else 
-				checkButton().setIcon(midCabbage);
+				checkButton(landNum).setIcon(midCabbage);
+    	}
+    	else
+    	{
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(littleCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(littleWheat);
+			else 
+				checkButton(landNum).setIcon(littleCabbage);
     	}
     }
-    public JButton checkButton()
+    public JButton checkButton(int landNum)
     {
     	if(landNum == 0) return button_0;
     	else if(landNum == 1) return button_1;
@@ -313,6 +322,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 						break;
 					}
 		farmStore[12][0] = Integer.toString(count);
+		farmStore[12][1] = sdFormat.format(farm.getLastKillBugDate());
 		/*for(int i = 0; i < count; i++)
 		{
 			System.out.println("crop:"+farmStore[i][0]);
@@ -324,11 +334,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 	}
 	public void setfarmObject(String [][] farmStore) throws ParseException //讀取Farm中的所有資料 (讀檔用)
 	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
 		int cropNum = 0;
 		int count = Integer.parseInt(farmStore[12][0]);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
+		farm.setLastKillBugDate(sdf.parse(farmStore[12][1]));
 		sdf.setLenient(false);
-		//farm.setLandNum(Integer.parseInt(farmStore[12][0]));
+		farm.setStoreCropNum();
 		while(cropNum < count)
 		{
 			for(int i = 0; i < count; i++)
@@ -392,7 +403,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					sowingButton.setEnabled(true);
 					waterButton.setEnabled(false);	
 					pesticideButton.setEnabled(false);
-					checkButton().setIcon(nothingLand);
+					checkButton(landNum).setIcon(nothingLand);
 					//reload();
 				}
 				cropRate.setVisible(false);
@@ -576,7 +587,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setText("X"+wareHouse.getFertilizer());
 									fertilizerNum.setVisible(true);
 								}
-								checkButton().setIcon(littleCorn);
+								checkButton(landNum).setIcon(littleCorn);
 	
 								growingRate(farm);
 							}
@@ -606,7 +617,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setVisible(true);
 								}
 									
-								checkButton().setIcon(littleWheat);
+								checkButton(landNum).setIcon(littleWheat);
 								growingRate(farm);
 				        	}
 				        	
@@ -635,7 +646,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setText("X"+wareHouse.getFertilizer());
 									fertilizerNum.setVisible(true);
 								}
-								checkButton().setIcon(littleCabbage);
+								checkButton(landNum).setIcon(littleCabbage);
 								growingRate(farm);
 				        	}
 				        	

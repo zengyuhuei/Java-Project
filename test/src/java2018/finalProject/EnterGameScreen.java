@@ -134,10 +134,11 @@ public class EnterGameScreen extends JPanel {
 						}
 					}
 					String test = br.readLine();
-					String [][] farmScreenData = new String[13][3];
+					String [][] farmScreenData = new String[13][4];
 					farmScreenData[12][0] = br.readLine();
+					farmScreenData[12][1] = br.readLine();
 					for (int i = 0; i < Integer.parseInt(farmScreenData[12][0]); i++) {
-						for (int j = 0; j < 3; j++) {
+						for (int j = 0; j < 4; j++) {
 							farmScreenData[i][j] = br.readLine();
 						}
 					}

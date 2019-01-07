@@ -210,4 +210,8 @@ public class Farm
 	{
 		this.lastKillBug = lastKillBug;
 	}
+	public Date getLastKillBugDate()
+	{
+		return lastKillBug;
+	}
 }
