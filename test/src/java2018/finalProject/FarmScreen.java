@@ -189,7 +189,7 @@ public class FarmScreen extends JPanel implements ActionListener {
     	else if(landNum == 10) return button_10;
     	else return button_11;
     }
-    
+ 
 	public void LandButton(Farm farm, WareHouse wareHouse)
 	{
 		fertilizeButton.setVisible(true);
@@ -200,7 +200,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 		waterButton.setVisible(true);
 		pesticideButton.setVisible(true);
 		toolBackGround.setVisible(true);
-		
 		if(farm.getStoreCropNum(landNum) == -1)
 		{
 			System.out.println("一無所有的土地ouq");
@@ -261,6 +260,19 @@ public class FarmScreen extends JPanel implements ActionListener {
 			cabbageButton.setVisible(false);
 			growingRate(farm);
 			checkCropImage(landNum, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
+		}
+		if(farm.checkLand()) 
+		{
+			//System.out.println("!!!");
+			if(farm.decideCallRandomCheck())
+			{
+				//System.out.println("???");
+				pesticideButton.setEnabled(true);
+				fertilizeButton.setEnabled(false);
+				harvestButton.setEnabled(false);
+				sowingButton.setEnabled(false);
+				waterButton.setEnabled(false);
+			}
 		}
 	}
 	public void growingRate(Farm farm)
