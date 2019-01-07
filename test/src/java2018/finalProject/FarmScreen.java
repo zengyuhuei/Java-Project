@@ -99,6 +99,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 	ImageIcon bigWheat = resizeImage (105,90,new ImageIcon("../picture/bigWheat.PNG"));
 	ImageIcon bigCabbage = resizeImage (105,90,new ImageIcon("../picture/bigCabbage.PNG"));
 	ImageIcon nothingLand = resizeImage (1,1,new ImageIcon("../picture/bigCabbage.PNG"));
+
 	
 	public void reload()
 	{
@@ -702,7 +703,48 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//除蟲除草button
-		//toGame
+		//toGame-------------------------------------------------------------------
+		/*
+		//------------------------------宣告----------------------------------
+		JLabel farmGameRuleLabel = new JLabel();
+		JButton enterFarmGameBtn = new JButton();
+		//--------------------------------程式碼--------------------------------
+		farmGameRuleLabel.setBounds(274, 91, 600, 468);
+		ImageIcon farmGameRulePic = resizeImage(farmGameRuleLabel.getWidth(), farmGameRuleLabel.getHeight(), new ImageIcon("../picture/farmGameRuleLabel.PNG"));
+		
+		enterFarmGameBtn.setBounds(505, 369, 137, 55);
+		ImageIcon enterFarmGameBtn = resizeImage(118, 37, new ImageIcon("../picture/farmGameRuleLabelButton.PNG"));
+		enterFarmGameBtn.setIcon(enterFarmGameBtn);	
+		add(enterFarmGameBtn);
+		enterFarmGameBtn.setVisible(false);
+		enterFarmGameBtn.setOpaque(false);
+		enterFarmGameBtn.setContentAreaFilled(false);
+		enterFarmGameBtn.setFocusPainted(false);
+		enterFarmGameBtn.setBorder(null);
+		
+		enterFarmGameBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToFarmGameScreen();
+				enterFarmGameBtn.setVisible(false);
+				farmGameRuleLabel.setVisible(false);
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				enterFarmGameBtn.setIcon(resizeImage(enterFarmGameBtn.getIcon().getIconWidth()+10,enterFarmGameBtn.getIcon().getIconHeight()+10,(ImageIcon)enterFarmGameBtn.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	enterFarmGameBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/farmGameRuleLabelButton.png")));
+            }   
+		});
+		farmGameRuleLabel.setIcon(farmGameRulePic);	
+		this.add(farmGameRuleLabel);
+		farmGameRuleLabel.setVisible(false);
+		*/
+		//-------------------------------------------------------------------------
+		
 		pesticideButton.setBounds(1075, 442, 130, 92);
 		pesticideButton.setVisible(true);
 		pesticideButton.addActionListener(this);
@@ -724,6 +766,10 @@ public class FarmScreen extends JPanel implements ActionListener {
             public void mouseExited(MouseEvent arg0) {
             	pesticideButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/killBug.png")));
             } 
+            @Override
+            public void mousePressed(MouseEvent e) {
+				System.out.println("mousePressed : 你按了除蟲按鈕");
+			}
 		});
 		
 		//HOME鍵返回
@@ -1084,6 +1130,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		}
 		else if (e.getSource() == pesticideButton) {
 			this.mainFrame.changeToFarmGameScreen();
+			System.out.println("actionPerformed : 你按了除蟲按鈕");
 		}
 	}
 }
