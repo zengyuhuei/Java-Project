@@ -99,6 +99,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 	ImageIcon bigWheat = resizeImage (105,90,new ImageIcon("../picture/bigWheat.PNG"));
 	ImageIcon bigCabbage = resizeImage (105,90,new ImageIcon("../picture/bigCabbage.PNG"));
 	ImageIcon nothingLand = resizeImage (1,1,new ImageIcon("../picture/bigCabbage.PNG"));
+
 	
 	public void reload()
 	{
@@ -157,24 +158,33 @@ public class FarmScreen extends JPanel implements ActionListener {
     {
     	if(growingRate >= 100)
     	{
-    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
-				checkButton().setIcon(bigCorn);
-			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
-				checkButton().setIcon(bigWheat);
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(bigCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(bigWheat);
 			else 
-				checkButton().setIcon(bigCabbage);
+				checkButton(landNum).setIcon(bigCabbage);
     	}
     	else if(growingRate > 50)
     	{
-    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "玉米")
-				checkButton().setIcon(midCorn);
-			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).pickSeed() == "小麥")
-				checkButton().setIcon(midWheat);
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(midCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(midWheat);
 			else 
-				checkButton().setIcon(midCabbage);
+				checkButton(landNum).setIcon(midCabbage);
+    	}
+    	else
+    	{
+    		if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "玉米")
+				checkButton(landNum).setIcon(littleCorn);
+			else if(farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getName() == "小麥")
+				checkButton(landNum).setIcon(littleWheat);
+			else 
+				checkButton(landNum).setIcon(littleCabbage);
     	}
     }
-    public JButton checkButton()
+    public JButton checkButton(int landNum)
     {
     	if(landNum == 0) return button_0;
     	else if(landNum == 1) return button_1;
@@ -189,7 +199,7 @@ public class FarmScreen extends JPanel implements ActionListener {
     	else if(landNum == 10) return button_10;
     	else return button_11;
     }
-    
+ 
 	public void LandButton(Farm farm, WareHouse wareHouse)
 	{
 		fertilizeButton.setVisible(true);
@@ -200,7 +210,6 @@ public class FarmScreen extends JPanel implements ActionListener {
 		waterButton.setVisible(true);
 		pesticideButton.setVisible(true);
 		toolBackGround.setVisible(true);
-		
 		if(farm.getStoreCropNum(landNum) == -1)
 		{
 			System.out.println("一無所有的土地ouq");
@@ -262,6 +271,19 @@ public class FarmScreen extends JPanel implements ActionListener {
 			growingRate(farm);
 			checkCropImage(landNum, farm.getFarmLand().get(farm.getStoreCropNum(landNum)).getGrowingRate());
 		}
+		if(farm.checkLand()) 
+		{
+			//System.out.println("!!!");
+			if(farm.decideCallRandomCheck())
+			{
+				//System.out.println("???");
+				pesticideButton.setEnabled(true);
+				fertilizeButton.setEnabled(false);
+				harvestButton.setEnabled(false);
+				sowingButton.setEnabled(false);
+				waterButton.setEnabled(false);
+			}
+		}
 	}
 	public void growingRate(Farm farm)
 	{
@@ -301,6 +323,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 						break;
 					}
 		farmStore[12][0] = Integer.toString(count);
+		farmStore[12][1] = sdFormat.format(farm.getLastKillBugDate());
 		/*for(int i = 0; i < count; i++)
 		{
 			System.out.println("crop:"+farmStore[i][0]);
@@ -312,11 +335,12 @@ public class FarmScreen extends JPanel implements ActionListener {
 	}
 	public void setfarmObject(String [][] farmStore) throws ParseException //讀取Farm中的所有資料 (讀檔用)
 	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
 		int cropNum = 0;
 		int count = Integer.parseInt(farmStore[12][0]);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
+		farm.setLastKillBugDate(sdf.parse(farmStore[12][1]));
 		sdf.setLenient(false);
-		//farm.setLandNum(Integer.parseInt(farmStore[12][0]));
+		farm.setStoreCropNum();
 		while(cropNum < count)
 		{
 			for(int i = 0; i < count; i++)
@@ -380,7 +404,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 					sowingButton.setEnabled(true);
 					waterButton.setEnabled(false);	
 					pesticideButton.setEnabled(false);
-					checkButton().setIcon(nothingLand);
+					checkButton(landNum).setIcon(nothingLand);
 					//reload();
 				}
 				cropRate.setVisible(false);
@@ -564,7 +588,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setText("X"+wareHouse.getFertilizer());
 									fertilizerNum.setVisible(true);
 								}
-								checkButton().setIcon(littleCorn);
+								checkButton(landNum).setIcon(littleCorn);
 	
 								growingRate(farm);
 							}
@@ -594,7 +618,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setVisible(true);
 								}
 									
-								checkButton().setIcon(littleWheat);
+								checkButton(landNum).setIcon(littleWheat);
 								growingRate(farm);
 				        	}
 				        	
@@ -623,7 +647,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 									fertilizerNum.setText("X"+wareHouse.getFertilizer());
 									fertilizerNum.setVisible(true);
 								}
-								checkButton().setIcon(littleCabbage);
+								checkButton(landNum).setIcon(littleCabbage);
 								growingRate(farm);
 				        	}
 				        	
@@ -679,7 +703,48 @@ public class FarmScreen extends JPanel implements ActionListener {
 		});
 		
 		//除蟲除草button
-		//toGame
+		//toGame-------------------------------------------------------------------
+		/*
+		//------------------------------宣告----------------------------------
+		JLabel farmGameRuleLabel = new JLabel();
+		JButton enterFarmGameBtn = new JButton();
+		//--------------------------------程式碼--------------------------------
+		farmGameRuleLabel.setBounds(274, 91, 600, 468);
+		ImageIcon farmGameRulePic = resizeImage(farmGameRuleLabel.getWidth(), farmGameRuleLabel.getHeight(), new ImageIcon("../picture/farmGameRuleLabel.PNG"));
+		
+		enterFarmGameBtn.setBounds(505, 369, 137, 55);
+		ImageIcon enterFarmGameBtn = resizeImage(118, 37, new ImageIcon("../picture/farmGameRuleLabelButton.PNG"));
+		enterFarmGameBtn.setIcon(enterFarmGameBtn);	
+		add(enterFarmGameBtn);
+		enterFarmGameBtn.setVisible(false);
+		enterFarmGameBtn.setOpaque(false);
+		enterFarmGameBtn.setContentAreaFilled(false);
+		enterFarmGameBtn.setFocusPainted(false);
+		enterFarmGameBtn.setBorder(null);
+		
+		enterFarmGameBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToFarmGameScreen();
+				enterFarmGameBtn.setVisible(false);
+				farmGameRuleLabel.setVisible(false);
+			}
+			@Override
+            public void mouseEntered(MouseEvent arg0) {
+				enterFarmGameBtn.setIcon(resizeImage(enterFarmGameBtn.getIcon().getIconWidth()+10,enterFarmGameBtn.getIcon().getIconHeight()+10,(ImageIcon)enterFarmGameBtn.getIcon()));
+				buttonSound();
+			} 
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+            	enterFarmGameBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/farmGameRuleLabelButton.png")));
+            }   
+		});
+		farmGameRuleLabel.setIcon(farmGameRulePic);	
+		this.add(farmGameRuleLabel);
+		farmGameRuleLabel.setVisible(false);
+		*/
+		//-------------------------------------------------------------------------
+		
 		pesticideButton.setBounds(1075, 442, 130, 92);
 		pesticideButton.setVisible(true);
 		pesticideButton.addActionListener(this);
@@ -701,6 +766,10 @@ public class FarmScreen extends JPanel implements ActionListener {
             public void mouseExited(MouseEvent arg0) {
             	pesticideButton.setIcon(resizeImage (90,80,new ImageIcon("../picture/killBug.png")));
             } 
+            @Override
+            public void mousePressed(MouseEvent e) {
+				System.out.println("mousePressed : 你按了除蟲按鈕");
+			}
 		});
 		
 		//HOME鍵返回
@@ -1061,6 +1130,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		}
 		else if (e.getSource() == pesticideButton) {
 			this.mainFrame.changeToFarmGameScreen();
+			System.out.println("actionPerformed : 你按了除蟲按鈕");
 		}
 	}
 }

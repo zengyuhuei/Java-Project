@@ -20,6 +20,8 @@ public class Farm
 	// 用來儲存農地的農作物資料，上限12個
 	ArrayList<Crop> farmLand = new ArrayList<Crop>(12); 
 	private int[] storeCropArray = new int[12];
+	private Date lastKillBug; //上次殺蟲時間
+	private Boolean killBugButtonClick = true;   //判斷殺蟲按鈕是否應該持續亮著
 	WareHouse house;
 	private int count = 0;
 	
@@ -65,15 +67,11 @@ public class Farm
 	// 種植玉米，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingCorn(int num)
 	{
-		//System.out.println("count:"+count+" num:"+num);
+		Date date = new Date();
 		storeCropArray[num] = count;
 		farmLand.add(count,new Corn());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
-		/*for(Crop i: farmLand)
-			System.out.println("ArrayList:"+i.getName());
-		for(int i = 0; i < 12; i++)
-			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
-		*/
+		if(count == 0) setLastKillBugDate(date);
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
@@ -85,15 +83,11 @@ public class Farm
 	// 種植小麥，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingWheat(int num)
 	{
-		//System.out.println("count:"+count+" num:"+num);
+		Date date = new Date();
 		storeCropArray[num] = count;
 		farmLand.add(count,new Wheat());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
-		/*for(Crop i: farmLand)
-			System.out.println("ArrayList:"+i.getName());
-		for(int i = 0; i < 12; i++)
-			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
-		*/
+		if(count == 0) setLastKillBugDate(date);
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
@@ -104,15 +98,11 @@ public class Farm
 	// 種植高麗菜，把他從Warehouse中拿出。成功回傳1，失敗回傳0
 	public boolean sowingCabbage(int num)
 	{
-		//System.out.println("count:"+count+" num:"+num);
+		Date date = new Date();
 		storeCropArray[num] = count;
 		farmLand.add(count,new Cabbage());
 		System.out.println(count+"你按了"+farmLand.get(count).pickSeed()+"ouo|");
-		/*for(Crop i: farmLand)
-			System.out.println("ArrayList:"+i.getName());
-		for(int i = 0; i < 12; i++)
-			System.out.println("i:"+i+"  storeArray[i]:"+storeCropArray[i]);
-		*/
+		if(count == 0) setLastKillBugDate(date);
 		farmLand.get(count).setGrowingRate();
 		farmLand.get(count).setLastWaterDate(getOneHOurToNowDate());
 		count++;
@@ -127,7 +117,13 @@ public class Farm
 		System.out.println(strDate);
 		return date;
 	}
-	
+	//判斷農場中土地有無作物
+	public Boolean checkLand()  
+	{
+		for(int i = 0; i < 12; i++)
+			if(storeCropArray[i] != -1) return true;
+		return false;
+	}
 	//決定何時呼叫randomCheck()
 	public boolean decideCallRandomCheck(Crop crop)
 	{
@@ -141,6 +137,24 @@ public class Farm
 				return true;
 			else
 				crop.setLastWaterDate(mainDate);
+				
+			//return true;
+		}
+		return false;	
+	}
+	//決定何時呼叫randomCheck()
+	public boolean decideCallRandomCheck()
+	{
+		Date mainDate = new Date();
+		long diff = mainDate.getTime() - lastKillBug.getTime();
+		diff = diff / 1000;
+		System.out.println("KillBugDiff = "+diff);
+		if(diff >= 10)   //10秒判斷是否除蟲
+		{
+			if(randomCheck())
+				return true;
+			else
+				setLastKillBugDate(mainDate);
 				
 			//return true;
 		}
@@ -177,5 +191,27 @@ public class Farm
 		//System.out.println(oneHourBeforeTime);
 		return calendar.getTime();
 	}
-	
+	//檢查除蟲除草
+	public boolean randomCheck()
+	{
+		Random random = new Random();
+		int randomProbablilty = random.nextInt(2);
+		//System.out.println("random = "+randomProbablilty);
+		if(!killBugButtonClick)
+		{
+			System.out.println("KillBugButtonClick is false!");
+			if(randomProbablilty == 0)
+				return false;
+		}
+		killBugButtonClick = true;
+		return true;
+	}
+	public void setLastKillBugDate(Date lastKillBug)
+	{
+		this.lastKillBug = lastKillBug;
+	}
+	public Date getLastKillBugDate()
+	{
+		return lastKillBug;
+	}
 }

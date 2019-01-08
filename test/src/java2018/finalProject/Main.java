@@ -158,8 +158,9 @@ public class Main extends JFrame {
 			String [][] farmScreenData = this.farmScreen.getfarmObject();
 			int count = Integer.parseInt(farmScreenData[12][0]);
 			writer.println(count);
+			writer.println(farmScreenData[12][1]);
 			for (int i = 0 ; i < count; i++) {
-				for (int j = 0; j < 3; j++) {
+				for (int j = 0; j < 4; j++) {
 					writer.println(farmScreenData[i][j]);
 					System.out.println(farmScreenData[i][j]);
 				}

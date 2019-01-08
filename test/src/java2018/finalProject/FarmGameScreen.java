@@ -41,17 +41,18 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	private WareHouse warehouse;
 	private int a = -1;
 	private int b = -1;
+	private int isHitGrass = -1;
+    private int isHitBug = -1;
+    private int ranBug;//隨機生成一個0~9(不包括9)的隨機數
+    private int ranGrass;
 	private int delay = 1000; //延遲時間  
     private int showNumber=0,hitNumber=0, restBugNumber=0, restGrassNumber=0, currentGrades=1;
     private static final long serialVersionUID = 1L;
     private String dir = "../picture/"; //圖片目錄  
     boolean isOver = false;  //設置標記，遊戲是否結束
-    
     private Timer timer;    //時間定時器
     private GuessTimer gt = new GuessTimer();
     private Random random;  //隨機生成蟲蟲位置  
-    private int ranBug;//隨機生成一個0~9(不包括9)的隨機數
-    private int ranGrass;
     private JLabel[] jlbBug;//蟲蟲
     private JLabel[] jlbGrass;//草草
     private JLabel showNum,currentGrade,hitNum;
@@ -60,8 +61,13 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
     private JLabel restBugNumberText;
     private JLabel restGrassNumberText;
     private JLabel toolTipText;
-    
+    private JLabel needToHit = new JLabel("需擊中數量:");
     private JButton backToFarmBtn = new JButton();
+    private JButton backToHomeBtn = new JButton();
+    private ImageIcon bugIcon = resizeImage (73,73,new ImageIcon(dir+"bug.png"));
+    private ImageIcon grassIcon = resizeImage (75,75,new ImageIcon(dir+"dishu.png"));
+    private JLabel bugLabelOnBoard = new JLabel(bugIcon, JLabel.LEFT);
+	private JLabel grassLabelOnBoard = new JLabel(grassIcon, JLabel.LEFT);
 	
     public FarmGameScreen(Main mainFrame, WareHouse warehouse)
     {  
@@ -80,7 +86,8 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         // Math.random 會產生 0 ~ 接近 1 的數字 
         restBugNumber = (int)(25+Math.random() * 6);  // 25 ~ 30
         restGrassNumber = (int)(25+Math.random() * 6);
-      
+        
+        
         //-------------------------滑鼠游標透明---------------------
       
         // Transparent 16 x 16 pixel cursor image.
@@ -159,14 +166,6 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             jlbGrass[i].setVisible(false);  
             jlbGrass[i].addMouseListener(this);//添加滑鼠游標監聽  
         }
-        /*   
-        ImageIcon imageBug = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-        jlbBug = new JLabel(imageBug);  
-        jlbBug.setSize(100,100);  
-        this.add(jlbBug);  
-        jlbBug.setVisible(false);  
-        jlbBug.addMouseListener(this);//添加滑鼠游標監聽  
-        */
 
         //定時器 
         timer = new Timer(delay,this);  
@@ -177,7 +176,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
          
         this.setVisible(true);  
       
-        //----------------------倒數計時器-----------------------
+        //--------------------------------------倒數計時器--------------------------------------
 
   	    //傾聽計時器timeout事件(可選的事件，不實作也可以使用timer
 	    gt.addListener(new GuessTimer.Listener() {
@@ -193,7 +192,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 			   //System.out.println("sec=>" + sec);
 		    }
 	    });
-	    gt.startTimer(40);
+	    gt.startTimer(30);
 	  
 	    JLabel word = new JLabel("00 : ");
         JLabel lblSec = new JLabel(Integer.toString(gt.getSec()));
@@ -216,35 +215,34 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         lblSecback.setIcon(secback);	
 	    this.add(lblSecback);
 	    lblSecback.setVisible(true);
-	    
-	    /*
-	    //------------------------------------遊戲結束回農場button-----------------------------------
-	    backToFarmBtn.setBounds(505, 369, 137, 55);
-  		ImageIcon backToFarm = resizeImage(118, 37, new ImageIcon("../picture/backToFarm.PNG"));
-  		backToFarmBtn.setIcon(backToFarm);	
-  		this.add(backToFarmBtn);
-  		backToFarmBtn.setVisible(false);
-  		backToFarmBtn.setOpaque(false);
-  		backToFarmBtn.setContentAreaFilled(false);
-  		backToFarmBtn.setFocusPainted(false);
-  		backToFarmBtn.setBorder(null);
-  		
-  		backToFarmBtn.addMouseListener(new MouseAdapter() {
-  			@Override
-  			public void mouseClicked(MouseEvent e) {
-  				mainFrame.changeToDudeScreen();
-  			}
-              public void mouseEntered(MouseEvent arg0) {
-            	  backToFarmBtn.setIcon(resizeImage(backToFarmBtn.getIcon().getIconWidth()+10,backToFarmBtn.getIcon().getIconHeight()+10,(ImageIcon)backToFarmBtn.getIcon()));
-  				buttonSound();
-  			}
-              @Override
-              public void mouseExited(MouseEvent arg0) {
-            	  backToFarmBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/backToDude.png")));
-              } 
-  		});
-	  	*/
-        //-------------------------------------完成任務與任務失敗----------------------------------
+
+  		//------------------------------------遊戲結束回農場button-----------------------------------
+ 	    backToFarmBtn.setBounds(505, 369, 137, 55);
+   		ImageIcon backToFarm = resizeImage(118, 37, new ImageIcon("../picture/backToFarm.PNG"));
+   		backToFarmBtn.setIcon(backToFarm);	
+   		this.add(backToFarmBtn);
+   		backToFarmBtn.setVisible(false);
+   		backToFarmBtn.setOpaque(false);
+   		backToFarmBtn.setContentAreaFilled(false);
+   		backToFarmBtn.setFocusPainted(false);
+   		backToFarmBtn.setBorder(null);
+   		
+   		backToFarmBtn.addMouseListener(new MouseAdapter() {
+   			@Override
+   			public void mouseClicked(MouseEvent e) {
+   				mainFrame.changeToFarmScreen();
+   			}
+               public void mouseEntered(MouseEvent arg0) {
+             	  backToFarmBtn.setIcon(resizeImage(backToFarmBtn.getIcon().getIconWidth()+10,backToFarmBtn.getIcon().getIconHeight()+10,(ImageIcon)backToFarmBtn.getIcon()));
+   				buttonSound();
+   			}
+               @Override
+               public void mouseExited(MouseEvent arg0) {
+             	  backToFarmBtn.setIcon(resizeImage (118, 37,new ImageIcon("../picture/backToFarm.png")));
+               } 
+   		});
+   		
+   	    //-------------------------------------完成任務與任務失敗----------------------------------
         successLabel.setBounds(274, 159, 600, 400);
 	    ImageIcon success = resizeImage(successLabel.getWidth(), successLabel.getHeight(), new ImageIcon(dir+"success.png"));
 	    successLabel.setIcon(success);	
@@ -257,36 +255,74 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	    failLabel.setIcon(fault);	
 	    this.add(failLabel);
 	    failLabel.setVisible(false);
-
-        setbackground();//設置背景 
+	    
+	    //------------------------------------------回到主畫面---------------------------------------------
+	    
+	    backToHomeBtn.setFont(new Font("Dialog", Font.BOLD, 20));	
+		buttonOFF(backToHomeBtn);
+		backToHomeBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+		backToHomeBtn.setFont(new Font("微軟正黑體 Light", Font.BOLD, 21));
+		backToHomeBtn.setBounds(1050, 0, 176, 114);
+		backToHomeBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mainFrame.changeToMainScreen();
+			}
+			@Override
+	        public void mouseEntered(MouseEvent arg0) {
+				backToHomeBtn.setIcon(resizeImage(backToHomeBtn.getIcon().getIconWidth()+10,backToHomeBtn.getIcon().getIconHeight()+10,(ImageIcon)backToHomeBtn.getIcon()));
+				buttonSound();
+			} 
+	        @Override
+	        public void mouseExited(MouseEvent arg0) {
+	        	backToHomeBtn.setIcon(new ImageIcon("..\\picture\\HOME.png"));
+	        } 
+			
+		});
+		this.add(backToHomeBtn);
+		
+		
+	    //-------------------------------------------------------------------------
+	    setbackground();//設置背景 
     }  
-  
-    private void timeMessageAppear()
+
+    //----------------------------------去除按鈕背景-----------------------------
+    
+	public void buttonOFF(JButton btn) 
+	{
+    	btn.setOpaque(false);
+		btn.setContentAreaFilled(false);
+		btn.setFocusPainted(false);
+		btn.setBorder(null);
+    }
+	//----------------------------------------------------------------------------
+
+	private void timeMessageAppear()
     {
-	    JOptionPane.showMessageDialog(this, "Times Up!");
-	    if(restBugNumber + restGrassNumber >= 20)
+	    //JOptionPane.showMessageDialog(this, "Times Up!");
+	    if(restBugNumber == 0 && restGrassNumber == 0)
 	    {
 	    	for(int i=0; i<9; i++)
 	    		jlbBug[i].setVisible(false);
-	    	//jlbBug.setVisible(false);
+	    	
 	    	for(int i=0; i<9; i++)
-	    		jlbGrass[i].setVisible(false);
-		    JOptionPane.showMessageDialog(this, "Times Up! 完成任務owo");
-		    
-		    //backToFarmBtn.setVisible(true);
+	    		jlbGrass[i].setVisible(false);	    	
+	    	//JOptionPane.showMessageDialog(this, "Times Up! 完成任務owo");
+
 		    successLabel.setVisible(true);
+		    backToFarmBtn.setVisible(true);
 	    }
 	    else
 	    {
 	    	for(int i=0; i<9; i++)
 	    		jlbBug[i].setVisible(false);
-	    	//jlbBug.setVisible(false);
+	    	
 	    	for(int i=0; i<9; i++)
 	    		jlbGrass[i].setVisible(false);
-		    JOptionPane.showMessageDialog(this, "Times Up! 任務失敗ouq");
-		    
-		    //backToFarmBtn.setVisible(true);
+		    //JOptionPane.showMessageDialog(this, "Times Up! 任務失敗ouq");
+
 		    failLabel.setVisible(true);
+		    backToFarmBtn.setVisible(true);
 	    }
     }
   
@@ -321,7 +357,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
     
         ImageIcon bgImage = resizeImage(1200, 675, new ImageIcon(dir+"killBugBackground.png"));
         JLabel bgLabel = new JLabel(bgImage);  
-        bgLabel.setBounds(0, 25, bgImage.getIconWidth(), bgImage.getIconHeight()); 
+        bgLabel.setBounds(0, 0, bgImage.getIconWidth(), bgImage.getIconHeight()); 
         this.add(bgLabel, new Integer(Integer.MIN_VALUE));//設置背景圖片的層次最低  
     }  
      
@@ -349,8 +385,23 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         this.add(hitNum); 
         hitNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    
-	    restBugNumberText = new JLabel("剩餘蟲數量:"+Integer.toString(restBugNumber));
-	    restBugNumberText.setBounds(320, 25, 200, 43);
+        needToHit.setBounds(250, 25, 200, 43);
+		this.add(needToHit);
+		needToHit.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		needToHit.setVisible(true);
+		
+		/*
+		restBugNumberText = new JLabel("剩餘蟲數量:"+Integer.toString(restBugNumber));
+		restBugNumberText.setBounds(700, 25, 200, 43);
+		this.add(restBugNumberText);
+		restBugNumberText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
+		restBugNumberText.setText(" X "+(int)restBugNumber);
+		restBugNumberText.setVisible(true);
+		*/
+		bugLabelOnBoard.setBounds(440, 25, 200, 38);
+		this.add(bugLabelOnBoard);
+	    restBugNumberText = new JLabel(" X "+Integer.toString(restBugNumber));
+	    restBugNumberText.setBounds(500, 25, 200, 43);
 	    add(restBugNumberText);
 	    restBugNumberText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
 	    restBugNumberText.setVisible(true);
@@ -362,7 +413,9 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	    restNum.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
         add(restNum); 
         */
-	    restGrassNumberText = new JLabel("剩餘草數量:"+Integer.toString(restGrassNumber));
+	    grassLabelOnBoard.setBounds(650, 20, 200, 43);
+		this.add(grassLabelOnBoard);
+	    restGrassNumberText = new JLabel(" X "+Integer.toString(restGrassNumber));
 	    restGrassNumberText.setBounds(700, 25, 200, 43);
 	    add(restGrassNumberText);
 	    restGrassNumberText.setFont(new Font("微軟正黑體 Light", Font.BOLD, 30));
@@ -395,57 +448,55 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             menuItemFun(e);  
         }  
         
-        while(ranBug == a) //不要重複在同一個洞出現
+        //a=-1, b=-1
+        //System.out.printf("out : a=%d, b=%d%n", a, b);
+        //System.out.printf("action : ranBug=%d, ranGrass=%d%n", ranBug, ranGrass);
+        while(ranBug == a || ranGrass == b) //不要重複在同一個洞出現
         {
-        	ranBug=random.nextInt(9);
+        	//System.out.printf("in : a=%d, b=%d%n", a, b);
+        	if(ranBug == a)
+        	{
+        		do {
+        			ranBug = random.nextInt(9);
+            		//System.out.printf("if(ranBug == a) : ranBug=%d, ranGrass=%d%n", ranBug, ranGrass);
+        		}while(ranBug == ranGrass);
+        	}
+        	if(ranGrass == b)
+        	{		
+        		do {
+        			ranGrass = random.nextInt(9);
+        			//System.out.printf("if(ranGrass == b) : ranBug=%d, ranGrass=%d%n", ranBug, ranGrass);
+        		}while(ranBug == ranGrass);
+        	}
         }
-
+        
+        
+        // 保證每次隨機生成的蟲蟲圖片都是為沒被打時的圖片 
         ImageIcon imageBug = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
         jlbBug[ranBug].setIcon(imageBug);  
         jlbBug[ranBug].setVisible(true);
-        //jlbBug.setIcon(imageBug);  
-        //jlbBug.setVisible(true);
-        
-        while(ranGrass == b)
-        {
-        	ranGrass = random.nextInt(9);
-        }
+       
         ImageIcon imageGrass = resizeImage(130, 175, new ImageIcon(dir+"dishu.png"));
         jlbGrass[ranGrass].setIcon(imageGrass);  
         jlbGrass[ranGrass].setVisible(true);
         
-        //保證每次隨機生成的蟲蟲圖片都是為沒被打時的圖片 
-        /* 
-        ImageIcon imageBug = resizeImage(130, 175, new ImageIcon(dir+"bug.png"));
-        jlbBug.setIcon(imageBug);  
+        
        
-        switch(ran)
-        {  
-	        case 0:jlbBug.setLocation(220, 80);break;  
-	        case 1:jlbBug.setLocation(580, 80);break;  
-	        case 2:jlbBug.setLocation(920, 80);break;  
-	        case 3:jlbBug.setLocation(220, 275);break;  
-	        case 4:jlbBug.setLocation(580, 273);break;  
-	        case 5:jlbBug.setLocation(950, 277);break;  
-	        case 6:jlbBug.setLocation(220, 468);break;  
-	        case 7:jlbBug.setLocation(585, 469);break;  
-	        case 8:jlbBug.setLocation(980, 468);break;  
-	        
-        }   
-        jlbBug.setVisible(true);  
-        */
         showNumber++;  
         //showNum.setText(""+showNumber);  
          
         if( !gamePlan() ){//判斷遊戲是否結束，並判斷遊戲進程
     	    timer.stop();  
-            JOptionPane.showMessageDialog(this, "Game Over ! 打不到8隻蟲蟲 再掛機阿=w=");
+            //JOptionPane.showMessageDialog(this, "Game Over ! 打不到8隻蟲蟲 再掛機阿=w=");
             for(int i=0; i<9; i++)
                 jlbBug[i].setVisible(false);
-            //jlbBug.setVisible(false);
+
             for(int i=0; i<9; i++)
                 jlbGrass[i].setVisible(false);
+            
+            
             failLabel.setVisible(true);  
+            backToFarmBtn.setVisible(true);
         }  
     }  
     
@@ -459,8 +510,8 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             currentGrades=1;  
             delay=1000;  
             isOver=false;  
-            showNum.setText(""+showNumber);  
-            hitNum.setText(""+hitNumber);  
+            //showNum.setText(""+showNumber);  
+            //hitNum.setText(""+hitNumber);  
             currentGrade.setText(""+currentGrades);  
             timer = new Timer(delay,this);  
             timer.start();  
@@ -472,7 +523,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
          
         if (e.getActionCommand().equalsIgnoreCase("pause")) {//暂停  
             timer.stop();  
-            JOptionPane.showMessageDialog(this, "繼續請按“確定”");  
+            //JOptionPane.showMessageDialog(this, "繼續請按“確定”");  
             timer.start();  
         }  
       
@@ -524,14 +575,14 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
  
     private boolean gamePlan() 
     {  
-	    
+	    /*
         if(showNumber-hitNumber > 8){  
     	    gt.stopoTimer();  
             isOver=true;  
             return false;  
         } 
-      
-        if(hitNumber > 2){  
+      	*/
+        if(hitNumber > 1){  
             hitNumber=0;  
             showNumber=0;  
             currentGrades++;  
@@ -548,45 +599,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         
         return true;  
     }  
-    /*
-    public void mousePressed(MouseEvent e) 
-    {  
-        if(isOver){  
-            return ;  
-        }  
-        toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
-      
-        //如果打中蟲蟲，則蟲蟲換成被打中的圖片，模擬蟲蟲被打  
-        if(e.getSource()==jlbBug)
-        {  
-        	if(a != ran)
-        	{
-        		 ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-                 jlbBug.setIcon(imageIconHit);  
-                 jlbBug.setVisible(true);  
-                 hitNumber++;  
-                 hitNum.setText(Integer.toString(hitNumber)); 
-                 //jlbBug.setVisible(false);  
-                 if(restBugNumber > 0)
-                 {
-         		    restBugNumber -= 1;
-         		    restBugNumberText.setText("剩餘數量:"+Integer.toString(restBugNumber));
-                     if(restBugNumber == 0)
-                     {
-                 	    jlbBug.setVisible(false);
-                 	    timer.stop();
-                 	    gt.stopoTimer();
-                 	    //isOver=true; 
-                 	    JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
-             		    successLabel.setVisible(true);
-                     }
-                 } 
-                 a=ran;
-        	}
-           
-        }  
-    }  
-    */
+    
     public void mouseReleased(MouseEvent e) 
     {  
     	//當滑鼠游標放開之後，滑鼠游標變回原来沒按下時的圖片
@@ -595,15 +608,33 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         }  
         int i = e.getButton();
         if(i == MouseEvent.BUTTON1){
-        	System.out.println("mousedReleased : 釋放滑鼠左鍵");
+        	//System.out.println("mousedReleased : 釋放滑鼠左鍵");
         	toolTipText.setIcon(new ImageIcon(dir+"chui1.png"));
+        	
+        	if(isHitGrass != -1)
+        	{
+        		//System.out.printf("released-isHit : ranGrass=%d, isHitGrass=%d%n", ranGrass, isHitGrass);
+        		
+        		if(e.getSource()==jlbGrass[isHitGrass])
+        		{
+        			jlbGrass[isHitGrass].setVisible(false);
+        		}
+        	}
         }
         else if(i == MouseEvent.BUTTON2) {
-        	System.out.println("mousedReleased : 釋放滑鼠滾輪");
+        	//System.out.println("mousedReleased : 釋放滑鼠滾輪");
         }
         else if(i == MouseEvent.BUTTON3) {
-        	System.out.println("mousedReleased : 釋放滑鼠右鍵");
+        	//System.out.println("mousedReleased : 釋放滑鼠右鍵");
         	toolTipText.setIcon(new ImageIcon(dir+"killBug(X).png"));
+        	
+        	if(isHitBug != -1)
+        	{
+        		if(e.getSource()==jlbBug[isHitBug])
+        		{
+        			jlbBug[isHitBug].setVisible(false);
+        		}
+        	}
         }
     }  
     
@@ -623,23 +654,14 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 	public void mousePressed(MouseEvent e) { //鼠標按下但還沒有釋放
 		
 		int i = e.getButton();
-        if(i == MouseEvent.BUTTON1) {
-        	System.out.println("mousePressed : 按下滑鼠左鍵");
+        if(i == MouseEvent.BUTTON1) 
+        {
+        	//System.out.println("mousePressed : 按下滑鼠左鍵");
         	toolTipText.setIcon(resizeImage(100,100,new ImageIcon(dir+"chui1.png")));
-        }
-        else if(i == MouseEvent.BUTTON2) {
-        	System.out.println("mousePressed : 按下滑鼠滾輪");
-        }	
-        else if(i == MouseEvent.BUTTON3) {
-        	System.out.println("mousePressed : 按下滑鼠右鍵");
-        	toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
-        }
-        //----------------------------mouseClicked---------------------------------------------
-        //int i = e.getButton();
-        if(i == MouseEvent.BUTTON1) {
-            System.out.println("mouseClicked : 單擊滑鼠左鍵");  // 左鍵除草
+        	
+            //System.out.println("mouseClicked : 單擊滑鼠左鍵");
             toolTipText.setIcon(resizeImage(100,100,new ImageIcon(dir+"chui2.png")));
-            
+                
             if(isOver){  
                 return ;  
             }  
@@ -647,91 +669,143 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             {  
                 if(b != ranGrass)
                 {
-                     ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"datou.png"));
-                     jlbGrass[ranGrass].setIcon(imageIconHit); 
-                     jlbGrass[ranGrass].setVisible(true); 
-                     //jlbBug.setIcon(imageIconHit);  
-                     //jlbBug.setVisible(true);  
-                     hitNumber++;  
-                     hitNum.setText(Integer.toString(hitNumber)); 
-                     
-                     if(restGrassNumber > 0)
-                     {
-                    	 jlbGrass[ranGrass].setVisible(false); // 暫時false!!!!!!!!!!!!!!!!!
-                    	 restGrassNumber -= 1;
-                    	 restGrassNumberText.setText("剩餘草數量:"+Integer.toString(restGrassNumber));
-                         if(restGrassNumber == 0)
-                         {
-                        	
+                	//System.out.printf("b : ranBug=%d, ranGrass=%d%n", ranBug, ranGrass);
+                	ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"datou.png"));
+                    jlbGrass[ranGrass].setIcon(imageIconHit); 
+                    jlbGrass[ranGrass].setVisible(true); 
+  
+                    hitNumber++;  
+                    hitNum.setText(Integer.toString(hitNumber)); 
+                    
+                    win();
+                    if(restGrassNumber >= 0)
+                    {
+                    	isHitGrass = ranGrass;
+                    	//System.out.printf("isHit : ranGrass=%d%n", ranGrass);
+                    	
+                    	//jlbGrass[ranGrass].setVisible(false); // 暫時false!!!!!!!!!!!!!!!!!
+                    	if(restGrassNumber!=0) restGrassNumber-= 1;
+                    	restGrassNumberText.setText(" X "+Integer.toString(restGrassNumber));
+                    	
+                    	String name1 = "correct";
+    					Sound(name1);
+    					
+                    	if(restGrassNumber == 0)
+                        {
+                    		String name2 = "wrong";
+        					Sound(name2);
+                    		/*
                         	for(int j=0; j<9; j++)
                         	{
                         		jlbGrass[j].setVisible(false);
                         	}
-                            //jlbBug.setVisible(false);
                         	
-                            timer.stop();
+                        	timer.stop();
                             gt.stopoTimer();
                             //isOver=true; 
-                            JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+                            //JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
                             successLabel.setVisible(true);
-                         }
+                            backToFarmBtn.setVisible(true);
+                            */
+                            
+                        }
+                        
                      } 
-                     b=ranGrass;
-                }
-            }  
-            
+                     b = ranGrass;
+                     
+                } 
+            } 
+            else // 用右鍵打蟲
+            {
+            	 String name3 = "wrong";
+				Sound(name3);
+            }
         }   
         else if(i == MouseEvent.BUTTON2) {
-            System.out.println("mouseClicked : 單擊滑鼠滾輪");
-        }
-        else if(i == MouseEvent.BUTTON3) {
+        	//System.out.println("mousePressed : 按下滑鼠滾輪");
+        }	
+        else if(i == MouseEvent.BUTTON3) 
+        {
+        	//System.out.println("mousePressed : 按下滑鼠右鍵");
+        	toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
 
-            System.out.println("mouseClicked : 單擊滑鼠右鍵"); // 右鍵除蟲
-            
             if(isOver){  
                 return ;  
             }  
             if(e.getSource()==jlbBug[ranBug])
-            {  
+            {   
                 if(a != ranBug)
                 {
-                     ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
-                     jlbBug[ranBug].setIcon(imageIconHit); 
-                     jlbBug[ranBug].setVisible(true); 
-                     //jlbBug.setIcon(imageIconHit);  
-                     //jlbBug.setVisible(true);  
-                     hitNumber++;  
-                     hitNum.setText(Integer.toString(hitNumber)); 
-                     
-                     if(restBugNumber > 0)
-                     {
-                    	 jlbBug[ranBug].setVisible(false); // 暫時false!!!!!!!!!!!!!!!!!
-                         restBugNumber -= 1;
-                         restBugNumberText.setText("剩餘蟲數量:"+Integer.toString(restBugNumber));
-                         if(restBugNumber == 0)
-                         {
-                        	
+                	//System.out.printf("a : ranBug=%d, ranGrass=%d%n", ranBug, ranGrass);
+                	ImageIcon imageIconHit = resizeImage(130, 130, new ImageIcon(dir+"diebug.png"));
+                    jlbBug[ranBug].setIcon(imageIconHit); 
+                    jlbBug[ranBug].setVisible(true); 
+ 
+                    hitNumber++;  
+                    hitNum.setText(Integer.toString(hitNumber)); 
+
+                    win();
+                    if(restBugNumber >= 0)
+                    {
+                    	isHitBug = ranBug;
+                    	
+                    	//jlbBug[ranBug].setVisible(false); // 暫時false!!!!!!!!!!!!!!!!!
+                        if(restBugNumber!=0) restBugNumber-= 1;
+                        restBugNumberText.setText(" X "+Integer.toString(restBugNumber));
+                        String name1 = "correct";
+    					Sound(name1);
+                        
+                        if(restBugNumber == 0)
+                        {     
+                        	String name2 = "wrong";
+        					Sound(name2);
+                        	/*
                         	for(int j=0; j<9; j++)
                         	{
                         		jlbBug[j].setVisible(false);
                         	}
-                            //jlbBug.setVisible(false);
-                        	
                             timer.stop();
                             gt.stopoTimer();
                             //isOver=true; 
-                            JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+                            //JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+
                             successLabel.setVisible(true);
-                         }
-                     } 
+                            backToFarmBtn.setVisible(true);
+                            // 任務成功但還是可以打蟲蟲
+                            */
+                        }
+                        
+                    } 
                      a=ranBug;
                 }
-            }  
-            
-
+            }
+            else // 用左鍵打草
+            {
+            	 String name3 = "wrong";
+				Sound(name3);
+            }
         }
 	}
-	
+	public void win()
+	{
+		if(restGrassNumber == 0 && restBugNumber == 0)
+		{
+			for(int j=0; j<9; j++)
+        	{
+        		jlbGrass[j].setVisible(false);
+        	}
+			for(int j=0; j<9; j++)
+        	{
+        		jlbBug[j].setVisible(false);
+        	}
+        	timer.stop();
+            gt.stopoTimer();
+            //isOver=true; 
+            //JOptionPane.showMessageDialog(this, "finish ! 完成任務拿錢錢囉ouo");
+            successLabel.setVisible(true);
+            backToFarmBtn.setVisible(true);
+		}
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) { // 鼠標按下並且釋放
 		
@@ -760,5 +834,23 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+	}
+    
+    public void Sound(String name)
+	{
+    	 try {           
+	            File soundFile = new File("..\\sound\\"+name+"Sound.wav");
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioIn);
+	            clip.start();
+	    
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
 	}
 }
