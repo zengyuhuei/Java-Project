@@ -608,12 +608,12 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         }  
         int i = e.getButton();
         if(i == MouseEvent.BUTTON1){
-        	//System.out.println("mousedReleased : 釋放滑鼠左鍵");
-        	toolTipText.setIcon(new ImageIcon(dir+"harvest1.png"));
+        	System.out.println("mousedReleased : 釋放滑鼠左鍵");
+        	toolTipText.setIcon(new ImageIcon(dir+"killGrass1.png"));
         	
         	if(isHitGrass != -1)
         	{
-        		//System.out.printf("released-isHit : ranGrass=%d, isHitGrass=%d%n", ranGrass, isHitGrass);
+        		System.out.printf("released-isHit : ranGrass=%d, isHitGrass=%d%n", ranGrass, isHitGrass);
         		
         		if(e.getSource()==jlbGrass[isHitGrass])
         		{
@@ -625,7 +625,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         	//System.out.println("mousedReleased : 釋放滑鼠滾輪");
         }
         else if(i == MouseEvent.BUTTON3) {
-        	//System.out.println("mousedReleased : 釋放滑鼠右鍵");
+        	System.out.println("mousedReleased : 釋放滑鼠右鍵");
         	toolTipText.setIcon(new ImageIcon(dir+"killBug(X).png"));
         	
         	if(isHitBug != -1)
@@ -656,11 +656,11 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
 		int i = e.getButton();
         if(i == MouseEvent.BUTTON1) 
         {
-        	//System.out.println("mousePressed : 按下滑鼠左鍵");
-        	toolTipText.setIcon(resizeImage(200,200,new ImageIcon(dir+"harvest1.png")));
+        	System.out.println("mousePressed : 按下滑鼠左鍵");
+        	toolTipText.setIcon(resizeImage(200,200,new ImageIcon(dir+"killGrass1.png")));
         	
             //System.out.println("mouseClicked : 單擊滑鼠左鍵");
-            toolTipText.setIcon(resizeImage(200,200,new ImageIcon(dir+"harvest2.png")));
+            toolTipText.setIcon(resizeImage(100,100,new ImageIcon(dir+"killGrass2.png")));
                 
             if(isOver){  
                 return ;  
@@ -717,8 +717,11 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             } 
             else // 用右鍵打蟲
             {
-            	 String name3 = "wrong";
-				Sound(name3);
+            	if(e.getSource()==jlbBug[ranBug])
+                {   
+		        	String name3 = "oops";
+					Sound(name3);
+                }
             }
         }   
         else if(i == MouseEvent.BUTTON2) {
@@ -726,7 +729,7 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
         }	
         else if(i == MouseEvent.BUTTON3) 
         {
-        	//System.out.println("mousePressed : 按下滑鼠右鍵");
+        	System.out.println("mousePressed : 按下滑鼠右鍵");
         	toolTipText.setIcon(new ImageIcon(dir+"killBug(O).png"));
 
             if(isOver){  
@@ -781,8 +784,11 @@ public class FarmGameScreen extends JPanel implements ActionListener,MouseListen
             }
             else // 用左鍵打草
             {
-            	 String name3 = "wrong";
-				Sound(name3);
+            	if(e.getSource()==jlbGrass[ranGrass])
+                {   
+	            	String name3 = "oops";
+					Sound(name3);
+                }
             }
         }
 	}

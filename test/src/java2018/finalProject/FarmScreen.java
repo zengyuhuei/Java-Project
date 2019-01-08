@@ -752,7 +752,7 @@ public class FarmScreen extends JPanel implements ActionListener {
 		//-------------------------------------------------------------------------
 		
 		pesticideButton.setBounds(1075, 442, 130, 92);
-		pesticideButton.setVisible(true);
+		pesticideButton.setVisible(false);
 		pesticideButton.addActionListener(this);
 		this.add(pesticideButton);
 		buttonOFF(pesticideButton);
